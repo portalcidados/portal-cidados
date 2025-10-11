@@ -195,10 +195,11 @@ export function CollaboratorsSection() {
               {/* Section Title */}
               <div className="lg:w-1/2">
                 <h2 className="text-3xl font-bold text-foreground font-gt-ultra-fine">
-                  Pesquisadores
+                  Quem teve suas histórias contadas
                 </h2>
                 <p className="text-sm text-muted-foreground font-gt-ultra-fine">
-                  que tiveram suas histórias contadas aqui
+                  {" "}
+                  Pesquisadores
                 </p>
               </div>
 

@@ -54,17 +54,17 @@ export function Header() {
     },
     {
       name: "MAPAS",
-      href: "/mapas",
+      href: "https://observatorio-nacional.vercel.app/projetos/geoportal",
       description: "VISUALIZAÇÕES GEOGRÁFICAS DE DADOS",
     },
     {
       name: "CATÁLOGO DE DADOS",
-      href: "/catalogo-de-dados",
+      href: "https://observatorio-nacional.vercel.app/projetos/catalago-de-dados",
       description: "REPOSITÓRIO DE INFORMAÇÕES PÚBLICAS",
     },
     {
       name: "PROJETOS",
-      href: "/projetos",
+      href: "https://observatorio-nacional.vercel.app/",
       description: "OBSERVATÓRIO NACIONAL DE MOBILIDADE SUSTENTÁVEL",
     },
     {

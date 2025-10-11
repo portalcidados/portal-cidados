@@ -5,20 +5,22 @@ import { useEffect, useRef, useState } from "react";
 const storiesData = [
   {
     id: 1,
-    title: "Polestar",
-    subtitle: "Branding, Identity",
+    title:
+      "Para o bem ou para o mal: análise da capacidade que o governo tem de controlar a densidade habitacional",
+    // subtitle: "Branding, Identity",
     images: [
       "https://images.unsplash.com/photo-1617814076367-b759c7d7e738?w=400",
-      "https://images.unsplash.com/photo-1606016159991-7edf7d72cfe8?w=400",
       "https://images.unsplash.com/photo-1617814076367-b759c7d7e738?w=400",
-      "https://images.unsplash.com/photo-1606016159991-7edf7d72cfe8?w=400",
+      "https://images.unsplash.com/photo-1617814076367-b759c7d7e738?w=400",
+      "https://images.unsplash.com/photo-1617814076367-b759c7d7e738?w=400",
       "https://images.unsplash.com/photo-1617814076367-b759c7d7e738?w=400",
     ],
   },
   {
     id: 2,
-    title: "Arrival",
-    subtitle: "Campaign, Film",
+    title:
+      "Diagnóstico sobre ilhas de calor e qualidade do ar em um dos maiores conjunto de favelas do Brasil",
+    // subtitle: "Campaign, Film",
     images: [
       "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400",
       "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400",
@@ -28,25 +30,15 @@ const storiesData = [
   },
   {
     id: 3,
-    title: "Positive Energy",
-    subtitle: "Branding, Identity",
+    title:
+      "Retrato das Desigualdades em Saúde: Riscos de Mortalidade e Determinantes Socioeconômicos no Município de São Paulo",
+    // subtitle: "Branding, Identity",
     images: [
       "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400",
       "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=400",
       "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=400",
       "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400",
       "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=400",
-    ],
-  },
-  {
-    id: 4,
-    title: "First Round",
-    subtitle: "Campaign, Video",
-    images: [
-      "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=400",
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400",
-      "https://images.unsplash.com/photo-1504593811423-6dd665756598?w=400",
-      "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=400",
     ],
   },
 ];
@@ -107,28 +99,27 @@ export function StoriesList() {
 
   return (
     <div className="min-h-screen bg-white py-16 px-6 md:px-12">
-      <div className="max-w-7xl mx-auto space-y-24">
+      <div className="max-w-7xl mx-auto space-y-12">
         {storiesData.map((story, rowIndex) => (
           <div
             key={story.id}
             ref={(el) => {
               rowRefs.current[rowIndex] = el;
             }}
-            className="border-t border-gray-200 pt-8"
+            className={`pb-12 ${rowIndex < storiesData.length - 1 ? "border-b border-gray-200" : ""}`}
           >
             <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-8">
-              <div className="md:w-1/4">
-                <h2 className="text-4xl md:text-5xl font-light text-gray-900 mb-2">
+              <div className="w-full md:w-1/3">
+                <h2 className="text-lg md:text-xl font-light text-gray-900 mb-2">
                   {story.title}
                 </h2>
-                <p className="text-sm text-gray-500">{story.subtitle}</p>
               </div>
 
-              <div className="md:w-3/4 flex gap-4 overflow-x-auto pb-4">
+              <div className="md:w-2/3 flex justify-start md:justify-end gap-4 overflow-x-auto">
                 {story.images.map((image, imgIndex) => (
                   <div
                     key={imgIndex}
-                    className={`flex-shrink-0 w-48 h-48 md:w-64 md:h-64 rounded-lg overflow-hidden transition-all duration-700 ${
+                    className={`flex-shrink-0 w-16 h-16 md:w-32 md:h-32 rounded-lg overflow-hidden transition-all duration-700 ${
                       activeRows.has(rowIndex)
                         ? "opacity-100 scale-100 grayscale-0"
                         : "opacity-40 scale-95 grayscale"
