@@ -15,13 +15,14 @@ export default function Home() {
           </h1>
 
           {/* Parágrafo descritivo */}
-          <p className="text-md text-muted-foreground font-gt-ultra-fine mb-4 max-w-4xl">
-            Criado pelo Centro de Estudos das Cidades, do Insper, o projeto
-            conecta dados urbanos a histórias ilustradas, interativas e
-            georreferenciadas, aproximando a produção científica das pessoas e
-            dos gestores públicos. Nosso objetivo é tornar dados sobre as
-            cidades mais compreensíveis, contribuindo para a construção de
-            políticas urbanas baseadas em evidências.
+          <p className="text-md text-foreground font-gt-ultra-fine mb-4 max-w-4xl">
+            Criado pelo Centro de Estudos das Cidades – Laboratório Arq.Futuro
+            do Insper, o Portal Cidados apresenta nossos estudos e pesquisas por
+            meio de narrativas baseadas em dados, aproximando a produção
+            científica da sociedade e do debate público sobre as políticas
+            urbanas. Nosso objetivo é tornar os dados sobre as cidades mais
+            compreensíveis e acessíveis, contribuindo para a construção de
+            políticas públicas baseadas em evidências.
           </p>
 
           {/* Botões */}
