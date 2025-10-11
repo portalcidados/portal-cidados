@@ -1,6 +1,6 @@
 import { Header } from "@/components/Header";
-import { Button } from "@/components/ui/button";
 import { StoriesSection } from "@/components/StoriesSection";
+import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 
 export default function Home() {
@@ -45,7 +45,7 @@ export default function Home() {
           </div>
         </div>
       </main>
-      
+
       {/* Stories Section */}
       <StoriesSection />
     </div>

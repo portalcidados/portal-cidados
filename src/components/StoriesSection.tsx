@@ -59,7 +59,7 @@ export function StoriesSection() {
         </div>
       </div>
 
-      <section className="py-8 mx-auto bg-white">
+      <section className="py-8 pb-16 mx-auto bg-white">
         <div className="mx-auto max-w-7xl px-4">
           {/* Navigation arrows */}
           <div className="flex justify-end mb-6 gap-2">
