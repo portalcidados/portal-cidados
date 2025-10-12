@@ -2,6 +2,7 @@
 
 import { Switch } from "@/components/ui/switch";
 import { Menu, X } from "lucide-react";
+import { useTheme } from "next-themes";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -9,7 +10,14 @@ import { useCallback, useEffect, useState } from "react";
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
+  const { theme, setTheme } = useTheme();
+
+  // Evita hidratação incorreta
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -59,7 +67,7 @@ export function Header() {
     },
     {
       name: "CATÁLOGO DE DADOS",
-      href: "https://observatorio-nacional.vercel.app/projetos/catalago-de-dados",
+      href: "/catalogo-de-dados",
       description: "REPOSITÓRIO DE INFORMAÇÕES PÚBLICAS",
     },
     {
@@ -76,7 +84,7 @@ export function Header() {
 
   return (
     <>
-      <header className="bg-white border-gray-200 py-6">
+      <header className="bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-800 py-6 transition-colors">
         <div className="flex items-center justify-between px-4 max-w-7xl mx-auto">
           {/* Lado esquerdo - Logos */}
           <div className="flex items-center space-x-2 md:space-x-6">
@@ -98,10 +106,17 @@ export function Header() {
 
           {/* Lado direito - Switch e Menu */}
           <div className="flex items-center space-x-2 md:space-x-4">
-            <Switch />
+            {mounted && (
+              <Switch
+                checked={theme === "dark"}
+                onCheckedChange={(checked) =>
+                  setTheme(checked ? "dark" : "light")
+                }
+              />
+            )}
             <button
               type="button"
-              className="p-2 hover:bg-gray-100 transition-colors"
+              className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
               onClick={toggleMenu}
             >
               <Menu className="h-6 w-6" />
@@ -112,7 +127,7 @@ export function Header() {
 
       {/* Menu Full Screen */}
       <div
-        className={`fixed inset-0 z-50 bg-white transition-all duration-300 ease-in-out ${
+        className={`fixed inset-0 z-50 bg-white dark:bg-gray-900 transition-all duration-300 ease-in-out ${
           isMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"
         }`}
       >
@@ -121,9 +136,9 @@ export function Header() {
           <button
             type="button"
             onClick={closeMenu}
-            className="p-2 hover:bg-gray-100 transition-colors"
+            className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
           >
-            <X className="h-8 w-8 text-black" />
+            <X className="h-8 w-8 text-black dark:text-white" />
           </button>
         </div>
 
@@ -146,14 +161,14 @@ export function Header() {
               <div
                 className={`font-gt-ultra transition-all duration-300 group-hover:text-foreground ${
                   pathname === item.href
-                    ? "text-black font-bold text-3xl md:text-5xl"
-                    : "text-gray-500 font-medium text-3xl md:text-5xl"
+                    ? "text-black dark:text-white font-bold text-3xl md:text-5xl"
+                    : "text-gray-500 dark:text-gray-400 font-medium text-3xl md:text-5xl"
                 }`}
               >
                 {item.name}
               </div>
               <div
-                className={`font-gt-ultra text-right text-2xl md:text-3xl font-medium text-black transition-all duration-300 ease-in-out overflow-hidden group-hover:text-foreground ${
+                className={`font-gt-ultra text-right text-2xl md:text-3xl font-medium text-black dark:text-white transition-all duration-300 ease-in-out overflow-hidden group-hover:text-foreground ${
                   pathname === item.href
                     ? "max-h-8 opacity-100 mt-1"
                     : "group-hover:max-h-8 group-hover:opacity-100 max-h-0 opacity-0"
