@@ -15,11 +15,11 @@ export function DataCard({ item }: DataCardProps) {
 
   return (
     <div className="bg-background-2 p-6 hover:shadow-sm transition-shadow">
-      <h3 className="text-lg font-semibold text-gray-900 mb-3 line-clamp-2">
+      <h3 className="text-lg font-semibold text-foreground mb-3 line-clamp-2">
         {item.title}
       </h3>
 
-      <p className="text-gray-600 text-sm mb-4 line-clamp-3">
+      <p className="text-muted-foreground text-sm mb-4 line-clamp-3">
         {item.description}
       </p>
 
@@ -27,7 +27,7 @@ export function DataCard({ item }: DataCardProps) {
         {formatTags(item.tags).map((tag) => (
           <span
             key={tag}
-            className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800"
+            className="inline-flex items-center px-3 py-1.5 text-xs font-medium bg-foreground/6 text-foreground"
           >
             {tag}
           </span>

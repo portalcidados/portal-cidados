@@ -59,7 +59,7 @@ export function SelectedFilters({ filters, onRemoveFilter, onClearAll }: Selecte
           variant="ghost"
           size="sm"
           onClick={onClearAll}
-          className="text-gray-600 hover:text-gray-800"
+          className="text-foreground hover:text-foreground hover:bg-transparent hover:underline font-medium"
         >
           Limpar
         </Button>
