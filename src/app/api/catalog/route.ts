@@ -1,6 +1,9 @@
+import { catalogData, filterOptions, type DataCatalogItem } from '@/lib/data/catalog';
 import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
-import { catalogData, filterOptions, type DataCatalogItem } from '@/lib/data/catalog';
+
+// Revalida o cache a cada 10 minutos (600 segundos)
+export const revalidate = 600;
 
 export interface CatalogFilters {
   search?: string;

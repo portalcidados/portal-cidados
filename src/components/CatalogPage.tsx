@@ -3,7 +3,7 @@
 import type { CatalogFilters as FiltersType } from "@/app/api/catalog/route";
 import { useDebounce } from "@/hooks/useDebounce";
 import type { DataCatalogItem } from "@/lib/data/catalog";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { CardSkeleton } from "./CardSkeleton";
 import { CatalogFilters } from "./CatalogFilters";
 import { DataCard } from "./DataCard";
@@ -37,6 +37,7 @@ export function CatalogPage() {
     regions: [],
     accessMethods: [],
   });
+  const isFirstRender = useRef(true);
 
   const fetchData = useCallback(
     async (currentFilters: FiltersType) => {
@@ -78,11 +79,16 @@ export function CatalogPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const debouncedSearchTerm = useDebounce(searchTerm, 300);
 
-  // Update filters when debounced search term changes
+  // Update filters when debounced search term changes (skip first render)
   useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+    
     setFilters((prev: FiltersType) => ({
       ...prev,
-      search: debouncedSearchTerm,
+      search: debouncedSearchTerm || undefined,
     }));
   }, [debouncedSearchTerm]);
 
@@ -110,7 +116,7 @@ export function CatalogPage() {
   if (initialLoading) {
     return (
       <div className="min-h-screen">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="max-w-7xl mx-auto px-4 py-8">
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
             {/* Left sidebar skeleton */}
             <div className="lg:col-span-1">
@@ -176,7 +182,7 @@ export function CatalogPage() {
 
   return (
     <div className="min-h-screen">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
           {/* Left Sidebar */}
           <div className="lg:col-span-1">

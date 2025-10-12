@@ -1,5 +1,5 @@
-import { Header } from "@/components/Header";
 import { CatalogPage } from "@/components/CatalogPage";
+import { Header } from "@/components/Header";
 
 export default function CatalogoDeDados() {
   return (
