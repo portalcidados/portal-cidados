@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
 const storiesData = [
@@ -8,38 +9,21 @@ const storiesData = [
     title:
       "Para o bem ou para o mal: análise da capacidade que o governo tem de controlar a densidade habitacional",
     // subtitle: "Branding, Identity",
-    images: [
-      "https://images.unsplash.com/photo-1617814076367-b759c7d7e738?w=400",
-      "https://images.unsplash.com/photo-1617814076367-b759c7d7e738?w=400",
-      "https://images.unsplash.com/photo-1617814076367-b759c7d7e738?w=400",
-      "https://images.unsplash.com/photo-1617814076367-b759c7d7e738?w=400",
-      "https://images.unsplash.com/photo-1617814076367-b759c7d7e738?w=400",
-    ],
+    images: ["/viz1.png", "/viz1.png", "/viz1.png", "/viz1.png"],
   },
   {
     id: 2,
     title:
       "Diagnóstico sobre ilhas de calor e qualidade do ar em um dos maiores conjunto de favelas do Brasil",
     // subtitle: "Campaign, Film",
-    images: [
-      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400",
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400",
-      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400",
-      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400",
-    ],
+    images: ["/viz2.png", "/viz2.png", "/viz2.png"],
   },
   {
     id: 3,
     title:
       "Retrato das Desigualdades em Saúde: Riscos de Mortalidade e Determinantes Socioeconômicos no Município de São Paulo",
     // subtitle: "Branding, Identity",
-    images: [
-      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400",
-      "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=400",
-      "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=400",
-      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400",
-      "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=400",
-    ],
+    images: ["/viz3.png", "/viz3.png", "/viz3.png", "/viz3.png"],
   },
 ];
 
@@ -118,7 +102,7 @@ export function StoriesList() {
               <div className="md:w-2/3 flex justify-start md:justify-end gap-4 overflow-x-auto">
                 {story.images.map((image, imgIndex) => (
                   <div
-                    key={imgIndex}
+                    key={`${story.id}-${image}-${imgIndex}`}
                     className={`flex-shrink-0 w-16 h-16 md:w-32 md:h-32 rounded-lg overflow-hidden transition-all duration-700 ${
                       activeRows.has(rowIndex)
                         ? "opacity-100 scale-100 grayscale-0"
@@ -130,9 +114,11 @@ export function StoriesList() {
                         : "0ms",
                     }}
                   >
-                    <img
+                    <Image
                       src={image}
                       alt={`${story.title} ${imgIndex + 1}`}
+                      width={128}
+                      height={128}
                       className="w-full h-full object-cover"
                     />
                   </div>
