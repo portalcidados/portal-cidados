@@ -122,27 +122,27 @@ export function CatalogPage() {
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
             {/* Left sidebar skeleton */}
             <div className="lg:col-span-1">
-              {/* Search bar skeleton */}
+              {/* Search bar skeleton - matching SearchBar component */}
               <div className="mb-6">
-                <div className="h-10 bg-background-2 rounded animate-pulse"></div>
+                <div className="h-12 bg-background-2 rounded-none animate-pulse"></div>
               </div>
 
-              {/* Filters skeleton */}
-              <div className="bg-white p-6 rounded-lg shadow-sm border">
+              {/* Filters skeleton - matching CatalogFilters component */}
+              <div className="bg-background-2 p-6">
                 <div className="flex items-center justify-between mb-6">
-                  <div className="h-6 bg-gray-200 rounded w-16 animate-pulse"></div>
-                  <div className="h-4 bg-gray-200 rounded w-12 animate-pulse"></div>
+                  <div className="h-6 bg-foreground/10 w-20 animate-pulse"></div>
+                  <div className="h-4 bg-foreground/10 w-12 animate-pulse"></div>
                 </div>
 
                 {/* Filter groups skeleton */}
                 {[1, 2, 3].map((i) => (
-                  <div key={i} className="mb-6">
-                    <div className="h-4 bg-gray-200 rounded w-20 mb-3 animate-pulse"></div>
+                  <div key={i} className="mb-6 last:mb-0">
+                    <div className="h-4 bg-foreground/10 w-24 mb-3 animate-pulse"></div>
                     <div className="space-y-2">
                       {[1, 2, 3, 4].map((j) => (
                         <div key={j} className="flex items-center space-x-2">
-                          <div className="h-4 w-4 bg-gray-200 rounded animate-pulse"></div>
-                          <div className="h-4 bg-gray-200 rounded w-24 animate-pulse"></div>
+                          <div className="h-4 w-4 bg-foreground/10 rounded animate-pulse"></div>
+                          <div className="h-4 bg-foreground/10 w-28 animate-pulse"></div>
                         </div>
                       ))}
                     </div>
@@ -153,13 +153,20 @@ export function CatalogPage() {
 
             {/* Right content skeleton */}
             <div className="lg:col-span-3">
-              {/* Top bar skeleton */}
+              {/* Top bar skeleton - matching SelectedFilters + SortDropdown */}
               <div className="flex items-center justify-between mb-6">
-                <div className="flex items-center gap-4">
-                  <div className="h-6 bg-gray-200 rounded w-32 animate-pulse"></div>
-                  <div className="h-6 bg-gray-200 rounded w-20 animate-pulse"></div>
+                <div className="flex items-center gap-2">
+                  {/* Selected filters skeleton */}
+                  <div className="h-10 bg-background-2 w-24 animate-pulse"></div>
+                  <div className="h-10 bg-background-2 w-32 animate-pulse"></div>
                 </div>
-                <div className="h-9 bg-gray-200 rounded w-32 animate-pulse"></div>
+                {/* Sort dropdown skeleton */}
+                <div className="h-12 bg-background-2 w-40 animate-pulse"></div>
+              </div>
+
+              {/* Results count skeleton */}
+              <div className="mb-6">
+                <div className="h-5 bg-foreground/10 w-40 animate-pulse"></div>
               </div>
 
               {/* Cards grid skeleton */}
