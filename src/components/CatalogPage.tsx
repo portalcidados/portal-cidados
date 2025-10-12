@@ -39,10 +39,8 @@ export function CatalogPage() {
   });
 
   const fetchData = useCallback(
-    async (currentFilters: FiltersType, isInitialLoad = false) => {
-      if (!isInitialLoad) {
-        setLoading(true);
-      }
+    async (currentFilters: FiltersType) => {
+      setLoading(true);
 
       try {
         const params = new URLSearchParams();
@@ -61,26 +59,20 @@ export function CatalogPage() {
         const result: CatalogResponse = await response.json();
 
         setData(result.data);
-
-        // Only set filter options on initial load
-        if (isInitialLoad) {
-          setFilterOptions(result.filters);
-        }
+        setFilterOptions(result.filters);
       } catch (error) {
         console.error("Error fetching catalog data:", error);
       } finally {
         setLoading(false);
-        if (isInitialLoad) {
-          setInitialLoading(false);
-        }
+        setInitialLoading(false);
       }
     },
     [],
   );
 
   useEffect(() => {
-    fetchData(filters, initialLoading);
-  }, [filters, fetchData, initialLoading]);
+    fetchData(filters);
+  }, [filters, fetchData]);
 
   // Debounced search
   const [searchTerm, setSearchTerm] = useState("");
