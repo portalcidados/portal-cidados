@@ -1,7 +1,7 @@
 "use client";
 
 import { getStoriesForHome } from "@/lib/data/stories";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -62,22 +62,22 @@ export function StoriesSection() {
       <section className="py-8 pb-16 mx-auto bg-white">
         <div className="mx-auto max-w-7xl px-4">
           {/* Navigation arrows */}
-          <div className="flex justify-end mb-6 gap-2">
+          <div className="flex justify-end mb-6 gap-0">
             <button
               type="button"
               onClick={slidePrev}
-              className="p-2 rounded-full border border-gray-200 hover:border-gray-300 transition-colors"
+              className="p-1"
               aria-label="Slide anterior"
             >
-              <ChevronLeft className="h-5 w-5" />
+              <ArrowLeft className="h-5 w-5" />
             </button>
             <button
               type="button"
               onClick={slideNext}
-              className="p-2 rounded-full border border-gray-200 hover:border-gray-300 transition-colors"
+              className="p-1 font-t"
               aria-label="Próximo slide"
             >
-              <ChevronRight className="h-5 w-5" />
+              <ArrowRight className="h-5 w-5" />
             </button>
           </div>
 

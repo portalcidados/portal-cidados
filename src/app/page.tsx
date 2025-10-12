@@ -2,15 +2,16 @@ import { Header } from "@/components/Header";
 import { StoriesSection } from "@/components/StoriesSection";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-white">
       <Header />
       <main className="max-w-7xl mx-auto px-4">
-        <div className="text-left">
+        <div className="text-left pt-4">
           {/* Título principal */}
-          <h1 className="text-6xl md:text-7xl font-gt-ultra font-normal lg:text-8xl text-foreground leading-tight">
+          <h1 className="text-6xl md:text-7xl font-gt-ultra font-normal lg:text-8xl text-foreground leading-14 mb-2">
             CIDADES &M DADOS
           </h1>
 
@@ -26,7 +27,8 @@ export default function Home() {
           </p>
 
           {/* Botões */}
-          <div className="flex flex-col sm:flex-row gap-4">
+          <div className="flex flex-row gap-4">
+             <Link target="_blank" href="https://observatorio-nacional.vercel.app/projetos/geoportal">
             <Button
               variant="default"
               size="lg"
@@ -35,6 +37,8 @@ export default function Home() {
               Mapas
               <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
             </Button>
+            </Link>
+            <Link href="/catalogo-de-dados">
             <Button
               variant="default"
               size="lg"
@@ -43,6 +47,7 @@ export default function Home() {
               Catálogo de dados
               <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
             </Button>
+            </Link>
           </div>
         </div>
       </main>
