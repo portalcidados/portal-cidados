@@ -47,6 +47,11 @@ export function CatalogFilters({
     }
   }, [propFilterOptions]);
 
+  // Sync internal state when initialFilters change (e.g., when cleared externally)
+  useEffect(() => {
+    setFilters(initialFilters || {});
+  }, [initialFilters]);
+
   const handleFilterChange = (type: keyof FiltersType, value: string) => {
     const newFilters = { ...filters };
 
@@ -60,19 +65,23 @@ export function CatalogFilters({
   };
 
   const clearFilters = () => {
-    const clearedFilters: FiltersType = {};
+    const clearedFilters: FiltersType = {
+      theme: undefined,
+      region: undefined,
+      accessMethod: undefined,
+    };
     setFilters(clearedFilters);
     onFiltersChange(clearedFilters);
   };
 
   return (
     <div className="bg-background-2 p-6">
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex items-center justify-between mb-3">
         <h2 className="text-lg font-semibold">Filtros</h2>
         <button
           type="button"
           onClick={clearFilters}
-          className="text-sm text-gray-600 hover:text-gray-800 underline"
+          className="text-sm text-foreground hover:text-foreground hover:underline font-medium"
         >
           Limpar
         </button>
@@ -88,7 +97,7 @@ export function CatalogFilters({
                 id={`theme-${theme}`}
                 checked={filters.theme === theme}
                 onCheckedChange={() => handleFilterChange("theme", theme)}
-                className="shadow-none rounded-sm w-4 h-4"
+                className="shadow-none rounded-sm w-4 h-4 bg-checkbox border-foreground/20"
               />
               <label
                 htmlFor={`theme-${theme}`}
@@ -103,7 +112,7 @@ export function CatalogFilters({
 
       {/* Region Filter */}
       <div className="mb-6">
-        <h3 className="text-sm font-medium text-gray-900 mb-3">Região</h3>
+        <h3 className="text-sm font-medium text-muted-foreground mb-3">Região</h3>
         <div className="space-y-2">
           {filterOptions.regions.map((region) => (
             <div key={region} className="flex items-center space-x-2">
@@ -111,10 +120,11 @@ export function CatalogFilters({
                 id={`region-${region}`}
                 checked={filters.region === region}
                 onCheckedChange={() => handleFilterChange("region", region)}
+                className="shadow-none rounded-sm w-4 h-4 bg-checkbox border-foreground/20"
               />
               <label
                 htmlFor={`region-${region}`}
-                className="text-sm text-gray-700 cursor-pointer"
+                className="text-sm text-foreground cursor-pointer"
               >
                 {region}
               </label>
@@ -125,7 +135,7 @@ export function CatalogFilters({
 
       {/* Access Method Filter */}
       <div>
-        <h3 className="text-sm font-medium text-gray-900 mb-3">
+        <h3 className="text-sm font-medium text-muted-foreground mb-3">
           Forma de acesso
         </h3>
         <div className="space-y-2">
@@ -137,10 +147,11 @@ export function CatalogFilters({
                 onCheckedChange={() =>
                   handleFilterChange("accessMethod", method)
                 }
+                className="shadow-none rounded-sm w-4 h-4 bg-checkbox border-foreground/20"
               />
               <label
                 htmlFor={`access-${method}`}
-                className="text-sm text-gray-700 cursor-pointer"
+                className="text-sm text-foreground cursor-pointer"
               >
                 {method}
               </label>

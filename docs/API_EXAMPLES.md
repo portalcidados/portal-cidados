@@ -509,3 +509,4 @@ async function exportCatalogData(filters = {}, format = 'json') {
 ```
 
 Estes exemplos cobrem desde casos de uso básicos até implementações avançadas, fornecendo uma base sólida para integração com a API do Portal Cidados.
+

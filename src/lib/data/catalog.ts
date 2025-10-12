@@ -106,3 +106,4 @@ export const filterOptions = {
   regions: ["Brasil", "Estado de São Paulo", "São Paulo", "Rio de Janeiro", "Recife", "Campinas", "Santo André", "Niterói", "Salvador"],
   accessMethods: ["Disponível para download", "Sala segura do Insper"]
 };
+

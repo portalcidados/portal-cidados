@@ -126,3 +126,4 @@ Para dúvidas técnicas ou suporte, consulte a equipe de desenvolvimento.
 **Portal Cidadãos** - Documentação técnica completa para desenvolvimento e manutenção do sistema.
 
 *Última atualização: $(date)*
+

@@ -61,3 +61,4 @@ export const collaborators: Collaborator[] = [
 export function getCollaborators(): Collaborator[] {
   return collaborators;
 }
+

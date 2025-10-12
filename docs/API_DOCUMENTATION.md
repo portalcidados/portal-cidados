@@ -247,3 +247,4 @@ Atualmente na versão `1.0.0`. Mudanças futuras seguirão [Semantic Versioning]
 ## Suporte
 
 Para dúvidas ou problemas com a API, consulte a documentação do frontend ou entre em contato com a equipe de desenvolvimento.
+

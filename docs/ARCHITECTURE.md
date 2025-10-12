@@ -496,3 +496,4 @@ export async function GET() {
 - [ ] Monitoring avançado (Prometheus, Grafana)
 
 Esta arquitetura fornece uma base sólida para crescimento e manutenção do Portal Cidados, seguindo as melhores práticas de desenvolvimento moderno.
+

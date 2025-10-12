@@ -1,8 +1,8 @@
 "use client";
 
-import { X } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import type { CatalogFilters } from '@/app/api/catalog/route';
+import { Button } from '@/components/ui/button';
+import { X } from 'lucide-react';
 
 interface SelectedFiltersProps {
   filters: CatalogFilters;
@@ -41,15 +41,15 @@ export function SelectedFilters({ filters, onRemoveFilter, onClearAll }: Selecte
       {activeFilters.map((filter) => (
         <div
           key={`${filter.type}-${filter.value}`}
-          className="inline-flex items-center gap-1 px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm"
+          className="inline-flex items-center gap-1 px-3 py-2 bg-background-2 text-foreground text-sm"
         >
           <span>{filter.label}</span>
           <button
             type="button"
             onClick={() => onRemoveFilter(filter.type)}
-            className="ml-1 hover:bg-blue-200 rounded-full p-0.5 transition-colors"
+            className="ml-1 hover:bg-foreground/20 rounded-full p-0.5 transition-colors"
           >
-            <X className="h-3 w-3" />
+            <X className="h-3.5 w-3.5" />
           </button>
         </div>
       ))}

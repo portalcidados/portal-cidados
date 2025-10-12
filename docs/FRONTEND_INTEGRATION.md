@@ -398,3 +398,4 @@ if (!result.data || !Array.isArray(result.data)) {
 ```
 
 Esta documentação fornece uma visão completa de como o frontend se integra com a API, incluindo todos os aspectos técnicos e de experiência do usuário.
+
