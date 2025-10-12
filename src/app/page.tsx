@@ -11,7 +11,7 @@ export default function Home() {
       <main className="max-w-7xl mx-auto px-4">
         <div className="text-left pt-4">
           {/* Título principal */}
-          <h1 className="text-6xl md:text-7xl font-gt-ultra font-normal lg:text-8xl text-foreground leading-14 mb-2">
+          <h1 className="text-6xl md:text-7xl font-gt-ultra font-normal lg:text-8xl text-foreground leading-14 mb-6 mt-6">
             CIDADES &M DADOS
           </h1>
 
