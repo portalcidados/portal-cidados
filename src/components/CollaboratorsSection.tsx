@@ -1,7 +1,6 @@
 "use client";
 
 import { getCollaborators } from "@/lib/data/collaborators";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import type { Swiper as SwiperType } from "swiper";
@@ -30,18 +29,6 @@ export function CollaboratorsSection() {
     };
   }, []);
 
-  const slideNext = () => {
-    if (swiperRef) {
-      swiperRef.slideNext();
-    }
-  };
-
-  const slidePrev = () => {
-    if (swiperRef) {
-      swiperRef.slidePrev();
-    }
-  };
-
   return (
     <>
       {/* Custom cursor */}
@@ -60,32 +47,12 @@ export function CollaboratorsSection() {
       </div>
 
       <section className="py-0 pb-16 mx-auto bg-background">
-        <div className="mx-auto max-w-7xl">
+        <div className="mx-auto ">
           {/* Section Title */}
           <div className="flex items-center justify-between">
             <h2 className="text-sm font-medium text-foreground font-gt-ultra-fine">
               Quem faz o projeto acontecer
             </h2>
-
-            {/* Navigation arrows */}
-            <div className="flex gap-2 mb-6">
-              <button
-                type="button"
-                onClick={slidePrev}
-                className="p-2 rounded-full border border-gray-200 hover:border-gray-300 transition-colors"
-                aria-label="Slide anterior"
-              >
-                <ChevronLeft className="h-5 w-5" />
-              </button>
-              <button
-                type="button"
-                onClick={slideNext}
-                className="p-2 rounded-full border border-gray-200 hover:border-gray-300 transition-colors"
-                aria-label="Próximo slide"
-              >
-                <ChevronRight className="h-5 w-5" />
-              </button>
-            </div>
           </div>
 
           {/* Collaborators Horizontal Scroll */}

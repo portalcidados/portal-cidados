@@ -39,37 +39,31 @@ export function CatalogPage() {
   });
   const isFirstRender = useRef(true);
 
-  const fetchData = useCallback(
-    async (currentFilters: FiltersType) => {
-      setLoading(true);
+  const fetchData = useCallback(async (currentFilters: FiltersType) => {
+    setLoading(true);
 
-      try {
-        const params = new URLSearchParams();
+    try {
+      const params = new URLSearchParams();
 
-        if (currentFilters.search)
-          params.append("search", currentFilters.search);
-        if (currentFilters.theme) params.append("theme", currentFilters.theme);
-        if (currentFilters.region)
-          params.append("region", currentFilters.region);
-        if (currentFilters.accessMethod)
-          params.append("accessMethod", currentFilters.accessMethod);
-        if (currentFilters.sortBy)
-          params.append("sortBy", currentFilters.sortBy);
+      if (currentFilters.search) params.append("search", currentFilters.search);
+      if (currentFilters.theme) params.append("theme", currentFilters.theme);
+      if (currentFilters.region) params.append("region", currentFilters.region);
+      if (currentFilters.accessMethod)
+        params.append("accessMethod", currentFilters.accessMethod);
+      if (currentFilters.sortBy) params.append("sortBy", currentFilters.sortBy);
 
-        const response = await fetch(`/api/catalog?${params.toString()}`);
-        const result: CatalogResponse = await response.json();
+      const response = await fetch(`/api/catalog?${params.toString()}`);
+      const result: CatalogResponse = await response.json();
 
-        setData(result.data);
-        setFilterOptions(result.filters);
-      } catch (error) {
-        console.error("Error fetching catalog data:", error);
-      } finally {
-        setLoading(false);
-        setInitialLoading(false);
-      }
-    },
-    [],
-  );
+      setData(result.data);
+      setFilterOptions(result.filters);
+    } catch (error) {
+      console.error("Error fetching catalog data:", error);
+    } finally {
+      setLoading(false);
+      setInitialLoading(false);
+    }
+  }, []);
 
   useEffect(() => {
     fetchData(filters);
@@ -85,7 +79,7 @@ export function CatalogPage() {
       isFirstRender.current = false;
       return;
     }
-    
+
     setFilters((prev: FiltersType) => ({
       ...prev,
       search: debouncedSearchTerm || undefined,
@@ -116,7 +110,7 @@ export function CatalogPage() {
   if (initialLoading) {
     return (
       <div className="min-h-screen">
-        <div className="max-w-7xl mx-auto px-4 py-8">
+        <div className="mx-auto px-4 md:px-8 lg:px-12 py-8">
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
             {/* Left sidebar skeleton */}
             <div className="lg:col-span-1">
@@ -182,7 +176,7 @@ export function CatalogPage() {
 
   return (
     <div className="min-h-screen">
-      <div className="max-w-7xl mx-auto px-4 py-8">
+      <div className="mx-auto px-4 md:px-8 lg:px-12 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
           {/* Left Sidebar */}
           <div className="lg:col-span-1">

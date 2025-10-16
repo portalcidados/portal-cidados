@@ -29,7 +29,7 @@ const storiesData = [
 export function StoriesList() {
   return (
     <div className="min-h-screen bg-white py-16 px-6 md:px-12">
-      <div className="max-w-7xl mx-auto space-y-12">
+      <div className="mx-auto space-y-12">
         {storiesData.map((story, rowIndex) => (
           <div
             key={story.id}

@@ -60,7 +60,7 @@ export function StoriesSection() {
       </div>
 
       <section className="py-8 pb-16 mx-auto bg-white">
-        <div className="mx-auto max-w-7xl px-4">
+        <div className="mx-auto px-4 md:px-8 lg:px-12">
           {/* Navigation arrows */}
           <div className="flex justify-end mb-6 gap-0">
             <button

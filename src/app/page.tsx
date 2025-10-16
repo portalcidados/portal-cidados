@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-white">
       <Header />
-      <main className="max-w-7xl mx-auto px-4">
+      <main className="mx-auto px-4 md:px-8 lg:px-12">
         <div className="text-left pt-4">
           {/* Título principal */}
           <h1 className="text-6xl md:text-7xl font-gt-ultra font-normal lg:text-8xl text-foreground leading-14 mb-6 mt-6">
@@ -28,25 +28,28 @@ export default function Home() {
 
           {/* Botões */}
           <div className="flex flex-row gap-4">
-             <Link target="_blank" href="https://observatorio-nacional.vercel.app/projetos/geoportal">
-            <Button
-              variant="default"
-              size="lg"
-              className="text-foreground bg-[#F5F5F5] hover:bg-[#E5E5E5] justify-between group"
+            <Link
+              target="_blank"
+              href="https://observatorio-nacional.vercel.app/projetos/geoportal"
             >
-              Mapas
-              <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-            </Button>
+              <Button
+                variant="default"
+                size="lg"
+                className="text-foreground bg-[#F5F5F5] hover:bg-[#E5E5E5] justify-between group"
+              >
+                Mapas
+                <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+              </Button>
             </Link>
             <Link href="/catalogo-de-dados">
-            <Button
-              variant="default"
-              size="lg"
-              className="text-foreground bg-[#F5F5F5] hover:bg-[#E5E5E5] justify-between group"
-            >
-              Catálogo de dados
-              <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-            </Button>
+              <Button
+                variant="default"
+                size="lg"
+                className="text-foreground bg-[#F5F5F5] hover:bg-[#E5E5E5] justify-between group"
+              >
+                Catálogo de dados
+                <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+              </Button>
             </Link>
           </div>
         </div>
