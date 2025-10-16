@@ -210,14 +210,6 @@ export function CatalogPage() {
               </div>
             </div>
 
-            {/* Results Count */}
-            <div className="mb-6">
-              <p className="text-sm text-gray-600">
-                {data.length} resultado{data.length !== 1 ? "s" : ""} encontrado
-                {data.length !== 1 ? "s" : ""}
-              </p>
-            </div>
-
             {/* Data Cards Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
               {loading

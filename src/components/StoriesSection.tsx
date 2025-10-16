@@ -1,6 +1,6 @@
 "use client";
 
-import { getStoriesForHome } from "@/lib/data/stories";
+import { getStoriesForHome, type Story } from "@/lib/data/stories";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -16,6 +16,10 @@ export function StoriesSection() {
   const [isHovering, setIsHovering] = useState(false);
   const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
   const [swiperRef, setSwiperRef] = useState<any>(null); // eslint-disable-line @typescript-eslint/no-explicit-any
+  const [currentImageIndexes, setCurrentImageIndexes] = useState<{
+    [key: string]: number;
+  }>({});
+  const [hoveredStoryId, setHoveredStoryId] = useState<string | null>(null);
   const stories = getStoriesForHome();
 
   useEffect(() => {
@@ -30,6 +34,24 @@ export function StoriesSection() {
     };
   }, []);
 
+  // Effect para gerenciar a animação de imagens no hover
+  useEffect(() => {
+    if (!hoveredStoryId) return;
+
+    const story = stories.find((s) => s.id === hoveredStoryId);
+    if (!story || story.images.length <= 1) return;
+
+    const interval = setInterval(() => {
+      setCurrentImageIndexes((prev) => {
+        const currentIndex = prev[hoveredStoryId] || 0;
+        const nextIndex = (currentIndex + 1) % story.images.length;
+        return { ...prev, [hoveredStoryId]: nextIndex };
+      });
+    }, 500); // Troca a imagem a cada 500ms
+
+    return () => clearInterval(interval);
+  }, [hoveredStoryId, stories]);
+
   const slideNext = () => {
     if (swiperRef) {
       swiperRef.slideNext();
@@ -40,6 +62,29 @@ export function StoriesSection() {
     if (swiperRef) {
       swiperRef.slidePrev();
     }
+  };
+
+  const handleStoryMouseEnter = (storyId: string) => {
+    setHoveredStoryId(storyId);
+    // Inicializa o índice da imagem se ainda não existir
+    setCurrentImageIndexes((prev) => ({
+      ...prev,
+      [storyId]: prev[storyId] || 0,
+    }));
+  };
+
+  const handleStoryMouseLeave = (storyId: string) => {
+    setHoveredStoryId(null);
+    // Reseta o índice da imagem para 0 quando o mouse sair
+    setCurrentImageIndexes((prev) => ({
+      ...prev,
+      [storyId]: 0,
+    }));
+  };
+
+  const getCurrentImage = (story: Story) => {
+    const index = currentImageIndexes[story.id] || 0;
+    return story.images[index] || story.image;
   };
 
   return (
@@ -103,11 +148,16 @@ export function StoriesSection() {
                   className="!w-[270px] md:!w-[380px] group relative"
                 >
                   {story.href ? (
-                    <Link href={story.href} className="block">
+                    <Link
+                      href={story.href}
+                      className="block"
+                      onMouseEnter={() => handleStoryMouseEnter(story.id)}
+                      onMouseLeave={() => handleStoryMouseLeave(story.id)}
+                    >
                       {/* Story Card */}
                       <div className="relative overflow-hidden h-[270px] w-[270px] md:h-[380px] md:w-[380px]">
                         <Image
-                          src={story.image}
+                          src={getCurrentImage(story)}
                           alt={story.title}
                           fill
                           className="object-cover transition-transform duration-300 group-hover:scale-105"
@@ -116,9 +166,15 @@ export function StoriesSection() {
                     </Link>
                   ) : (
                     /* Story Card without link */
-                    <div className="relative overflow-hidden h-[200px] w-[300px] md:h-[250px] md:w-[400px]">
+                    <div
+                      className="relative overflow-hidden h-[200px] w-[300px] md:h-[250px] md:w-[400px]"
+                      onMouseEnter={() => handleStoryMouseEnter(story.id)}
+                      onMouseLeave={() => handleStoryMouseLeave(story.id)}
+                      role="img"
+                      aria-label={story.title}
+                    >
                       <Image
-                        src={story.image}
+                        src={getCurrentImage(story)}
                         alt={story.title}
                         fill
                         className="object-cover transition-transform duration-300 group-hover:scale-105"
