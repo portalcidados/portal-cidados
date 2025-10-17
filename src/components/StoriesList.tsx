@@ -8,21 +8,35 @@ const storiesData = [
     title:
       "Para o bem ou para o mal: análise da capacidade que o governo tem de controlar a densidade habitacional",
     // subtitle: "Branding, Identity",
-    images: ["/viz1.png", "/viz1.png", "/viz1.png", "/viz1.png"],
+    images: [
+      "/assets/viz1/viz1.png",
+      "/assets/viz1/viz1.1.png",
+      "/assets/viz1/viz1.3.png",
+      "/assets/viz1/viz1.4.png",
+    ],
   },
   {
     id: 2,
     title:
       "Diagnóstico sobre ilhas de calor e qualidade do ar em um dos maiores conjunto de favelas do Brasil",
     // subtitle: "Campaign, Film",
-    images: ["/viz2.png", "/viz2.png", "/viz2.png"],
+    images: [
+      "/assets/viz2/viz2.1.png",
+      "/assets/viz2/viz2.2.png",
+      "/assets/viz2/viz2.3.png",
+    ],
   },
   {
     id: 3,
     title:
       "Retrato das Desigualdades em Saúde: Riscos de Mortalidade e Determinantes Socioeconômicos no Município de São Paulo",
     // subtitle: "Branding, Identity",
-    images: ["/viz3.png", "/viz3.png", "/viz3.png", "/viz3.png"],
+    images: [
+      "/assets/viz3/viz3.1.png",
+      "/assets/viz3/viz3.2.png",
+      "/assets/viz3/viz3.3.png",
+      "/assets/viz3/viz3.4.png",
+    ],
   },
 ];
 

@@ -226,8 +226,8 @@ export function CollaboratorsSection() {
                 <Image
                   src="/insper_logo_2.png"
                   alt="Quem nos apoia"
-                  width={200}
-                  height={200}
+                  width={160}
+                  height={160}
                 />
               </div>
             </div>

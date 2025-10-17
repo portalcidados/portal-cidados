@@ -78,13 +78,6 @@ export function CatalogFilters({
     <div className="bg-background-2 p-6">
       <div className="flex items-center justify-between mb-3">
         <h2 className="text-lg font-semibold">Filtros</h2>
-        <button
-          type="button"
-          onClick={clearFilters}
-          className="text-sm text-foreground hover:text-foreground hover:underline font-medium"
-        >
-          Limpar
-        </button>
       </div>
 
       {/* Theme Filter */}
@@ -112,7 +105,9 @@ export function CatalogFilters({
 
       {/* Region Filter */}
       <div className="mb-6">
-        <h3 className="text-sm font-medium text-muted-foreground mb-3">Região</h3>
+        <h3 className="text-sm font-medium text-muted-foreground mb-3">
+          Região
+        </h3>
         <div className="space-y-2">
           {filterOptions.regions.map((region) => (
             <div key={region} className="flex items-center space-x-2">
