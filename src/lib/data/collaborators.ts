@@ -8,49 +8,49 @@ export interface Collaborator {
 
 export const collaborators: Collaborator[] = [
   {
-    id: "tomas-alvin",
+    id: "1",
     name: "Tomas Alvin",
     function: "Coordenador",
     email: "tomas@bei.com.br",
     image: "/collaborators/tomas-alvin.png",
   },
   {
-    id: "adriano-borges",
+    id: "2",
     name: "Adriano Borges",
     function: "Coordenador",
     email: "adrianobfc@insper.edu.br",
     image: "/collaborators/adriano-borges.png",
   },
   {
-    id: "mauricio-bouskela",
+    id: "3",
     name: "Mauricio Bouskela",
     function: "Coordenador",
     email: "mauriciosb4@insper.edu.br",
     image: "/collaborators/mauricio.png",
   },
   {
-    id: "rinaldo-gama",
+    id: "4",
     name: "Rinaldo Gama",
     function: "Coordenador",
     email: "",
     image: "/collaborators/rinaldo.png",
   },
   {
-    id: "caio-jacintho",
+    id: "5",
     name: "Caio Jacintho",
     function: "Coordenador",
     email: "caioraj@insper.edu.br",
     image: "/collaborators/caio.png",
   },
   {
-    id: "vinicios",
+    id: "6",
     name: "Vinícios",
     function: "Cientista de dados",
     email: "viniciusor@insper.edu.br",
     image: "/collaborators/vinicios.png",
   },
   {
-    id: "lucas",
+    id: "7",
     name: "Lucas Tavares",
     function: "Desenvolvedor",
     email: "lucastavares@poli.ufrj.br",
@@ -61,4 +61,3 @@ export const collaborators: Collaborator[] = [
 export function getCollaborators(): Collaborator[] {
   return collaborators;
 }
-
