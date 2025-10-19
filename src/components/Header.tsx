@@ -86,7 +86,7 @@ export function Header() {
 
   return (
     <>
-      <header className="bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-800 py-6 transition-colors">
+      <header className="bg-background border-gray-200 py-6 transition-colors">
         <div className="flex items-center justify-between px-4 md:px-8 lg:px-12 mx-auto">
           {/* Lado esquerdo - Logos */}
           <div className="flex items-center space-x-2 md:space-x-6">
@@ -95,7 +95,7 @@ export function Header() {
               alt="Logo Portal Cidados"
               width={150}
               height={22}
-              className="h-auto md:w-60 w-50"
+              className="h-auto md:w-60 w-50 dark:invert"
             />
           </div>
 
@@ -122,7 +122,7 @@ export function Header() {
 
       {/* Menu Full Screen */}
       <div
-        className={`fixed inset-0 z-50 bg-white dark:bg-gray-900 transition-all duration-300 ease-in-out ${
+        className={`fixed inset-0 z-50 bg-background-2 transition-all duration-300 ease-in-out ${
           isMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"
         }`}
       >
@@ -155,7 +155,7 @@ export function Header() {
                   }}
                 >
                   <div
-                    className={`font-gt-ultra transition-all duration-300 text-gray-500 dark:text-gray-400 font-medium text-3xl md:text-5xl cursor-pointer group-hover/parent:text-foreground`}
+                    className={`font-gt-ultra transition-all duration-300 text-gray-500 dark:text-gray-400 font-medium text-3xl md:text-5xl cursor-pointer group-hover/parent:text-black dark:group-hover/parent:text-white`}
                   >
                     {item.name}
                   </div>
@@ -171,11 +171,6 @@ export function Header() {
                         <div className="font-gt-ultra text-2xl md:text-3xl font-medium text-gray-500 dark:text-gray-400 group-hover/sub:text-black dark:group-hover/sub:text-white transition-all duration-300">
                           {subItem.name}
                         </div>
-                        {subItem.description && (
-                          <div className="font-gt-ultra text-right text-xl md:text-2xl font-medium text-black dark:text-white transition-all duration-300 ease-in-out overflow-hidden max-h-0 opacity-0 group-hover/sub:max-h-8 group-hover/sub:opacity-100 group-hover/sub:mt-1">
-                            {subItem.description}
-                          </div>
-                        )}
                       </Link>
                     ))}
                   </div>
@@ -199,7 +194,7 @@ export function Header() {
                 }}
               >
                 <div
-                  className={`font-gt-ultra transition-all duration-300 group-hover:text-foreground ${
+                  className={`font-gt-ultra transition-all duration-300 group-hover:text-black dark:group-hover:text-white ${
                     pathname === item.href
                       ? "text-black dark:text-white font-medium text-3xl md:text-5xl"
                       : "text-gray-500 dark:text-gray-400 font-medium text-3xl md:text-5xl"

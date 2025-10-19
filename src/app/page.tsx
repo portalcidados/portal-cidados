@@ -6,7 +6,7 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-background">
       <Header />
       <main className="mx-auto px-4 md:px-8 lg:px-12">
         <div className="text-left pt-4">
@@ -35,7 +35,7 @@ export default function Home() {
               <Button
                 variant="default"
                 size="lg"
-                className="text-foreground bg-[#F5F5F5] hover:bg-[#E5E5E5] justify-between group"
+                className="text-foreground bg-secondary hover:bg-secondary/80 justify-between group"
               >
                 Mapas
                 <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
@@ -45,7 +45,7 @@ export default function Home() {
               <Button
                 variant="default"
                 size="lg"
-                className="text-foreground bg-[#F5F5F5] hover:bg-[#E5E5E5] justify-between group"
+                className="text-foreground bg-secondary hover:bg-secondary/80 justify-between group"
               >
                 Catálogo de dados
                 <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
