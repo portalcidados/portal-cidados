@@ -136,7 +136,7 @@ export function CollaboratorsSection() {
                   >
                     {/* Collaborator Card */}
                     <div
-                      className="relative overflow-hidden h-[350px] w-[250px] mb-4 bg-gray-200"
+                      className="relative overflow-hidden h-[350px] w-[250px] mb-4 bg-border"
                       style={{ cursor: "none" }}
                     >
                       <Image
@@ -158,7 +158,7 @@ export function CollaboratorsSection() {
                       <h3 className="text-md font-bold text-foreground mb-1 leading-tight">
                         {collaborator.name}
                       </h3>
-                      <p className="text-sm text-gray-600 mb-1">
+                      <p className="text-sm text-foreground/50 mb-1">
                         {collaborator.function}
                       </p>
                     </div>
@@ -178,22 +178,22 @@ export function CollaboratorsSection() {
               </div>
 
               <div className="lg:w-1/2 space-y-6">
-                <div className="border-b border-gray-200 pb-4">
+                <div className="border-b border-border pb-4">
                   <h3 className="text-lg font-bold text-foreground mb-2">
                     Data storytelling
                   </h3>
-                  <p className="text-gray-600 leading-relaxed">
+                  <p className="text-foreground/50 leading-relaxed">
                     Narrativas visuais baseadas em pesquisas do Insper, que
                     combinam dados, design e storytelling para explicar
                     fenômenos urbanos de forma clara e envolvente.
                   </p>
                 </div>
 
-                <div className="border-b border-gray-200 pb-4">
+                <div className="border-b border-border pb-4">
                   <h3 className="text-lg font-bold text-foreground mb-2">
                     Catálogo de dados
                   </h3>
-                  <p className="text-gray-600 leading-relaxed">
+                  <p className="text-foreground/50 leading-relaxed">
                     Um GeoPortal interativo que permite explorar espacialmente
                     os dados apresentados nas histórias e em outros estudos,
                     tornando visíveis desigualdades e dinâmicas urbanas.
@@ -204,7 +204,7 @@ export function CollaboratorsSection() {
                   <h3 className="text-lg font-bold text-foreground mb-2">
                     GeoPortal
                   </h3>
-                  <p className="text-gray-600 leading-relaxed">
+                  <p className="text-foreground/50 leading-relaxed">
                     Um catálogo de conjuntos de dados urbanos que disponibiliza
                     informações abertas e estruturadas para consulta e
                     reutilização.

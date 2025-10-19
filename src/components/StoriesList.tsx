@@ -42,16 +42,16 @@ const storiesData = [
 
 export function StoriesList() {
   return (
-    <div className="min-h-screen bg-white py-16 px-6 md:px-12">
+    <div className="min-h-screen bg-background py-16 px-6 md:px-12">
       <div className="mx-auto space-y-12">
         {storiesData.map((story, rowIndex) => (
           <div
             key={story.id}
-            className={`pb-12 ${rowIndex < storiesData.length - 1 ? "border-b border-gray-200" : ""}`}
+            className={`pb-12 ${rowIndex < storiesData.length - 1 ? "border-b border-border" : ""}`}
           >
             <div className="flex flex-col xl:flex-row xl:items-center xl:justify-between gap-8">
               <div className="max-w-[500px]">
-                <h2 className="text-lg md:text-xl font-medium text-gray-900 mb-2">
+                <h2 className="text-lg md:text-xl font-medium text-foreground mb-2">
                   {story.title}
                 </h2>
               </div>

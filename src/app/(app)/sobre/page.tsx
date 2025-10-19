@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export default function Sobre() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-background">
       <Header />
       <div className="mx-auto px-4 md:px-8 lg:px-12 pb-10 pt-20">
         {/* Title */}
@@ -15,11 +15,11 @@ export default function Sobre() {
             público
           </h1>
           <Image
-            src="/logos_cidados.png"
+            src="/logos_cidados.svg"
             alt="Sobre"
             width={300}
             height={300}
-            className="w-auto h-auto max-w-75"
+            className="w-auto h-auto max-w-75 dark:invert"
           />
         </div>
         {/* Collaborators Section */}
