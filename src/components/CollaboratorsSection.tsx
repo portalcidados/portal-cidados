@@ -169,7 +169,7 @@ export function CollaboratorsSection() {
           </section>
 
           {/* What We Do Section */}
-          <section className="mt-16">
+          <section className="mt-16 font-gt-ultra-fine">
             <div className="flex flex-col lg:flex-row lg:items-start lg:gap-16">
               <div className="lg:w-1/2">
                 <h2 className="text-3xl font-bold text-foreground mb-8">
@@ -215,8 +215,84 @@ export function CollaboratorsSection() {
           </section>
         </div>
       </section>
+      {/* Pesquisadores Section */}
+      <section className="mt-16">
+        <div className="flex flex-col lg:flex-row lg:items-start lg:gap-16">
+          {/* Section Title */}
+          <div className="lg:w-1/2">
+            <h2 className="text-3xl font-bold text-foreground font-gt-ultra-fine">
+              Quem teve suas histórias contadas
+            </h2>
+            <p className="text-sm text-foreground/50 font-gt-ultra-fine mb-10">
+              {" "}
+              Pesquisadores
+            </p>
+          </div>
+
+          {/* Quem teve suas histórias contadas */}
+          <div className="lg:w-1/2 space-y-8">
+            {/* Research Project 1 */}
+            <div className="border-b border-border pb-6">
+              <h3 className="text-lg font-bold text-foreground font-gt-ultra-fine mb-3 flex items-center gap-2">
+                Retrato das Desigualdades em Saúde: Riscos de Mortalidade e
+                Determinantes Socioeconômicos no Município de São Paulo
+              </h3>
+              <p className="text-foreground/50 font-gt-ultra-fine">
+                Paulo H. Nascimento Saldiva, Lígia Vizeu Barrozo, Cátia Martinez
+                Minto, Sara Lopes de Moraes, Paulo Afonso de André
+              </p>
+            </div>
+
+            {/* Research Project 2 */}
+            <div className="border-b border-border pb-6">
+              <h3 className="text-lg font-bold text-foreground font-gt-ultra-fine mb-3">
+                Para o bem ou para o mal: análise da capacidade que o governo
+                tem de controlar a densidade habitacional
+              </h3>
+              <p className="text-foreground/50 font-gt-ultra-fine">
+                Gustado Theil
+              </p>
+            </div>
+
+            {/* Research Project 3 */}
+            <div className="pb-6">
+              <h3 className="text-lg font-bold text-foreground font-gt-ultra-fine mb-3">
+                Diagnóstico sobre ilhas de calor e qualidade do ar nas 16
+                favelas da Maré
+              </h3>
+              <p className="text-foreground/50 font-gt-ultra-fine">
+                Carolina Dias, Luna Arouca, Rian de Queiroz, Shyrlei Rosendo,
+                Otavio Ranzani, Carolina Hartmann Galeazzi, Fernando Bozza,
+                Soraida Aguilar, Bianca de Lima Teixeira, Luis Carlos Soares da
+                Costa, Marcela Santos de Melo, Maria Eduarda Souza Neves, Ygor
+                Fabregas da Silva, Diana de Souza Beserra, Robert dos Santos da
+                Silva
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+      {/* Quem nos apoia com logo/imagem a direita do texto quem nos apoia*/}
+      <section className="mt-16 mb-20">
+        <div className="flex flex-col lg:flex-row lg:items-start lg:gap-16">
+          {/* Section Title */}
+          <div className="lg:w-1/2">
+            <h2 className="text-3xl font-bold text-foreground font-gt-ultra-fine">
+              Quem nos apoia
+            </h2>
+          </div>
+          <div className="lg:w-1/2">
+            <Image
+              src="/insper_logo_2.png"
+              alt="Quem nos apoia"
+              width={160}
+              height={160}
+              className="dark:invert"
+            />
+          </div>
+        </div>
+      </section>
     </>
   );
 }
-
 export default CollaboratorsSection;
