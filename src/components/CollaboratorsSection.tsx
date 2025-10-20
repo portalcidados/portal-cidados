@@ -92,7 +92,7 @@ export function CollaboratorsSection() {
       <section className="py-0 pb-16 mx-auto bg-background">
         <div className="mx-auto">
           {/* Section Title */}
-          <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center px-4 md:px-8 lg:px-12 justify-between mb-4">
             <h2 className="text-sm font-medium text-foreground">
               Quem faz o projeto acontecer
             </h2>
@@ -101,7 +101,7 @@ export function CollaboratorsSection() {
           {/* Collaborators Horizontal Scroll */}
           <section
             ref={sectionRef}
-            className="pb-4 overflow-x-hidden select-none"
+            className="pb-4 overflow-x-hidden px-4 md:px-8 lg:px-12 select-none"
             style={{
               cursor: "none",
               touchAction: "pan-x",
@@ -169,7 +169,7 @@ export function CollaboratorsSection() {
           </section>
 
           {/* What We Do Section */}
-          <section className="mt-16 font-gt-ultra-fine">
+          <section className="mt-16 font-gt-ultra-fine px-4 md:px-8 lg:px-12">
             <div className="flex flex-col lg:flex-row lg:items-start lg:gap-16">
               <div className="lg:w-1/2">
                 <h2 className="text-3xl font-bold text-foreground mb-8">
@@ -217,7 +217,7 @@ export function CollaboratorsSection() {
       </section>
       {/* Pesquisadores Section */}
       <section className="mt-16">
-        <div className="flex flex-col lg:flex-row lg:items-start lg:gap-16">
+        <div className="flex flex-col lg:flex-row lg:items-start lg:gap-16 px-4 md:px-8 lg:px-12">
           {/* Section Title */}
           <div className="lg:w-1/2">
             <h2 className="text-3xl font-bold text-foreground font-gt-ultra-fine">
@@ -273,7 +273,7 @@ export function CollaboratorsSection() {
         </div>
       </section>
       {/* Quem nos apoia com logo/imagem a direita do texto quem nos apoia*/}
-      <section className="mt-16 mb-20">
+      <section className="mt-16 mb-20 px-4 md:px-8 lg:px-12">
         <div className="flex flex-col lg:flex-row lg:items-start lg:gap-16">
           {/* Section Title */}
           <div className="lg:w-1/2">

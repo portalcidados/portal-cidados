@@ -127,7 +127,7 @@ export function StoriesSection() {
   return (
     <>
       {/* Custom cursor */}
-      <div
+      {/* <div
         className={`fixed pointer-events-none transition-opacity duration-200 ${
           isHovering ? "opacity-100" : "opacity-0"
         }`}
@@ -146,7 +146,7 @@ export function StoriesSection() {
         >
           <span className="text-xs font-medium select-none">Arraste</span>
         </div>
-      </div>
+      </div> */}
 
       <section className="py-8 pb-16 mx-auto bg-background">
         <div className="mx-auto">
@@ -210,14 +210,14 @@ export function StoriesSection() {
                     <Link
                       href={story.href}
                       className="block"
-                      style={{ cursor: "none" }}
+                      // style={{ cursor: "none" }}
                       onMouseEnter={() => handleStoryMouseEnter(story.id)}
                       onMouseLeave={() => handleStoryMouseLeave(story.id)}
                     >
                       {/* Story Card */}
                       <div
                         className="relative overflow-hidden h-[270px] w-[270px] md:h-[380px] md:w-[380px]"
-                        style={{ cursor: "none" }}
+                        // style={{ cursor: "none" }}
                       >
                         <Image
                           src={getCurrentImage(story)}
@@ -225,9 +225,9 @@ export function StoriesSection() {
                           fill
                           className="object-cover transition-transform duration-300 group-hover:scale-105"
                           style={{
-                            cursor: "none",
-                            pointerEvents: "none",
-                            userSelect: "none",
+                            // cursor: "none",
+                            // pointerEvents: "none",
+                            // userSelect: "none",
                           }}
                           draggable={false}
                         />
