@@ -1,7 +1,6 @@
 "use client";
 
 import { getStoriesForHome, type Story } from "@/lib/data/stories";
-import { ArrowLeft, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
@@ -150,9 +149,9 @@ export function StoriesSection() {
       </div>
 
       <section className="py-8 pb-16 mx-auto bg-background">
-        <div className="mx-auto px-4 md:px-8 lg:px-12">
+        <div className="mx-auto">
           {/* Navigation arrows */}
-          <div className="flex justify-end mb-6 gap-0">
+          {/* <div className="flex justify-end mb-6 gap-0">
             <button
               type="button"
               onClick={slidePrev}
@@ -169,12 +168,12 @@ export function StoriesSection() {
             >
               <ArrowRight className="h-5 w-5" />
             </button>
-          </div>
+          </div> */}
 
           {/* Stories Horizontal Scroll */}
           <section
             ref={sectionRef}
-            className="pb-4 overflow-x-hidden select-none"
+            className="pb-4 overflow-x-hidden select-none pl-4 md:pl-8 lg:pl-12"
             style={{
               cursor: "none",
               touchAction: "pan-x",

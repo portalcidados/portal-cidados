@@ -53,20 +53,5 @@ export function getStoriesForHome(): Story[] {
       ],
       href: "/historias/desigualdades-saude",
     },
-    {
-      id: "4",
-      title:
-        "Retrato das Desigualdades em Saúde: Riscos de Mortalidade e Determinantes Socioeconômicos no Município de São Paulo",
-      description:
-        "Mapeamento das desigualdades em saúde em São Paulo: identificando áreas de risco para mortalidade materna, doenças cardiovasculares e diabetes",
-      image: "/assets/viz3/viz3.1.png",
-      images: [
-        "/assets/viz3/viz3.1.png",
-        "/assets/viz3/viz3.2.png",
-        "/assets/viz3/viz3.3.png",
-        "/assets/viz3/viz3.4.png",
-      ],
-      href: "/historias/desigualdades-saude",
-    },
   ];
 }

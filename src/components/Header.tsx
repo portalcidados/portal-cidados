@@ -93,9 +93,9 @@ export function Header() {
             <Image
               src="/insper_logo.png"
               alt="Logo Portal Cidados"
-              width={150}
-              height={22}
-              className="h-auto md:w-60 w-50 dark:invert"
+              width={300}
+              height={44}
+              className="h-auto md:w-70 w-50 dark:invert"
             />
           </div>
 
