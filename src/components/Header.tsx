@@ -14,7 +14,6 @@ export function Header() {
   const pathname = usePathname();
   const { theme, setTheme } = useTheme();
 
-  // Evita hidratação incorreta
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -27,7 +26,6 @@ export function Header() {
     setIsMenuOpen(false);
   }, []);
 
-  // Fechar menu com ESC
   useEffect(() => {
     const handleEsc = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
@@ -37,7 +35,6 @@ export function Header() {
 
     if (isMenuOpen) {
       document.addEventListener("keydown", handleEsc);
-      // Prevenir scroll do body quando menu está aberto
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "unset";
@@ -75,7 +72,6 @@ export function Header() {
           href: "https://observatorio-nacional.vercel.app/",
           description: "OBSERVATÓRIO NACIONAL DE MOBILIDADE SUSTENTÁVEL",
         },
-        // Adicione mais projetos aqui no futuro
       ],
     },
     {
@@ -87,20 +83,52 @@ export function Header() {
   return (
     <>
       <header className="bg-background border-gray-200 py-6 transition-colors">
-        <div className="flex items-center justify-between px-4 md:px-8 lg:px-12 mx-auto">
-          {/* Lado esquerdo - Logos */}
-          <div className="flex items-center space-x-2 md:space-x-6">
-            <Image
-              src="/insper_logo.png"
-              alt="Logo Portal Cidados"
-              width={300}
-              height={44}
-              className="h-auto md:w-70 w-50 dark:invert"
-            />
+        <div className="relative flex items-center justify-between px-4 md:px-8 lg:px-12 mx-auto max-w-[1920px]">
+          {/* Lado esquerdo - Logo Portal Cidados (desktop e mobile juntos) */}
+          <div className="flex items-center gap-3 md:gap-0 z-10">
+            <div className="relative w-[120px] h-[40px] sm:w-[140px] sm:h-[46px] md:w-[150px] md:h-[50px] lg:w-[170px] lg:h-[57px]">
+              <Image
+                src="/portal_cidados_icon.png"
+                alt="Portal Cidados"
+                fill
+                sizes="(max-width: 640px) 120px, (max-width: 768px) 140px, (max-width: 1024px) 150px, 170px"
+                className="object-contain object-left dark:invert"
+                priority
+                quality={100}
+              />
+            </div>
+
+            {/* Logo Arq Futuro - visível apenas no mobile (junto com Portal Cidados) */}
+            <div className="relative w-[100px] h-[40px] sm:w-[120px] sm:h-[46px] md:hidden">
+              <Image
+                src="/arq_futuro_icon.png"
+                alt="Arquitetura do Futuro"
+                fill
+                sizes="(max-width: 640px) 100px, 120px"
+                className="object-contain object-left dark:invert"
+                priority
+                quality={100}
+              />
+            </div>
+          </div>
+
+          {/* Centro - Logo Arq Futuro (visível apenas no desktop) */}
+          <div className="hidden md:block absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+            <div className="relative w-[160px] h-[48px] lg:w-[200px] lg:h-[60px]">
+              <Image
+                src="/arq_futuro_icon.png"
+                alt="Arquitetura do Futuro"
+                fill
+                sizes="(max-width: 1024px) 160px, 200px"
+                className="object-contain dark:invert"
+                priority
+                quality={100}
+              />
+            </div>
           </div>
 
           {/* Lado direito - Switch e Menu */}
-          <div className="flex items-center space-x-2 md:space-x-4">
+          <div className="flex items-center gap-2 md:gap-4 z-10">
             {mounted && (
               <Switch
                 checked={theme === "dark"}
@@ -111,8 +139,9 @@ export function Header() {
             )}
             <button
               type="button"
-              className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
               onClick={toggleMenu}
+              aria-label="Abrir menu"
             >
               <Menu className="h-6 w-6" />
             </button>
@@ -126,21 +155,19 @@ export function Header() {
           isMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"
         }`}
       >
-        {/* Header do menu com X */}
         <div className="flex justify-end p-6">
           <button
             type="button"
             onClick={closeMenu}
-            className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+            className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+            aria-label="Fechar menu"
           >
             <X className="h-8 w-8 text-black dark:text-white" />
           </button>
         </div>
 
-        {/* Menu Items */}
         <div className="flex flex-col items-end justify-center h-full px-8 pb-32 space-y-8">
           {menuItems.map((item, index) => {
-            // Se o item tem sub-itens (como PROJETOS)
             if (item.hasSubItems && item.subItems) {
               return (
                 <div
@@ -154,12 +181,9 @@ export function Header() {
                     transitionDelay: isMenuOpen ? `${index * 100}ms` : "0ms",
                   }}
                 >
-                  <div
-                    className={`font-gt-ultra transition-all duration-300 text-gray-500 dark:text-gray-400 font-medium text-3xl md:text-5xl cursor-pointer group-hover/parent:text-black dark:group-hover/parent:text-white`}
-                  >
+                  <div className="font-gt-ultra transition-all duration-300 text-gray-500 dark:text-gray-400 font-medium text-3xl md:text-5xl cursor-pointer group-hover/parent:text-black dark:group-hover/parent:text-white">
                     {item.name}
                   </div>
-                  {/* Sub-items */}
                   <div className="mt-4 space-y-4 max-h-0 opacity-0 overflow-hidden group-hover/parent:max-h-[500px] group-hover/parent:opacity-100 transition-all duration-500 ease-in-out">
                     {item.subItems.map((subItem) => (
                       <Link
@@ -178,7 +202,6 @@ export function Header() {
               );
             }
 
-            // Para itens normais sem sub-itens
             return (
               <Link
                 key={item.name}

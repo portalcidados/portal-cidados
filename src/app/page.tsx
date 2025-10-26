@@ -10,15 +10,14 @@ import { useEffect, useRef, useState } from "react";
 export default function Home() {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const [fontSize, setFontSize] = useState("4rem");
+  const [isReady, setIsReady] = useState(false); // Adicionar este estado
 
   useEffect(() => {
     const adjustFontSize = () => {
       if (titleRef.current) {
         const container = titleRef.current;
-        const text = container.textContent || "";
         const containerWidth = container.offsetWidth;
 
-        // Binary search for perfect fit
         let min = 1;
         let max = 200;
         let best = min;
@@ -39,6 +38,7 @@ export default function Home() {
 
         container.style.fontSize = `${best}px`;
         setFontSize(`${best}px`);
+        setIsReady(true); // Marcar como pronto após calcular
       }
     };
 
@@ -47,21 +47,23 @@ export default function Home() {
 
     return () => window.removeEventListener("resize", adjustFontSize);
   }, []);
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
       <main className="mx-auto px-4 md:px-8 lg:px-12">
         <div className="text-left pt-4">
-          {/* Título principal */}
           <h1
             ref={titleRef}
-            className="font-gt-ultra font-normal text-foreground mb-6 mt-6 leading-none whitespace-nowrap w-full"
-            style={{ fontSize }}
+            className="font-gt-ultra font-normal text-foreground mb-6 mt-6 leading-none whitespace-nowrap w-full transition-opacity duration-200"
+            style={{
+              fontSize,
+              opacity: isReady ? 1 : 0, // Ocultar até estar pronto
+            }}
           >
             CIDADES @ DADOS
           </h1>
 
-          {/* Parágrafo descritivo */}
           <p className="text-md text-foreground font-gt-ultra-fine mb-4 max-w-4xl">
             Criado pelo Centro de Estudos das Cidades – Laboratório Arq.Futuro
             do Insper, o Portal Cidados apresenta nossos estudos e pesquisas por
@@ -69,10 +71,9 @@ export default function Home() {
             científica da sociedade e do debate público sobre as políticas
             urbanas. Nosso objetivo é tornar os dados sobre as cidades mais
             compreensíveis e acessíveis, contribuindo para a construção de
-            políticas públicas baseadas em evidências.
+            políticas públicas baseadas em evidências.
           </p>
 
-          {/* Botões */}
           <div className="flex flex-row gap-4">
             <Link
               target="_blank"
@@ -101,7 +102,6 @@ export default function Home() {
         </div>
       </main>
 
-      {/* Stories Section */}
       <StoriesSection />
     </div>
   );
