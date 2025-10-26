@@ -9,10 +9,10 @@ const storiesData = [
       "Para o bem ou para o mal: análise da capacidade que o governo tem de controlar a densidade habitacional",
     // subtitle: "Branding, Identity",
     images: [
-      "/assets/viz1/viz1.png",
-      "/assets/viz1/viz1.1.png",
-      "/assets/viz1/viz1.3.png",
+      "/assets/viz1/viz1.2.png",
       "/assets/viz1/viz1.4.png",
+      "/assets/viz1/viz1.3.png",
+      "/assets/viz1/viz1.1.png",
     ],
   },
   {
