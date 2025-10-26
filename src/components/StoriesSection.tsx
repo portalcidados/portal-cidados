@@ -54,10 +54,13 @@ export function StoriesSection() {
   };
 
   return (
-    <section className="py-8 pb-16 mx-auto bg-background">
+    <section className="py-8 pt-18 pb-16 mx-auto bg-background">
+      <span className="text-sm block pb-3 px-4 md:px-8 lg:px-12 text-foreground leading-relaxed font-gt-ultra-fine">
+        Veja nossas histórias
+      </span>
       <div className="mx-auto px-4 md:px-8 lg:px-12">
         {/* Stories Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-4">
           {stories.map((story) => (
             <div key={story.id} className="group">
               {story.href ? (

@@ -42,7 +42,7 @@ const storiesData = [
 
 export function StoriesList() {
   return (
-    <div className="min-h-screen bg-background py-16 px-6 md:px-12">
+    <div className="min-h-screen bg-background py-16 pt-30 px-6 md:px-12">
       <div className="mx-auto space-y-12">
         {storiesData.map((story, rowIndex) => (
           <div

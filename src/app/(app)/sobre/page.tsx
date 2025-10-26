@@ -6,7 +6,7 @@ export default function Sobre() {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <div className="mx-auto">
+      <div className="mx-auto pt-30">
         {/* Title */}
         <div className="flex items-left px-4 md:px-8 lg:px-12 justify-between lg:flex-row flex-col gap-4 pb-10 lg:items-center">
           <h1 className="max-w-[800px] text-2xl md:text-4xl font-bold text-foreground mb-1 font-gt-ultra-fine leading-tight">
@@ -14,13 +14,20 @@ export default function Sobre() {
             transforma pesquisas acadêmicas em narrativas visuais acessíveis ao
             público
           </h1>
-          <Image
-            src="/logos_cidados.svg"
-            alt="Sobre"
-            width={300}
-            height={300}
-            className="w-auto h-auto max-w-75 dark:invert"
-          />
+          <div className="overflow-hidden max-w-75 md:max-w-100">
+            <Image
+              src="/logos_cidados.svg"
+              alt="Sobre"
+              width={330}
+              height={330}
+              className="w-auto h-auto dark:invert object-cover"
+              style={{
+                objectPosition: "center top",
+                transform: "translateY(8px)",
+                height: "calc(100% + 8px)",
+              }}
+            />
+          </div>
         </div>
         {/* Collaborators Section */}
       </div>

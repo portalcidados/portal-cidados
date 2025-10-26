@@ -169,7 +169,7 @@ export function CollaboratorsSection() {
           </section>
 
           {/* What We Do Section */}
-          <section className="mt-16 font-gt-ultra-fine px-4 md:px-8 lg:px-12">
+          <section className="mt-24 font-gt-ultra-fine px-4 md:px-8 lg:px-12">
             <div className="flex flex-col lg:flex-row lg:items-start lg:gap-16">
               <div className="lg:w-1/2">
                 <h2 className="text-3xl font-bold text-foreground mb-8">
