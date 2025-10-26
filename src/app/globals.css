@@ -133,3 +133,26 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer utilities {
+  .responsive-title {
+    font-size: clamp(2rem, 12vw, 8rem);
+    white-space: nowrap;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: clip;
+    letter-spacing: -0.02em;
+  }
+  
+  @media (min-width: 640px) {
+    .responsive-title {
+      font-size: clamp(3rem, 14vw, 8rem);
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .responsive-title {
+      font-size: clamp(4rem, 15vw, 8rem);
+    }
+  }
+}

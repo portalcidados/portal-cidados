@@ -1,18 +1,64 @@
+"use client";
+
 import { Header } from "@/components/Header";
 import { StoriesSection } from "@/components/StoriesSection";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
 
 export default function Home() {
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const [fontSize, setFontSize] = useState("4rem");
+
+  useEffect(() => {
+    const adjustFontSize = () => {
+      if (titleRef.current) {
+        const container = titleRef.current;
+        const text = container.textContent || "";
+        const containerWidth = container.offsetWidth;
+
+        // Binary search for perfect fit
+        let min = 1;
+        let max = 200;
+        let best = min;
+
+        while (min <= max) {
+          const mid = Math.floor((min + max) / 2);
+          container.style.fontSize = `${mid}px`;
+
+          const textWidth = container.scrollWidth;
+
+          if (textWidth <= containerWidth) {
+            best = mid;
+            min = mid + 1;
+          } else {
+            max = mid - 1;
+          }
+        }
+
+        container.style.fontSize = `${best}px`;
+        setFontSize(`${best}px`);
+      }
+    };
+
+    adjustFontSize();
+    window.addEventListener("resize", adjustFontSize);
+
+    return () => window.removeEventListener("resize", adjustFontSize);
+  }, []);
   return (
     <div className="min-h-screen bg-background">
       <Header />
       <main className="mx-auto px-4 md:px-8 lg:px-12">
         <div className="text-left pt-4">
           {/* Título principal */}
-          <h1 className="text-6xl md:text-7xl font-gt-ultra font-normal lg:text-8xl text-foreground leading-14 mb-6 mt-6">
-            CIDADES &M DADOS
+          <h1
+            ref={titleRef}
+            className="font-gt-ultra font-normal text-foreground mb-6 mt-6 leading-none whitespace-nowrap w-full"
+            style={{ fontSize }}
+          >
+            CIDADES @ DADOS
           </h1>
 
           {/* Parágrafo descritivo */}
