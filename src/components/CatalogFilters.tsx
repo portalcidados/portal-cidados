@@ -2,6 +2,12 @@
 
 import type { CatalogFilters as FiltersType } from "@/app/api/catalog/route";
 import { Checkbox } from "@/components/ui/checkbox";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { Info } from "lucide-react";
 import { useEffect, useState } from "react";
 
 interface FilterOptions {
@@ -130,9 +136,25 @@ export function CatalogFilters({
 
       {/* Access Method Filter */}
       <div>
-        <h3 className="text-sm font-medium text-muted-foreground mb-3">
-          Forma de acesso
-        </h3>
+        <div className="flex items-center gap-2 mb-3">
+          <h3 className="text-sm font-medium text-muted-foreground">
+            Forma de acesso
+          </h3>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Info className="w-4 h-4 text-muted-foreground" />
+            </TooltipTrigger>
+            <TooltipContent
+              className="max-w-xs"
+              side="right"
+              align="center"
+            >
+              Conjuntos de dados que não estão disponíveis para download podem
+              ser acessados por meio das salas seguras do Centro de Dados e IA
+              do Insper
+            </TooltipContent>
+          </Tooltip>
+        </div>
         <div className="space-y-2">
           {filterOptions.accessMethods.map((method) => (
             <div key={method} className="flex items-center space-x-2">
