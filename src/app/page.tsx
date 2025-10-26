@@ -76,8 +76,7 @@ export default function Home() {
 
           <div className="flex flex-row gap-4">
             <Link
-              target="_blank"
-              href="https://observatorio-nacional.vercel.app/projetos/geoportal"
+              href="/geoportal"
             >
               <Button
                 variant="default"
