@@ -11,7 +11,7 @@ export const collaborators: Collaborator[] = [
     id: "1",
     name: "Tomas Alvin",
     function: "Coordenador",
-    email: "tomas@bei.com.br",
+    email: "tomasammpa@insper.edu.br",
     image: "/collaborators/tomas-alvin.png",
   },
   {
@@ -32,7 +32,7 @@ export const collaborators: Collaborator[] = [
     id: "4",
     name: "Rinaldo Gama",
     function: "Coordenador",
-    email: "",
+    email: "rinaldog@insper.edu.br",
     image: "/collaborators/rinaldo.png",
   },
   {
@@ -44,7 +44,7 @@ export const collaborators: Collaborator[] = [
   },
   {
     id: "6",
-    name: "Vinícios",
+    name: "Vinícios Oike",
     function: "Cientista de dados",
     email: "viniciusor@insper.edu.br",
     image: "/collaborators/vinicios.png",
@@ -53,7 +53,7 @@ export const collaborators: Collaborator[] = [
     id: "7",
     name: "Lucas Tavares",
     function: "Desenvolvedor",
-    email: "lucastavares@poli.ufrj.br",
+    email: "lucas.tavares@insper.edu.br",
     image: "/collaborators/lucas-tavares.png",
   },
 ];

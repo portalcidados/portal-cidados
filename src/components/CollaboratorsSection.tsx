@@ -158,8 +158,11 @@ export function CollaboratorsSection() {
                       <h3 className="text-md font-bold text-foreground mb-1 leading-tight">
                         {collaborator.name}
                       </h3>
-                      <p className="text-sm text-foreground/50 mb-1">
+                      <p className="text-sm text-foreground/50 mb-5">
                         {collaborator.function}
+                      </p>
+                      <p className="text-sm text-foreground/50">
+                        {collaborator.email}
                       </p>
                     </div>
                   </SwiperSlide>
