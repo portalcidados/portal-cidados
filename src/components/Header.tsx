@@ -57,7 +57,7 @@ export function Header() {
     },
     {
       name: "MAPAS",
-      href: "https://observatorio-nacional.vercel.app/projetos/geoportal",
+      href: "https://portal-cidados.vercel.app/geoportal",
     },
     {
       name: "CATÁLOGO DE DADOS",
