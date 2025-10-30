@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 
 const storiesData = [
   {
@@ -14,6 +15,7 @@ const storiesData = [
       "/assets/viz1/viz1.3.png",
       "/assets/viz1/viz1.1.png",
     ],
+    href: "/",
   },
   {
     id: 2,
@@ -25,6 +27,7 @@ const storiesData = [
       "/assets/viz2/viz2.2.png",
       "/assets/viz2/viz2.3.png",
     ],
+    href: "https://lucastavarex.github.io/insper-dataviz-saude/",
   },
   {
     id: 3,
@@ -37,6 +40,7 @@ const storiesData = [
       "/assets/viz3/viz3.3.png",
       "/assets/viz3/viz3.4.png",
     ],
+    href: "/historias/desigualdades",
   },
 ];
 
@@ -49,32 +53,52 @@ export function StoriesList() {
             key={story.id}
             className={`pb-12 ${rowIndex < storiesData.length - 1 ? "border-b border-border" : ""}`}
           >
-            <div className="flex flex-col xl:flex-row xl:items-center xl:justify-between gap-8">
-              <div className="max-w-[500px]">
-                <h2 className="text-lg md:text-xl font-medium text-foreground mb-2">
-                  {story.title}
-                </h2>
-              </div>
+            {(() => {
+              const href = (story as any).href as string;
+              const isInternal = href.startsWith("/");
 
-              <div className="xl:w-2/3 flex justify-start xl:justify-end gap-4 overflow-x-auto">
-                {story.images.map((image, imgIndex) => (
-                  <div
-                    key={`${story.id}-${image}-${imgIndex}`}
-                    className={`flex-shrink-0 w-16 h-16 md:w-32 md:h-32 rounded-lg overflow-hidden ${
-                      imgIndex >= 3 ? "hidden sm:block" : ""
-                    }`}
-                  >
-                    <Image
-                      src={image}
-                      alt={`${story.title} ${imgIndex + 1}`}
-                      width={128}
-                      height={128}
-                      className="w-full h-full object-cover"
-                    />
+              const Content = (
+                <div className="flex flex-col xl:flex-row xl:items-center xl:justify-between gap-8">
+                  <div className="max-w-[500px]">
+                    <h2 className="text-lg md:text-xl font-medium text-foreground mb-2">
+                      {story.title}
+                    </h2>
                   </div>
-                ))}
-              </div>
-            </div>
+
+                  <div className="xl:w-2/3 flex justify-start xl:justify-end gap-4 overflow-x-auto">
+                    {story.images.map((image, imgIndex) => (
+                      <div
+                        key={`${story.id}-${image}-${imgIndex}`}
+                        className={`flex-shrink-0 w-16 h-16 md:w-32 md:h-32 rounded-lg overflow-hidden ${
+                          imgIndex >= 3 ? "hidden sm:block" : ""
+                        }`}
+                      >
+                        <Image
+                          src={image}
+                          alt={`${story.title} ${imgIndex + 1}`}
+                          width={128}
+                          height={128}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              );
+
+              return isInternal ? (
+                <Link href={href} className="block cursor-pointer hover:opacity-90 transition-opacity">
+                  {Content}
+                </Link>
+              ) : (
+                <a
+                  href={href}
+                  className="block cursor-pointer hover:opacity-90 transition-opacity"
+                >
+                  {Content}
+                </a>
+              );
+            })()}
           </div>
         ))}
       </div>
