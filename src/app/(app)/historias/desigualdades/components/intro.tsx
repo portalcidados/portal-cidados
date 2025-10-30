@@ -29,15 +29,15 @@ export default function Intro() {
   return (
     <section className="relative min-h-screen w-full overflow-hidden">
       {/* Background Image */}
-      <div className="absolute inset-0 z-0">
-        <Image
-          src={backgroundImage}
-          alt="Background"
-          fill
-          className="object-cover"
-          priority
-        />
-      </div>
+      <div
+        className="absolute inset-0 z-0"
+        style={{
+          backgroundImage: `url(${backgroundImage.src})`,
+          backgroundRepeat: 'repeat',
+          backgroundPosition: 'top left',
+          backgroundSize: `${Math.round(backgroundImage.width / 2)}px ${Math.round(backgroundImage.height / 2)}px`,
+        }}
+      />
 
       {/* Content */}
       <div className="relative z-10 flex flex-col items-center px-6 py-8 md:px-12 lg:px-24">
@@ -57,7 +57,7 @@ export default function Intro() {
         <div className="w-full max-w-5xl border-t border-[#cccccc] mb-12"></div>
 
         {/* Hero Section com Cover Image */}
-        <div className="flex flex-col items-center max-w-4xl mb-0 w-full">
+        <div className="flex flex-col items-center max-w-4xl mb-10 w-full">
           {/* Cover Image com conteúdo sobreposto */}
           <div className="relative w-full aspect-video mb-8">
             <Image
@@ -101,7 +101,7 @@ export default function Intro() {
         </div>
 
         {/* Linha de Separação */}
-        <div className="w-full max-w-5xl border-t border-[#cccccc] mb-40"></div>
+        <div className="w-full max-w-5xl border-t border-[#cccccc] mb-20 lg:mb-40"></div>
 
         {/* Texto Introdutório */}
         <div className="max-w-3xl flex flex-col gap-10 mb-40">
