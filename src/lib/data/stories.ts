@@ -22,7 +22,7 @@ export function getStoriesForHome(): Story[] {
         "/assets/viz3/viz3.2.png",
         "/assets/viz3/viz3.4.png",
       ],
-      href: "/historias/desigualdades-saude",
+      href: "/historias/desigualdades",
     },
     {
       id: "1",
@@ -51,7 +51,7 @@ export function getStoriesForHome(): Story[] {
         "/assets/viz2/viz2.2.png",
         "/assets/viz2/viz2.3.png",
       ],
-      href: "/historias/densidade-habitacional",
+      href: "https://lucastavarex.github.io/insper-dataviz-saude/",
     },
   ];
 }
