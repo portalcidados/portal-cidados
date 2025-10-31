@@ -37,7 +37,7 @@ export function getStoriesForHome(): Story[] {
         "/assets/viz1/viz1.1.png",
         "/assets/viz1/viz1.2.png",
       ],
-      href: "/",
+      href: "https://portalcidados.github.io/datavis/#/adensamento",
     },
     {
       id: "2",
