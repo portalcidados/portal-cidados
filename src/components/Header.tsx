@@ -139,7 +139,7 @@ export function Header() {
             )}
             <button
               type="button"
-              className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+              className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
               onClick={toggleMenu}
               aria-label="Abrir menu"
             >
@@ -159,7 +159,7 @@ export function Header() {
           <button
             type="button"
             onClick={closeMenu}
-            className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+            className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
             aria-label="Fechar menu"
           >
             <X className="h-8 w-8 text-black dark:text-white" />

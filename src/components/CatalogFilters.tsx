@@ -144,11 +144,7 @@ export function CatalogFilters({
             <TooltipTrigger asChild>
               <Info className="w-4 h-4 text-muted-foreground" />
             </TooltipTrigger>
-            <TooltipContent
-              className="max-w-xs"
-              side="right"
-              align="center"
-            >
+            <TooltipContent className="max-w-xs" side="right" align="center">
               Conjuntos de dados que não estão disponíveis para download podem
               ser acessados por meio das salas seguras do Centro de Dados e IA
               do Insper
