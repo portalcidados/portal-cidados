@@ -86,34 +86,48 @@ export function Header() {
         <div className="relative flex items-center justify-between px-4 md:px-8 lg:px-12 mx-auto max-w-[1920px]">
           {/* Lado esquerdo - Logo Portal Cidados (desktop e mobile juntos) */}
           <div className="flex items-center gap-3 md:gap-0 z-10">
-            <div className="relative w-[100px] h-[40px] sm:w-[140px] sm:h-[46px] md:w-[130px] md:h-[50px] lg:w-[140px] lg:h-[57px]">
-              <Image
-                src="/portal_cidados_icon.png"
-                alt="Portal Cidados"
-                fill
-                sizes="(max-width: 640px) 100px, (max-width: 768px) 140px, (max-width: 1024px) 130px, 140px"
-                className="object-contain object-left dark:invert"
-                priority
-                quality={100}
-              />
-            </div>
+            <Link href="/" className="cursor-pointer">
+              <div className="relative w-[100px] h-[40px] sm:w-[140px] sm:h-[46px] md:w-[130px] md:h-[50px] lg:w-[140px] lg:h-[57px]">
+                <Image
+                  src="/portal_cidados_icon.png"
+                  alt="Portal Cidados"
+                  fill
+                  sizes="(max-width: 640px) 100px, (max-width: 768px) 140px, (max-width: 1024px) 130px, 140px"
+                  className="object-contain object-left dark:invert"
+                  priority
+                  quality={100}
+                />
+              </div>
+            </Link>
 
             {/* Logo Arq Futuro - visível apenas no mobile (junto com Portal Cidados) */}
-            <div className="relative w-[120px] h-[40px] sm:w-[120px] sm:h-[46px] md:hidden">
-              <Image
-                src="/arq_futuro_icon.png"
-                alt="Arquitetura do Futuro"
-                fill
-                sizes="(max-width: 640px) 120px, 120px"
-                className="object-contain object-left dark:invert"
-                priority
-                quality={100}
-              />
-            </div>
+            <Link
+              href="https://www.insper.edu.br/pt/home"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="cursor-pointer md:hidden"
+            >
+              <div className="relative w-[120px] h-[40px] sm:w-[120px] sm:h-[46px]">
+                <Image
+                  src="/arq_futuro_icon.png"
+                  alt="Arquitetura do Futuro"
+                  fill
+                  sizes="(max-width: 640px) 120px, 120px"
+                  className="object-contain object-left dark:invert"
+                  priority
+                  quality={100}
+                />
+              </div>
+            </Link>
           </div>
 
           {/* Centro - Logo Arq Futuro (visível apenas no desktop) */}
-          <div className="hidden md:block absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+          <Link
+            href="https://www.insper.edu.br/pt/home"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden md:block absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 cursor-pointer"
+          >
             <div className="relative w-[160px] h-[48px] lg:w-[180px] lg:h-[60px]">
               <Image
                 src="/arq_futuro_icon.png"
@@ -125,7 +139,7 @@ export function Header() {
                 quality={100}
               />
             </div>
-          </div>
+          </Link>
 
           {/* Lado direito - Switch e Menu */}
           <div className="flex items-center gap-2 md:gap-4 z-10">
