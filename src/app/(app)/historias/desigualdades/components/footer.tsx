@@ -1,4 +1,4 @@
-import insperLogo from "../assets/insper-logo.png";
+import insperLogo from "../../assets/insper-logo.png";
 
 export default function Footer() {
   return (
