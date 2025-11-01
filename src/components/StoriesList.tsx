@@ -20,7 +20,8 @@ const storiesData = [
   {
     id: 2,
     title:
-      "Diagnóstico sobre ilhas de calor e qualidade do ar em um dos maiores conjunto de favelas do Brasil",
+      "Retrato das Desigualdades em Saúde: Riscos de Mortalidade e Determinantes Socioeconômicos no Município de São Paulo",
+
     // subtitle: "Campaign, Film",
     images: [
       "/assets/viz2/viz2.1.png",
@@ -32,8 +33,7 @@ const storiesData = [
   {
     id: 3,
     title:
-      "Retrato das Desigualdades em Saúde: Riscos de Mortalidade e Determinantes Socioeconômicos no Município de São Paulo",
-    // subtitle: "Branding, Identity",
+      "Diagnóstico sobre ilhas de calor e qualidade do ar em um dos maiores conjunto de favelas do Brasil", // subtitle: "Branding, Identity",
     images: [
       "/assets/viz3/viz3.1.png",
       "/assets/viz3/viz3.2.png",
@@ -87,7 +87,10 @@ export function StoriesList() {
               );
 
               return isInternal ? (
-                <Link href={href} className="block cursor-pointer hover:opacity-90 transition-opacity">
+                <Link
+                  href={href}
+                  className="block cursor-pointer hover:opacity-90 transition-opacity"
+                >
                   {Content}
                 </Link>
               ) : (
