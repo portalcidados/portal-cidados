@@ -11,11 +11,17 @@ export function CardSkeleton() {
         <div className="h-5 bg-foreground/10 w-3/4 animate-pulse"></div>
       </div>
       
-      {/* Tags skeleton - matching DataCard tags (no rounded corners) */}
-      <div className="flex flex-wrap gap-2">
-        <div className="h-7 bg-foreground/6 w-20 animate-pulse"></div>
-        <div className="h-7 bg-foreground/6 w-24 animate-pulse"></div>
-        <div className="h-7 bg-foreground/6 w-16 animate-pulse"></div>
+      {/* Tags skeleton - matching DataCard tags (2 badges on top, 1 on bottom) */}
+      <div className="flex flex-col gap-2">
+        {/* Tema e Região */}
+        <div className="flex flex-wrap gap-2">
+          <div className="h-7 bg-foreground/6 w-20 animate-pulse"></div>
+          <div className="h-7 bg-foreground/6 w-24 animate-pulse"></div>
+        </div>
+        {/* Forma de Acesso - sempre na linha de baixo */}
+        <div className="flex flex-wrap gap-2">
+          <div className="h-7 bg-foreground/6 w-16 animate-pulse"></div>
+        </div>
       </div>
     </div>
   );
