@@ -30,7 +30,7 @@ export function getStoriesForHome(): Story[] {
         "Para o bem ou para o mal: análise da capacidade que o governo tem de controlar a densidade habitacional",
       description:
         "Como os instrumentos de planejamento urbano buscam equilibrar adensamento, mobilidade e qualidade de vida",
-      image: "/assets/viz1/viz1.png",
+      image: "/assets/viz1/viz1.4.png",
       images: [
         "/assets/viz1/viz1.4.png",
         "/assets/viz1/viz1.3.png",
