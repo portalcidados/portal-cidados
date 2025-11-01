@@ -16,16 +16,11 @@ export default function Sobre() {
           </h1>
           <div className="overflow-hidden max-w-75 md:max-w-100">
             <Image
-              src="/logos_cidados.svg"
+              src="/logos_cidados.png"
               alt="Sobre"
               width={330}
               height={330}
               className="w-auto h-auto dark:invert object-cover"
-              style={{
-                objectPosition: "center top",
-                transform: "translateY(8px)",
-                height: "calc(100% + 8px)",
-              }}
             />
           </div>
         </div>
