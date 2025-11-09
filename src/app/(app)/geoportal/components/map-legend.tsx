@@ -1,66 +1,55 @@
-"use client";
+"use client"
 
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { getLayerLegend, LegendItem } from "../lib/layer-styles";
+import { Badge } from "@/components/ui/badge"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { getLayerLegend, LegendItem } from "../lib/layer-styles"
 
 interface LayerLegendProps {
-  layerId: string;
-  layerName: string;
-  layerType: "fill" | "line" | "circle" | "symbol";
-  sourceLayer?: string;
-  description?: string;
+  layerId: string
+  layerName: string
+  layerType: 'fill' | 'line' | 'circle' | 'symbol'
+  sourceLayer?: string
+  description?: string
 }
 
 // Get legend configuration, preferring layer-styles.ts data
-const getLegendConfig = (
-  layerId: string,
-  layerType: string,
-  sourceLayer?: string,
-): LegendItem[] => {
+const getLegendConfig = (layerId: string, layerType: string, sourceLayer?: string): LegendItem[] => {
   // First, try to get legend from layer-styles.ts using sourceLayer
   if (sourceLayer) {
-    const autoLegend = getLayerLegend(sourceLayer);
+    const autoLegend = getLayerLegend(sourceLayer)
     if (autoLegend && autoLegend.length > 0) {
-      return autoLegend;
+      return autoLegend
     }
   }
 
   // Fallback: try with layerId
-  const autoLegend = getLayerLegend(layerId);
+  const autoLegend = getLayerLegend(layerId)
   if (autoLegend && autoLegend.length > 0) {
-    return autoLegend;
+    return autoLegend
   }
 
   // Fallback to default legend for layers without custom styles
   const defaultColors = {
-    fill: "#007cbf",
-    line: "#007cbf",
-    circle: "#007cbf",
-    symbol: "#007cbf",
-  };
+    fill: '#007cbf',
+    line: '#007cbf',
+    circle: '#007cbf',
+    symbol: '#007cbf'
+  }
 
   return [
     {
-      color:
-        defaultColors[layerType as keyof typeof defaultColors] || "#007cbf",
-      label: "Dados disponíveis",
-      value: "Ativo",
-    },
-  ];
-};
+      color: defaultColors[layerType as keyof typeof defaultColors] || '#007cbf',
+      label: 'Dados disponíveis',
+      value: 'Ativo'
+    }
+  ]
+}
 
-export function LayerLegend({
-  layerId,
-  layerName,
-  layerType,
-  sourceLayer,
-  description,
-}: LayerLegendProps) {
-  const legendItems = getLegendConfig(layerId, layerType, sourceLayer);
+export function LayerLegend({ layerId, layerName, layerType, sourceLayer, description }: LayerLegendProps) {
+  const legendItems = getLegendConfig(layerId, layerType, sourceLayer)
 
   return (
-    <Card className="mb-3 border-none shadow-none">
+    <Card className="mb-3 border-none shadow-none bg-white text-gray-900">
       <CardHeader className="pb-2 p-0!">
         <CardTitle className="text-sm flex items-center gap-0">
           {layerName}
@@ -69,16 +58,14 @@ export function LayerLegend({
           <p className="text-xs text-gray-600 mt-0 mb-2">{description}</p>
         )}
       </CardHeader>
-      <CardContent className="space-y-2 p-0!">
+      <CardContent className="space-y-2 p-0! text-gray-900!">
         {legendItems.map((item, index) => (
           <div key={index} className="flex items-center gap-2">
-            <div
-              className={`flex-shrink-0 ${
-                layerType === "line"
-                  ? "w-6 h-0.5"
-                  : layerType === "circle"
-                    ? "w-4 h-4 rounded-full"
-                    : "w-4 h-4"
+            <div 
+              className={`shrink-0 text-gray-900! ${
+                layerType === 'line' ? 'w-6 h-0.5' : 
+                layerType === 'circle' ? 'w-4 h-4 rounded-full' :
+                'w-4 h-4 rounded-sm'
               }`}
               style={{ backgroundColor: item.color }}
             />
@@ -87,7 +74,7 @@ export function LayerLegend({
                 {item.label}
               </span> */}
               {item.value && (
-                <Badge variant="outline" className="ml-2 text-xs">
+                <Badge variant="outline" className="ml-2 text-xs text-gray-900!">
                   {item.value}
                 </Badge>
               )}
@@ -96,36 +83,29 @@ export function LayerLegend({
         ))}
       </CardContent>
     </Card>
-  );
+  )
 }
 
 interface MapLegendProps {
-  selectedLayers: string[];
-  selectedCity: string;
-  cityLayersConfig: Record<
-    string,
-    Array<{
-      id: string;
-      name: string;
-      description?: string;
-      layerType?: "fill" | "line" | "circle" | "symbol";
-      sourceLayer?: string;
-    }>
-  >;
+  selectedLayers: string[]
+  selectedCity: string
+  cityLayersConfig: Record<string, Array<{
+    id: string
+    name: string
+    description?: string
+    layerType?: 'fill' | 'line' | 'circle' | 'symbol'
+    sourceLayer?: string
+  }>>
 }
 
-export function MapLegend({
-  selectedLayers,
-  selectedCity,
-  cityLayersConfig,
-}: MapLegendProps) {
-  const cityLayers = cityLayersConfig[selectedCity] || [];
-  const enabledLayers = cityLayers.filter(
-    (layer) => selectedLayers.includes(layer.id) && layer.layerType,
-  );
+export function MapLegend({ selectedLayers, selectedCity, cityLayersConfig }: MapLegendProps) {
+  const cityLayers = cityLayersConfig[selectedCity] || []
+  const enabledLayers = cityLayers.filter(layer =>
+    selectedLayers.includes(layer.id) && layer.layerType
+  )
 
   if (enabledLayers.length === 0) {
-    return null;
+    return null
   }
 
   return (
@@ -135,11 +115,11 @@ export function MapLegend({
           key={layer.id}
           layerId={layer.id}
           layerName={layer.name}
-          layerType={layer.layerType || "fill"}
+          layerType={layer.layerType || 'fill'}
           sourceLayer={layer.sourceLayer}
           description={layer.description}
         />
       ))}
     </div>
-  );
+  )
 }

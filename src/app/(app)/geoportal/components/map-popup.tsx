@@ -49,17 +49,17 @@ export function MapPopup({ feature, layerName, onClose }: MapPopupProps) {
   }
 
   return (
-    <Card >
-      <CardHeader className="pb-2">
-        <CardTitle className="text-sm flex items-center gap-2">
-          <Info className="w-4 h-4" />
+    <Card className="bg-white text-gray-900!">
+      <CardHeader className="pb-2 text-gray-900!">
+        <CardTitle className="text-sm flex items-center gap-2 text-gray-900!">
+          <Info className="w-4 h-4 text-gray-900!" />
           {layerName}
         </CardTitle>
       </CardHeader>
-      <CardContent className="space-y-2">
+      <CardContent className="space-y-2 text-gray-900!">
         {displayProperties.map(([key, value]) => (
           <div key={key} className="flex justify-between items-start gap-2">
-            <span className="text-xs font-medium text-gray-600 capitalize">
+            <span className="text-xs font-medium text-gray-900! capitalize">
               {key.replace(/_/g, ' ')}:
             </span>
             <Badge variant="secondary" className="text-xs">

@@ -57,7 +57,7 @@ export function Header() {
     },
     {
       name: "MAPAS",
-      href: "https://portal-cidados.vercel.app/geoportal",
+      href: "/geoportal",
     },
     {
       name: "CATÁLOGO DE DADOS",

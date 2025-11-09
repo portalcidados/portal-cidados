@@ -6,8 +6,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion"
-import { Slider } from "@/components/ui/slider"
-import { Switch } from "@/components/ui/switch"
+import { SliderLight } from "@/components/ui/slider-light"
+import { SwitchLight } from "@/components/ui/switch-light"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 import { Eye, Info } from "lucide-react"
 import { useEffect, useState } from "react"
@@ -187,15 +187,19 @@ export function CityLayersComparison({
         }
       `}</style>
       <div className="space-y-0">
-      <Accordion 
-        type="multiple" 
+      <Accordion
+        type="multiple"
         value={accordionValue}
         onValueChange={setAccordionValue}
-        className="w-full"
+        className="w-full pb-10"
       >
+                          <h2 className="px-4 text-xl font-bold text-gray-900 block md:block">Selecione as camadas</h2>
+
         <AccordionItem value="layer1" className="border-b">
-          <AccordionTrigger className="text-left cursor-pointer px-4 font-semibold py-3 hover:no-underline text-base">
-            Camada da esquerda
+          <AccordionTrigger className="text-left text-gray-900 cursor-pointer px-4 font-semibold py-3 hover:no-underline text-base">
+            <span className="truncate">
+              {selectedLayer1 ? cityLayers.find(l => l.id === selectedLayer1)?.name || 'Camada da esquerda' : 'Camada da esquerda'}
+            </span>
           </AccordionTrigger>
           <div className="h-[0.5px] w-full bg-gray-300"/>
           <AccordionContent className="pb-0">
@@ -247,7 +251,7 @@ export function CityLayersComparison({
                                 {getCurrentOpacity(layer.id)}%
                               </span>
                             </div>
-                            <Slider
+                            <SliderLight
                               className="w-full"
                               value={[getCurrentOpacity(layer.id)]}
                               onValueChange={(value) => handleOpacityChange(layer.id, value)}
@@ -262,8 +266,8 @@ export function CityLayersComparison({
                           </div>
                         )}
                       </div>
-                      <Switch
-                        className="cursor-pointer flex-shrink-0 ml-2"
+                      <SwitchLight
+                        className="cursor-pointer shrink-0 ml-2"
                         id={`layer-1-${layer.id}`}
                         checked={isSelected}
                         onCheckedChange={(checked) => handleLayerToggle(layer.id, checked, true)}
@@ -281,8 +285,10 @@ export function CityLayersComparison({
         </AccordionItem>
 
         <AccordionItem value="layer2" className="border-b">
-          <AccordionTrigger className="text-left cursor-pointer px-4 font-semibold py-3 hover:no-underline text-base">
-            Camada da direita
+          <AccordionTrigger className="text-left text-gray-900 cursor-pointer px-4 font-semibold py-3 hover:no-underline text-base">
+            <span className="truncate">
+              {selectedLayer2 ? cityLayers.find(l => l.id === selectedLayer2)?.name || 'Camada da direita' : 'Camada da direita'}
+            </span>
           </AccordionTrigger>
           <div className="h-[0.5px] w-full bg-gray-300"/>
           <AccordionContent className="pb-0">
@@ -334,7 +340,7 @@ export function CityLayersComparison({
                                 {getCurrentOpacity(layer.id)}%
                               </span>
                             </div>
-                            <Slider
+                            <SliderLight
                               className="w-full"
                               value={[getCurrentOpacity(layer.id)]}
                               onValueChange={(value) => handleOpacityChange(layer.id, value)}
@@ -349,7 +355,7 @@ export function CityLayersComparison({
                           </div>
                         )}
                       </div>
-                      <Switch
+                      <SwitchLight
                         className="cursor-pointer flex-shrink-0 ml-2"
                         id={`layer-2-${layer.id}`}
                         checked={isSelected}
