@@ -61,7 +61,7 @@ export default function Home() {
               opacity: isReady ? 1 : 0, // Ocultar até estar pronto
             }}
           >
-            CIDADES @ DADOS
+            CIDADES@DADOS
           </h1>
 
           <p className="text-md text-foreground font-gt-ultra-fine mb-4 max-w-4xl">
@@ -75,9 +75,7 @@ export default function Home() {
           </p>
 
           <div className="flex flex-row gap-4">
-            <Link
-              href="/geoportal"
-            >
+            <Link href="/geoportal">
               <Button
                 variant="default"
                 size="lg"
