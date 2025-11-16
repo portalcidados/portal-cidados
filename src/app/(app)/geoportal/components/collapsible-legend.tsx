@@ -1,36 +1,49 @@
-"use client"
+"use client";
 
-import { Button } from "@/components/ui/button"
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
-import { ChevronUp, LayoutList, Moon, Sun } from "lucide-react"
-import { useState } from "react"
-import { MapLegend } from "./map-legend"
+import { Button } from "@/components/ui/button";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { ChevronUp, LayoutList, Moon, Sun } from "lucide-react";
+import { useState } from "react";
+import { MapLegend } from "./map-legend";
 
 interface CollapsibleLegendProps {
-  selectedLayers: string[]
-  selectedCity: string
-  cityLayersConfig: Record<string, Array<{
-    id: string
-    name: string
-    description?: string
-    layerType?: 'fill' | 'line' | 'circle' | 'symbol'
-    sourceLayer?: string
-  }>>
-  mapTheme: 'dark' | 'light'
-  onThemeToggle: () => void
+  selectedLayers: string[];
+  selectedCity: string;
+  cityLayersConfig: Record<
+    string,
+    Array<{
+      id: string;
+      name: string;
+      description?: string;
+      layerType?: "fill" | "line" | "circle" | "symbol";
+      sourceLayer?: string;
+    }>
+  >;
+  mapTheme: "dark" | "light";
+  onThemeToggle: () => void;
 }
 
-export function CollapsibleLegend({ selectedLayers, selectedCity, cityLayersConfig, mapTheme, onThemeToggle }: CollapsibleLegendProps) {
-  const [isCollapsed, setIsCollapsed] = useState(true)
+export function CollapsibleLegend({
+  selectedLayers,
+  selectedCity,
+  cityLayersConfig,
+  mapTheme,
+  onThemeToggle,
+}: CollapsibleLegendProps) {
+  const [isCollapsed, setIsCollapsed] = useState(true);
 
   const toggleCollapse = () => {
-    setIsCollapsed(!isCollapsed)
-  }
+    setIsCollapsed(!isCollapsed);
+  };
 
-  const hasLayers = selectedLayers.length > 0
+  const hasLayers = selectedLayers.length > 0;
 
   return (
-    <div className="top-17 right-4 absolute z-10 flex flex-col gap-2">
+    <div className="top-30 right-4 absolute z-10 flex flex-col gap-2">
       {isCollapsed ? (
         // Collapsed state - just the buttons
         <>
@@ -45,7 +58,9 @@ export function CollapsibleLegend({ selectedLayers, selectedCity, cityLayersConf
                     : "bg-gray-100 cursor-not-allowed opacity-50"
                 }`}
               >
-                <LayoutList className={`w-5 h-5 ${hasLayers ? 'text-gray-900' : 'text-gray-500'}`}/>
+                <LayoutList
+                  className={`w-5 h-5 ${hasLayers ? "text-gray-900" : "text-gray-500"}`}
+                />
               </button>
             </TooltipTrigger>
             <TooltipContent side="left">
@@ -59,35 +74,41 @@ export function CollapsibleLegend({ selectedLayers, selectedCity, cityLayersConf
                 onClick={onThemeToggle}
                 className="p-3 rounded-md outline-none border-gray-200 bg-white hover:bg-gray-50 cursor-pointer text-gray-900!"
               >
-                {mapTheme === 'dark' ? <Sun className="w-5 h-5 text-gray-900!"/> : <Moon className="w-5 h-5 text-gray-900!"/>}
+                {mapTheme === "dark" ? (
+                  <Sun className="w-5 h-5 text-gray-900!" />
+                ) : (
+                  <Moon className="w-5 h-5 text-gray-900!" />
+                )}
               </button>
             </TooltipTrigger>
             <TooltipContent side="left">
-              <p>{mapTheme === 'dark' ? 'Tema Claro' : 'Tema Escuro'}</p>
+              <p>{mapTheme === "dark" ? "Tema Claro" : "Tema Escuro"}</p>
             </TooltipContent>
           </Tooltip>
         </>
       ) : (
-         // Expanded state - full legend box and theme button
-         <>
-           <div className="h-auto max-h-[calc(100vh-100px)] overflow-y-auto w-60 bg-white rounded-lg shadow-xl p-4">
-             <div className="flex items-center justify-between mb-4">
-               <h3
-                 className="text-lg font-semibold text-gray-900 cursor-pointer hover:text-gray-700 transition-colors"
-                 onClick={hasLayers ? toggleCollapse : undefined}
-               >
-                 Legenda
-               </h3>
-               <Button
-                 onClick={hasLayers ? toggleCollapse : undefined}
-                 variant="ghost"
-                 size="sm"
-                 className="h-8 w-8 p-0 hover:bg-transparent!"
-                 disabled={!hasLayers}
-               >
-                 <ChevronUp className={`w-4 h-4 ${hasLayers ? 'text-gray-900' : 'text-gray-500'}`} />
-               </Button>
-             </div>
+        // Expanded state - full legend box and theme button
+        <>
+          <div className="h-auto max-h-[calc(100vh-100px)] overflow-y-auto w-60 bg-white rounded-lg shadow-xl p-4">
+            <div className="flex items-center justify-between mb-4">
+              <h3
+                className="text-lg font-semibold text-gray-900 cursor-pointer hover:text-gray-700 transition-colors"
+                onClick={hasLayers ? toggleCollapse : undefined}
+              >
+                Legenda
+              </h3>
+              <Button
+                onClick={hasLayers ? toggleCollapse : undefined}
+                variant="ghost"
+                size="sm"
+                className="h-8 w-8 p-0 hover:bg-transparent!"
+                disabled={!hasLayers}
+              >
+                <ChevronUp
+                  className={`w-4 h-4 ${hasLayers ? "text-gray-900" : "text-gray-500"}`}
+                />
+              </Button>
+            </div>
             {hasLayers ? (
               <MapLegend
                 selectedLayers={selectedLayers}
@@ -118,5 +139,5 @@ export function CollapsibleLegend({ selectedLayers, selectedCity, cityLayersConf
         </>
       )}
     </div>
-  )
+  );
 }
