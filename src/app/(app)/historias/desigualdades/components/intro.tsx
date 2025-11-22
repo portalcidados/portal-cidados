@@ -9,23 +9,28 @@ import backgroundImage from "../assets/background.png";
 import coverImage from "../assets/cover-image.png";
 
 export default function Intro() {
-  const handleShare = () => {
-    if (navigator.share) {
-      navigator.share({
-        title: "Diagnóstico sobre ilhas de calor e qualidade do ar na Maré",
-        text: "No coração da Zona Norte do Rio de Janeiro, entre o vai e vem das vias expressas e o calor do asfalto, um estudo revelou um problema invisível a olho nu, mas sentido todos os dias pelos moradores da Maré.",
-        url: window.location.href,
-      });
-    } else {
-      // Fallback: copiar URL para clipboard
-      navigator.clipboard.writeText(window.location.href);
-      alert("Link copiado para a área de transferência!");
-    }
-  };
+  const handleShare = async () => {
+    const shareData = {
+      title: "Diagnóstico sobre ilhas de calor e qualidade do ar na Maré",
+      text: "Confira este diagnóstico sobre ilhas de calor e qualidade do ar na Maré, realizado pela Redes da Maré.",
+      url: window.location.href,
+    };
 
-  const handleDownload = () => {
-    // Implementar lógica de download se necessário
-    console.log("Download clicked");
+    try {
+      // Verifica se o navegador suporta a Web Share API
+      if (navigator.share) {
+        await navigator.share(shareData);
+      } else {
+        // Fallback: copia o link para a área de transferência
+        await navigator.clipboard.writeText(window.location.href);
+        alert("Link copiado para a área de transferência!");
+      }
+    } catch (err) {
+      // Usuário cancelou o compartilhamento ou ocorreu erro
+      if ((err as Error).name !== "AbortError") {
+        console.error("Erro ao compartilhar:", err);
+      }
+    }
   };
 
   return (
@@ -103,6 +108,7 @@ export default function Intro() {
               {/* Botões de compartilhamento */}
               <div className="flex gap-2 justify-center">
                 <button
+                type="button"
                   onClick={handleShare}
                   className="flex items-center justify-center w-10 h-10 bg-transparent border-[#3A3434] hover:bg-[#f0f0f0] text-[#333333] rounded-full transition-all duration-300 shadow-lg border"
                   aria-label="Compartilhar"

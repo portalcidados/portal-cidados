@@ -2,12 +2,12 @@ import backgroundTexture from '../assets/background.png';
 import mareMapaImage from '../assets/mare-mapa.png';
 import { SectionCover } from './section-cover';
 
-export function Conclusao() {
+export function IntroMare() {
   return (
     <div className="w-full">
       {/* Capa da seção com imagem em escala de cinza e título */}
       <SectionCover
-        title="Conclusão"
+        title="A história da Maré"
         image={mareMapaImage}
         imageAlt="Mapa da Maré"
       />
