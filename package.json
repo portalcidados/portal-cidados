@@ -21,6 +21,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
+    "gsap": "^3.13.0",
     "lucide-react": "^0.545.0",
     "mapbox-gl": "^3.16.0",
     "mapbox-gl-compare": "^0.4.1",
