@@ -13,6 +13,7 @@ interface SectionCoverProps {
   grayscaleOpacity?: number;
   titleOpacity?: number;
   currentImageIndex?: number;
+  sticky?: boolean;
 }
 
 export function SectionCover({
@@ -24,7 +25,8 @@ export function SectionCover({
   imageAlt,
   grayscaleOpacity = 0,
   titleOpacity = 1,
-  currentImageIndex = 0
+  currentImageIndex = 0,
+  sticky = true
 }: SectionCoverProps) {
   const images = [image, image2, image3, image4].filter((img): img is StaticImageData | string => img !== undefined);
 
@@ -32,14 +34,16 @@ export function SectionCover({
     <div
       className="w-full h-screen overflow-hidden"
       style={{
-        position: 'sticky',
-        top: 0,
+        position: sticky ? 'sticky' : 'relative',
+        top: sticky ? 0 : 'auto',
       }}
     >
       {/* Renderizar todas as imagens com opacidade controlada */}
-      {images.map((img, index) => (
+      {images.map((img, index) => {
+        const imageSrc = typeof img === 'string' ? img : img.src;
+        return (
         <div
-          key={`image-${index}`}
+          key={`image-${imageSrc}`}
           className="absolute inset-0"
           style={{
             filter: index === 0 ? `grayscale(${grayscaleOpacity * 100}%)` : 'none',
@@ -56,7 +60,8 @@ export function SectionCover({
             priority={index === 0}
           />
         </div>
-      ))}
+        );
+      })}
 
       {/* Título */}
       <div className="relative z-10 h-full flex items-center pl-6 md:pl-20 lg:pl-24">

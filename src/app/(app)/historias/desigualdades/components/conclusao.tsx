@@ -10,6 +10,8 @@ export function Conclusao() {
         title="Conclusão"
         image={mareMapaImage}
         imageAlt="Mapa da Maré"
+        sticky={false}
+        grayscaleOpacity={1}
       />
 
       {/* Conteúdo da seção (abaixo da capa) com background.png */}
