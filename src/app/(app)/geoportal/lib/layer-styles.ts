@@ -165,105 +165,117 @@ export const layerStyles: Record<string, LayerStyle> = {
   },
   // ================== END SÃO PAULO ==================
   // ================== START RIO DE JANEIRO ==================
-  "renda_rio-4ks1k8": {
-     "type": "fill",
+  "quali_pontos-b424eh": {
+    "type": "circle",
     "source": "composite",
-    "id": "renda_rio-4ks1k8",
+    "id": "quali-pontos-b424eh",
     "paint": {
-      "fill-opacity": 0.7,
-      "fill-color": [
-        "step",
+      "circle-color": [
+        "interpolate",
+        [
+          "linear"
+        ],
         [
           "get",
-          "Renda Domiciliar Média (R$)"
+          "PM 10 Máx."
         ],
-        "#fff7fb",
-        1500,
-        "#ece2f0",
-        6000,
-        "#a6bddb",
-        13000,
-        "#3690c0",
-        25000,
-        "#02818a",
-        95000,
-        "#014636"
+        237,
+        "#cccccc",
+        554,
+        "#969696",
+        871,
+        "#636363"
       ]
-    },
-    "source-layer": "renda_rio-4ks1k8"
-  },
-  "rio_rotas_onibus": {
-      "type": "line",
-    "source": "composite",
-    "id": "rio-rotas-onibus",
-    "paint": {
-      "line-color": "#cb181d"
     },
     "slot": "",
-    "source-layer": "rio_rotas_onibus",
+    "source-layer": "quali_pontos-b424eh",
     "layout": {
       "visibility": "none"
     }
   },
-  "heatmap_bilhetagem_rio-59w42o": {
-    "type": "fill",
-    "source": "composite",
-    "id": "heatmap-bilhetagem-rio-59w42o",
-    "paint": {
-      "fill-color": [
-        "step",
-        [
-          "get",
-          "Número de Passageiros"
-        ],
-        "#000004",
-        5,
-        "#420a68",
-        25,
-        "#932667",
-        50,
-        "#dd513a",
-        100,
-        "#fca50a",
-        18043,
-        "#fcffa4"
-      ]
-    },
-    "source-layer": "heatmap_bilhetagem_rio-59w42o",
-    "layout": {
-      "visibility": "none"
-    }
-  },
-  "populacao_rio-19sjpd": 
-  {
+  "quali_area-1ci0wo": {
     "layout": {
       "visibility": "none"
     },
     "type": "fill",
     "source": "composite",
-    "id": "populacao-rio-19sjpd",
+    "id": "quali-area-1ci0wo",
     "paint": {
-      "fill-opacity": 0.7,
       "fill-color": [
-        "step",
+        "interpolate",
+        [
+          "linear"
+        ],
         [
           "get",
-          "População (2022)"
+          "PM 10 Máx."
         ],
-        "#f7fcf5",
-        500,
-        "#e5f5e0",
-        1000,
-        "#a1d99b",
-        2500,
-        "#41ab5d",
-        5000,
-        "#006d2c",
-        12281,
-        "#00441b"
+        237,
+        "#cccccc",
+        554,
+        "#969696",
+        871,
+        "#636363"
       ]
     },
-    "source-layer": "populacao_rio-19sjpd"
+    "slot": "",
+    "source-layer": "quali_area-1ci0wo"
+  },
+  "ic_pontos-90vwh4": {
+    "type": "circle",
+    "source": "composite",
+    "id": "ic-pontos-90vwh4",
+    "paint": {
+      "circle-color": [
+        "interpolate",
+        [
+          "linear"
+        ],
+        [
+          "get",
+          "Temperatura Máx."
+        ],
+        33.1,
+        "#fed976",
+        35,
+        "#fd8d3c",
+        37,
+        "#e31a1c",
+        39.4,
+        "#800026"
+      ]
+    },
+    "slot": "",
+    "source-layer": "ic_pontos-90vwh4",
+    "layout": {
+      "visibility": "none"
+    }
+  },
+  "ic_areas-3ii8xj": {
+    "type": "fill",
+    "source": "composite",
+    "id": "ic-areas-3ii8xj",
+    "paint": {
+      "fill-color": [
+        "interpolate",
+        [
+          "linear"
+        ],
+        [
+          "get",
+          "Temperatura Média"
+        ],
+        27.1,
+        "#ffeda0",
+        27.5,
+        "#fd8d3c",
+        27.9,
+        "#bd0026"
+      ],
+      "fill-opacity": 0.7
+    },
+    "slot": "",
+    "source-layer": "ic_areas-3ii8xj"
   },
   // ================== END RIO DE JANEIRO ==================
    // ================== START BRASIL ==================

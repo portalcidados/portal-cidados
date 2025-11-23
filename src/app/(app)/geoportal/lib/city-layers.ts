@@ -26,38 +26,38 @@ export const cityLayersConfig: CityLayersConfig = {
   ],
   "Rio de Janeiro": [
     { 
-      id: "renda", 
-      name: "Renda", 
-      description: "Renda per capita por bairro",
-      tilesetId: "observatorio-nacional.3pcgkauc",
-      sourceLayer: "renda_rio-4ks1k8",
+      id: "quali_pontos-b424eh", 
+      name: "Quali pontos - mudar texto", 
+      description: "Quali pontos",
+      tilesetId: "observatorio-nacional.18m3jaqa",
+      sourceLayer: "quali_pontos-b424eh",
+      layerType: "circle",
+      hasCustomStyle: true
+    },
+    { 
+      id: "quali_area-1ci0wo", 
+      name: "Quali área - mudar texto", 
+      description: "Quali área",
+      tilesetId: "observatorio-nacional.1dkglesm",
+      sourceLayer: "quali_area-1ci0wo",
       layerType: "fill",
       hasCustomStyle: true
     },
     { 
-      id: "rio_rotas_onibus", 
-      name: "Rotas de Ônibus", 
-      description: "Traçado das linhas de ônibus municipais.",
-      tilesetId: "observatorio-nacional.28tgojsu",
-      sourceLayer: "rio_rotas_onibus",
-      layerType: "fill",
+      id: "ic_pontos-90vwh4", 
+      name: "IC pontos - mudar texto", 
+      description: "IC pontos",
+      tilesetId: "observatorio-nacional.860kttlo",
+      sourceLayer: "ic_pontos-90vwh4",
+      layerType: "circle",
       hasCustomStyle: true
     },
     { 
-      id: "heatmap-bilhetagem", 
-      name: "Heatmap Embarques", 
-      description: "Contagem de embarques em grid 500x500m (agosto/2023).",
-      tilesetId: "observatorio-nacional.6mbl4ycd",
-      sourceLayer: "heatmap_bilhetagem_rio-59w42o",
-      layerType: "fill",
-      hasCustomStyle: true
-    },
-    { 
-      id: "population-rio", 
-      name: "Densidade Populacional", 
-      description: "Densidade populacional em grid 500x500m",
-      tilesetId: "observatorio-nacional.4sg21k6q",
-      sourceLayer: "populacao_rio-19sjpd",
+      id: "ic_areas-3ii8xj", 
+      name: "IC áreas - mudar texto", 
+      description: "IC áreas",
+      tilesetId: "observatorio-nacional.cxco0uhi",
+      sourceLayer: "ic_areas-3ii8xj",
       layerType: "fill",
       hasCustomStyle: true
     },
