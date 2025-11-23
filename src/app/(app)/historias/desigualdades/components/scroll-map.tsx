@@ -184,9 +184,9 @@ export const ScrollMap: React.FC<ScrollMapProps> = ({ imageSrc, points }) => {
       </div>
     </section>
     <div className="h-screen flex items-center justify-center">
-        <div className="flex flex-col justify-start items-start">
+        <div className="flex flex-col justify-start items-start px-4">
         <Zoom>
-          <img src={mapaTemperatura.src} alt="Mapa" className="h-140 object-fit" />
+          <img src={mapaTemperatura.src} alt="Mapa" className="max-h-140 object-fit" />
         </Zoom>
           <h2 className="text-md font-bold mt-2.5">Mapa de temperatura da Maré</h2>
           <p className="text-md text-gray-500">Produzido por Respira Maré</p>
