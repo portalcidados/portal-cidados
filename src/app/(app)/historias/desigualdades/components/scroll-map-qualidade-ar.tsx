@@ -170,15 +170,15 @@ export const ScrollMapQualidadeAr: React.FC<ScrollMapQualidadeArProps> = ({ imag
     const currentMapSrc = mapImages[selectedMap];
     
     return (
-      <div className="h-screen! mb-20! flex items-center flex-col justify-center">
+      <div className="mt-10 mx-auto max-w-lg mb-20! flex items-center flex-col justify-center">
         <div className="flex flex-col justify-start items-start">
           {currentMapSrc && (
             <Zoom>
-              <img src={currentMapSrc.src} alt="Mapa de Qualidade do Ar" className="h-180 object-fit" />
+              <img src={currentMapSrc.src} alt="Mapa de Qualidade do Ar" className="object-fit rounded-xl" />
             </Zoom>
           )}
           <h2 className="text-md font-bold mt-2.5">Mapa de temperatura da Maré</h2>
-          <p className="text-md text-gray-500">Produzido por <em>Respira Maré</em></p>
+          <p className="text-md text-[#3A3434]">Produzido por <em>Respira Maré</em></p>
           <div className="flex flex-row gap-2 mt-4">
             <button
               type="button"
@@ -216,7 +216,22 @@ export const ScrollMapQualidadeAr: React.FC<ScrollMapQualidadeArProps> = ({ imag
               UMIDADE
             </button>
           </div>
-        
+          <div>
+          <p className="text-md text-[#3A3434] my-5">
+          São partículas 5 a 7 vezes mais finas do que um
+fio de cabelo e podem ser inaladas e chegar até as
+vias aéreas mais profundas dos pulmões, mas a
+maioria delas tende a se depositar nas vias aéreas
+superiores, como traquéia e brônquios.
+
+          </p>
+          <p className="text-md text-[#3A3434]">
+          Podem causar
+problemas respiratórios, cardiovasculares e agravar 
+condições de saúde preexistentes. Na Maré, as regiões do Parque Ecológico se destacam
+na concentração de PM 10 , por motivos diferentes.
+          </p>
+          </div>
         </div>
       </div>
     );
