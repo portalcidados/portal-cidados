@@ -1,9 +1,8 @@
 "use client";
 
-import { useLayoutEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Image from "next/image";
 import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
 import mapaDeUmidade from "../assets/mapa-de-umidade.png";
@@ -19,14 +18,33 @@ export type MapPoint = {
   y: number; // porcentagem 0–100
   name: string;
   zoom: number; // ex: 2, 3...
+  xMobile?: number; // porcentagem 0–100 para mobile
+  yMobile?: number; // porcentagem 0–100 para mobile
+  zoomMobile?: number; // zoom para mobile
 };
 
 type ScrollMapQualidadeArProps = {
   imageSrc: string;
+  imageSrcMobile?: string;
   points: MapPoint[];
 };
 
-export const ScrollMapQualidadeAr: React.FC<ScrollMapQualidadeArProps> = ({ imageSrc, points }) => {
+export const ScrollMapQualidadeAr: React.FC<ScrollMapQualidadeArProps> = ({ imageSrc, imageSrcMobile, points }) => {
+  const [currentImageSrc, setCurrentImageSrc] = useState(imageSrc);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      const mobile = window.innerWidth < 768;
+      setCurrentImageSrc(mobile && imageSrcMobile ? imageSrcMobile : imageSrc);
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+
+    return () => {
+      window.removeEventListener("resize", checkMobile);
+    };
+  }, [imageSrc, imageSrcMobile]);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const stickyRef = useRef<HTMLDivElement | null>(null);
   const mapWrapperRef = useRef<HTMLDivElement | null>(null);
@@ -55,12 +73,19 @@ export const ScrollMapQualidadeAr: React.FC<ScrollMapQualidadeArProps> = ({ imag
       const imgRect = img.getBoundingClientRect();
       const stickyRect = sticky.getBoundingClientRect();
 
+      // Detecta se está no mobile
+      const isMobile = window.innerWidth < 768; // breakpoint padrão do Tailwind (md)
+      
       // Para cada ponto, calculamos o translateX/Y necessário para centralizá-lo.
       const transforms = points.map((p) => {
-        const zoom = p.zoom || 2;
+        // Usa valores mobile se disponíveis e estiver no mobile
+        const zoom = isMobile && p.zoomMobile !== undefined ? p.zoomMobile : (p.zoom || 2);
+        const xPercent = isMobile && p.xMobile !== undefined ? p.xMobile : p.x;
+        const yPercent = isMobile && p.yMobile !== undefined ? p.yMobile : p.y;
+        
         // posição do ponto na imagem em pixels
-        const px = (p.x / 100) * imgRect.width;
-        const py = (p.y / 100) * imgRect.height;
+        const px = (xPercent / 100) * imgRect.width;
+        const py = (yPercent / 100) * imgRect.height;
         // centro da área visível
         const cx = stickyRect.width / 2;
         const cy = stickyRect.height / 2;
@@ -154,6 +179,21 @@ export const ScrollMapQualidadeAr: React.FC<ScrollMapQualidadeArProps> = ({ imag
       gsap.killTweensOf(mapWrapper);
     };
   }, [points]);
+
+  // Atualiza a imagem quando currentImageSrc mudar
+  useEffect(() => {
+    const img = imageRef.current;
+    if (img && img.src !== currentImageSrc) {
+      img.src = currentImageSrc;
+      // Força o recarregamento da imagem para disparar onload e recriar animação
+      if (img.complete) {
+        // Se a imagem já está carregada, força o recarregamento
+        const tempSrc = img.src;
+        img.src = '';
+        img.src = tempSrc;
+      }
+    }
+  }, [currentImageSrc]);
 
   // Componente interno para a seção de seleção de mapas
   const MapSelector = () => {
@@ -270,7 +310,7 @@ na concentração de PM 10 , por motivos diferentes.
         >
           <img
             ref={imageRef}
-            src={imageSrc}
+            src={currentImageSrc}
             alt="Mapa de Qualidade do Ar"
             style={{
               width: "100%",
