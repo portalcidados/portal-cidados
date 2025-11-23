@@ -95,7 +95,7 @@ export function Solucoes() {
     <div className="w-full">
       {/* Capa da seção com imagem em escala de cinza e título */}
       <SectionCover
-        title="Soluções"
+        title={<><strong>Soluções</strong></>}
         image={mareMapaImage}
         imageAlt="Mapa da Maré"
         sticky={false}

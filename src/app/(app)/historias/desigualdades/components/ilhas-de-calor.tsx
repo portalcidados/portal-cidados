@@ -34,7 +34,7 @@ export function IlhasDeCalor() {
           >
             Ilhas de <strong>calor</strong>
           </h2>
-          <div className="space-y-6 text-base md:text-lg leading-relaxed text-zinc-700">
+          <div className="space-y-6 text-base md:text-lg leading-relaxed text-[#3A3434]">
             <p>
             Ilhas de calor são bolsões de altas temperaturas que se formam em áreas urbanas densamente construídas, onde o asfalto, o concreto e a falta de arborização criam um ambiente mais quente do que as regiões vizinhas.
 
@@ -45,7 +45,7 @@ export function IlhasDeCalor() {
             <p>
 
 
-            Importante destacar que, dos 15 territórios que formam a Maré, 9 foram construídos pelo Estado. Isso reforça que a presença de ilhas de calor não pode ser atribuída exclusivamente à autoconstrução — mas sim à ausência de políticas públicas que integrem planejamento urbano com justiça socioambiental.
+            Importante destacar que, <strong>dos 15 territórios que formam a Maré, 9 foram construídos pelo Estado</strong>. Isso reforça que a presença de ilhas de calor não pode ser atribuída exclusivamente à autoconstrução — mas sim à ausência de políticas públicas que integrem planejamento urbano com justiça socioambiental.
             </p>
           </div>
         </div>
