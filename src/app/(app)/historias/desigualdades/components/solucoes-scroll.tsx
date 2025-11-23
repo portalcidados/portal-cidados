@@ -182,17 +182,22 @@ export const SolucoesScroll: React.FC<SolucoesScrollProps> = ({ items }) => {
   }, [items]);
 
   const getTextPositionClasses = (position: SolucaoItem["textPosition"]) => {
+    // No mobile, sempre força top-left com margens adequadas
+    // No desktop (md: e acima), usa a posição especificada
+    // Usamos valores arbitrários para resetar propriedades no desktop
+    const mobileBase = "top-10 left-4";
+    
     switch (position) {
       case "top-left":
-        return "top-6 left-6 md:top-8 md:left-8 lg:top-12 lg:left-12";
+        return `${mobileBase} md:top-8 md:left-8 lg:top-12 lg:left-12`;
       case "top-right":
-        return "top-6 right-6 md:top-8 md:right-8 lg:top-12 lg:right-12";
+        return `${mobileBase} md:left-[unset] md:top-8 md:right-8 lg:top-12 lg:right-12`;
       case "bottom-left":
-        return "bottom-6 left-6 md:bottom-8 md:left-8 lg:bottom-12 lg:left-12";
+        return `${mobileBase} md:top-[unset] md:bottom-8 md:left-8 lg:bottom-12 lg:left-12`;
       case "bottom-right":
-        return "bottom-6 right-6 md:bottom-8 md:right-8 lg:bottom-12 lg:right-12";
+        return `${mobileBase} md:top-[unset] md:left-[unset] md:bottom-6 md:right-0 lg:bottom-6 lg:right-0`;
       default:
-        return "top-6 left-6";
+        return `${mobileBase} md:top-8 md:left-8 lg:top-12 lg:left-12`;
     }
   };
 
@@ -207,7 +212,7 @@ export const SolucoesScroll: React.FC<SolucoesScrollProps> = ({ items }) => {
     >
       <div
         ref={stickyRef}
-        className="relative"
+        className="relative w-full h-screen"
         style={{
           position: "sticky",
           top: 0,
@@ -215,6 +220,8 @@ export const SolucoesScroll: React.FC<SolucoesScrollProps> = ({ items }) => {
           width: "100%",
           overflow: "hidden",
           backgroundColor: "#ffffff",
+          maxWidth: "100vw",
+          maxHeight: "100vh",
         }}
       >
         {/* Container para todas as imagens */}
@@ -227,18 +234,26 @@ export const SolucoesScroll: React.FC<SolucoesScrollProps> = ({ items }) => {
               ref={(el) => {
                 imageRefs.current[index] = el;
               }}
-              className="absolute inset-0"
+              className="absolute inset-0 w-full h-full"
               style={{
                 opacity: index === 0 ? 1 : 0,
+                maxWidth: "100%",
+                maxHeight: "100%",
+                overflow: "hidden",
               }}
             >
               <Image
                 src={item.image}
                 alt={`Solução ${index + 1}`}
                 fill
-                className="object-cover"
+                className="object-contain"
                 priority={index === 0}
                 sizes="100vw"
+                style={{
+                  objectFit: "contain",
+                  maxWidth: "100%",
+                  maxHeight: "100%",
+                }}
               />
             </div>
           );
@@ -254,15 +269,16 @@ export const SolucoesScroll: React.FC<SolucoesScrollProps> = ({ items }) => {
               ref={(el) => {
                 textRefs.current[index] = el;
               }}
-              className={`absolute ${getTextPositionClasses(item.textPosition)} z-10`}
+              className={`absolute ${getTextPositionClasses(item.textPosition)} z-10 px-2 md:px-0`}
               style={{
                 opacity: index === 0 ? 1 : 0,
+                maxWidth: "calc(100% - 2rem)",
               }}
             >
-              <p className="text-md font-bold text-gray-900 max-w-md">
+              <p className="text-sm md:text-base font-bold text-gray-900 max-w-md">
                 {item.text}
               </p>
-              <p className="text-md text-gray-900 max-w-md mt-2">
+              <p className="text-sm md:text-base text-gray-900 max-w-md mt-2">
                 {item.description}
               </p>
             </div>

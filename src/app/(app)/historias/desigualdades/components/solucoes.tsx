@@ -68,13 +68,13 @@ const solucoesItems: SolucaoItem[] = [
       image: s9, // Substitua pela imagem da solução 9
       text: 'MONITORAMENTO E PESQUISA CONTÍNUA',
       description:'Estabelecer uma rede complementar de monitoramento climático e de qualidade do ar, investir em pesquisa para avaliar constantemente os impactos de políticas climáticas implantadas, investimento em tecnologias modernas para análise em tempo real e divulgação transparente dos resultados;',
-      textPosition: 'top-right',
+      textPosition: 'bottom-right',
     },
     {
       image: s10, // Substitua pela imagem da solução 10
       text: 'MONITORAMENTO E PESQUISA CONTÍNUA',
       description:'Estabelecer uma rede complementar de monitoramento climático e de qualidade do ar, investir em pesquisa para avaliar constantemente os impactos de políticas climáticas implantadas, investimento em tecnologias modernas para análise em tempo real e divulgação transparente dos resultados;',
-      textPosition: 'top-right',
+      textPosition: 'bottom-right',
     },
     {
       image: s11, // Substitua pela imagem da solução 11
