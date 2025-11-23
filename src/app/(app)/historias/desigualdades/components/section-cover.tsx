@@ -36,6 +36,9 @@ export function SectionCover({
       style={{
         position: sticky ? 'sticky' : 'relative',
         top: sticky ? 0 : 'auto',
+        zIndex: sticky ? 0 : 'auto',
+        WebkitTransform: 'translateZ(0)', // Force hardware acceleration
+        transform: 'translateZ(0)',
       }}
     >
       {/* Renderizar todas as imagens com opacidade controlada */}

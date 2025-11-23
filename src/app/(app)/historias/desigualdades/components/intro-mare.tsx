@@ -27,10 +27,10 @@ function ScrollCard({ children, cardRef }: ScrollCardProps) {
   const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!contentRef.current) return;
+    if (!contentRef.current || !children) return;
 
     // Animação de entrada do card usando GSAP
-    gsap.fromTo(
+    const animation = gsap.fromTo(
       contentRef.current,
       {
         opacity: 0,
@@ -51,27 +51,24 @@ function ScrollCard({ children, cardRef }: ScrollCardProps) {
     );
 
     return () => {
-      ScrollTrigger.getAll().forEach((trigger) => {
-        if (trigger.vars.trigger === cardRef.current) {
-          trigger.kill();
-        }
-      });
+      animation.kill();
     };
-  }, [cardRef]);
+  }, [cardRef, children]);
 
   return (
-    <div ref={cardRef} className="flex items-center justify-center p-6 md:p-8 lg:p-10" style={{ minHeight: '200vh' }}>
+    <div 
+      ref={cardRef} 
+      className={children ? "flex items-center justify-center p-6 md:p-8 lg:p-10" : ""}
+      style={{ minHeight: '200vh' }}
+    >
       {children ? (
         <div
           ref={contentRef}
-          className="bg-white/70 backdrop-blur-sm text-black p-6 md:p-8 lg:p-10 max-w-2xl shadow-lg rounded-lg"
+          className="bg-white/70 backdrop-blur-sm text-black p-6 md:p-8 lg:p-10 max-w-2xl shadow-lg rounded-lg w-full"
         >
           {children}
         </div>
-      ) : (
-        // Card invisível, apenas para trigger
-        <div style={{ minHeight: '200vh' }} />
-      )}
+      ) : null}
     </div>
   );
 }
@@ -95,130 +92,198 @@ export function IntroMare() {
   const card12Ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Card 0: Remove grayscale e título
-    const card0Trigger = ScrollTrigger.create({
-      trigger: card0Ref.current,
-      start: 'top center',
-      end: 'bottom center',
-      onEnter: () => {
-        setGrayscaleOpacity(0);
-        setTitleOpacity(0);
-      },
-      onLeaveBack: () => {
-        setGrayscaleOpacity(1);
-        setTitleOpacity(1);
-      },
+    let triggers: ScrollTrigger[] = [];
+    let timeoutId: NodeJS.Timeout;
+
+    // Função para criar todos os triggers
+    const createTriggers = () => {
+      // Verificar se todos os refs estão disponíveis
+      const refs = [
+        card0Ref, card1Ref, card2Ref, card3Ref, card4Ref, card5Ref, card6Ref,
+        card8Ref, card9Ref, card10Ref, card11Ref, card12Ref
+      ];
+      
+      const allRefsReady = refs.every(ref => ref.current !== null);
+      
+      if (!allRefsReady) {
+        return;
+      }
+
+      // Limpar triggers anteriores se existirem
+      for (const trigger of triggers) {
+        trigger.kill();
+      }
+      triggers = [];
+
+      // Card 0: Remove grayscale e título
+      triggers.push(ScrollTrigger.create({
+        trigger: card0Ref.current,
+        start: 'top center',
+        end: 'bottom center',
+        onEnter: () => {
+          setGrayscaleOpacity(0);
+          setTitleOpacity(0);
+        },
+        onLeaveBack: () => {
+          setGrayscaleOpacity(1);
+          setTitleOpacity(1);
+        },
+      }));
+
+      // Card 1: Troca para imagem 2 (mare-mapa-2.png)
+      triggers.push(ScrollTrigger.create({
+        trigger: card1Ref.current,
+        start: 'top center',
+        end: 'bottom center',
+        onEnter: () => setCurrentImageIndex(1),
+        onLeaveBack: () => setCurrentImageIndex(0),
+      }));
+
+      // Card 2: Mantém imagem 2
+      triggers.push(ScrollTrigger.create({
+        trigger: card2Ref.current,
+        start: 'top center',
+        end: 'bottom center',
+        onEnter: () => setCurrentImageIndex(1),
+      }));
+
+      // Card 3: Volta para imagem 1 (mare-mapa.png)
+      triggers.push(ScrollTrigger.create({
+        trigger: card3Ref.current,
+        start: 'top center',
+        end: 'bottom center',
+        onEnter: () => setCurrentImageIndex(0),
+        onLeaveBack: () => setCurrentImageIndex(1),
+      }));
+
+      // Card 8: Trigger invisível para trocar para imagem 3 (mare-mapa-3.png)
+      triggers.push(ScrollTrigger.create({
+        trigger: card8Ref.current,
+        start: 'top center',
+        end: 'bottom center',
+        onEnter: () => setCurrentImageIndex(2),
+        onLeaveBack: () => setCurrentImageIndex(0),
+      }));
+
+      // Card 4: Volta para imagem 1 (mare-mapa.png)
+      triggers.push(ScrollTrigger.create({
+        trigger: card4Ref.current,
+        start: 'top center',
+        end: 'bottom center',
+        onEnter: () => setCurrentImageIndex(0),
+        onLeaveBack: () => setCurrentImageIndex(2),
+      }));
+
+      // Card 5: Volta para imagem 1 (mare-mapa.png)
+      triggers.push(ScrollTrigger.create({
+        trigger: card5Ref.current,
+        start: 'top center',
+        end: 'bottom center',
+        onEnter: () => setCurrentImageIndex(0),
+        onLeaveBack: () => setCurrentImageIndex(2),
+      }));
+
+      // Card 6: Troca para imagem 4 (mare-mapa-4.png) - trigger invisível
+      triggers.push(ScrollTrigger.create({
+        trigger: card6Ref.current,
+        start: 'top center',
+        end: 'bottom center',
+        onEnter: () => setCurrentImageIndex(3),
+        onLeaveBack: () => setCurrentImageIndex(0),
+      }));
+
+      // Card 9: Trigger invisível para voltar para imagem 1 (mare-mapa.png)
+      triggers.push(ScrollTrigger.create({
+        trigger: card9Ref.current,
+        start: 'top center',
+        end: 'bottom center',
+        onEnter: () => setCurrentImageIndex(0),
+        onLeaveBack: () => setCurrentImageIndex(3),
+      }));
+
+      // Card 10: Mantém imagem 1 (mare-mapa.png)
+      triggers.push(ScrollTrigger.create({
+        trigger: card10Ref.current,
+        start: 'top center',
+        end: 'bottom center',
+        onEnter: () => setCurrentImageIndex(0),
+      }));
+
+      // Card 11: Mantém imagem 1 (mare-mapa.png)
+      triggers.push(ScrollTrigger.create({
+        trigger: card11Ref.current,
+        start: 'top center',
+        end: 'bottom center',
+        onEnter: () => setCurrentImageIndex(0),
+      }));
+
+      // Card 12: Mantém imagem 1 (mare-mapa.png)
+      triggers.push(ScrollTrigger.create({
+        trigger: card12Ref.current,
+        start: 'top center',
+        end: 'bottom center',
+        onEnter: () => setCurrentImageIndex(0),
+      }));
+
+      // Atualizar ScrollTrigger após criar todos os triggers
+      ScrollTrigger.refresh();
+    };
+
+    // Função para tentar criar os triggers
+    const tryCreateTriggers = () => {
+      const refs = [
+        card0Ref, card1Ref, card2Ref, card3Ref, card4Ref, card5Ref, card6Ref,
+        card8Ref, card9Ref, card10Ref, card11Ref, card12Ref
+      ];
+      
+      const allRefsReady = refs.every(ref => ref.current !== null);
+      
+      if (allRefsReady) {
+        createTriggers();
+        return true;
+      }
+      return false;
+    };
+
+    // Tentar criar imediatamente
+    if (!tryCreateTriggers()) {
+      // Se não funcionou, aguardar um pouco
+      timeoutId = setTimeout(() => {
+        if (!tryCreateTriggers()) {
+          // Se ainda não funcionou, tentar após o load completo
+          window.addEventListener('load', () => {
+            tryCreateTriggers();
+          }, { once: true });
+        }
+      }, 100);
+    }
+
+    // Handler para resize
+    const handleResize = () => {
+      // Usar debounce para evitar muitas chamadas
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        createTriggers();
+      }, 150);
+    };
+
+    window.addEventListener('resize', handleResize);
+    window.addEventListener('orientationchange', () => {
+      // Aguardar um pouco após mudança de orientação
+      setTimeout(() => {
+        createTriggers();
+      }, 300);
     });
 
-    // Card 1: Troca para imagem 2 (mare-mapa-2.png)
-    const card1Trigger = ScrollTrigger.create({
-      trigger: card1Ref.current,
-      start: 'top center',
-      end: 'bottom center',
-      onEnter: () => setCurrentImageIndex(1),
-      onLeaveBack: () => setCurrentImageIndex(0),
-    });
-
-    // Card 2: Mantém imagem 2
-    const card2Trigger = ScrollTrigger.create({
-      trigger: card2Ref.current,
-      start: 'top center',
-      end: 'bottom center',
-      onEnter: () => setCurrentImageIndex(1),
-    });
-
-    // Card 3: Volta para imagem 1 (mare-mapa.png)
-    const card3Trigger = ScrollTrigger.create({
-      trigger: card3Ref.current,
-      start: 'top center',
-      end: 'bottom center',
-      onEnter: () => setCurrentImageIndex(0),
-      onLeaveBack: () => setCurrentImageIndex(1),
-    });
-
-    // Card 8: Trigger invisível para trocar para imagem 3 (mare-mapa-3.png)
-    const card8Trigger = ScrollTrigger.create({
-      trigger: card8Ref.current,
-      start: 'top center',
-      end: 'bottom center',
-      onEnter: () => setCurrentImageIndex(2),
-      onLeaveBack: () => setCurrentImageIndex(0),
-    });
-
-    // Card 4: Volta para imagem 1 (mare-mapa.png)
-    const card4Trigger = ScrollTrigger.create({
-      trigger: card4Ref.current,
-      start: 'top center',
-      end: 'bottom center',
-      onEnter: () => setCurrentImageIndex(0),
-      onLeaveBack: () => setCurrentImageIndex(2),
-    });
-
-    // Card 5: Volta para imagem 1 (mare-mapa.png)
-    const card5Trigger = ScrollTrigger.create({
-      trigger: card5Ref.current,
-      start: 'top center',
-      end: 'bottom center',
-      onEnter: () => setCurrentImageIndex(0),
-      onLeaveBack: () => setCurrentImageIndex(2),
-    });
-
-    // Card 6: Troca para imagem 4 (mare-mapa-4.png) - trigger invisível
-    const card6Trigger = ScrollTrigger.create({
-      trigger: card6Ref.current,
-      start: 'top center',
-      end: 'bottom center',
-      onEnter: () => setCurrentImageIndex(3),
-      onLeaveBack: () => setCurrentImageIndex(0),
-    });
-
-    // Card 9: Trigger invisível para voltar para imagem 1 (mare-mapa.png)
-    const card9Trigger = ScrollTrigger.create({
-      trigger: card9Ref.current,
-      start: 'top center',
-      end: 'bottom center',
-      onEnter: () => setCurrentImageIndex(0),
-      onLeaveBack: () => setCurrentImageIndex(3),
-    });
-
-    // Card 10: Mantém imagem 1 (mare-mapa.png)
-    const card10Trigger = ScrollTrigger.create({
-      trigger: card10Ref.current,
-      start: 'top center',
-      end: 'bottom center',
-      onEnter: () => setCurrentImageIndex(0),
-    });
-
-    // Card 11: Mantém imagem 1 (mare-mapa.png)
-    const card11Trigger = ScrollTrigger.create({
-      trigger: card11Ref.current,
-      start: 'top center',
-      end: 'bottom center',
-      onEnter: () => setCurrentImageIndex(0),
-    });
-
-    // Card 12: Mantém imagem 1 (mare-mapa.png)
-    const card12Trigger = ScrollTrigger.create({
-      trigger: card12Ref.current,
-      start: 'top center',
-      end: 'bottom center',
-      onEnter: () => setCurrentImageIndex(0),
-    });
-
-    // Cleanup de todos os ScrollTriggers
     return () => {
-      card0Trigger.kill();
-      card1Trigger.kill();
-      card2Trigger.kill();
-      card3Trigger.kill();
-      card4Trigger.kill();
-      card5Trigger.kill();
-      card6Trigger.kill();
-      card8Trigger.kill();
-      card9Trigger.kill();
-      card10Trigger.kill();
-      card11Trigger.kill();
-      card12Trigger.kill();
+      clearTimeout(timeoutId);
+      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('orientationchange', handleResize);
+      // Matar todos os ScrollTriggers
+      for (const trigger of triggers) {
+        trigger.kill();
+      }
+      triggers = [];
     };
   }, []);
 
