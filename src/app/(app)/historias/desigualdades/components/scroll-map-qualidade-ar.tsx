@@ -1,12 +1,16 @@
 "use client";
 
-import { useLayoutEffect, useRef } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
-import mapaTemperatura from "../assets/mapa-temperatura.png";
+import mapaDeUmidade from "../assets/mapa-de-umidade.png";
+import mapaDeCO2 from "../assets/mapa-de-co2.png";
+import mapaDeHCHO from "../assets/mapa-de-hcho.png";
+import mapaDePM10 from "../assets/mapa-de-pm10.png";
+import mapaDePM25 from "../assets/mapa-de-pm25.png";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -17,16 +21,17 @@ export type MapPoint = {
   zoom: number; // ex: 2, 3...
 };
 
-type ScrollMapProps = {
+type ScrollMapQualidadeArProps = {
   imageSrc: string;
   points: MapPoint[];
 };
 
-export const ScrollMap: React.FC<ScrollMapProps> = ({ imageSrc, points }) => {
+export const ScrollMapQualidadeAr: React.FC<ScrollMapQualidadeArProps> = ({ imageSrc, points }) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const stickyRef = useRef<HTMLDivElement | null>(null);
   const mapWrapperRef = useRef<HTMLDivElement | null>(null);
   const imageRef = useRef<HTMLImageElement | null>(null);
+  const scrollTriggerRef = useRef<ScrollTrigger | null>(null);
 
   useLayoutEffect(() => {
     const container = containerRef.current;
@@ -40,10 +45,11 @@ export const ScrollMap: React.FC<ScrollMapProps> = ({ imageSrc, points }) => {
 
     // Função que cria o timeline com base nos tamanhos atuais
     const setupAnimation = () => {
-      // Limpa qualquer ScrollTrigger prévio
-      ScrollTrigger.getAll().forEach((st) => {
-        st.kill();
-      });
+      // Limpa apenas o ScrollTrigger específico deste componente
+      if (scrollTriggerRef.current) {
+        scrollTriggerRef.current.kill();
+        scrollTriggerRef.current = null;
+      }
       gsap.killTweensOf(mapWrapper);
 
       const imgRect = img.getBoundingClientRect();
@@ -72,12 +78,20 @@ export const ScrollMap: React.FC<ScrollMapProps> = ({ imageSrc, points }) => {
         scrollTrigger: {
           trigger: container,
           start: "top top",
-          end: () => "+=" + window.innerHeight * totalSteps,
+          end: () => "+="+window.innerHeight * totalSteps,
           scrub: true,
           pin: sticky,
           anticipatePin: 1,
+          id: "scroll-map-qualidade-ar", // ID único para este ScrollTrigger
+          onRefresh: (self) => {
+            // Garante que o ScrollTrigger seja atualizado corretamente
+            scrollTriggerRef.current = self;
+          },
         },
       });
+
+      // Armazena referência ao ScrollTrigger criado
+      scrollTriggerRef.current = tl.scrollTrigger as ScrollTrigger;
 
       // estado inicial: mapa "inteiro"
       tl.set(mapWrapper, {
@@ -132,18 +146,88 @@ export const ScrollMap: React.FC<ScrollMapProps> = ({ imageSrc, points }) => {
 
     return () => {
       window.removeEventListener("resize", handleResize);
-      ScrollTrigger.getAll().forEach((st) => {
-        st.kill();
-      });
+      // Limpa apenas o ScrollTrigger específico deste componente
+      if (scrollTriggerRef.current) {
+        scrollTriggerRef.current.kill();
+        scrollTriggerRef.current = null;
+      }
+      gsap.killTweensOf(mapWrapper);
     };
   }, [points]);
+
+  // Componente interno para a seção de seleção de mapas
+  const MapSelector = () => {
+    const [selectedMap, setSelectedMap] = useState<"PM10" | "PM25" | "CO2" | "HCHO" | "UMIDADE">("PM10");
+    
+    const mapImages = {
+      PM10: mapaDePM10,
+      PM25: mapaDePM25,
+      CO2: mapaDeCO2,
+      HCHO: mapaDeHCHO,
+      UMIDADE: mapaDeUmidade,
+    };
+
+    const currentMapSrc = mapImages[selectedMap];
+    
+    return (
+      <div className="h-screen! mb-20! flex items-center flex-col justify-center">
+        <div className="flex flex-col justify-start items-start">
+          {currentMapSrc && (
+            <Zoom>
+              <img src={currentMapSrc.src} alt="Mapa de Qualidade do Ar" className="h-180 object-fit" />
+            </Zoom>
+          )}
+          <h2 className="text-md font-bold mt-2.5">Mapa de temperatura da Maré</h2>
+          <p className="text-md text-gray-500">Produzido por <em>Respira Maré</em></p>
+          <div className="flex flex-row gap-2 mt-4">
+            <button
+              type="button"
+              onClick={() => setSelectedMap("PM10")}
+              className={`px-4 py-2 rounded-md bg-gray-900 text-white font-medium hover:bg-gray-800 transition-colors ${selectedMap === "PM10" ? "opacity-50" : ""}`}
+            >
+              PM 10
+            </button>
+            <button
+              type="button"
+              onClick={() => setSelectedMap("PM25")}
+              className={`px-4 py-2 rounded-md bg-gray-900 text-white font-medium hover:bg-gray-800 transition-colors ${selectedMap === "PM25" ? "opacity-50" : ""}`}
+            >
+              PM 2,5
+            </button>
+            <button
+              type="button"
+              onClick={() => setSelectedMap("CO2")}
+              className={`px-4 py-2 rounded-md bg-gray-900 text-white font-medium hover:bg-gray-800 transition-colors ${selectedMap === "CO2" ? "opacity-50" : ""}`}
+            >
+              CO 2
+            </button>
+            <button
+              type="button"
+              onClick={() => setSelectedMap("HCHO")}
+              className={`px-4 py-2 rounded-md bg-gray-900 text-white font-medium hover:bg-gray-800 transition-colors ${selectedMap === "HCHO" ? "opacity-50" : ""}`}
+            >
+              HCHO
+            </button>
+            <button
+              type="button"
+              onClick={() => setSelectedMap("UMIDADE")}
+              className={`px-4 py-2 rounded-md bg-gray-900 text-white font-medium hover:bg-gray-800 transition-colors ${selectedMap === "UMIDADE" ? "opacity-50" : ""}`}
+            >
+              UMIDADE
+            </button>
+          </div>
+        
+        </div>
+      </div>
+    );
+  };
 
   return (
     <>
     <section
       style={{
         position: "relative",
-        height: `${(points.length + 1) * 116.5}vh`, // altura total de scroll
+        height: `${(points.length + 1) * 122}vh`, // altura total de scroll
       }}
       ref={containerRef}
     >
@@ -172,7 +256,7 @@ export const ScrollMap: React.FC<ScrollMapProps> = ({ imageSrc, points }) => {
           <img
             ref={imageRef}
             src={imageSrc}
-            alt="Mapa"
+            alt="Mapa de Qualidade do Ar"
             style={{
               width: "100%",
               height: "100%",
@@ -183,16 +267,7 @@ export const ScrollMap: React.FC<ScrollMapProps> = ({ imageSrc, points }) => {
         </div>
       </div>
     </section>
-    <div className="h-screen flex items-center justify-center">
-        <div className="flex flex-col justify-start items-start">
-        <Zoom>
-          <img src={mapaTemperatura.src} alt="Mapa" className="h-140 object-fit" />
-        </Zoom>
-          <h2 className="text-md font-bold mt-2.5">Mapa de temperatura da Maré</h2>
-          <p className="text-md text-gray-500">Produzido por Respira Maré</p>
-        </div>
-      </div>
+    <MapSelector />
     </>
   );
 };
-
