@@ -8,6 +8,7 @@ import mareMapaImage5 from "./assets/mare-mapa-5.png";
 import mareMapaImage6 from "./assets/mare-mapa-6.png";
 import { MapPoint, ScrollMap } from "./components/scroll-map";
 import { ScrollMapQualidadeAr } from "./components/scroll-map-qualidade-ar";
+import { Solucoes } from "./components/solucoes";
 
 
 
@@ -42,6 +43,7 @@ export default function Desigualdades() {
         imageSrc={mareMapaImage6.src}
         points={mapQualidadeDoArPoints}
       />
+      <Solucoes />
       <Conclusao />
       <Footer />
     </div>
