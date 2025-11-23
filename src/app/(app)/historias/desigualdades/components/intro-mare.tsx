@@ -335,7 +335,7 @@ export function IntroMare() {
           <p className="text-base md:text-lg leading-relaxed">
           A primeira favela da região foi a <strong>Morro do Timbau</strong>, que surgiu nos anos 1940. Nos anos seguintes, outras ocupações espontâneas surgiram, muitas delas sobre terrenos alagadiços, impulsionadas pelo crescimento da cidade e a necessidade de moradia acessível para trabalhadores urbanos
           </p>
-          <Image src={imageCard4} alt="Mapa da Maré" className="w-full h-full object-cover pt-10" />
+          <Image src={imageCard4} alt="Mapa da Maré" className=" w-full h-full object-cover pt-10" />
         </div>
       </ScrollCard>
 
