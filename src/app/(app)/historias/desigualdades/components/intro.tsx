@@ -97,11 +97,11 @@ export default function Intro() {
 
             {/* Conteúdo centralizado sobre a imagem */}
             <div className="absolute inset-0 flex flex-col items-center justify-center p-0 sm:px-6 md:px-8 lg:px-12">
-              <h1 className="text-lg sm:text-xl md:text-3xl lg:text-4xl font-bold text-[#2c2c2c] mb-2 sm:mb-3 leading-tight text-center max-w-2xl px-2">
+              <h1 className="text-lg sm:text-xl md:text-3xl lg:text-4xl font-bold text-[#3A3434] mb-2 sm:mb-3 leading-tight text-center max-w-2xl px-2">
                 Diagnóstico sobre ilhas de calor e qualidade do ar na Maré
               </h1>
 
-              <p className="text-[#3a3a3a] text-[10px] sm:text-xs md:text-sm mb-3 sm:mb-4 text-center px-2">
+              <p className="text-[#3A3434] text-[12px] md:text-[16px] mb-3 sm:mb-4 text-center px-2">
                 Carolina Dias, Luna Arouca, Rian de Queiroz e Shyrlei Rosendo
               </p>
 
@@ -132,8 +132,8 @@ export default function Intro() {
         <div className="w-full max-w-5xl border-t border-[#cccccc] mb-20 lg:mb-40"></div>
 
         {/* Texto Introdutório */}
-        <div className="max-w-3xl flex flex-col gap-10 mb-40">
-          <p className="text-[#2c2c2c] text-base md:text-lg leading-relaxed text-justify">
+        <div className="max-w-xl flex flex-col gap-10 mb-40 font-inter">
+          <p className="text-[#3A3434] text-base md:text-lg leading-relaxed text-justify">
             No coração da Zona Norte do Rio de Janeiro, entre o vai e vem das
             vias expressas e o calor do asfalto, um estudo revelou um problema
             invisível a olho nu, mas sentido todos os dias pelos moradores da
@@ -143,7 +143,7 @@ export default function Intro() {
             apareciam nos mapas ambientais da cidade e pressionar por políticas
             públicas que considerem a realidade dos territórios periféricos.
           </p>
-          <p className="text-[#2c2c2c] text-base md:text-lg leading-relaxed text-justify">
+          <p className="text-[#3A3434] text-base md:text-lg leading-relaxed text-justify">
             As medições feitas ao longo de sete meses mostram que a temperatura
             na Maré pode ser até 2°C mais quente do que nas áreas vizinhas, um
             fenômeno chamado de ilha de calor urbana. O calor não se dissipa nem
@@ -151,7 +151,7 @@ export default function Intro() {
             do pôr do sol, tornando o sono difícil e aumentando o uso de
             ventiladores e ar-condicionado.{" "}
           </p>
-          <p className="text-[#2c2c2c] text-base md:text-lg leading-relaxed text-justify">
+          <p className="text-[#3A3434] text-base md:text-lg leading-relaxed text-justify">
             Além do calor, os moradores da Maré enfrentam outro desafio
             invisível: a poluição do ar. O estudo monitorou cinco poluentes
             atmosféricos e revelou índices alarmantes. Os dados não deixam
@@ -159,7 +159,7 @@ export default function Intro() {
             moradores. Doenças respiratórias como asma e bronquite são agravadas
             pela poluição.
           </p>
-          <p className="text-[#2c2c2c] text-base md:text-lg leading-relaxed text-justify">
+          <p className="text-[#3A3434] text-base md:text-lg leading-relaxed text-justify">
             Para uma compreensão mais profunda dessa realidade, no próximo
             capítulo trazemos um breve resumo da história da Maré, desde as
             primeiras ocupações até sua consolidação como um dos maiores

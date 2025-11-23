@@ -7,7 +7,11 @@ export function QualidadeDoAr() {
     <div className="w-full">
       {/* Capa da seção com imagem em escala de cinza e título */}
       <SectionCover
-        title="Qualidade do ar"
+        title={
+          <>
+            Qualidade do <strong>ar</strong>
+          </>
+        }
         image={mareMapaImage}
         imageAlt="Mapa da Maré"
         sticky={false}

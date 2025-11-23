@@ -7,7 +7,11 @@ export function IlhasDeCalor() {
     <div className="w-full">
          {/* Capa da seção com imagem em escala de cinza e título */}
       <SectionCover
-        title="Ilhas de calor"
+        title={
+          <>
+            Ilhas de <strong>calor</strong>
+          </>
+        }
         image={mareMapaImage}
         imageAlt="Mapa da Maré"
         sticky={false}

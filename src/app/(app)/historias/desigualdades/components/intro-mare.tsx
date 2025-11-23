@@ -58,7 +58,7 @@ function ScrollCard({ children, cardRef }: ScrollCardProps) {
       {children ? (
         <div
           ref={contentRef}
-          className="bg-white text-black p-6 md:p-8 lg:p-10 max-w-3xl shadow-lg rounded-lg"
+          className="bg-white/70 backdrop-blur-sm text-black p-6 md:p-8 lg:p-10 max-w-2xl shadow-lg rounded-lg"
         >
           {children}
         </div>
@@ -220,7 +220,11 @@ export function IntroMare() {
     <div className="w-full">
       {/* Capa da seção com imagem sticky e controles de estado */}
       <SectionCover
-        title="A história da Maré"
+        title={
+          <>
+            A história da <strong>Maré</strong>
+          </>
+        }
         image={mareMapaImage}
         image2={mareMapaImage2}
         image3={mareMapaImage3}
@@ -235,7 +239,7 @@ export function IntroMare() {
       <ScrollCard cardRef={card0Ref}>
         <div>
           <p className="text-base md:text-lg leading-relaxed">
-          A Maré é um dos maiores conjunto de favelas do Brasil, e sua formação reflete um longo processo de ocupação urbana ligado à migração, remoções e políticas habitacionais do Estado.
+          A Maré é <strong>um dos maiores conjunto de favelas do Brasil</strong>, e sua formação reflete um longo processo de ocupação urbana ligado à migração, remoções e políticas habitacionais do Estado.
           </p>
         </div>
       </ScrollCard>

@@ -4,7 +4,7 @@ import type { StaticImageData } from 'next/image';
 import Image from 'next/image';
 
 interface SectionCoverProps {
-  title: string;
+  title: string | React.ReactNode;
   image: StaticImageData | string;
   image2?: StaticImageData | string;
   image3?: StaticImageData | string;
@@ -66,7 +66,7 @@ export function SectionCover({
       {/* Título */}
       <div className="relative z-10 h-full flex items-center pl-6 md:pl-20 lg:pl-24">
         <h1
-          className="text-3xl md:text-4xl lg:text-5xl font-bold"
+          className="text-3xl md:text-4xl lg:text-5xl"
           style={{
             color: '#E50505',
             opacity: titleOpacity,
