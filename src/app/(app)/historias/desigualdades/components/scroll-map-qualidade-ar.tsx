@@ -170,48 +170,48 @@ export const ScrollMapQualidadeAr: React.FC<ScrollMapQualidadeArProps> = ({ imag
     const currentMapSrc = mapImages[selectedMap];
     
     return (
-      <div className="mt-10 mx-auto max-w-lg mb-20! flex items-center flex-col justify-center">
-        <div className="flex flex-col justify-start items-start">
+      <div className="mt-10 mx-auto max-w-lg mb-20 flex items-center flex-col justify-center">
+        <div className="flex flex-col justify-start items-start px-4 w-full">
           {currentMapSrc && (
             <Zoom>
-              <img src={currentMapSrc.src} alt="Mapa de Qualidade do Ar" className="object-fit rounded-xl" />
+              <img src={currentMapSrc.src} alt="Mapa de Qualidade do Ar" className="rounded-xl" />
             </Zoom>
           )}
           <h2 className="text-md font-bold mt-2.5">Mapa de temperatura da Maré</h2>
           <p className="text-md text-[#3A3434]">Produzido por <em>Respira Maré</em></p>
-          <div className="flex flex-row gap-2 mt-4">
+          <div className="flex flex-row gap-2 mt-4 flex-wrap">
             <button
               type="button"
               onClick={() => setSelectedMap("PM10")}
-              className={`px-4 py-2 rounded-md bg-gray-900 text-white font-medium hover:bg-gray-800 transition-colors ${selectedMap === "PM10" ? "opacity-50" : ""}`}
+              className={`px-2 py-1 text-xs sm:px-4 sm:py-2 sm:text-sm rounded-md bg-gray-900 text-white font-medium hover:bg-gray-800 transition-colors ${selectedMap === "PM10" ? "opacity-50" : ""}`}
             >
               PM 10
             </button>
             <button
               type="button"
               onClick={() => setSelectedMap("PM25")}
-              className={`px-4 py-2 rounded-md bg-gray-900 text-white font-medium hover:bg-gray-800 transition-colors ${selectedMap === "PM25" ? "opacity-50" : ""}`}
+              className={`px-2 py-1 text-xs sm:px-4 sm:py-2 sm:text-sm rounded-md bg-gray-900 text-white font-medium hover:bg-gray-800 transition-colors ${selectedMap === "PM25" ? "opacity-50" : ""}`}
             >
               PM 2,5
             </button>
             <button
               type="button"
               onClick={() => setSelectedMap("CO2")}
-              className={`px-4 py-2 rounded-md bg-gray-900 text-white font-medium hover:bg-gray-800 transition-colors ${selectedMap === "CO2" ? "opacity-50" : ""}`}
+              className={`px-2 py-1 text-xs sm:px-4 sm:py-2 sm:text-sm rounded-md bg-gray-900 text-white font-medium hover:bg-gray-800 transition-colors ${selectedMap === "CO2" ? "opacity-50" : ""}`}
             >
               CO 2
             </button>
             <button
               type="button"
               onClick={() => setSelectedMap("HCHO")}
-              className={`px-4 py-2 rounded-md bg-gray-900 text-white font-medium hover:bg-gray-800 transition-colors ${selectedMap === "HCHO" ? "opacity-50" : ""}`}
+              className={`px-2 py-1 text-xs sm:px-4 sm:py-2 sm:text-sm rounded-md bg-gray-900 text-white font-medium hover:bg-gray-800 transition-colors ${selectedMap === "HCHO" ? "opacity-50" : ""}`}
             >
               HCHO
             </button>
             <button
               type="button"
               onClick={() => setSelectedMap("UMIDADE")}
-              className={`px-4 py-2 rounded-md bg-gray-900 text-white font-medium hover:bg-gray-800 transition-colors ${selectedMap === "UMIDADE" ? "opacity-50" : ""}`}
+              className={`px-2 py-1 text-xs sm:px-4 sm:py-2 sm:text-sm rounded-md bg-gray-900 text-white font-medium hover:bg-gray-800 transition-colors ${selectedMap === "UMIDADE" ? "opacity-50" : ""}`}
             >
               UMIDADE
             </button>
