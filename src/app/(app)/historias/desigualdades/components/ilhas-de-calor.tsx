@@ -19,7 +19,7 @@ export function IlhasDeCalor() {
       />
       {/* Conteúdo da seção (abaixo da capa) com background.png */}
       <section
-        className="w-full"
+        className="w-full bg-white!"
         style={{
           backgroundImage: `url(${backgroundTexture.src})`,
           backgroundRepeat: 'repeat',
@@ -27,7 +27,7 @@ export function IlhasDeCalor() {
           backgroundSize: `${Math.round(backgroundTexture.width / 2)}px ${Math.round(backgroundTexture.height / 2)}px`,
         }}
       >
-        <div className="mx-auto max-w-xl px-6 md:px-8 py-20 md:py-40 font-inter">
+        <div className="mx-auto bg-white! max-w-xl px-6 md:px-8 py-20 md:py-40 font-inter">
           <h2
             className="text-2xl md:text-3xl lg:text-4xl mb-6"
             style={{ color: '#E50505' }}

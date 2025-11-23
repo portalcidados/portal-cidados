@@ -210,8 +210,8 @@ export const ScrollMapQualidadeAr: React.FC<ScrollMapQualidadeArProps> = ({ imag
     const currentMapSrc = mapImages[selectedMap];
     
     return (
-      <div className="mt-10 mx-auto max-w-lg mb-20 flex items-center flex-col justify-center">
-        <div className="flex flex-col justify-start items-start px-4 w-full">
+      <div className=" bg-white! mx-auto max-w-lg mb-20 flex items-center flex-col justify-center">
+        <div className="flex bg-white! flex-col justify-start items-start px-4 w-full">
           {currentMapSrc && (
             <Zoom>
               <img src={currentMapSrc.src} alt="Mapa de Qualidade do Ar" className="rounded-xl" />
@@ -278,11 +278,12 @@ na concentração de PM 10 , por motivos diferentes.
   };
 
   return (
-    <>
-    <section
+    <div className="bg-white!">
+    <section 
+    className="bg-white!"
       style={{
         position: "relative",
-        height: `${(points.length + 1) * 122}vh`, // altura total de scroll
+        height: `${(points.length + 1) * 118.5}vh`, // altura total de scroll
       }}
       ref={containerRef}
     >
@@ -295,6 +296,7 @@ na concentração de PM 10 , por motivos diferentes.
           overflow: "hidden",
           color: "white",
         }}
+        className="bg-white"
       >
         {/* Wrapper que recebe o transform (x, y, scale) */}
         <div
@@ -307,11 +309,13 @@ na concentração de PM 10 , por motivos diferentes.
             height: "100%",
             willChange: "transform",
           }}
+          className="bg-white"
         >
           <img
             ref={imageRef}
             src={currentImageSrc}
             alt="Mapa de Qualidade do Ar"
+            className="bg-white!"
             style={{
               width: "100%",
               height: "100%",
@@ -323,6 +327,6 @@ na concentração de PM 10 , por motivos diferentes.
       </div>
     </section>
     <MapSelector />
-    </>
+    </div>
   );
 };

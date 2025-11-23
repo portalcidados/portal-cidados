@@ -34,7 +34,7 @@ export default function Intro() {
   };
 
   return (
-    <section className="relative min-h-screen w-full overflow-hidden">
+    <section className="relative bg-white! min-h-screen w-full overflow-hidden">
       {/* Background Image */}
       <div
         className="absolute inset-0 z-0"

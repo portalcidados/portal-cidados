@@ -16,7 +16,7 @@ export function Conclusao() {
 
       {/* Conteúdo da seção (abaixo da capa) com background.png */}
       <section
-        className="w-full"
+        className="w-full bg-white"
         style={{
           backgroundImage: `url(${backgroundTexture.src})`,
           backgroundRepeat: 'repeat',

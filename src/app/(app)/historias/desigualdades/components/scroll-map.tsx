@@ -181,6 +181,7 @@ export const ScrollMap: React.FC<ScrollMapProps> = ({ imageSrc, imageSrcMobile, 
   return (
     <>
     <section
+    className="bg-white"
       style={{
         position: "relative",
         height: `${(points.length + 1) * 116.5}vh`, // altura total de scroll
@@ -196,6 +197,7 @@ export const ScrollMap: React.FC<ScrollMapProps> = ({ imageSrc, imageSrcMobile, 
           overflow: "hidden",
           color: "white",
         }}
+        className="bg-white"
       >
         {/* Wrapper que recebe o transform (x, y, scale) */}
         <div
@@ -208,6 +210,7 @@ export const ScrollMap: React.FC<ScrollMapProps> = ({ imageSrc, imageSrcMobile, 
             height: "100%",
             willChange: "transform",
           }}
+          className="bg-white"
         >
           <img
             ref={imageRef}
@@ -223,13 +226,13 @@ export const ScrollMap: React.FC<ScrollMapProps> = ({ imageSrc, imageSrcMobile, 
         </div>
       </div>
     </section>
-    <div className="h-screen flex items-center justify-center">
+    <div className="bg-white! h-screen flex items-center justify-center">
         <div className="flex flex-col justify-start items-start px-4">
         <Zoom>
           <img src={mapaTemperatura.src} alt="Mapa" className="max-h-140 object-fit" />
         </Zoom>
-          <h2 className="text-md font-bold mt-2.5">Mapa de temperatura da Maré</h2>
-          <p className="text-md text-gray-500">Produzido por Respira Maré</p>
+          <h2 className="text-md text-[#3A3434] font-bold mt-2.5">Mapa de temperatura da Maré</h2>
+          <p className="text-md text-[#3A3434]">Produzido por Respira Maré</p>
         </div>
       </div>
     </>

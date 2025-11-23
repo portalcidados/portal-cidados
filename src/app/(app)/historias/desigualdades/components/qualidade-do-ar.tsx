@@ -4,7 +4,7 @@ import { SectionCover } from './section-cover';
 
 export function QualidadeDoAr() {
   return (
-    <div className="w-full">
+    <div className="w-full bg-white">
       {/* Capa da seção com imagem em escala de cinza e título */}
       <SectionCover
         title={
@@ -35,7 +35,7 @@ export function QualidadeDoAr() {
           >
             Qualidade do <strong>ar</strong>
           </h2>
-          <div className="space-y-6 text-base md:text-lg leading-relaxed text-[#3A3434">
+          <div className="space-y-6 text-base md:text-lg leading-relaxed text-[#3A3434]">
             <p>
             A qualidade do ar diz respeito à presença — ou excesso — de poluentes na atmosfera e ao impacto que essa composição tem sobre a saúde humana. Na Maré, o projeto Respira Maré mediu a concentração de substâncias como material particulado (PM₁₀ e PM₂,₅), dióxido de carbono (CO₂), dióxido de nitrogênio (NO₂), formaldeído (HCHO) e outros compostos que, mesmo invisíveis, afetam diretamente o bem-estar da população. <strong>Esses poluentes estão ligados a problemas respiratórios, cardiovasculares, neurológicos e até ao desenvolvimento cognitivo de crianças.</strong> Mesmo quando abaixo dos limites considerados perigosos por agências internacionais, a exposição prolongada e contínua pode agravar doenças e gerar custos adicionais com cuidados de saúde.
             </p>

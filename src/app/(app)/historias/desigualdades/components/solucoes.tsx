@@ -92,7 +92,7 @@ const solucoesItems: SolucaoItem[] = [
 
 export function Solucoes() {
   return (
-    <div className="w-full">
+    <div className="w-full bg-white">
       {/* Capa da seção com imagem em escala de cinza e título */}
       <SectionCover
         title={<><strong>Soluções</strong></>}

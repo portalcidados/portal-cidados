@@ -33,7 +33,7 @@ export default function Desigualdades() {
 
 
   return (
-    <div>
+    <div className="bg-white!">
       <Intro />
       <IntroMare/>
       <IlhasDeCalor />
