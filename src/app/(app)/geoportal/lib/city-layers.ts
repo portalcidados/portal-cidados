@@ -63,39 +63,77 @@ export const cityLayersConfig: CityLayersConfig = {
     },
   ],
   "São Paulo": [
+    // história verticalização
     { 
-      id: "spo_spo_ciclovias",
-      name: "Ciclovia",
-      description: "Traçado das ciclovias municipais.",
-      tilesetId: "observatorio-nacional.c19gombg",
-      sourceLayer: "spo_spo_ciclovias",
-      layerType: "line",
-      hasCustomStyle: true
-    },
-    {
-      id: "spo_metro-74ojzn",
-      name: "Linhas de metrô",
-      description: "Linhas de metrô do município.",
-      tilesetId: "observatorio-nacional.75bso5it",
-      sourceLayer: "spo_metro-74ojzn",
-      layerType: "line",
-      hasCustomStyle: true
-    },
-    {
-      id: "renda_spo-ddwghj",
-      name: "Renda Média",
-      description: "Renda domiciliar média em grid 500x500m (2010, atualizada pelo IPCA para R$ de 2024)",
-      tilesetId: "observatorio-nacional.4gtkl59h",
-      sourceLayer: "renda_spo-ddwghj",
+      id: "raster-dbiubd",
+      name: "Raster - mudar texto",
+      description: "Raster",
+      tilesetId: "observatorio-nacional.78kitbd4",
+      sourceLayer: "raster-dbiubd",
       layerType: "fill",
       hasCustomStyle: true
     },
     {
-      id: "populacao_spo-94zde5",
-      name: "Densidade Populacional",
-      description: "Contagem da população em grid 500x500m (2022).",
-      tilesetId: "observatorio-nacional.8ttkr2wm",
-      sourceLayer: "populacao_spo-94zde5",
+      id: "iptu-21rwvx",
+      name: "IPTU - mudar texto",
+      description: "IPTU",
+      tilesetId: "observatorio-nacional.8til2lvu",
+      sourceLayer: "iptu-21rwvx",
+      layerType: "fill",
+      hasCustomStyle: true
+    },
+    {
+      id: "censo-ap4r5h",
+      name: "Censo - mudar texto",
+      description: "Censo",
+      tilesetId: "observatorio-nacional.7rrnghz8",
+      sourceLayer: "censo-ap4r5h",
+      layerType: "fill",
+      hasCustomStyle: true
+    },
+    {
+      id: "censo_iptu-0z08hq",
+      name: "Censo IPTU - mudar texto",
+      description: "Censo IPTU",
+      tilesetId: "observatorio-nacional.7a7j3r1q",
+      sourceLayer: "censo_iptu-0z08hq",
+      layerType: "fill",
+      hasCustomStyle: true
+    },
+    //história saúde
+    {
+      id: "populacao_distritos-5bi4w3",
+      name: "População distritos - mudar texto",
+      description: "População distritos",
+      tilesetId: "observatorio-nacional.6qisi2js",
+      sourceLayer: "populacao_distritos-5bi4w3",
+      layerType: "fill",
+      hasCustomStyle: true
+    },
+    {
+      id: "gastos_ubs_distritos-c6rpx4",
+      name: "Gastos UBS distritos - mudar texto",
+      description: "Gastos UBS distritos",
+      tilesetId: "observatorio-nacional.dg1lr46q",
+      sourceLayer: "gastos_ubs_distritos-c6rpx4",
+      layerType: "fill",
+      hasCustomStyle: true
+    },
+    {
+      id: "obitos-47q8aj",
+      name: "Óbitos - mudar texto",
+      description: "Óbitos",
+      tilesetId: "observatorio-nacional.8ka3k10y",
+      sourceLayer: "obitos-47q8aj",
+      layerType: "fill",
+      hasCustomStyle: true
+    },
+    {
+      id: "geoses-b9o06r",
+      name: "Geoses - mudar texto",
+      description: "Geoses",
+      tilesetId: "observatorio-nacional.9n9mvam6",
+      sourceLayer: "geoses-b9o06r",
       layerType: "fill",
       hasCustomStyle: true
     },

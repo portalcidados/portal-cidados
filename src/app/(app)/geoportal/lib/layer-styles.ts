@@ -10,158 +10,212 @@ export interface LayerStyle {
 
 export const layerStyles: Record<string, LayerStyle> = {
   // ================== START SÃO PAULO ==================
-  "spo_spo_ciclovias": {
-       "type": "line",
+  "raster-dbiubd": {
+    "type": "fill",
     "source": "composite",
-    "id": "spo-spo-ciclovias",
+    "id": "raster-dbiubd",
+    "slot": "",
+    "source-layer": "raster-dbiubd",
     "paint": {
-      "line-width": 3,
-      "line-color": [
-        "match",
+      "fill-color": [
+        "interpolate",
+        [
+          "linear"
+        ],
         [
           "get",
-          "tipo"
+          "Densidade Total"
         ],
-        [
-          "Ciclorrota"
-        ],
-        "#377eb8",
-        [
-          "Ciclofaixa"
-        ],
-        "#e41a1c",
-        [
-          "Ciclovia"
-        ],
-        "#4daf4a",
-        [
-          "Ciclopassarela"
-        ],
-        "#f9e806",
-        "#000000"
-      ]
+        0,
+        "#ece2f0",
+        0.011,
+        "#a6bddb",
+        0.022,
+        "#3690c0",
+        0.028,
+        "#02818a",
+        0.033,
+        "#016c59",
+        0.04392069719026562,
+        "#014636"
+      ],
+      "fill-outline-color": "#fe9929"
     },
-    "slot": "",
-    "source-layer": "spo_spo_ciclovias",
     "layout": {
       "visibility": "none"
     }
   },
-  "renda_spo-ddwghj":{
-     "layout": {
-      "visibility": "none"
-    },
+  "iptu-21rwvx": {
     "type": "fill",
     "source": "composite",
-    "id": "renda-spo-ddwghj",
+    "id": "iptu-21rwvx",
+    "slot": "",
+    "source-layer": "iptu-21rwvx",
+    "paint": {},
+    "layout": {
+      "visibility": "none"
+    }
+  },
+  "censo-ap4r5h": {
+    "type": "fill",
+    "source": "composite",
+    "id": "censo-ap4r5h",
     "paint": {
-      "fill-opacity": 0.7,
+      "fill-outline-color": "#000000"
+    },
+    "slot": "",
+    "source-layer": "censo-ap4r5h",
+    "layout": {
+      "visibility": "none"
+    }
+  },
+  "censo_iptu-0z08hq": {
+    "type": "fill",
+    "source": "composite",
+    "id": "censo-iptu-0z08hq",
+    "slot": "",
+    "source-layer": "censo_iptu-0z08hq",
+    "paint": {},
+    "layout": {
+      "visibility": "none"
+    }
+  },
+  "populacao_distritos-5bi4w3": {
+    "type": "fill",
+    "source": "composite",
+    "id": "populacao-distritos-5bi4w3",
+    "paint": {
       "fill-color": [
-        "step",
+        "interpolate",
+        [
+          "linear"
+        ],
         [
           "get",
-          "Renda Domiciliar Média (R$)"
+          "femi_35_a_39"
         ],
-        "#fff7fb",
-        2000,
+        3000,
+        "#f7fcb9",
+        4500,
+        "#addd8e",
+        5500,
+        "#41ab5d",
+        7000,
+        "#006837",
+        17043,
+        "#004529"
+      ]
+    },
+    "slot": "",
+    "source-layer": "populacao_distritos-5bi4w3",
+    "layout": {
+      "visibility": "none"
+    }
+  },
+  "gastos_ubs_distritos-c6rpx4": {
+    "type": "fill",
+    "source": "composite",
+    "id": "gastos-ubs-distritos-c6rpx4",
+    "slot": "",
+    "source-layer": "gastos_ubs_distritos-c6rpx4",
+    "paint": {
+      "fill-color": [
+        "interpolate",
+        [
+          "linear"
+        ],
+        [
+          "get",
+          "Gastos UBS per capita (R$)"
+        ],
+        0,
         "#ece2f0",
-        4000,
+        100,
         "#a6bddb",
-        8000,
+        200,
         "#3690c0",
-        20000,
-        "#02818a",
-        98040,
+        400,
+        "#016c59",
+        814.7254363613727,
         "#014636"
       ]
     },
-    "slot": "",
-    "source-layer": "renda_spo-ddwghj"
-  },
-  "populacao_spo-94zde5":{
-      "layout": {
+    "layout": {
       "visibility": "none"
-    },
+    }
+  },
+  "obitos-47q8aj": {
     "type": "fill",
     "source": "composite",
-    "id": "populacao-spo-94zde5",
+    "id": "obitos-47q8aj",
+    "slot": "",
+    "source-layer": "obitos-47q8aj",
     "paint": {
-      "fill-opacity": 0.7,
       "fill-color": [
-        "step",
+        "interpolate",
+        [
+          "linear"
+        ],
         [
           "get",
-          "População (2022)"
+          "Óbitos por Doenças Cerebrovasculares (femi.)"
         ],
-        "#f7fcf5",
-        100,
-        "#e5f5e0",
-        1000,
-        "#a1d99b",
-        2500,
-        "#41ab5d",
-        5000,
-        "#006d2c",
-        15000,
-        "#00441b"
+        15,
+        "#ffeda0",
+        55,
+        "#feb24c",
+        70,
+        "#fd8d3c",
+        90,
+        "#fc4e2a",
+        149,
+        "#e31a1c"
       ]
     },
-    "slot": "",
-    "source-layer": "populacao_spo-94zde5"
+    "layout": {
+      "visibility": "none"
+    }
   },
-  "spo_metro-74ojzn":{
-     "id": "spo-metro-74ojzn",
-    "type": "line",
+  "geoses-b9o06r": {
+    "type": "fill",
+    "source": "composite",
+    "id": "geoses-b9o06r",
     "paint": {
-      "line-color": [
-        "match",
+      "fill-color": [
+        "interpolate",
+        [
+          "linear"
+        ],
         [
           "get",
-          "Linha"
+          "GeoSES (-1 a 1)"
         ],
-        [
-          "Linha 1 - Azul"
-        ],
-        "#110df2",
-        [
-          "Linha 2 - Verde"
-        ],
-        "#067000",
-        [
-          "Linha 3 - Vermelha"
-        ],
-        "#e70808",
-        [
-          "Linha 4 - Amarela"
-        ],
-        "#f9e31f",
-        [
-          "Linha 5 - Lilás"
-        ],
-        "#ab02e8",
-        [
-          "Linha 15 - Prata"
-        ],
-        "rgba(0, 0, 0, 0.5)",
-        [
-          "interpolate",
-          [
-            "linear"
-          ],
-          [
-            "id"
-          ],
-          0,
-          "#000000",
-          1,
-          "#000000"
-        ]
+        -1,
+        "#67001f",
+        -0.6,
+        "#b2182b",
+        -0.5,
+        "#d6604d",
+        -0.4,
+        "#f4a582",
+        -0.25,
+        "#fddbc7",
+        -0.1,
+        "#f7f7f7",
+        0.1,
+        "#d1e5f0",
+        0.3,
+        "#92c5de",
+        0.6,
+        "#4393c3",
+        1,
+        "#2166ac"
       ],
-      "line-width": 3
+      "fill-outline-color": "#f5f5f5",
+      "fill-opacity": 0.8
     },
-    "source": "composite",
-    "source-layer": "spo_metro-74ojzn",
-    "slot": ""
+    "slot": "",
+    "source-layer": "geoses-b9o06r"
   },
   // ================== END SÃO PAULO ==================
   // ================== START RIO DE JANEIRO ==================
