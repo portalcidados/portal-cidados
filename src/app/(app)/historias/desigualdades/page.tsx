@@ -15,7 +15,7 @@ export default function Desigualdades() {
     { x: 15, y: 15, name: "Ponto 2", zoom: 2.5 },
     { x: 20, y: 30, name: "Ponto 3", zoom: 2.5 },
     { x: 20, y: 45, name: "Ponto 4", zoom: 2.5 },
-    { x: 20, y: 60, name: "Ponto 5", zoom: 2.5 },
+    { x: 15, y: 60, name: "Ponto 5", zoom: 2.5 },
   ];
 
   return (
