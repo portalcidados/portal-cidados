@@ -103,32 +103,12 @@ const cityCoordinates: Record<string, [number, number]> = {
   Brasil: [-53.97005, -13.69895], // Center of Brazil
   "São Paulo": [-46.6388, -23.5505],
   "Rio de Janeiro": [-43.43852, -22.91464],
-  "Belo Horizonte": [-43.9388, -19.9167],
-  Fortaleza: [-38.508, -3.777],
-  Curitiba: [-49.293, -25.5],
-  Niteroi: [-43.12084, -22.89277],
-  "Santo André": [-46.52735, -23.656],
-  Salvador: [-38.51101, -12.97162],
-  Recife: [-34.87722, -8.05556],
-  "Porto Alegre": [-51.2177, -30.0326],
-  Campinas: [-47.05887, -22.89959],
-  Goiânia: [-49.333, -16.631],
 };
 
 const cityZoomLevels: Record<string, number> = {
   Brasil: 3.5,
   "São Paulo": 10.5,
   "Rio de Janeiro": 10.5,
-  "Belo Horizonte": 11,
-  Fortaleza: 11,
-  Curitiba: 11,
-  Niteroi: 12,
-  "Santo André": 12,
-  Salvador: 11,
-  Recife: 11.5,
-  "Porto Alegre": 11,
-  Campinas: 11.5,
-  Goiânia: 11,
 };
 
 export default function PropertyMap() {

@@ -12,16 +12,6 @@ import { useEffect, useState } from "react"
 const cities = [
   { value: "São Paulo", label: "São Paulo" },
   { value: "Rio de Janeiro", label: "Rio de Janeiro" },
-  { value: "Recife", label: "Recife" },
-  { value: "Belo Horizonte", label: "Belo Horizonte" },
-  { value: "Goiânia", label: "Goiânia" },
-  { value: "Fortaleza", label: "Fortaleza" },
-  { value: "Curitiba", label: "Curitiba" },
-  { value: "Niteroi", label: "Niterói" },
-  { value: "Santo André", label: "Santo André" },
-  { value: "Salvador", label: "Salvador" },
-  { value: "Campinas", label: "Campinas" },
-  { value: "Porto Alegre", label: "Porto Alegre" },
 ]
 
 interface CityAccordionProps {
