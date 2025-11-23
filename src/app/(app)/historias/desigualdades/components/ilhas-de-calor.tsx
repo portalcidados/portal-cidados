@@ -27,12 +27,12 @@ export function IlhasDeCalor() {
           backgroundSize: `${Math.round(backgroundTexture.width / 2)}px ${Math.round(backgroundTexture.height / 2)}px`,
         }}
       >
-        <div className="mx-auto max-w-3xl px-6 md:px-8 py-20 md:py-40">
+        <div className="mx-auto max-w-xl px-6 md:px-8 py-20 md:py-40 font-inter">
           <h2
-            className="text-2xl md:text-3xl lg:text-4xl font-bold mb-6"
+            className="text-2xl md:text-3xl lg:text-4xl mb-6"
             style={{ color: '#E50505' }}
           >
-            Ilhas de calor
+            Ilhas de <strong>calor</strong>
           </h2>
           <div className="space-y-6 text-base md:text-lg leading-relaxed text-zinc-700">
             <p>
