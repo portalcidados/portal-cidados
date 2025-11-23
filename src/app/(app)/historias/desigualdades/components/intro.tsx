@@ -97,11 +97,11 @@ export default function Intro() {
 
             {/* Conteúdo centralizado sobre a imagem */}
             <div className="absolute inset-0 flex flex-col items-center justify-center p-0 sm:px-6 md:px-8 lg:px-12">
-              <h1 className="text-lg sm:text-xl md:text-3xl lg:text-4xl font-bold text-[#3A3434] mb-2 sm:mb-3 leading-tight text-center max-w-2xl px-2">
+              <h1 className="text-xl md:text-3xl lg:text-4xl font-bold text-[#3A3434] mb-2 sm:mb-3 leading-tight text-center max-w-2xl px-2">
                 Diagnóstico sobre ilhas de calor e qualidade do ar na Maré
               </h1>
 
-              <p className="text-[#3A3434] text-[12px] md:text-[16px] mb-3 sm:mb-4 text-center px-2">
+              <p className="text-[#3A3434] text-[14px] md:text-[16px] mb-3 sm:mb-4 text-center px-2">
                 Carolina Dias, Luna Arouca, Rian de Queiroz e Shyrlei Rosendo
               </p>
 
