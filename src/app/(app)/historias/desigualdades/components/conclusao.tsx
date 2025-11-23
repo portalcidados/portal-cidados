@@ -7,7 +7,7 @@ export function Conclusao() {
     <div className="w-full">
       {/* Capa da seção com imagem em escala de cinza e título */}
       <SectionCover
-        title="Conclusão"
+        title={<><strong>Conclusão</strong></>}
         image={mareMapaImage}
         imageAlt="Mapa da Maré"
         sticky={false}
@@ -24,7 +24,7 @@ export function Conclusao() {
           backgroundSize: `${Math.round(backgroundTexture.width / 2)}px ${Math.round(backgroundTexture.height / 2)}px`,
         }}
       >
-        <div className="mx-auto max-w-3xl px-6 md:px-8 py-20 md:py-40">
+        <div className="mx-auto max-w-xl px-6 md:px-8 py-20 md:py-40 font-inter">
           <h2
             className="text-2xl md:text-3xl lg:text-4xl font-bold mb-6"
             style={{ color: '#E50505' }}
