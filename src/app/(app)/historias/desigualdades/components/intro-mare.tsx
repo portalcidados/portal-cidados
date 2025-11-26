@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useLayoutEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import mareMapaImage from '../assets/mare-mapa.png';
@@ -26,8 +26,14 @@ interface ScrollCardProps {
 function ScrollCard({ children, cardRef }: ScrollCardProps) {
   const contentRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (!contentRef.current || !children) return;
+  useLayoutEffect(() => {
+    if (!contentRef.current || !children || !cardRef.current) return;
+
+    // Set initial state to ensure cards start hidden
+    gsap.set(contentRef.current, {
+      opacity: 0,
+      y: 100,
+    });
 
     // Animação de entrada do card usando GSAP
     const animation = gsap.fromTo(
@@ -46,11 +52,41 @@ function ScrollCard({ children, cardRef }: ScrollCardProps) {
           start: 'top 80%',
           end: 'top 20%',
           toggleActions: 'play none none reverse',
+          immediateRender: false,
         },
       }
     );
 
+    // Check if element is already in view on mount and after ScrollTrigger refresh
+    const checkInitialState = () => {
+      if (!contentRef.current || !cardRef.current) return;
+      
+      const rect = cardRef.current.getBoundingClientRect();
+      const viewportHeight = window.innerHeight;
+      const triggerPoint = viewportHeight * 0.8;
+      
+      // If already past the trigger point, animate immediately
+      if (rect.top < triggerPoint && rect.bottom > 0) {
+        gsap.to(contentRef.current, {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: 'power3.out',
+        });
+      }
+    };
+
+    // Wait for ScrollTrigger to be ready and refresh
+    const timeoutId = setTimeout(() => {
+      ScrollTrigger.refresh();
+      // Check after refresh to see if we need to animate immediately
+      requestAnimationFrame(() => {
+        checkInitialState();
+      });
+    }, 150);
+
     return () => {
+      clearTimeout(timeoutId);
       animation.kill();
     };
   }, [cardRef, children]);
@@ -65,6 +101,7 @@ function ScrollCard({ children, cardRef }: ScrollCardProps) {
         <div
           ref={contentRef}
           className="bg-white/70 backdrop-blur-sm text-black p-6 md:p-8 lg:p-10 max-w-2xl shadow-lg rounded-lg w-full"
+          style={{ opacity: 0, transform: 'translateY(100px)' }}
         >
           {children}
         </div>
@@ -91,7 +128,7 @@ export function IntroMare() {
   const card11Ref = useRef<HTMLDivElement>(null);
   const card12Ref = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     let triggers: ScrollTrigger[] = [];
     let timeoutId: NodeJS.Timeout;
 
@@ -226,7 +263,10 @@ export function IntroMare() {
       }));
 
       // Atualizar ScrollTrigger após criar todos os triggers
-      ScrollTrigger.refresh();
+      // Use requestAnimationFrame to ensure DOM is fully updated
+      requestAnimationFrame(() => {
+        ScrollTrigger.refresh();
+      });
     };
 
     // Função para tentar criar os triggers
@@ -245,18 +285,25 @@ export function IntroMare() {
       return false;
     };
 
-    // Tentar criar imediatamente
-    if (!tryCreateTriggers()) {
-      // Se não funcionou, aguardar um pouco
-      timeoutId = setTimeout(() => {
-        if (!tryCreateTriggers()) {
-          // Se ainda não funcionou, tentar após o load completo
-          window.addEventListener('load', () => {
-            tryCreateTriggers();
-          }, { once: true });
-        }
-      }, 100);
-    }
+    // Wait for next frame to ensure DOM is ready
+    requestAnimationFrame(() => {
+      // Tentar criar imediatamente
+      if (!tryCreateTriggers()) {
+        // Se não funcionou, aguardar um pouco
+        timeoutId = setTimeout(() => {
+          if (!tryCreateTriggers()) {
+            // Se ainda não funcionou, tentar após o load completo
+            if (document.readyState === 'complete') {
+              tryCreateTriggers();
+            } else {
+              window.addEventListener('load', () => {
+                tryCreateTriggers();
+              }, { once: true });
+            }
+          }
+        }, 100);
+      }
+    });
 
     // Handler para resize
     const handleResize = () => {
