@@ -8,6 +8,7 @@ export interface DataCatalogItem {
   keywords: string[];
   createdAt: string;
   tags: string[];
+  link?: string;
 }
 
 export const catalogData: DataCatalogItem[] = [
