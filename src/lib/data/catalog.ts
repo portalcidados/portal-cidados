@@ -5,7 +5,6 @@ export interface DataCatalogItem {
   theme: string;
   region: string;
   accessMethod: string;
-  link?: string;
   keywords: string[];
   createdAt: string;
   tags: string[];
