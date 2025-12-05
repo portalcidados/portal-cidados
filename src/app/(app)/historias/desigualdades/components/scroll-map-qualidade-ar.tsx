@@ -1,6 +1,7 @@
 "use client";
+/* eslint-disable @next/next/no-img-element */
 
-import { useLayoutEffect, useRef, useState, useEffect } from "react";
+import { useLayoutEffect, useRef, useState, useEffect, useCallback } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Zoom from "react-medium-image-zoom";
@@ -12,6 +13,13 @@ import mapaDePM10 from "../assets/mapa-de-pm10.png";
 import mapaDePM25 from "../assets/mapa-de-pm25.png";
 
 gsap.registerPlugin(ScrollTrigger);
+
+// Configuração global do GSAP para evitar problemas com histórico do navegador
+if (typeof window !== "undefined") {
+  ScrollTrigger.config({
+    ignoreMobileResize: true,
+  });
+}
 
 export type MapPoint = {
   x: number; // porcentagem 0–100
@@ -31,25 +39,50 @@ type ScrollMapQualidadeArProps = {
 
 export const ScrollMapQualidadeAr: React.FC<ScrollMapQualidadeArProps> = ({ imageSrc, imageSrcMobile, points }) => {
   const [currentImageSrc, setCurrentImageSrc] = useState(imageSrc);
-
-  useEffect(() => {
-    const checkMobile = () => {
-      const mobile = window.innerWidth < 768;
-      setCurrentImageSrc(mobile && imageSrcMobile ? imageSrcMobile : imageSrc);
-    };
-
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-
-    return () => {
-      window.removeEventListener("resize", checkMobile);
-    };
-  }, [imageSrc, imageSrcMobile]);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const stickyRef = useRef<HTMLDivElement | null>(null);
   const mapWrapperRef = useRef<HTMLDivElement | null>(null);
   const imageRef = useRef<HTMLImageElement | null>(null);
   const scrollTriggerRef = useRef<ScrollTrigger | null>(null);
+  const resizeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const previousImageSrcRef = useRef<string>(imageSrc);
+
+  // Função para determinar a imagem correta baseada no tamanho da tela
+  const getImageSrc = useCallback(() => {
+    if (typeof window === "undefined") return imageSrc;
+    const mobile = window.innerWidth < 768;
+    return mobile && imageSrcMobile ? imageSrcMobile : imageSrc;
+  }, [imageSrc, imageSrcMobile]);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      const newSrc = getImageSrc();
+      if (newSrc !== currentImageSrc) {
+        setCurrentImageSrc(newSrc);
+      }
+    };
+
+    checkMobile();
+    
+    // Debounce do resize para evitar muitas chamadas
+    const handleResize = () => {
+      if (resizeTimeoutRef.current) {
+        clearTimeout(resizeTimeoutRef.current);
+      }
+      resizeTimeoutRef.current = setTimeout(() => {
+        checkMobile();
+      }, 150);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      if (resizeTimeoutRef.current) {
+        clearTimeout(resizeTimeoutRef.current);
+      }
+    };
+  }, [currentImageSrc, getImageSrc]);
 
   useLayoutEffect(() => {
     const container = containerRef.current;
@@ -108,6 +141,7 @@ export const ScrollMapQualidadeAr: React.FC<ScrollMapQualidadeArProps> = ({ imag
           pin: sticky,
           anticipatePin: 1,
           id: "scroll-map-qualidade-ar", // ID único para este ScrollTrigger
+          invalidateOnRefresh: true, // Recalcula valores quando necessário
           onRefresh: (self) => {
             // Garante que o ScrollTrigger seja atualizado corretamente
             scrollTriggerRef.current = self;
@@ -155,22 +189,53 @@ export const ScrollMapQualidadeAr: React.FC<ScrollMapQualidadeArProps> = ({ imag
     };
 
     // Espera a imagem carregar para ter medidas corretas
-    if (img.complete) {
-      setupAnimation();
-    } else {
-      img.onload = () => setupAnimation();
-    }
+    let timeoutId: NodeJS.Timeout | null = null;
+    const initAnimation = () => {
+      // Verifica se a imagem atual está carregada
+      if (img.complete && img.naturalWidth > 0) {
+        setupAnimation();
+      } else {
+        const onLoadHandler = () => {
+          if (timeoutId) clearTimeout(timeoutId);
+          setupAnimation();
+        };
+        img.onload = onLoadHandler;
+        // Fallback: se onload não disparar, tenta após um delay
+        timeoutId = setTimeout(() => {
+          if (img.complete && img.naturalWidth > 0) {
+            setupAnimation();
+          }
+        }, 1000);
+      }
+    };
 
-    // Recalcula em resize
+    // Usa requestAnimationFrame para garantir que o DOM está pronto
+    const rafId = requestAnimationFrame(() => {
+      initAnimation();
+    });
+
+    // Recalcula em resize com debounce
     const handleResize = () => {
-      setupAnimation();
-      ScrollTrigger.refresh();
+      if (resizeTimeoutRef.current) {
+        clearTimeout(resizeTimeoutRef.current);
+      }
+      resizeTimeoutRef.current = setTimeout(() => {
+        setupAnimation();
+        ScrollTrigger.refresh();
+      }, 150);
     };
 
     window.addEventListener("resize", handleResize);
 
     return () => {
+      cancelAnimationFrame(rafId);
       window.removeEventListener("resize", handleResize);
+      if (resizeTimeoutRef.current) {
+        clearTimeout(resizeTimeoutRef.current);
+      }
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
       // Limpa apenas o ScrollTrigger específico deste componente
       if (scrollTriggerRef.current) {
         scrollTriggerRef.current.kill();
@@ -180,19 +245,30 @@ export const ScrollMapQualidadeAr: React.FC<ScrollMapQualidadeArProps> = ({ imag
     };
   }, [points]);
 
-  // Atualiza a imagem quando currentImageSrc mudar
+  // Recria a animação quando a imagem mudar
   useEffect(() => {
-    const img = imageRef.current;
-    if (img && img.src !== currentImageSrc) {
-      img.src = currentImageSrc;
-      // Força o recarregamento da imagem para disparar onload e recriar animação
-      if (img.complete) {
-        // Se a imagem já está carregada, força o recarregamento
-        const tempSrc = img.src;
-        img.src = '';
-        img.src = tempSrc;
-      }
+    // Só atualiza se a imagem realmente mudou
+    if (previousImageSrcRef.current === currentImageSrc) {
+      return;
     }
+    previousImageSrcRef.current = currentImageSrc;
+
+    const img = imageRef.current;
+    if (!img) return;
+
+    // Quando a imagem mudar, espera ela carregar e então força refresh do ScrollTrigger
+    const handleImageChange = () => {
+      if (img.complete && img.naturalWidth > 0) {
+        ScrollTrigger.refresh();
+      } else {
+        img.onload = () => {
+          ScrollTrigger.refresh();
+        };
+      }
+    };
+
+    handleImageChange();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentImageSrc]);
 
   // Componente interno para a seção de seleção de mapas
@@ -214,6 +290,7 @@ export const ScrollMapQualidadeAr: React.FC<ScrollMapQualidadeArProps> = ({ imag
         <div className="flex bg-white! flex-col justify-start items-start px-4 w-full">
           {currentMapSrc && (
             <Zoom>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={currentMapSrc.src} alt="Mapa de Qualidade do Ar" className="rounded-xl" />
             </Zoom>
           )}
@@ -311,6 +388,7 @@ na concentração de PM 10 , por motivos diferentes.
           }}
           className="bg-white"
         >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             ref={imageRef}
             src={currentImageSrc}

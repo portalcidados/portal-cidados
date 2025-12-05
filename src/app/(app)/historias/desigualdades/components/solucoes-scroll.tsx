@@ -8,6 +8,13 @@ import type { StaticImageData } from "next/image";
 
 gsap.registerPlugin(ScrollTrigger);
 
+// Configuração global do GSAP para evitar problemas com histórico do navegador
+if (typeof window !== "undefined") {
+  ScrollTrigger.config({
+    ignoreMobileResize: true,
+  });
+}
+
 export type SolucaoItem = {
   image: StaticImageData | string;
   description: string;
@@ -24,6 +31,8 @@ export const SolucoesScroll: React.FC<SolucoesScrollProps> = ({ items }) => {
   const stickyRef = useRef<HTMLDivElement | null>(null);
   const imageRefs = useRef<(HTMLDivElement | null)[]>([]);
   const textRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const scrollTriggerRef = useRef<ScrollTrigger | null>(null);
+  const resizeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useLayoutEffect(() => {
     const container = containerRef.current;
@@ -34,12 +43,11 @@ export const SolucoesScroll: React.FC<SolucoesScrollProps> = ({ items }) => {
     }
 
     const setupAnimation = () => {
-      // Limpa qualquer ScrollTrigger prévio
-      ScrollTrigger.getAll().forEach((st) => {
-        if (st.vars.trigger === container) {
-          st.kill();
-        }
-      });
+      // Limpa apenas o ScrollTrigger específico deste componente
+      if (scrollTriggerRef.current) {
+        scrollTriggerRef.current.kill();
+        scrollTriggerRef.current = null;
+      }
 
       // Inicializa todas as imagens e textos como invisíveis
       imageRefs.current.forEach((imgRef, index) => {
@@ -66,8 +74,15 @@ export const SolucoesScroll: React.FC<SolucoesScrollProps> = ({ items }) => {
           pin: sticky,
           anticipatePin: 1,
           id: "solucoes-scroll",
+          invalidateOnRefresh: true, // Recalcula valores quando necessário
+          onRefresh: (self) => {
+            scrollTriggerRef.current = self;
+          },
         },
       });
+
+      // Armazena referência ao ScrollTrigger criado
+      scrollTriggerRef.current = tl.scrollTrigger as ScrollTrigger;
 
       // Para cada item, cria uma transição
       items.forEach((_, index) => {
@@ -162,10 +177,15 @@ export const SolucoesScroll: React.FC<SolucoesScrollProps> = ({ items }) => {
       initAnimation();
     });
 
-    // Recalcula em resize
+    // Recalcula em resize com debounce
     const handleResize = () => {
-      setupAnimation();
-      ScrollTrigger.refresh();
+      if (resizeTimeoutRef.current) {
+        clearTimeout(resizeTimeoutRef.current);
+      }
+      resizeTimeoutRef.current = setTimeout(() => {
+        setupAnimation();
+        ScrollTrigger.refresh();
+      }, 150);
     };
 
     window.addEventListener("resize", handleResize);
@@ -173,10 +193,20 @@ export const SolucoesScroll: React.FC<SolucoesScrollProps> = ({ items }) => {
     return () => {
       cancelAnimationFrame(rafId);
       window.removeEventListener("resize", handleResize);
-      ScrollTrigger.getAll().forEach((st) => {
-        if (st.vars.trigger === container) {
-          st.kill();
-        }
+      if (resizeTimeoutRef.current) {
+        clearTimeout(resizeTimeoutRef.current);
+      }
+      // Limpa apenas o ScrollTrigger específico deste componente
+      if (scrollTriggerRef.current) {
+        scrollTriggerRef.current.kill();
+        scrollTriggerRef.current = null;
+      }
+      // Limpa todas as animações GSAP relacionadas
+      imageRefs.current.forEach((ref) => {
+        if (ref) gsap.killTweensOf(ref);
+      });
+      textRefs.current.forEach((ref) => {
+        if (ref) gsap.killTweensOf(ref);
       });
     };
   }, [items]);

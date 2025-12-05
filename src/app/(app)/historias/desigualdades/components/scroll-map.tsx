@@ -1,6 +1,7 @@
 "use client";
+/* eslint-disable @next/next/no-img-element */
 
-import { useLayoutEffect, useRef, useState, useEffect } from "react";
+import { useLayoutEffect, useRef, useState, useEffect, useCallback } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Zoom from "react-medium-image-zoom";
@@ -8,6 +9,13 @@ import "react-medium-image-zoom/dist/styles.css";
 import mapaTemperatura from "../assets/mapa-temperatura.png";
 
 gsap.registerPlugin(ScrollTrigger);
+
+// Configuração global do GSAP para evitar problemas com histórico do navegador
+if (typeof window !== "undefined") {
+  ScrollTrigger.config({
+    ignoreMobileResize: true,
+  });
+}
 
 export type MapPoint = {
   x: number; // porcentagem 0–100
@@ -27,24 +35,50 @@ type ScrollMapProps = {
 
 export const ScrollMap: React.FC<ScrollMapProps> = ({ imageSrc, imageSrcMobile, points }) => {
   const [currentImageSrc, setCurrentImageSrc] = useState(imageSrc);
-
-  useEffect(() => {
-    const checkMobile = () => {
-      const mobile = window.innerWidth < 768;
-      setCurrentImageSrc(mobile && imageSrcMobile ? imageSrcMobile : imageSrc);
-    };
-
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-
-    return () => {
-      window.removeEventListener("resize", checkMobile);
-    };
-  }, [imageSrc, imageSrcMobile]);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const stickyRef = useRef<HTMLDivElement | null>(null);
   const mapWrapperRef = useRef<HTMLDivElement | null>(null);
   const imageRef = useRef<HTMLImageElement | null>(null);
+  const scrollTriggerRef = useRef<ScrollTrigger | null>(null);
+  const resizeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const previousImageSrcRef = useRef<string>(imageSrc);
+
+  // Função para determinar a imagem correta baseada no tamanho da tela
+  const getImageSrc = useCallback(() => {
+    if (typeof window === "undefined") return imageSrc;
+    const mobile = window.innerWidth < 768;
+    return mobile && imageSrcMobile ? imageSrcMobile : imageSrc;
+  }, [imageSrc, imageSrcMobile]);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      const newSrc = getImageSrc();
+      if (newSrc !== currentImageSrc) {
+        setCurrentImageSrc(newSrc);
+      }
+    };
+
+    checkMobile();
+    
+    // Debounce do resize para evitar muitas chamadas
+    const handleResize = () => {
+      if (resizeTimeoutRef.current) {
+        clearTimeout(resizeTimeoutRef.current);
+      }
+      resizeTimeoutRef.current = setTimeout(() => {
+        checkMobile();
+      }, 150);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      if (resizeTimeoutRef.current) {
+        clearTimeout(resizeTimeoutRef.current);
+      }
+    };
+  }, [currentImageSrc, getImageSrc]);
 
   useLayoutEffect(() => {
     const container = containerRef.current;
@@ -58,10 +92,11 @@ export const ScrollMap: React.FC<ScrollMapProps> = ({ imageSrc, imageSrcMobile, 
 
     // Função que cria o timeline com base nos tamanhos atuais
     const setupAnimation = () => {
-      // Limpa qualquer ScrollTrigger prévio
-      ScrollTrigger.getAll().forEach((st) => {
-        st.kill();
-      });
+      // Limpa apenas o ScrollTrigger específico deste componente
+      if (scrollTriggerRef.current) {
+        scrollTriggerRef.current.kill();
+        scrollTriggerRef.current = null;
+      }
       gsap.killTweensOf(mapWrapper);
 
       const imgRect = img.getBoundingClientRect();
@@ -101,8 +136,16 @@ export const ScrollMap: React.FC<ScrollMapProps> = ({ imageSrc, imageSrcMobile, 
           scrub: true,
           pin: sticky,
           anticipatePin: 1,
+          id: "scroll-map", // ID único para este ScrollTrigger
+          invalidateOnRefresh: true, // Recalcula valores quando necessário
+          onRefresh: (self) => {
+            scrollTriggerRef.current = self;
+          },
         },
       });
+
+      // Armazena referência ao ScrollTrigger criado
+      scrollTriggerRef.current = tl.scrollTrigger as ScrollTrigger;
 
       // estado inicial: mapa "inteiro"
       tl.set(mapWrapper, {
@@ -141,41 +184,86 @@ export const ScrollMap: React.FC<ScrollMapProps> = ({ imageSrc, imageSrcMobile, 
     };
 
     // Espera a imagem carregar para ter medidas corretas
-    if (img.complete) {
-      setupAnimation();
-    } else {
-      img.onload = () => setupAnimation();
-    }
+    let timeoutId: NodeJS.Timeout | null = null;
+    const initAnimation = () => {
+      // Verifica se a imagem atual está carregada
+      if (img.complete && img.naturalWidth > 0) {
+        setupAnimation();
+      } else {
+        const onLoadHandler = () => {
+          if (timeoutId) clearTimeout(timeoutId);
+          setupAnimation();
+        };
+        img.onload = onLoadHandler;
+        // Fallback: se onload não disparar, tenta após um delay
+        timeoutId = setTimeout(() => {
+          if (img.complete && img.naturalWidth > 0) {
+            setupAnimation();
+          }
+        }, 1000);
+      }
+    };
 
-    // Recalcula em resize
+    // Usa requestAnimationFrame para garantir que o DOM está pronto
+    const rafId = requestAnimationFrame(() => {
+      initAnimation();
+    });
+
+    // Recalcula em resize com debounce
     const handleResize = () => {
-      setupAnimation();
-      ScrollTrigger.refresh();
+      if (resizeTimeoutRef.current) {
+        clearTimeout(resizeTimeoutRef.current);
+      }
+      resizeTimeoutRef.current = setTimeout(() => {
+        setupAnimation();
+        ScrollTrigger.refresh();
+      }, 150);
     };
 
     window.addEventListener("resize", handleResize);
 
     return () => {
+      cancelAnimationFrame(rafId);
       window.removeEventListener("resize", handleResize);
-      ScrollTrigger.getAll().forEach((st) => {
-        st.kill();
-      });
+      if (resizeTimeoutRef.current) {
+        clearTimeout(resizeTimeoutRef.current);
+      }
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+      // Limpa apenas o ScrollTrigger específico deste componente
+      if (scrollTriggerRef.current) {
+        scrollTriggerRef.current.kill();
+        scrollTriggerRef.current = null;
+      }
+      gsap.killTweensOf(mapWrapper);
     };
   }, [points]);
 
-  // Atualiza a imagem quando currentImageSrc mudar
+  // Recria a animação quando a imagem mudar
   useEffect(() => {
-    const img = imageRef.current;
-    if (img && img.src !== currentImageSrc) {
-      img.src = currentImageSrc;
-      // Força o recarregamento da imagem para disparar onload e recriar animação
-      if (img.complete) {
-        // Se a imagem já está carregada, força o recarregamento
-        const tempSrc = img.src;
-        img.src = '';
-        img.src = tempSrc;
-      }
+    // Só atualiza se a imagem realmente mudou
+    if (previousImageSrcRef.current === currentImageSrc) {
+      return;
     }
+    previousImageSrcRef.current = currentImageSrc;
+
+    const img = imageRef.current;
+    if (!img) return;
+
+    // Quando a imagem mudar, espera ela carregar e então força refresh do ScrollTrigger
+    const handleImageChange = () => {
+      if (img.complete && img.naturalWidth > 0) {
+        ScrollTrigger.refresh();
+      } else {
+        img.onload = () => {
+          ScrollTrigger.refresh();
+        };
+      }
+    };
+
+    handleImageChange();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentImageSrc]);
 
   return (
@@ -212,6 +300,7 @@ export const ScrollMap: React.FC<ScrollMapProps> = ({ imageSrc, imageSrcMobile, 
           }}
           className="bg-white"
         >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             ref={imageRef}
             src={currentImageSrc}
@@ -229,6 +318,7 @@ export const ScrollMap: React.FC<ScrollMapProps> = ({ imageSrc, imageSrcMobile, 
     <div className="bg-white! h-screen flex items-center justify-center">
         <div className="flex flex-col justify-start items-start px-4">
         <Zoom>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={mapaTemperatura.src} alt="Mapa" className="max-h-140 object-fit" />
         </Zoom>
           <h2 className="text-md text-[#3A3434] font-bold mt-2.5">Mapa de temperatura da Maré</h2>
