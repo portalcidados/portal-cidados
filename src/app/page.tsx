@@ -17,7 +17,6 @@ export default function Home() {
       if (titleRef.current) {
         const container = titleRef.current;
         const containerWidth = container.offsetWidth;
-
         let min = 1;
         let max = 200;
         let best = min;
