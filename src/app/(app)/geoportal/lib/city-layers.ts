@@ -1,141 +1,175 @@
 export interface CityLayer {
-  id: string
-  name: string
-  description?: string
-  tilesetId?: string
-  sourceLayer?: string
-  layerType?: 'fill' | 'line' | 'circle' | 'symbol'
-  hasCustomStyle?: boolean // Indicates if this layer has a custom style defined in layer-styles.ts
+  id: string;
+  name: string;
+  description?: string;
+  tilesetId?: string;
+  sourceLayer?: string;
+  layerType?: "fill" | "line" | "circle" | "symbol";
+  hasCustomStyle?: boolean; // Indicates if this layer has a custom style defined in layer-styles.ts
 }
 
 export interface CityLayersConfig {
-  [cityName: string]: CityLayer[]
+  [cityName: string]: CityLayer[];
 }
 
 export const cityLayersConfig: CityLayersConfig = {
-  "Brasil": [
+  Brasil: [
     {
-      id: "tarifa_zero", 
-      name: "Tarifa Zero", 
-      description: "Municípios com tarifa zero integral, parcial por dias específicos (domingos/feriados) ou parcial por área geográfica (linhas específicas). Dados atualizados até outubro de 2025. Total de 134 municípios com tarifa zero integral e 8 com tarifa zero parcial.",
+      id: "tarifa_zero",
+      name: "Tarifa Zero",
+      description:
+        "Municípios com tarifa zero integral, parcial por dias específicos (domingos/feriados) ou parcial por área geográfica (linhas específicas). Dados atualizados até outubro de 2025. Total de 134 municípios com tarifa zero integral e 8 com tarifa zero parcial.",
       tilesetId: "observatorio-nacional.0bzbtkfg",
       sourceLayer: "insper_tarifa_zero_municipios-dwws9i",
       layerType: "circle",
-      hasCustomStyle: true
-    }
+      hasCustomStyle: true,
+    },
   ],
   "Rio de Janeiro": [
-    { 
-      id: "quali_pontos-b424eh", 
-      name: "Quali pontos - mudar texto", 
-      description: "Quali pontos",
-      tilesetId: "observatorio-nacional.18m3jaqa",
-      sourceLayer: "quali_pontos-b424eh",
-      layerType: "circle",
-      hasCustomStyle: true
-    },
-    { 
-      id: "quali_area-1ci0wo", 
-      name: "Quali área - mudar texto", 
-      description: "Quali área",
-      tilesetId: "observatorio-nacional.1dkglesm",
-      sourceLayer: "quali_area-1ci0wo",
+    {
+      id: "ic_areas-3ll8xj",
+      name: "Ilhas de Calor",
+      description:
+        "Medidas de temperatura registradas em diferentes dias da semana no período de março a setembro de 2023.",
+      tilesetId: "observatorio-nacional.cxco0uhi",
+      sourceLayer: "ic_areas-3ll8xj",
       layerType: "fill",
-      hasCustomStyle: true
+      hasCustomStyle: true,
     },
-    { 
-      id: "ic_pontos-90vwh4", 
-      name: "IC pontos - mudar texto", 
-      description: "IC pontos",
+    {
+      id: "ic_pontos-90vwh4",
+      name: "Ilhas de Calor (pontos de captura)",
+      description:
+        "Localização dos pontos de caputra de temperatura em diferentes dias da semana no período de março a setembro de 2023.",
       tilesetId: "observatorio-nacional.860kttlo",
       sourceLayer: "ic_pontos-90vwh4",
       layerType: "circle",
-      hasCustomStyle: true
+      hasCustomStyle: true,
     },
-    { 
-      id: "ic_areas-3ii8xj", 
-      name: "IC áreas - mudar texto", 
-      description: "IC áreas",
-      tilesetId: "observatorio-nacional.cxco0uhi",
-      sourceLayer: "ic_areas-3ii8xj",
+    {
+      id: "quali_area-1cl0wo",
+      name: "Qualidade do Ar",
+      description:
+        "Medidas de qualidade do ar registradas na última semana de cada mês no período de março a setembro de 2023.",
+      tilesetId: "observatorio-nacional.1dkglesm",
+      sourceLayer: "quali_area-1cl0wo",
       layerType: "fill",
-      hasCustomStyle: true
+      hasCustomStyle: true,
+    },
+    {
+      id: "quali_pontos-b424eh",
+      name: "Qualidade do Ar (pontos de captura)",
+      description:
+        "Localização dos pontos de caputra de qualidade do ar na última semana de cada mês no período de março a setembro de 2023.",
+      tilesetId: "observatorio-nacional.18m3jaqa",
+      sourceLayer: "quali_pontos-b424eh",
+      layerType: "circle",
+      hasCustomStyle: true,
     },
   ],
   "São Paulo": [
-    // história verticalização
-    { 
+    {
+      id: "faixa_azul-bkcy1e",
+      name: "Faixa Azul",
+      description:
+        "Localização dos trechos com faixas de trânsito dedicadas a motociclistas (Faixa Azul) implementadas em São Paulo no período de 2022 a 2025.",
+      sourceLayer: "faixa_azul-bkcy1e",
+      layerType: "line",
+      hasCustomStyle: true,
+    },
+    {
+      id: "sinistros_distritos-61njhd",
+      name: "Sinistros por Distrito",
+      description:
+        "Sinistros de trânsito registrados entre 2022 a 2025 agregados por distrito. Fonte: InfoSiga/DETRAN-SP",
+      sourceLayer: "sinistros_distritos-61njhd",
+      layerType: "fill",
+      hasCustomStyle: true,
+    },
+    {
+      id: "sinistros_trechos-3yeee3",
+      name: "Sinistros em Trechos de Vias",
+      description:
+        "Sinistros de trânsito, registrados entre 2022 a 2025, agregados por trechos de vias.",
+      sourceLayer: "sinistros_trechos-3yeee3",
+      layerType: "line",
+      hasCustomStyle: true,
+    },
+    {
+      id: "verticalizacao_setor-bvh5gj",
+      name: "Verticalização",
+      description:
+        "Índice de Verticalização. Estimado a partir da razão entre a área construída e a área ocupada em construções verticais. Fonte: IPTU (2024).",
+      sourceLayer: "verticalizacao_setor-bvh5gj",
+      layerType: "fill",
+      hasCustomStyle: true,
+    },
+    {
       id: "raster-dbiubd",
-      name: "Raster - mudar texto",
-      description: "Raster",
+      name: "Verticalização (grid)",
+      description:
+        "Índice de Verticalização. Estimado a partir da razão entre a área construída e a área ocupada em construções verticais, agregados por grid.",
       tilesetId: "observatorio-nacional.78kitbd4",
       sourceLayer: "raster-dbiubd",
       layerType: "fill",
-      hasCustomStyle: true
+      hasCustomStyle: true,
     },
     {
-      id: "iptu-21rwvx",
-      name: "IPTU - mudar texto",
-      description: "IPTU",
-      tilesetId: "observatorio-nacional.8til2lvu",
-      sourceLayer: "iptu-21rwvx",
+      id: "densidade_habitacional_setor-9hkkeo",
+      name: "Densidade Habitacional",
+      description:
+        "Densidade habitacional (domicílios por hectare). Fonte: Censo 2022.",
+      sourceLayer: "densidade_habitacional_setor-9hkkeo",
       layerType: "fill",
-      hasCustomStyle: true
+      hasCustomStyle: true,
     },
     {
-      id: "censo-ap4r5h",
-      name: "Censo - mudar texto",
-      description: "Censo",
-      tilesetId: "observatorio-nacional.7rrnghz8",
-      sourceLayer: "censo-ap4r5h",
+      id: "densidade_populacional_setor-3w4vb6",
+      name: "Densidade Populacional",
+      description:
+        "Densidade populacional (habitantes por hectare). Fonte: Censo 2022.",
+      sourceLayer: "densidade_populacional_setor-3w4vb6",
       layerType: "fill",
-      hasCustomStyle: true
+      hasCustomStyle: true,
     },
     {
-      id: "censo_iptu-0z08hq",
-      name: "Censo IPTU - mudar texto",
-      description: "Censo IPTU",
-      tilesetId: "observatorio-nacional.7a7j3r1q",
-      sourceLayer: "censo_iptu-0z08hq",
-      layerType: "fill",
-      hasCustomStyle: true
-    },
-    //história saúde
-    {
-      id: "populacao_distritos-5bi4w3",
-      name: "População distritos - mudar texto",
-      description: "População distritos",
+      id: "populacao_distritos-5bl4w3",
+      name: "População por Distrito",
+      description: "População por distrito. Fonte: SEADE (2020).",
       tilesetId: "observatorio-nacional.6qisi2js",
-      sourceLayer: "populacao_distritos-5bi4w3",
+      sourceLayer: "populacao_distritos-5bl4w3",
       layerType: "fill",
-      hasCustomStyle: true
-    },
-    {
-      id: "gastos_ubs_distritos-c6rpx4",
-      name: "Gastos UBS distritos - mudar texto",
-      description: "Gastos UBS distritos",
-      tilesetId: "observatorio-nacional.dg1lr46q",
-      sourceLayer: "gastos_ubs_distritos-c6rpx4",
-      layerType: "fill",
-      hasCustomStyle: true
-    },
-    {
-      id: "obitos-47q8aj",
-      name: "Óbitos - mudar texto",
-      description: "Óbitos",
-      tilesetId: "observatorio-nacional.8ka3k10y",
-      sourceLayer: "obitos-47q8aj",
-      layerType: "fill",
-      hasCustomStyle: true
+      hasCustomStyle: true,
     },
     {
       id: "geoses-b9o06r",
-      name: "Geoses - mudar texto",
-      description: "Geoses",
+      name: "GeoSES",
+      description:
+        "Índice socioeconômico GeoSES. Pondera dados censitários de renda, educação, qualidade de vida e similares. Fonte: Barrozo, L. V. et al. (2020).",
       tilesetId: "observatorio-nacional.9n9mvam6",
       sourceLayer: "geoses-b9o06r",
       layerType: "fill",
-      hasCustomStyle: true
+      hasCustomStyle: true,
+    },
+    {
+      id: "gastos_ubs_distritos-c6rpx4",
+      name: "Gastos UBS por Distrito",
+      description:
+        "Gastos com Unidades Básicas de Saúde (UBS) por distrito. Fonte: Tribunal de Conatas SP (2020).",
+      tilesetId: "observatorio-nacional.dg1lr46q",
+      sourceLayer: "gastos_ubs_distritos-c6rpx4",
+      layerType: "fill",
+      hasCustomStyle: true,
+    },
+    {
+      id: "obitos-47q8aj",
+      name: "Óbitos por Doenças Cerebrovasculares (femi.)",
+      description:
+        "Óbitos por doenças cerebrovasculares (femininos). Fonte: DATASUS (2020).",
+      tilesetId: "observatorio-nacional.8ka3k10y",
+      sourceLayer: "obitos-47q8aj",
+      layerType: "fill",
+      hasCustomStyle: true,
     },
   ],
-}
+};
