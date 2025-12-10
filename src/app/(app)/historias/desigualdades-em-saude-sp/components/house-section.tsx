@@ -21,10 +21,10 @@ export default function HouseSection() {
   // ScrollTrigger for background fade effect and panoramic scroll
   useGSAP(() => {
     const firstCardElement = containerRef.current?.querySelector(
-      `[data-card-index="0"]`
+      `[data-card-index="0"]`,
     );
     const secondCardElement = containerRef.current?.querySelector(
-      `[data-card-index="1"]`
+      `[data-card-index="1"]`,
     );
 
     if (firstCardElement) {
@@ -62,7 +62,7 @@ export default function HouseSection() {
   useGSAP(() => {
     if (showPanoramicScroll && panoramicSliderRef.current) {
       const thirdCardElement = containerRef.current?.querySelector(
-        `[data-card-index="2"]`
+        `[data-card-index="2"]`,
       );
 
       if (thirdCardElement) {
@@ -166,7 +166,7 @@ export default function HouseSection() {
             style={{
               opacity: showBackground ? 0 : 1,
             }}
-            width={800}
+            width={600}
             height={600}
           />
         </div>
@@ -195,4 +195,3 @@ export default function HouseSection() {
     </div>
   );
 }
-
