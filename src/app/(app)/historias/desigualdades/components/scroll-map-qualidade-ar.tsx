@@ -299,9 +299,9 @@ export const ScrollMapQualidadeAr: React.FC<ScrollMapQualidadeArProps> = ({
               />
             </Zoom>
           )}
-          <h2 className="text-md font-bold mt-2.5">
+          <p className="text-md font-bold mt-2.5">
             Mapa de temperatura da Maré
-          </h2>
+          </p>
           <p className="text-md text-[#3A3434]">
             Produzido por <em>Respira Maré</em>
           </p>

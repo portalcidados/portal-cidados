@@ -327,9 +327,9 @@ export const ScrollMap: React.FC<ScrollMapProps> = ({
               className="max-h-140 object-fit"
             />
           </Zoom>
-          <h2 className="text-md text-[#3A3434] font-bold mt-2.5">
+          <p className="text-md block text-[#3A3434] font-bold mt-2.5">
             Mapa de temperatura da Maré
-          </h2>
+          </p>
           <p className="text-md text-[#3A3434]">Produzido por Respira Maré</p>
         </div>
       </div>
