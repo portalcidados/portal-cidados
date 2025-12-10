@@ -1,10 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 
 export function ScrollToTopIcon() {
   const [isVisible, setIsVisible] = useState(false);
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -63,6 +64,11 @@ export function ScrollToTopIcon() {
   }, []);
 
   const scrollToTop = () => {
+    // Remove focus from button to prevent it from staying focused on mobile
+    if (buttonRef.current) {
+      buttonRef.current.blur();
+    }
+
     // Force immediate scroll to absolute top on all possible containers
     window.scrollTo(0, 0);
     if (document.documentElement) {
@@ -80,6 +86,32 @@ export function ScrollToTopIcon() {
       behavior: "smooth",
     });
 
+    // Force visibility check immediately and after scroll
+    // This ensures the icon disappears when we reach the top
+    const checkVisibility = () => {
+      const introSection = document.querySelector("section.h-screen");
+      const footerSection = document.querySelector("footer");
+
+      if (!introSection || !footerSection) {
+        setIsVisible(window.scrollY > 100);
+        return;
+      }
+
+      const scrollY = window.scrollY;
+      const viewportHeight = window.innerHeight;
+      const introRect = introSection.getBoundingClientRect();
+      const footerRect = footerSection.getBoundingClientRect();
+
+      const pastIntro = introRect.bottom < 0;
+      const beforeFooter = footerRect.top > viewportHeight;
+      const notAtTop = scrollY > 100;
+
+      setIsVisible(pastIntro && beforeFooter && notAtTop);
+    };
+
+    // Check immediately
+    checkVisibility();
+
     // Double-check after smooth scroll should have started
     // This handles cases where smooth scroll might not complete
     const checkAndForce = () => {
@@ -94,6 +126,8 @@ export function ScrollToTopIcon() {
         document.documentElement.scrollTop = 0;
         document.body.scrollTop = 0;
       }
+      // Check visibility after forcing scroll
+      checkVisibility();
     };
 
     // Check after a few frames to ensure we're at top
@@ -101,15 +135,18 @@ export function ScrollToTopIcon() {
       checkAndForce();
       requestAnimationFrame(() => {
         checkAndForce();
+        // Final visibility check
+        setTimeout(checkVisibility, 100);
       });
     });
   };
 
   return (
     <button
+      ref={buttonRef}
       type="button"
       onClick={scrollToTop}
-      className={`fixed bottom-6 right-6 z-50 cursor-pointer transition-all duration-300 ease-in-out hover:opacity-75 ${
+      className={`fixed bottom-6 right-6 z-50 cursor-pointer transition-all duration-300 ease-in-out hover:opacity-75 focus:outline-none ${
         isVisible
           ? "opacity-60 pointer-events-auto"
           : "opacity-0 pointer-events-none"
