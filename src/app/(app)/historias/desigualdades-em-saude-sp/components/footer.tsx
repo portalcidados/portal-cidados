@@ -1,6 +1,6 @@
 "use client";
 
-import insperLogo from "../assets/insper-logo.png";
+import insperLogo from "../../assets/insper-logo.png";
 import Image from "next/image";
 
 export default function Footer() {
@@ -39,7 +39,7 @@ export default function Footer() {
             <Image
               src={insperLogo}
               alt="Insper Logo"
-              className="mb-6 h-10 lg:h-12"
+              className="mb-6 h-10 lg:h-12 brightness-0 invert"
               width={120}
               height={48}
             />
@@ -143,4 +143,3 @@ export default function Footer() {
     </footer>
   );
 }
-

@@ -1,35 +1,64 @@
 "use client";
 
-import coverImage from '../assets/cover.png'
-import insperLogo from '../assets/insper-logo.png'
-import Image from 'next/image'
+import coverImage from "../assets/cover.png";
+import insperLogo from "../../assets/insper-logo.png";
+import portalLogo from "../../assets/portal_cidados_logo.png";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function Cover() {
   return (
-    <div 
+    <div
       className="h-screen bg-cover flex flex-col items-center justify-center relative"
       style={{
         backgroundImage: `url(${coverImage.src})`,
-        overflow: 'hidden !important'
+        overflow: "hidden !important",
       }}
     >
       {/* Insper logo/text at the top */}
       <div className="absolute top-16 left-1/2 transform -translate-x-1/2">
-        <Image src={insperLogo} alt="Insper Logo" className="h-9" width={120} height={36} />
+        <div className="flex flex-row gap-5 items-center justify-center w-full max-w-5xl">
+          <Link
+            href="https://www.insper.edu.br/pt/home"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="cursor-pointer"
+          >
+            <Image
+              src={insperLogo}
+              alt="Insper Logo"
+              width={88}
+              height={33}
+              className="h-auto w-18 sm:w-22 brightness-0 invert"
+              priority
+            />
+          </Link>
+          <Link href="/" className="cursor-pointer">
+            <Image
+              src={portalLogo}
+              alt="Portal Cidadãos Logo"
+              width={100}
+              height={33}
+              className="h-auto w-20 sm:w-30 brightness-0 invert"
+              priority
+            />
+          </Link>
+        </div>
       </div>
 
       {/* Main content centered */}
-      <div className="flex-1 flex flex-col justify-center items-center px-4 md:px-8 text-center max-w-[1000px]">
+      <div className="flex-1 flex flex-col justify-center items-center px-4 md:px-8 text-center max-w-[900px]">
         <h2 className="text-white text-lg md:text-2xl lg:text-2xl font-bold max-w-4xl mb-6">
-          Retrato das Desigualdades em Saúde: Riscos de Mortalidade e Determinantes Socioeconômicos no Município de São Paulo
+          Retrato das Desigualdades em Saúde: Riscos de Mortalidade e
+          Determinantes Socioeconômicos no Município de São Paulo
         </h2>
-        
+
         <p className="text-white text-md md:text-lg font-normal max-w-[620px] leading-relaxed">
-          Estudo desenvolvido por Paulo H. Nascimento Saldiva, Ligia Vizeu Barrozo, 
-          Catia Martinez Minto, Sara Lopes de Moraes e Paulo Afonso de André.
+          Estudo desenvolvido por Paulo H. Nascimento Saldiva, Ligia Vizeu
+          Barrozo, Catia Martinez Minto, Sara Lopes de Moraes e Paulo Afonso de
+          André.
         </p>
       </div>
     </div>
-  )
+  );
 }
-

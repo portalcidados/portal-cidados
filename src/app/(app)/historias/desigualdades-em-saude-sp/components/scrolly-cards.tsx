@@ -19,7 +19,7 @@ export default function ScrollyCards() {
   const [viewState, setViewState] = useState({
     longitude: -46.657198,
     latitude: -23.680764,
-    zoom: 9.33,
+    zoom: 9.3,
     pitch: 0,
     bearing: 0,
   });
