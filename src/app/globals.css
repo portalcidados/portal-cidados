@@ -171,6 +171,12 @@
   color: #ffffff !important;
 }
 
+/* Mapbox styles */
+.mapboxgl-ctrl-logo,
+.mapbox-ctrl {
+  display: none !important;
+}
+
 .mapboxgl-ctrl-bottom-right{
   display: none !important;
 
