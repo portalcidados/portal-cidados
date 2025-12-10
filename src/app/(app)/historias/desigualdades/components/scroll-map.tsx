@@ -240,36 +240,24 @@ export const ScrollMap: React.FC<ScrollMapProps> = ({ imageSrc, imageSrcMobile, 
     };
   }, [points]);
 
-  // Recria a animação quando a imagem mudar
+  // Atualiza a imagem quando currentImageSrc mudar
   useEffect(() => {
-    // Só atualiza se a imagem realmente mudou
-    if (previousImageSrcRef.current === currentImageSrc) {
-      return;
-    }
-    previousImageSrcRef.current = currentImageSrc;
-
     const img = imageRef.current;
-    if (!img) return;
-
-    // Quando a imagem mudar, espera ela carregar e então força refresh do ScrollTrigger
-    const handleImageChange = () => {
-      if (img.complete && img.naturalWidth > 0) {
-        ScrollTrigger.refresh();
-      } else {
-        img.onload = () => {
-          ScrollTrigger.refresh();
-        };
+    if (img && img.src !== currentImageSrc) {
+      img.src = currentImageSrc;
+      // Força o recarregamento da imagem para disparar onload e recriar animação
+      if (img.complete) {
+        // Se a imagem já está carregada, força o recarregamento
+        const tempSrc = img.src;
+        img.src = '';
+        img.src = tempSrc;
       }
-    };
-
-    handleImageChange();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }
   }, [currentImageSrc]);
 
   return (
     <>
     <section
-    className="bg-white"
       style={{
         position: "relative",
         height: `${(points.length + 1) * 116.5}vh`, // altura total de scroll
@@ -285,7 +273,6 @@ export const ScrollMap: React.FC<ScrollMapProps> = ({ imageSrc, imageSrcMobile, 
           overflow: "hidden",
           color: "white",
         }}
-        className="bg-white"
       >
         {/* Wrapper que recebe o transform (x, y, scale) */}
         <div
@@ -297,8 +284,9 @@ export const ScrollMap: React.FC<ScrollMapProps> = ({ imageSrc, imageSrcMobile, 
             width: "100%",
             height: "100%",
             willChange: "transform",
+            transform: "translateZ(0)",
+            backfaceVisibility: "hidden",
           }}
-          className="bg-white"
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
@@ -310,6 +298,9 @@ export const ScrollMap: React.FC<ScrollMapProps> = ({ imageSrc, imageSrcMobile, 
               height: "100%",
               objectFit: "cover",
               display: "block",
+              imageRendering: "auto",
+              transform: "translateZ(0)",
+              backfaceVisibility: "hidden",
             }}
           />
         </div>
