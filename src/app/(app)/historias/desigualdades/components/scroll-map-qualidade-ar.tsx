@@ -17,8 +17,19 @@ import mapaDeCO2 from "../assets/mapa-de-co2.png";
 import mapaDeHCHO from "../assets/mapa-de-hcho.png";
 import mapaDePM10 from "../assets/mapa-de-pm10.png";
 import mapaDePM25 from "../assets/mapa-de-pm25.png";
+import type { CSSProperties } from "react";
 
 gsap.registerPlugin(ScrollTrigger);
+
+// Tipo para propriedades CSS com suporte a prefixos webkit
+type ExtendedCSSProperties = CSSProperties & {
+  imageRendering?:
+    | CSSProperties["imageRendering"]
+    | "-webkit-optimize-contrast";
+  WebkitBackfaceVisibility?: "visible" | "hidden";
+  WebkitFontSmoothing?: "antialiased" | "auto" | "subpixel-antialiased";
+  MozOsxFontSmoothing?: "grayscale" | "auto";
+};
 
 // Configuração global do GSAP para evitar problemas com histórico do navegador
 if (typeof window !== "undefined") {
@@ -383,31 +394,41 @@ export const ScrollMapQualidadeAr: React.FC<ScrollMapQualidadeArProps> = ({
           {/* Wrapper que recebe o transform (x, y, scale) */}
           <div
             ref={mapWrapperRef}
-            style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              width: "100%",
-              height: "100%",
-              willChange: "transform",
-              transform: "translateZ(0)",
-              backfaceVisibility: "hidden",
-            }}
+            style={
+              {
+                position: "absolute",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: "100%",
+                willChange: "transform",
+                transform: "translate3d(0, 0, 0)",
+                backfaceVisibility: "hidden",
+                WebkitBackfaceVisibility: "hidden",
+                WebkitFontSmoothing: "antialiased",
+                MozOsxFontSmoothing: "grayscale",
+              } as ExtendedCSSProperties
+            }
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               ref={imageRef}
               src={currentImageSrc}
               alt="Mapa de Qualidade do Ar"
-              style={{
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-                display: "block",
-                imageRendering: "auto",
-                transform: "translateZ(0)",
-                backfaceVisibility: "hidden",
-              }}
+              style={
+                {
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  display: "block",
+                  imageRendering: "-webkit-optimize-contrast",
+                  transform: "translate3d(0, 0, 0)",
+                  backfaceVisibility: "hidden",
+                  WebkitBackfaceVisibility: "hidden",
+                  WebkitFontSmoothing: "antialiased",
+                  MozOsxFontSmoothing: "grayscale",
+                } as ExtendedCSSProperties
+              }
             />
           </div>
         </div>

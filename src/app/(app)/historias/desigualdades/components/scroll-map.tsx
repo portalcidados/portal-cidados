@@ -13,8 +13,19 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
 import mapaTemperatura from "../assets/mapa-temperatura.png";
+import type { CSSProperties } from "react";
 
 gsap.registerPlugin(ScrollTrigger);
+
+// Tipo para propriedades CSS com suporte a prefixos webkit
+type ExtendedCSSProperties = CSSProperties & {
+  imageRendering?:
+    | CSSProperties["imageRendering"]
+    | "-webkit-optimize-contrast";
+  WebkitBackfaceVisibility?: "visible" | "hidden";
+  WebkitFontSmoothing?: "antialiased" | "auto" | "subpixel-antialiased";
+  MozOsxFontSmoothing?: "grayscale" | "auto";
+};
 
 // Configuração global do GSAP para evitar problemas com histórico do navegador
 if (typeof window !== "undefined") {
@@ -51,7 +62,6 @@ export const ScrollMap: React.FC<ScrollMapProps> = ({
   const imageRef = useRef<HTMLImageElement | null>(null);
   const scrollTriggerRef = useRef<ScrollTrigger | null>(null);
   const resizeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const previousImageSrcRef = useRef<string>(imageSrc);
 
   // Função para determinar a imagem correta baseada no tamanho da tela
   const getImageSrc = useCallback(() => {
@@ -288,31 +298,41 @@ export const ScrollMap: React.FC<ScrollMapProps> = ({
           {/* Wrapper que recebe o transform (x, y, scale) */}
           <div
             ref={mapWrapperRef}
-            style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              width: "100%",
-              height: "100%",
-              willChange: "transform",
-              transform: "translateZ(0)",
-              backfaceVisibility: "hidden",
-            }}
+            style={
+              {
+                position: "absolute",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: "100%",
+                willChange: "transform",
+                transform: "translate3d(0, 0, 0)",
+                backfaceVisibility: "hidden",
+                WebkitBackfaceVisibility: "hidden",
+                WebkitFontSmoothing: "antialiased",
+                MozOsxFontSmoothing: "grayscale",
+              } as ExtendedCSSProperties
+            }
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               ref={imageRef}
               src={currentImageSrc}
               alt="Mapa"
-              style={{
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-                display: "block",
-                imageRendering: "auto",
-                transform: "translateZ(0)",
-                backfaceVisibility: "hidden",
-              }}
+              style={
+                {
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  display: "block",
+                  imageRendering: "-webkit-optimize-contrast",
+                  transform: "translate3d(0, 0, 0)",
+                  backfaceVisibility: "hidden",
+                  WebkitBackfaceVisibility: "hidden",
+                  WebkitFontSmoothing: "antialiased",
+                  MozOsxFontSmoothing: "grayscale",
+                } as ExtendedCSSProperties
+              }
             />
           </div>
         </div>
