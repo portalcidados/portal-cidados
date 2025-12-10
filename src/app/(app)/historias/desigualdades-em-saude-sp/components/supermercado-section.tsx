@@ -122,6 +122,7 @@ export default function SupermercadoSection() {
             }`}
             width={600}
             height={400}
+            priority
           />
 
           {/* Second image - supermercadoTwo */}
@@ -133,6 +134,7 @@ export default function SupermercadoSection() {
             }`}
             width={600}
             height={400}
+            priority
           />
         </div>
       </div>

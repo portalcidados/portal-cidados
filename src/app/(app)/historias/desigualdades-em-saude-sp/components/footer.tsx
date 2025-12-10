@@ -42,6 +42,7 @@ export default function Footer() {
               className="mb-6 h-10 lg:h-12 brightness-0 invert"
               width={120}
               height={48}
+              priority
             />
           </div>
         </div>

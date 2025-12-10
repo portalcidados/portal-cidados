@@ -142,6 +142,7 @@ export default function DoencasCerebrovasculares() {
                   className="w-full h-auto rounded"
                   width={400}
                   height={300}
+                  priority
                 />
               </div>
               <div className="rounded-lg p-4">
@@ -151,6 +152,7 @@ export default function DoencasCerebrovasculares() {
                   className="w-full h-auto rounded"
                   width={400}
                   height={300}
+                  priority
                 />
               </div>
             </div>
@@ -172,6 +174,7 @@ export default function DoencasCerebrovasculares() {
                   className="w-full"
                   width={400}
                   height={300}
+                  priority
                 />
               </div>
               <div className="p-4">
@@ -181,6 +184,7 @@ export default function DoencasCerebrovasculares() {
                   className="w-full"
                   width={400}
                   height={300}
+                  priority
                 />
               </div>
             </div>
