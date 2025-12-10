@@ -30,18 +30,20 @@ const Text = lazy(() => import("./components/text"));
 export default function DesigualdadesEmSaudeSp() {
   return (
     <Suspense fallback={<Loading />}>
-      <Cover />
-      <Text />
-      <ScrollyCards />
-      <HouseSection />
-      <SupermercadoSection />
-      <DiseasesIntroduction />
-      <DiabetesMellitus />
-      <DoencasCerebrovasculares />
-      <DoencasIsquemicasDoCoracao />
-      <MortalidadeMaterna />
-      <Conclusion />
-      <Footer />
+      <div className="bg-white">
+        <Cover />
+        <Text />
+        <ScrollyCards />
+        <HouseSection />
+        <SupermercadoSection />
+        <DiseasesIntroduction />
+        <DiabetesMellitus />
+        <DoencasCerebrovasculares />
+        <DoencasIsquemicasDoCoracao />
+        <MortalidadeMaterna />
+        <Conclusion />
+        <Footer />
+      </div>
     </Suspense>
   );
 }
