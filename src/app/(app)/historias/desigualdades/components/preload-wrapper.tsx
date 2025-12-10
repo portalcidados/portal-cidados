@@ -1,17 +1,49 @@
 "use client";
 
 import { useState, useEffect, type ReactNode } from "react";
+import { Share2 } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import insperLogo from "../../assets/insper-logo.png";
+import portalLogo from "../../assets/portal_cidados_logo.png";
+import backgroundImage from "../assets/background.png";
+import coverImage from "../assets/cover-image.png";
 
 interface PreloadWrapperProps {
   children: ReactNode;
   imageSources: string[];
 }
 
-export function PreloadWrapper({ children, imageSources }: PreloadWrapperProps) {
-  const [loadedCount, setLoadedCount] = useState(0);
+export function PreloadWrapper({
+  children,
+  imageSources,
+}: PreloadWrapperProps) {
   const [isLoading, setIsLoading] = useState(true);
   const totalImages = imageSources.length;
-  const progress = totalImages > 0 ? (loadedCount / totalImages) * 100 : 0;
+
+  const handleShare = async () => {
+    const shareData = {
+      title: "Diagnóstico sobre ilhas de calor e qualidade do ar na Maré",
+      text: "Confira este diagnóstico sobre ilhas de calor e qualidade do ar na Maré, realizado pela Redes da Maré.",
+      url: window.location.href,
+    };
+
+    try {
+      // Verifica se o navegador suporta a Web Share API
+      if (navigator.share) {
+        await navigator.share(shareData);
+      } else {
+        // Fallback: copia o link para a área de transferência
+        await navigator.clipboard.writeText(window.location.href);
+        alert("Link copiado para a área de transferência!");
+      }
+    } catch (err) {
+      // Usuário cancelou o compartilhamento ou ocorreu erro
+      if ((err as Error).name !== "AbortError") {
+        console.error("Erro ao compartilhar:", err);
+      }
+    }
+  };
 
   useEffect(() => {
     if (totalImages === 0) {
@@ -20,23 +52,14 @@ export function PreloadWrapper({ children, imageSources }: PreloadWrapperProps) 
     }
 
     let mounted = true;
-    let completed = 0;
 
     const preloadImage = (src: string): Promise<void> => {
       return new Promise((resolve) => {
-        const img = new Image();
+        const img = new window.Image();
         img.onload = () => {
-          if (mounted) {
-            completed++;
-            setLoadedCount(completed);
-          }
           resolve();
         };
         img.onerror = () => {
-          if (mounted) {
-            completed++;
-            setLoadedCount(completed);
-          }
           resolve();
         };
         img.src = src;
@@ -62,29 +85,93 @@ export function PreloadWrapper({ children, imageSources }: PreloadWrapperProps) 
 
   if (isLoading) {
     return (
-      <div className="fixed inset-0 flex items-center justify-center bg-white z-50">
-        <div className="text-center space-y-8 px-4 max-w-md w-full">
-          <div className="space-y-4">
-            <h2 className="text-gray-900 text-2xl font-bold">
-              Carregando...
-            </h2>
-            <p className="text-gray-600 text-sm">
-              Aguarde alguns instantes
-            </p>
-          </div>
+      <div className="fixed inset-0 bg-white z-50 overflow-hidden">
+        {/* Background Image com blur */}
+        <div
+          className="absolute inset-0 z-0 blur-sm"
+          style={{
+            backgroundImage: `url(${backgroundImage.src})`,
+            backgroundRepeat: "repeat",
+            backgroundPosition: "top left",
+            backgroundSize: `${Math.round(backgroundImage.width / 2)}px ${Math.round(backgroundImage.height / 2)}px`,
+          }}
+        />
 
-          <div className="space-y-3">
-            <div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
-              <div
-                className="h-full bg-[#C00026] transition-all duration-300 ease-out rounded-full"
-                style={{ width: `${progress}%` }}
+        {/* Logos e linha no topo - Posição absoluta */}
+        <div className="absolute top-6 left-0 right-0 z-20 flex flex-col items-center px-6 md:px-12 lg:px-24">
+          {/* Logos */}
+          <div className="flex flex-row gap-5 mb-6">
+            <Link
+              href="https://www.insper.edu.br/pt/home"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="cursor-pointer"
+            >
+              <Image
+                src={insperLogo}
+                alt="Insper Logo"
+                width={88}
+                height={33}
+                className="h-auto w-18 sm:w-22"
+                priority
               />
-            </div>
-            <div className="text-center text-sm text-gray-600">
-              <span>{Math.round(progress)}%</span>
-            </div>
+            </Link>
+            <Link href="/" className="cursor-pointer">
+              <Image
+                src={portalLogo}
+                alt="Portal Cidadãos Logo"
+                width={100}
+                height={33}
+                className="h-auto w-20 sm:w-30"
+                priority
+              />
+            </Link>
           </div>
 
+          {/* Linha de Separação */}
+          <div className="w-full max-w-5xl border-t border-[#cccccc]"></div>
+        </div>
+
+        {/* Cover Image centralizada com blur */}
+        <div className="absolute inset-0 z-5 flex items-center justify-center px-6 md:px-12 lg:px-24">
+          <div className="relative w-full min-w-120 mt-10 max-w-6xl 3xl:max-w-7xl aspect-video blur-sm">
+            <Image
+              src={coverImage}
+              alt="Diagnóstico sobre ilhas de calor e qualidade do ar na Maré"
+              fill
+              priority
+            />
+          </div>
+        </div>
+
+        {/* Conteúdo centralizado sobre a cover image com blur */}
+        <div className="absolute inset-0 z-10 flex flex-col items-center justify-center px-6 md:px-12 lg:px-24 max-w-4xl w-full mx-auto blur-sm">
+          {/* Título e Autores */}
+          <div className="flex flex-col items-center w-full">
+            <h1 className="text-xl md:text-3xl lg:text-4xl font-bold text-[#3A3434] mb-4 leading-tight text-center max-w-2xl px-2">
+              Diagnóstico sobre ilhas de calor e qualidade do ar na Maré
+            </h1>
+
+            <p className="text-[#3A3434] text-[14px] md:text-[16px] 3xl:text-[18px] mb-6 text-center px-2">
+              Carolina Dias, Luna Arouca, Rian de Queiroz e Shyrlei Rosendo
+            </p>
+
+            {/* Botões de compartilhamento */}
+            <div className="flex gap-2 justify-center">
+              <button
+                type="button"
+                onClick={handleShare}
+                className="flex items-center justify-center w-10 h-10 bg-transparent border-[#3A3434] hover:bg-[#f0f0f0] text-[#333333] rounded-full transition-all duration-300 shadow-lg border"
+                aria-label="Compartilhar"
+              >
+                <Share2 size={18} />
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Indicador de loading centralizado */}
+        <div className="absolute inset-0 z-30 flex items-center justify-center">
           <div className="flex items-center justify-center gap-2">
             <div className="w-2 h-2 bg-[#C00026] rounded-full animate-bounce [animation-delay:-0.3s]"></div>
             <div className="w-2 h-2 bg-[#C00026] rounded-full animate-bounce [animation-delay:-0.15s]"></div>
