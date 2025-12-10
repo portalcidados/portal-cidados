@@ -1,19 +1,31 @@
 "use client";
 
-import { Suspense } from "react";
+import { Suspense, lazy } from "react";
 import HouseSection from "./components/house-section";
 import Loading from "./components/loading";
-import Conclusion from "./components/conclusion";
-import Cover from "./components/cover";
-import DiabetesMellitus from "./components/diabetes-mellitus";
-import DiseasesIntroduction from "./components/diseases-introduction";
-import DoencasCerebrovasculares from "./components/doencas-cerebro-vasculares";
-import DoencasIsquemicasDoCoracao from "./components/doencas-isquemicas-do-coracao";
-import Footer from "./components/footer";
-import MortalidadeMaterna from "./components/mortalidade-materna";
-import ScrollyCards from "./components/scrolly-cards";
-import SupermercadoSection from "./components/supermercado-section";
-import Text from "./components/text";
+
+// Lazy load all components
+const Conclusion = lazy(() => import("./components/conclusion"));
+const Cover = lazy(() => import("./components/cover"));
+const DiabetesMellitus = lazy(() => import("./components/diabetes-mellitus"));
+const DiseasesIntroduction = lazy(
+  () => import("./components/diseases-introduction"),
+);
+const DoencasCerebrovasculares = lazy(
+  () => import("./components/doencas-cerebro-vasculares"),
+);
+const DoencasIsquemicasDoCoracao = lazy(
+  () => import("./components/doencas-isquemicas-do-coracao"),
+);
+const Footer = lazy(() => import("./components/footer"));
+const MortalidadeMaterna = lazy(
+  () => import("./components/mortalidade-materna"),
+);
+const ScrollyCards = lazy(() => import("./components/scrolly-cards"));
+const SupermercadoSection = lazy(
+  () => import("./components/supermercado-section"),
+);
+const Text = lazy(() => import("./components/text"));
 
 export default function DesigualdadesEmSaudeSp() {
   return (
