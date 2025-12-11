@@ -3,10 +3,12 @@
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import houseBackground from "../assets/houseBackground.png";
-import houseOne from "../assets/houseOne.png";
+import houseBackgroundMobile from "../assets/houseBackgroundMobile.png";
 import { default as panoramicImage } from "../assets/panoramicImage.png";
+import { default as panoramicImageMobile } from "../assets/panoramicImageMobile.png";
+import houseOne from "../assets/houseOne.png";
 import Image from "next/image";
 
 // Register ScrollTrigger plugin
@@ -17,6 +19,21 @@ export default function HouseSection() {
   const panoramicSliderRef = useRef<HTMLDivElement>(null);
   const [showBackground, setShowBackground] = useState(false);
   const [showPanoramicScroll, setShowPanoramicScroll] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Detect mobile device
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+
+    return () => {
+      window.removeEventListener("resize", checkMobile);
+    };
+  }, []);
 
   // ScrollTrigger for background fade effect and panoramic scroll
   useGSAP(() => {
@@ -151,7 +168,7 @@ export default function HouseSection() {
           <div
             className="absolute inset-0 bg-cover bg-center overflow-hidden transition-opacity duration-500 ease-in-out"
             style={{
-              backgroundImage: `url(${houseBackground.src})`,
+              backgroundImage: `url(${isMobile ? houseBackgroundMobile.src : houseBackground.src})`,
               backgroundPosition: "0% center",
               opacity: showBackground && !showPanoramicScroll ? 1 : 0,
             }}
@@ -162,7 +179,7 @@ export default function HouseSection() {
             ref={panoramicSliderRef}
             className="absolute inset-0 bg-cover overflow-hidden transition-opacity "
             style={{
-              backgroundImage: `url(${panoramicImage.src})`,
+              backgroundImage: `url(${isMobile ? panoramicImageMobile.src : panoramicImage.src})`,
               backgroundPosition: "0% center",
               opacity: showPanoramicScroll ? 1 : 0,
             }}
