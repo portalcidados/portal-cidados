@@ -115,17 +115,26 @@ export default function HouseSection() {
         </>
       ),
     },
+    // {
+    //   top: 300,
+    //   text: (
+    //     <>
+    //       Ao final do dia, Maria retorna para casa às 19h.{" "}
+    //       <strong>
+    //         Entre trabalho, transporte e cuidados domésticos, sobra pouco tempo
+    //         para cuidar da própria saúde
+    //       </strong>
+    //       , perpetuando um ciclo que afeta diretamente o controle de sua
+    //       diabetes.
+    //     </>
+    //   ),
+    // },
     {
       top: 300,
       text: (
         <>
-          Ao final do dia, Maria retorna para casa às 19h.{" "}
-          <strong>
-            Entre trabalho, transporte e cuidados domésticos, sobra pouco tempo
-            para cuidar da própria saúde
-          </strong>
-          , perpetuando um ciclo que afeta diretamente o controle de sua
-          diabetes.
+          Às 5hs, ela pega o ônibus. São duas horas de viagem até o Jardim
+          Paulista, um bairro de classe média alta na área central da cidade.
         </>
       ),
     },
