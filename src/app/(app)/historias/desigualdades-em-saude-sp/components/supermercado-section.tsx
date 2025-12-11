@@ -9,6 +9,7 @@ import supermercadoTwo from "../assets/supermercadoTwo.png";
 import condominioOne from "../assets/condominio1.png";
 import condominioTwo from "../assets/condominio2.png";
 import pontoDeOnibus from "./pontoDeOnibus.png";
+import hospitalReception from "../assets/hospitalReception.png";
 import Image from "next/image";
 
 // Register ScrollTrigger plugin
@@ -18,7 +19,7 @@ export default function SupermercadoSection() {
   const containerRef = useRef<HTMLDivElement>(null);
   const condominioTwoSliderRef = useRef<HTMLDivElement>(null);
   const pontoDeOnibusSliderRef = useRef<HTMLDivElement>(null);
-  const [currentImage, setCurrentImage] = useState(0); // 0 for first image, 1 for second image, 2 for condominioOne, 3 for condominioTwo, 4 for pontoDeOnibus
+  const [currentImage, setCurrentImage] = useState(0); // 0 for first image, 1 for second image, 2 for condominioOne, 3 for condominioTwo, 4 for pontoDeOnibus, 5 for hospitalReception
   const [showCondominioTwoScroll, setShowCondominioTwoScroll] = useState(false);
   const [showPontoDeOnibusScroll, setShowPontoDeOnibusScroll] = useState(false);
 
@@ -38,6 +39,12 @@ export default function SupermercadoSection() {
     );
     const fifthCardElement = containerRef.current?.querySelector(
       `[data-card-index="4"]`,
+    );
+    const sixthCardElement = containerRef.current?.querySelector(
+      `[data-card-index="6"]`,
+    );
+    const seventhCardElement = containerRef.current?.querySelector(
+      `[data-card-index="7"]`,
     );
 
     if (firstCardElement) {
@@ -111,6 +118,36 @@ export default function SupermercadoSection() {
         onLeaveBack: () => {
           // Switch back to condominioTwo when leaving fifth card
           setCurrentImage(3);
+        },
+      });
+    }
+
+    if (sixthCardElement) {
+      ScrollTrigger.create({
+        trigger: sixthCardElement,
+        start: "top center",
+        onEnter: () => {
+          // Keep pontoDeOnibus when entering sixth card (farmácia)
+          setCurrentImage(4);
+        },
+        onLeaveBack: () => {
+          // Switch back to pontoDeOnibus when leaving sixth card
+          setCurrentImage(4);
+        },
+      });
+    }
+
+    if (seventhCardElement) {
+      ScrollTrigger.create({
+        trigger: seventhCardElement,
+        start: "top center",
+        onEnter: () => {
+          // Switch to hospitalReception when entering seventh card (hospital)
+          setCurrentImage(5);
+        },
+        onLeaveBack: () => {
+          // Switch back to pontoDeOnibus when leaving seventh card
+          setCurrentImage(4);
         },
       });
     }
@@ -287,10 +324,21 @@ export default function SupermercadoSection() {
         </>
       ),
     },
+    {
+      top: 1050,
+      text: (
+        <>
+          Aos sábados o dia é de descanso. Mas não para Maria. Ela tem que ir na
+          Unidade Básica de Saúde (UBS) mais próxima para realizar exames com um
+          endocrinologista. Depois de uma longa fila de espera ela consegue ser
+          atendida e volta para sua casa.
+        </>
+      ),
+    },
   ];
 
   return (
-    <div ref={containerRef} className="h-[1130vh]">
+    <div ref={containerRef} className="h-[1280vh]">
       <div
         style={{ position: "sticky", top: 0 }}
         className="h-screen w-full overflow-hidden"
@@ -350,6 +398,18 @@ export default function SupermercadoSection() {
               backgroundPosition: "0% center",
               opacity: currentImage === 4 ? 1 : 0,
             }}
+          />
+
+          {/* Sixth image - hospitalReception */}
+          <Image
+            src={hospitalReception}
+            alt="Hospital Reception illustration"
+            className={`max-w-auto xl:max-w-[600px] object-contain absolute z-10 transition-opacity duration-1000 ease-in-out ${
+              currentImage === 5 ? "opacity-100" : "opacity-0"
+            }`}
+            width={600}
+            height={400}
+            priority
           />
         </div>
       </div>
