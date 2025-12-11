@@ -3,12 +3,13 @@
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import supermercado from "../assets/supermercado.png";
 import supermercadoTwo from "../assets/supermercadoTwo.png";
 import condominioOne from "../assets/condominio1.png";
+import condominioOneMobile from "../assets/condominio1Mobile.png";
 import condominioTwo from "../assets/condominio2.png";
-import taxaPadronizada from "../assets/taxaPadronizada.png";
+import condominioTwoMobile from "../assets/condominio2Mobile.png";
 import taxaPadronizadaOne from "../assets/taxaPadronizadaOne.png";
 import taxaPadronizadaTwo from "../assets/taxaPadronizadaTwo.png";
 import pontoDeOnibus from "../assets/pontoDeOnibus.png";
@@ -28,6 +29,21 @@ export default function SupermercadoSection() {
   const [showPontoDeOnibusScroll, setShowPontoDeOnibusScroll] = useState(false);
   const [showDrawerOne, setShowDrawerOne] = useState(false);
   const [showDrawerTwo, setShowDrawerTwo] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Detect mobile device
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+
+    return () => {
+      window.removeEventListener("resize", checkMobile);
+    };
+  }, []);
 
   // ScrollTrigger for background fade effect
   useGSAP(() => {
@@ -428,7 +444,7 @@ export default function SupermercadoSection() {
           <div
             className="absolute inset-0 bg-cover bg-center overflow-hidden transition-opacity duration-1000 ease-in-out"
             style={{
-              backgroundImage: `url(${condominioOne.src})`,
+              backgroundImage: `url(${isMobile ? condominioOneMobile.src : condominioOne.src})`,
               backgroundPosition: "0% center",
               opacity: currentImage === 2 ? 1 : 0,
             }}
@@ -439,7 +455,7 @@ export default function SupermercadoSection() {
             ref={condominioTwoSliderRef}
             className="absolute inset-0 bg-cover bg-center overflow-hidden transition-opacity"
             style={{
-              backgroundImage: `url(${condominioTwo.src})`,
+              backgroundImage: `url(${isMobile ? condominioTwoMobile.src : condominioTwo.src})`,
               backgroundPosition: "0% center",
               opacity: currentImage === 3 ? 1 : 0,
             }}

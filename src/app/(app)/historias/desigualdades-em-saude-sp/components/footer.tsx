@@ -34,16 +34,35 @@ export default function Footer() {
             </div>
           </section>
 
-          {/* Insper Logo - Top Right */}
-          <div className="lg:order-2 order-1 lg:text-right flex lg:justify-end justify-start lg:col-span-1">
-            <Image
-              src={insperLogo}
-              alt="Insper Logo"
-              className="mb-6 h-10 lg:h-12 brightness-0 invert"
-              width={120}
-              height={48}
-              priority
-            />
+          {/* Logos - Top Right */}
+          <div className="lg:order-2 order-1 lg:text-right flex lg:justify-end justify-start lg:col-span-1 items-center gap-4 lg:gap-6">
+            <a
+              href="https://www.insper.edu.br/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block"
+            >
+              <Image
+                src={insperLogo}
+                alt="Insper Logo"
+                className="h-10 lg:h-12 brightness-0 invert"
+                width={120}
+                height={48}
+                priority
+              />
+            </a>
+            <a href="/" className="inline-block">
+              <div className="relative w-[110px] h-[50px] lg:w-[130px] lg:h-[58px]">
+                <Image
+                  src="/portal_cidados_icon.png"
+                  alt="Portal Cidados"
+                  fill
+                  sizes="(max-width: 1024px) 100px, 120px"
+                  className="object-contain object-left brightness-0 invert"
+                  quality={100}
+                />
+              </div>
+            </a>
           </div>
         </div>
 
