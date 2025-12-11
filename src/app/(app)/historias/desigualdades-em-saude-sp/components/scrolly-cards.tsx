@@ -15,13 +15,25 @@ export default function ScrollyCards() {
   const mapRef = useRef<any>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Map state
-  const [viewState, setViewState] = useState({
-    longitude: -46.657198,
-    latitude: -23.680764,
-    zoom: 9.3,
-    pitch: 0,
-    bearing: 0,
+  // Map state - initialize with correct values based on device type
+  const [viewState, setViewState] = useState(() => {
+    const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+    if (isMobile) {
+      return {
+        longitude: -46.610198,
+        latitude: -23.680764,
+        zoom: 9.0,
+        pitch: 0,
+        bearing: 0,
+      };
+    }
+    return {
+      longitude: -46.657198,
+      latitude: -23.680764,
+      zoom: 9.3,
+      pitch: 0,
+      bearing: 0,
+    };
   });
 
   // Define your travel locations
