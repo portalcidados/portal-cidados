@@ -1,10 +1,98 @@
 "use client";
 
+import { useLayoutEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import textBackground from "../assets/text-background.png";
 
+// Registrar o plugin ScrollTrigger
+gsap.registerPlugin(ScrollTrigger);
+
 export default function Conclusion() {
+  // Refs para os cards que serão animados
+  const card1Ref = useRef<HTMLDivElement>(null);
+  const card2Ref = useRef<HTMLDivElement>(null);
+  const card3Ref = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    const cards = [
+      { ref: card1Ref, delay: 0 },
+      { ref: card2Ref, delay: 0.15 },
+      { ref: card3Ref, delay: 0.3 },
+    ];
+
+    // Configurar estado inicial dos cards
+    cards.forEach(({ ref }) => {
+      if (ref.current) {
+        gsap.set(ref.current, {
+          opacity: 0,
+          y: 50,
+        });
+      }
+    });
+
+    // Criar animações com ScrollTrigger
+    const animations = cards.map(({ ref, delay }) => {
+      if (!ref.current) return null;
+
+      return gsap.to(ref.current, {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        delay,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ref.current,
+          start: "top 85%",
+          end: "top 50%",
+          toggleActions: "play none none reverse",
+          immediateRender: false,
+        },
+      });
+    });
+
+    // Verificar se elementos já estão visíveis ao montar
+    const checkInitialState = () => {
+      cards.forEach(({ ref, delay }) => {
+        if (!ref.current || !sectionRef.current) return;
+
+        const rect = ref.current.getBoundingClientRect();
+        const viewportHeight = window.innerHeight;
+        const triggerPoint = viewportHeight * 0.85;
+
+        if (rect.top < triggerPoint && rect.bottom > 0) {
+          gsap.to(ref.current, {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            delay,
+            ease: "power3.out",
+          });
+        }
+      });
+    };
+
+    // Aguardar ScrollTrigger estar pronto
+    const timeoutId = setTimeout(() => {
+      ScrollTrigger.refresh();
+      requestAnimationFrame(() => {
+        checkInitialState();
+      });
+    }, 150);
+
+    return () => {
+      clearTimeout(timeoutId);
+      animations.forEach((anim) => {
+        anim?.scrollTrigger?.kill();
+        anim?.kill();
+      });
+    };
+  }, []);
+
   return (
     <div
+      ref={sectionRef}
       className="bg-cover bg-center bg-no-repeat flex items-center justify-center px-4 md:px-8 py-30"
       style={{
         backgroundImage: `url(${textBackground.src})`,
@@ -15,7 +103,7 @@ export default function Conclusion() {
           <p>
             O estudo detalhado da distribuição espacial de algumas doenças e
             problemas de saúde em São Paulo traz importantes contribuições para
-            o manejo e a prevenção das condições investigadas.
+            o manejo e a prevenção das condições investigadas.{" "}
             <span className="font-semibold">
               Com base nos dados levantados, através de novos estudos, é
               possível:
@@ -71,8 +159,11 @@ export default function Conclusion() {
             <span className="font-semibold">Propostas</span>
           </p>
 
-          <div className="space-y-4 pb-10">
-            <div className="bg-white rounded-lg p-8 backdrop-blur-sm">
+          <div className="space-y-4 pb-16">
+            <div
+              ref={card1Ref}
+              className="bg-white rounded-lg p-8 backdrop-blur-sm"
+            >
               <h3 className="font-semibold mb-3">
                 UBS no sistema de transporte
               </h3>
@@ -89,7 +180,10 @@ export default function Conclusion() {
               </p>
             </div>
 
-            <div className="bg-white rounded-lg p-8 backdrop-blur-sm">
+            <div
+              ref={card2Ref}
+              className="bg-white rounded-lg p-8 backdrop-blur-sm"
+            >
               <h3 className="font-semibold mb-3">
                 Reeducação alimentar na infância
               </h3>
@@ -104,9 +198,12 @@ export default function Conclusion() {
               </p>
             </div>
 
-            <div className="bg-white rounded-lg p-8 backdrop-blur-sm">
+            <div
+              ref={card3Ref}
+              className="bg-white rounded-lg p-8 backdrop-blur-sm"
+            >
               <h3 className="font-semibold mb-3">
-                Observatório de Saúde Urbana
+                Criação do Observatório de Saúde Urbana
               </h3>
               <p className="leading-relaxed">
                 Criação de um centro capaz de produzir inovação em tecnologias
@@ -125,14 +222,15 @@ export default function Conclusion() {
           <p>
             <span className="font-semibold">Bônus</span>
           </p>
-          <p className="mb-4">
+          <p className="mb-16">
             Ouça uma canção inspirada na história, composta por um dos
             colaboradores do Insper, que transforma os dados e relatos da
             reportagem em versos e rimas.
           </p>
 
           <button
-            className="flex items-center gap-2 bg-black text-white px-6 py-3 rounded-full hover:bg-gray-800 transition-colors duration-200"
+            type="button"
+            className="flex items-center gap-2 bg-black text-white px-6 py-3 rounded-full hover:bg-black/80 hover:cursor-pointer transition-colors duration-200"
             onClick={() => {
               // TODO: Add song.mp3 to src/assets/ and uncomment the import above
               // const audio = new Audio(songAudio);
@@ -142,7 +240,13 @@ export default function Conclusion() {
               );
             }}
           >
-            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <svg
+              className="w-5 h-5"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              aria-label="Play icon"
+            >
+              <title>Play icon</title>
               <path d="M8 5v14l11-7z" />
             </svg>
             Play

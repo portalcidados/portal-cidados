@@ -1,14 +1,111 @@
 "use client";
 
+import { useLayoutEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import chart1 from "../assets/chart1.png";
 import chart2 from "../assets/chart2.png";
 import chart3 from "../assets/chart3.png";
 import icon1 from "../assets/icon1.png";
 import Image from "next/image";
 
+// Registrar o plugin ScrollTrigger
+gsap.registerPlugin(ScrollTrigger);
+
 export default function MortalidadeMaterna() {
+  // Refs para as imagens que serão animadas
+  const chart1Ref = useRef<HTMLDivElement>(null);
+  const chart2Ref = useRef<HTMLDivElement>(null);
+  const chart3LeftRef = useRef<HTMLDivElement>(null);
+  const chart3RightRef = useRef<HTMLDivElement>(null);
+  const icon1Ref = useRef<HTMLDivElement>(null);
+  const icon2Ref = useRef<HTMLDivElement>(null);
+  const icon3Ref = useRef<HTMLDivElement>(null);
+  const icon4Ref = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    const images = [
+      { ref: chart1Ref, delay: 0 },
+      { ref: chart2Ref, delay: 0.1 },
+      { ref: chart3LeftRef, delay: 0.2 },
+      { ref: chart3RightRef, delay: 0.3 },
+      { ref: icon1Ref, delay: 0 },
+      { ref: icon2Ref, delay: 0.1 },
+      { ref: icon3Ref, delay: 0.2 },
+      { ref: icon4Ref, delay: 0.1 },
+    ];
+
+    // Configurar estado inicial das imagens
+    images.forEach(({ ref }) => {
+      if (ref.current) {
+        gsap.set(ref.current, {
+          opacity: 0,
+          y: 30,
+        });
+      }
+    });
+
+    // Criar animações com ScrollTrigger
+    const animations = images.map(({ ref, delay }) => {
+      if (!ref.current) return null;
+
+      return gsap.to(ref.current, {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        delay,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ref.current,
+          start: "top 85%",
+          end: "top 50%",
+          toggleActions: "play none none reverse",
+          immediateRender: false,
+        },
+      });
+    });
+
+    // Verificar se elementos já estão visíveis ao montar
+    const checkInitialState = () => {
+      images.forEach(({ ref, delay }) => {
+        if (!ref.current || !sectionRef.current) return;
+
+        const rect = ref.current.getBoundingClientRect();
+        const viewportHeight = window.innerHeight;
+        const triggerPoint = viewportHeight * 0.85;
+
+        if (rect.top < triggerPoint && rect.bottom > 0) {
+          gsap.to(ref.current, {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            delay,
+            ease: "power3.out",
+          });
+        }
+      });
+    };
+
+    // Aguardar ScrollTrigger estar pronto
+    const timeoutId = setTimeout(() => {
+      ScrollTrigger.refresh();
+      requestAnimationFrame(() => {
+        checkInitialState();
+      });
+    }, 150);
+
+    return () => {
+      clearTimeout(timeoutId);
+      animations.forEach((anim) => {
+        anim?.scrollTrigger?.kill();
+        anim?.kill();
+      });
+    };
+  }, []);
+
   return (
-    <div className="min-h-screen bg-white p-6 lg:p-12">
+    <div ref={sectionRef} className="min-h-screen bg-white p-6 lg:p-12">
       <div className="max-w-7xl mx-auto">
         {/* Main Grid Container */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
@@ -32,7 +129,10 @@ export default function MortalidadeMaterna() {
                 </h2>
                 <div className="space-y-6">
                   <div className="flex items-center space-x-4">
-                    <div className="flex-shrink-0 w-12 flex justify-center">
+                    <div
+                      ref={icon1Ref}
+                      className="flex-shrink-0 w-12 flex justify-center"
+                    >
                       <Image
                         src={icon1}
                         alt="Ícone mulher"
@@ -56,7 +156,10 @@ export default function MortalidadeMaterna() {
                 </h2>
                 <div className="space-y-6">
                   <div className="flex items-center space-x-4">
-                    <div className="flex-shrink-0 w-12 flex justify-center">
+                    <div
+                      ref={icon2Ref}
+                      className="flex-shrink-0 w-12 flex justify-center"
+                    >
                       <Image
                         src={icon1}
                         alt="Ícone jovens"
@@ -71,7 +174,10 @@ export default function MortalidadeMaterna() {
                     </p>
                   </div>
                   <div className="flex items-center space-x-4">
-                    <div className="flex-shrink-0 w-12 flex justify-center">
+                    <div
+                      ref={icon3Ref}
+                      className="flex-shrink-0 w-12 flex justify-center"
+                    >
                       <Image
                         src={icon1}
                         alt="Ícone idosos"
@@ -88,13 +194,16 @@ export default function MortalidadeMaterna() {
               </section>
 
               {/* Influência socioeconômica */}
-              <section>
+              <section className="mb-30">
                 <h2 className="text-2xl font-semibold text-[#000000] mb-6">
                   Influência socioeconômica
                 </h2>
                 <div className="space-y-6">
                   <div className="flex items-center space-x-4">
-                    <div className="flex-shrink-0 w-12 flex justify-center">
+                    <div
+                      ref={icon3Ref}
+                      className="flex-shrink-0 w-12 flex justify-center"
+                    >
                       <Image
                         src={icon1}
                         alt="Ícone socioeconômico"
@@ -109,7 +218,10 @@ export default function MortalidadeMaterna() {
                     </p>
                   </div>
                   <div className="flex items-center space-x-4">
-                    <div className="flex-shrink-0 w-12 flex justify-center">
+                    <div
+                      ref={icon4Ref}
+                      className="flex-shrink-0 w-12 flex justify-center"
+                    >
                       <Image
                         src={icon1}
                         alt="Ícone distrito"
@@ -131,7 +243,7 @@ export default function MortalidadeMaterna() {
           <div className="space-y-8">
             {/* Top Charts Row */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="rounded-lg p-4">
+              <div ref={chart1Ref} className="rounded-lg p-4">
                 <Image
                   src={chart1}
                   alt="Gráfico temporal - Mulheres"
@@ -141,7 +253,7 @@ export default function MortalidadeMaterna() {
                   priority
                 />
               </div>
-              <div className="rounded-lg p-4">
+              <div ref={chart2Ref} className="rounded-lg p-4">
                 <Image
                   src={chart2}
                   alt="Gráfico temporal - Homens"
@@ -163,7 +275,7 @@ export default function MortalidadeMaterna() {
 
             {/* Bottom Charts Row - Maps */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="p-4">
+              <div ref={chart3LeftRef} className="p-4">
                 <Image
                   src={chart3}
                   alt="Mapa - Mulheres"
@@ -173,7 +285,7 @@ export default function MortalidadeMaterna() {
                   priority
                 />
               </div>
-              <div className="p-4">
+              <div ref={chart3RightRef} className="p-4">
                 <Image
                   src={chart3}
                   alt="Mapa - Homens"
