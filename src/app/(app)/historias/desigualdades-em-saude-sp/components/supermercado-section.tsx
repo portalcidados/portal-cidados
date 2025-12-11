@@ -531,7 +531,7 @@ export default function SupermercadoSection() {
         }`}
       >
         <div className="h-full flex flex-col p-6 md:p-8 lg:p-10">
-          <h3 className="text-xs md:text-sm lg:text-base mb-3 text-[#000000] font-medium flex-shrink-0">
+          <h3 className="text-lg mb-3 text-[#000000] font-medium flex-shrink-0">
             Mortalidade por doenças cerebrovasculares entre as mulheres, de 2010
             a 2019: probabilidades de excedência de que o risco em 2019 fosse
             superior a 1
@@ -556,7 +556,7 @@ export default function SupermercadoSection() {
         }`}
       >
         <div className="h-full flex flex-col p-6 md:p-8 lg:p-10">
-          <h3 className="text-xs md:text-sm lg:text-base mb-3 text-[#000000] font-medium flex-shrink-0">
+          <h3 className="text-lg mb-3 text-[#000000] font-medium flex-shrink-0">
             Mortalidade por doenças cerebrovasculares entre as mulheres, de 2010
             a 2019: probabilidades de excedência de que o risco em 2019 fosse
             superior a 1
