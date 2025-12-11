@@ -1,8 +1,11 @@
 "use client";
+/* eslint-disable @next/next/no-img-element */
 
 import { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Zoom from "react-medium-image-zoom";
+import "react-medium-image-zoom/dist/styles.css";
 import chart1 from "../assets/chart1.png";
 import chart2 from "../assets/chart2.png";
 import chart3 from "../assets/chart3.png";
@@ -267,24 +270,24 @@ export default function DiabetesMellitus() {
             {/* Top Charts Row */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div ref={chart1Ref} className="rounded-lg p-4">
-                <Image
-                  src={chart1}
-                  alt="Gráfico temporal - Mulheres"
-                  className="w-full h-auto rounded"
-                  width={400}
-                  height={200}
-                  priority
-                />
+                <Zoom>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={chart1.src}
+                    alt="Gráfico temporal - Mulheres"
+                    className="w-full h-auto rounded-xl"
+                  />
+                </Zoom>
               </div>
               <div ref={chart2Ref} className="rounded-lg p-4">
-                <Image
-                  src={chart2}
-                  alt="Gráfico temporal - Homens"
-                  className="w-full h-auto rounded"
-                  width={400}
-                  height={200}
-                  priority
-                />
+                <Zoom>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={chart2.src}
+                    alt="Gráfico temporal - Homens"
+                    className="w-full h-auto rounded-xl"
+                  />
+                </Zoom>
               </div>
             </div>
 
@@ -299,24 +302,24 @@ export default function DiabetesMellitus() {
             {/* Bottom Charts Row - Maps */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div ref={chart3LeftRef} className="p-4">
-                <Image
-                  src={chart3}
-                  alt="Mapa - Mulheres"
-                  className="w-full"
-                  width={400}
-                  height={200}
-                  priority
-                />
+                <Zoom>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={chart3.src}
+                    alt="Mapa - Mulheres"
+                    className="w-full rounded-xl"
+                  />
+                </Zoom>
               </div>
               <div ref={chart3RightRef} className="p-4">
-                <Image
-                  src={chart3}
-                  alt="Mapa - Homens"
-                  className="w-full"
-                  width={400}
-                  height={200}
-                  priority
-                />
+                <Zoom>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={chart3.src}
+                    alt="Mapa - Homens"
+                    className="w-full rounded-xl"
+                  />
+                </Zoom>
               </div>
             </div>
           </div>
