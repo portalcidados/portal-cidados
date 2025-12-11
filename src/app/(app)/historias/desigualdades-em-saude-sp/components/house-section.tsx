@@ -18,6 +18,32 @@ export default function HouseSection() {
   const [showBackground, setShowBackground] = useState(false);
   const [showPanoramicScroll, setShowPanoramicScroll] = useState(false);
 
+  // Function to get background position based on screen width
+  const getBackgroundPosition = () => {
+    if (typeof window === "undefined") return "0% center";
+
+    const width = window.innerWidth;
+
+    // 360px ±10px (350-370)
+    if (width >= 350 && width <= 370) return "-410px center";
+    // 375px ±10px (365-385)
+    if (width >= 365 && width <= 385) return "-340px center";
+    // 390px ±10px (380-400)
+    if (width >= 380 && width <= 400) return "-475px center";
+    // 412px ±10px (402-422)
+    if (width >= 402 && width <= 422) return "-520px center";
+    // 414px ±10px (404-424)
+    if (width >= 404 && width <= 424) return "-505px center";
+    // 430px ±10px (420-440)
+    if (width >= 420 && width <= 440) return "-525px center";
+    // 530-768px
+    if (width >= 530 && width < 768) return "-300px center";
+    // Mobile fallback (< 530px not covered above)
+    if (width < 530) return "-400px center";
+    // Desktop
+    return "0% center";
+  };
+
   // ScrollTrigger for background fade effect and panoramic scroll
   useGSAP(() => {
     const firstCardElement = containerRef.current?.querySelector(
@@ -152,7 +178,7 @@ export default function HouseSection() {
             className="absolute inset-0 bg-cover bg-center overflow-hidden transition-opacity duration-500 ease-in-out"
             style={{
               backgroundImage: `url(${houseBackground.src})`,
-              backgroundPosition: "0% center",
+              backgroundPosition: getBackgroundPosition(),
               opacity: showBackground && !showPanoramicScroll ? 1 : 0,
             }}
           />
@@ -163,7 +189,7 @@ export default function HouseSection() {
             className="absolute inset-0 bg-cover overflow-hidden transition-opacity "
             style={{
               backgroundImage: `url(${panoramicImage.src})`,
-              backgroundPosition: "0% center",
+              backgroundPosition: getBackgroundPosition(),
               opacity: showPanoramicScroll ? 1 : 0,
             }}
           />
