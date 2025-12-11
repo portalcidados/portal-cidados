@@ -5,8 +5,13 @@ import insperLogo from "../../assets/insper-logo.png";
 import portalLogo from "../../assets/portal_cidados_logo.png";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 
 export default function Cover() {
+  const [hoveredLogo, setHoveredLogo] = useState<"insper" | "portal" | null>(
+    null,
+  );
+
   return (
     <div
       className="h-screen bg-cover flex flex-col items-center justify-center relative"
@@ -22,24 +27,43 @@ export default function Cover() {
             href="https://www.insper.edu.br/pt/home"
             target="_blank"
             rel="noopener noreferrer"
-            className="cursor-pointer"
+            className="cursor-pointer transition-all duration-300"
+            onMouseEnter={() => setHoveredLogo("insper")}
+            onMouseLeave={() => setHoveredLogo(null)}
           >
             <Image
               src={insperLogo}
               alt="Insper Logo"
               width={88}
               height={33}
-              className="h-auto w-18 sm:w-22 brightness-0 invert"
+              className={`h-auto brightness-0 invert transition-all duration-300 ${
+                hoveredLogo === "insper"
+                  ? "w-20 sm:w-24"
+                  : hoveredLogo === "portal"
+                    ? "w-16 sm:w-20"
+                    : "w-18 sm:w-22"
+              }`}
               priority
             />
           </Link>
-          <Link href="/" className="cursor-pointer">
+          <Link
+            href="/"
+            className="cursor-pointer transition-all duration-300"
+            onMouseEnter={() => setHoveredLogo("portal")}
+            onMouseLeave={() => setHoveredLogo(null)}
+          >
             <Image
               src={portalLogo}
               alt="Portal Cidadãos Logo"
               width={100}
               height={33}
-              className="h-auto w-20 sm:w-30 brightness-0 invert"
+              className={`h-auto brightness-0 invert transition-all duration-300 ${
+                hoveredLogo === "portal"
+                  ? "w-22 sm:w-32"
+                  : hoveredLogo === "insper"
+                    ? "w-18 sm:w-28"
+                    : "w-20 sm:w-30"
+              }`}
               priority
             />
           </Link>
