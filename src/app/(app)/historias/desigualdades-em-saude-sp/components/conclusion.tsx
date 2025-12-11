@@ -5,7 +5,7 @@ import textBackground from "../assets/text-background.png";
 export default function Conclusion() {
   return (
     <div
-      className="bg-cover bg-center bg-no-repeat flex items-center justify-center px-4 md:px-8 py-16"
+      className="bg-cover bg-center bg-no-repeat flex items-center justify-center px-4 md:px-8 py-30"
       style={{
         backgroundImage: `url(${textBackground.src})`,
       }}
@@ -138,7 +138,7 @@ export default function Conclusion() {
               // const audio = new Audio(songAudio);
               // audio.play().catch(err => console.log('Error playing audio:', err));
               console.log(
-                "Audio feature not yet implemented - add song.mp3 to assets"
+                "Audio feature not yet implemented - add song.mp3 to assets",
               );
             }}
           >
@@ -152,4 +152,3 @@ export default function Conclusion() {
     </div>
   );
 }
-

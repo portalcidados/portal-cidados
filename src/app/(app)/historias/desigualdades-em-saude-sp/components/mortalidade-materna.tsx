@@ -16,7 +16,7 @@ export default function MortalidadeMaterna() {
           <div>
             {/* Main Title */}
             <div className="mb-12">
-              <h1 className="text-4xl lg:text-6xl font-semibold text-gray-800 mb-8">
+              <h1 className="text-4xl lg:text-6xl font-semibold text-[#000000] mb-8">
                 Mortalidade
                 <br />
                 Materna
@@ -27,7 +27,7 @@ export default function MortalidadeMaterna() {
             <div className="space-y-12">
               {/* Tendências por gênero */}
               <section>
-                <h2 className="text-2xl font-semibold text-gray-800 mb-6">
+                <h2 className="text-2xl font-semibold text-[#000000] mb-6">
                   Distribuição populacional
                 </h2>
                 <div className="space-y-6">
@@ -51,7 +51,7 @@ export default function MortalidadeMaterna() {
 
               {/* Faixas etárias */}
               <section>
-                <h2 className="text-2xl font-semibold text-gray-800 mb-6">
+                <h2 className="text-2xl font-semibold text-[#000000] mb-6">
                   Redução de mortalidade materna
                 </h2>
                 <div className="space-y-6">
@@ -89,7 +89,7 @@ export default function MortalidadeMaterna() {
 
               {/* Influência socioeconômica */}
               <section>
-                <h2 className="text-2xl font-semibold text-gray-800 mb-6">
+                <h2 className="text-2xl font-semibold text-[#000000] mb-6">
                   Influência socioeconômica
                 </h2>
                 <div className="space-y-6">

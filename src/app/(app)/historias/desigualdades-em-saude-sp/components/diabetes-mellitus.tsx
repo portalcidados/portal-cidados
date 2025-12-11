@@ -20,7 +20,7 @@ export default function DiabetesMellitus() {
           <div>
             {/* Main Title */}
             <div className="mb-12">
-              <h1 className="text-4xl lg:text-6xl font-semibold text-gray-800 mb-8">
+              <h1 className="text-4xl lg:text-6xl font-semibold text-[#000000] mb-8">
                 Diabetes
                 <br />
                 Mellitus
@@ -31,7 +31,7 @@ export default function DiabetesMellitus() {
             <div className="space-y-12">
               {/* Tendências por gênero */}
               <section>
-                <h2 className="text-2xl font-semibold text-gray-800 mb-6">
+                <h2 className="text-2xl font-semibold text-[#000000] mb-6">
                   Tendências por gênero
                 </h2>
                 <div className="space-y-6">
@@ -70,7 +70,7 @@ export default function DiabetesMellitus() {
 
               {/* Faixas etárias */}
               <section>
-                <h2 className="text-2xl font-semibold text-gray-800 mb-6">
+                <h2 className="text-2xl font-semibold text-[#000000] mb-6">
                   Faixas etárias
                 </h2>
                 <div className="space-y-6">
@@ -109,7 +109,7 @@ export default function DiabetesMellitus() {
 
               {/* Influência socioeconômica */}
               <section>
-                <h2 className="text-2xl font-semibold text-gray-800 mb-6">
+                <h2 className="text-2xl font-semibold text-[#000000] mb-6">
                   Influência socioeconômica
                 </h2>
                 <div className="space-y-6">

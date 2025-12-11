@@ -18,7 +18,7 @@ export default function DoencasCerebrovasculares() {
           <div>
             {/* Main Title */}
             <div className="mb-12">
-              <h1 className="text-4xl lg:text-6xl font-semibold text-gray-800 mb-8">
+              <h1 className="text-4xl lg:text-6xl font-semibold text-[#000000] mb-8">
                 Doenças
                 <br />
                 Cerebrovasculares
@@ -29,7 +29,7 @@ export default function DoencasCerebrovasculares() {
             <div className="space-y-12">
               {/* Tendências por gênero */}
               <section>
-                <h2 className="text-2xl font-semibold text-gray-800 mb-6">
+                <h2 className="text-2xl font-semibold text-[#000000] mb-6">
                   Tendências por gênero
                 </h2>
                 <div className="space-y-6">
@@ -68,7 +68,7 @@ export default function DoencasCerebrovasculares() {
 
               {/* Faixas etárias */}
               <section>
-                <h2 className="text-2xl font-semibold text-gray-800 mb-6">
+                <h2 className="text-2xl font-semibold text-[#000000] mb-6">
                   Faixas etárias
                 </h2>
                 <div className="space-y-6">
@@ -107,7 +107,7 @@ export default function DoencasCerebrovasculares() {
 
               {/* Influência socioeconômica */}
               <section>
-                <h2 className="text-2xl font-semibold text-gray-800 mb-6">
+                <h2 className="text-2xl font-semibold text-[#000000] mb-6">
                   Destaques regionais:
                 </h2>
                 <div className="space-y-6">

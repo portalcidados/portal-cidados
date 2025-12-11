@@ -5,7 +5,7 @@ import textBackground from "../assets/text-background.png";
 export default function DiseasesIntroduction() {
   return (
     <div
-      className="min-h-screen bg-cover bg-center bg-no-repeat flex items-center justify-center px-4 md:px-8 py-16"
+      className="min-h-screen bg-cover bg-center bg-no-repeat flex items-center justify-center px-4 md:px-8 py-30"
       style={{
         backgroundImage: `url(${textBackground.src})`,
       }}
@@ -77,4 +77,3 @@ export default function DiseasesIntroduction() {
     </div>
   );
 }
-
