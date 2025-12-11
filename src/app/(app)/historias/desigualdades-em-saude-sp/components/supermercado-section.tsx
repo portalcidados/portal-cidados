@@ -8,7 +8,11 @@ import supermercado from "../assets/supermercado.png";
 import supermercadoTwo from "../assets/supermercadoTwo.png";
 import condominioOne from "../assets/condominio1.png";
 import condominioTwo from "../assets/condominio2.png";
+import taxaPadronizada from "../assets/taxaPadronizada.png";
+import taxaPadronizadaOne from "../assets/taxaPadronizadaOne.png";
+import taxaPadronizadaTwo from "../assets/taxaPadronizadaTwo.png";
 import pontoDeOnibus from "../assets/pontoDeOnibus.png";
+
 import hospitalReception from "../assets/hospitalReception.png";
 import Image from "next/image";
 
@@ -22,6 +26,8 @@ export default function SupermercadoSection() {
   const [currentImage, setCurrentImage] = useState(0); // 0 for first image, 1 for second image, 2 for condominioOne, 3 for condominioTwo, 4 for pontoDeOnibus, 5 for hospitalReception
   const [showCondominioTwoScroll, setShowCondominioTwoScroll] = useState(false);
   const [showPontoDeOnibusScroll, setShowPontoDeOnibusScroll] = useState(false);
+  const [showDrawerOne, setShowDrawerOne] = useState(false);
+  const [showDrawerTwo, setShowDrawerTwo] = useState(false);
 
   // ScrollTrigger for background fade effect
   useGSAP(() => {
@@ -45,6 +51,12 @@ export default function SupermercadoSection() {
     );
     const seventhCardElement = containerRef.current?.querySelector(
       `[data-card-index="7"]`,
+    );
+    const drawerOneTrigger = containerRef.current?.querySelector(
+      `[data-card-index="drawer-one-trigger"]`,
+    );
+    const drawerTwoTrigger = containerRef.current?.querySelector(
+      `[data-card-index="drawer-two-trigger"]`,
     );
 
     if (firstCardElement) {
@@ -148,6 +160,50 @@ export default function SupermercadoSection() {
         onLeaveBack: () => {
           // Switch back to pontoDeOnibus when leaving seventh card
           setCurrentImage(4);
+        },
+      });
+    }
+
+    // Drawer One - appears after third card exits the screen, stays visible for 120vh
+    if (thirdCardElement && drawerOneTrigger) {
+      ScrollTrigger.create({
+        trigger: thirdCardElement,
+        start: "bottom top", // When card bottom reaches top of viewport (card exits screen)
+        endTrigger: drawerOneTrigger,
+        end: "top center", // Continue showing until trigger element reaches center
+        onEnter: () => {
+          setShowDrawerOne(true);
+        },
+        onLeave: () => {
+          setShowDrawerOne(false);
+        },
+        onEnterBack: () => {
+          setShowDrawerOne(true);
+        },
+        onLeaveBack: () => {
+          setShowDrawerOne(false);
+        },
+      });
+    }
+
+    // Drawer Two - appears after fourth card exits the screen, stays visible for 120vh
+    if (fourthCardElement && drawerTwoTrigger) {
+      ScrollTrigger.create({
+        trigger: fourthCardElement,
+        start: "bottom top", // When card bottom reaches top of viewport (card exits screen)
+        endTrigger: drawerTwoTrigger,
+        end: "top center", // Continue showing until trigger element reaches center
+        onEnter: () => {
+          setShowDrawerTwo(true);
+        },
+        onLeave: () => {
+          setShowDrawerTwo(false);
+        },
+        onEnterBack: () => {
+          setShowDrawerTwo(true);
+        },
+        onLeaveBack: () => {
+          setShowDrawerTwo(false);
         },
       });
     }
@@ -432,6 +488,74 @@ export default function SupermercadoSection() {
             <div className="text-[#000000]">{card.text}</div>
           </div>
         ))}
+
+        {/* Invisible trigger card for Drawer One - positioned 120vh after third card */}
+        <div
+          data-card-index="drawer-one-trigger"
+          className="absolute w-1 h-1 opacity-0 pointer-events-none"
+          style={{
+            top: `${300 + 120}vh`,
+          }}
+        />
+
+        {/* Invisible trigger card for Drawer Two - positioned 120vh after fourth card */}
+        <div
+          data-card-index="drawer-two-trigger"
+          className="absolute w-1 h-1 opacity-0 pointer-events-none"
+          style={{
+            top: `${450 + 120}vh`,
+          }}
+        />
+      </div>
+
+      {/* Drawer One */}
+      <div
+        className={`fixed right-0 top-0 h-screen bg-white border-l border-[#000000]/20 shadow-2xl transition-transform duration-700 ease-in-out z-50 w-[90vw] md:w-[400px] lg:w-[480px] ${
+          showDrawerOne ? "translate-x-0" : "translate-x-full"
+        }`}
+      >
+        <div className="h-full flex flex-col p-6 md:p-8 lg:p-10">
+          <h3 className="text-xs md:text-sm lg:text-base mb-3 text-[#000000] font-medium flex-shrink-0">
+            Mortalidade por doenças cerebrovasculares entre as mulheres, de 2010
+            a 2019: probabilidades de excedência de que o risco em 2019 fosse
+            superior a 1
+          </h3>
+          <div className="flex-1 min-h-0 flex items-center justify-center pb-2">
+            <div className="w-full h-full flex items-center justify-center">
+              <Image
+                src={taxaPadronizadaOne}
+                alt="Taxa padronizada 1"
+                className="w-full h-full object-contain"
+                style={{ maxHeight: "100%" }}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Drawer Two */}
+      <div
+        className={`fixed right-0 top-0 h-screen bg-white border-l border-[#000000]/20 shadow-2xl transition-transform duration-700 ease-in-out z-50 w-[72vw] md:w-[400px] lg:w-[480px] ${
+          showDrawerTwo ? "translate-x-0" : "translate-x-full"
+        }`}
+      >
+        <div className="h-full flex flex-col p-6 md:p-8 lg:p-10">
+          <h3 className="text-xs md:text-sm lg:text-base mb-3 text-[#000000] font-medium flex-shrink-0">
+            Mortalidade por doenças cerebrovasculares entre as mulheres, de 2010
+            a 2019: probabilidades de excedência de que o risco em 2019 fosse
+            superior a 1
+          </h3>
+          <div className="flex-1 min-h-0 flex items-center justify-center pb-2">
+            <div className="w-full h-full flex items-center justify-center">
+              <Image
+                src={taxaPadronizadaTwo}
+                alt="Taxa padronizada 2"
+                className="w-full h-full object-contain"
+                style={{ maxHeight: "100%" }}
+              />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

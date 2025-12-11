@@ -13,6 +13,7 @@ import { ScrollMapQualidadeAr } from "./components/scroll-map-qualidade-ar";
 import { Solucoes } from "./components/solucoes";
 import { PreloadWrapper } from "./components/preload-wrapper";
 import { ScrollToTopIcon } from "./components/scroll-to-top-icon";
+import { ContinueScrollingHint } from "../desigualdades-em-saude-sp/components/continue-scrolling-hint";
 
 // Import all images for preloading
 import backgroundImage from "./assets/background.png";
@@ -199,6 +200,7 @@ export default function Desigualdades() {
         <Conclusao />
         <Footer />
         <ScrollToTopIcon />
+        <ContinueScrollingHint />
       </div>
     </PreloadWrapper>
   );

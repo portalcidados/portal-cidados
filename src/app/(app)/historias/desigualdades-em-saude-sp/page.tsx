@@ -5,6 +5,8 @@ import { useImagePreloader } from "@/hooks/useImagePreloader";
 import { useAllImagesLoaded } from "@/hooks/useAllImagesLoaded";
 import HouseSection from "./components/house-section";
 import Loading from "./components/loading";
+import { ScrollToTopIcon } from "../ilhas-de-calor/components/scroll-to-top-icon";
+import { ContinueScrollingHint } from "./components/continue-scrolling-hint";
 
 // Importar todas as imagens para precarregamento
 import coverImage from "./assets/cover.png";
@@ -129,6 +131,8 @@ export default function DesigualdadesEmSaudeSp() {
         <MortalidadeMaterna />
         <Conclusion />
         <Footer />
+        <ScrollToTopIcon />
+        <ContinueScrollingHint />
       </div>
     </Suspense>
   );
