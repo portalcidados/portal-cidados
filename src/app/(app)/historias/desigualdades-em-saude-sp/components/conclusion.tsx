@@ -3,7 +3,9 @@
 import { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Image from "next/image";
 import textBackground from "../assets/text-background.png";
+import metro from "../assets/metro.png";
 
 // Registrar o plugin ScrollTrigger
 gsap.registerPlugin(ScrollTrigger);
@@ -93,12 +95,12 @@ export default function Conclusion() {
   return (
     <div
       ref={sectionRef}
-      className="bg-cover bg-center bg-no-repeat flex items-center justify-center px-4 md:px-8 py-30"
+      className="bg-cover bg-center bg-no-repeat flex flex-col items-center pt-30 overflow-x-hidden"
       style={{
         backgroundImage: `url(${textBackground.src})`,
       }}
     >
-      <div className="max-w-xl rounded-2xl">
+      <div className="max-w-xl rounded-2xl px-4 md:px-8 ">
         <div className="space-y-6 text-black leading-relaxed">
           <p>
             O estudo detalhado da distribuição espacial de algumas doenças e
@@ -252,6 +254,16 @@ export default function Conclusion() {
             Play
           </button>
         </div>
+      </div>
+
+      {/* Imagem metro ocupando toda a largura da tela */}
+      <div className="w-full  mt-0">
+        <Image
+          src={metro}
+          alt="Metro"
+          className="w-full h-auto object-cover"
+          priority
+        />
       </div>
     </div>
   );
