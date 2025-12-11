@@ -36,12 +36,12 @@ export default function Cover() {
               alt="Insper Logo"
               width={88}
               height={33}
-              className={`h-auto brightness-0 invert transition-all duration-300 ${
+              className={`h-auto w-18 sm:w-22 brightness-0 invert transition-transform duration-300 ${
                 hoveredLogo === "insper"
-                  ? "w-20 sm:w-24"
+                  ? "scale-110"
                   : hoveredLogo === "portal"
-                    ? "w-16 sm:w-20"
-                    : "w-18 sm:w-22"
+                    ? "scale-90"
+                    : "scale-100"
               }`}
               priority
             />
@@ -57,12 +57,12 @@ export default function Cover() {
               alt="Portal Cidadãos Logo"
               width={100}
               height={33}
-              className={`h-auto brightness-0 invert transition-all duration-300 ${
+              className={`h-auto w-20 sm:w-30 brightness-0 invert transition-transform duration-300 ${
                 hoveredLogo === "portal"
-                  ? "w-22 sm:w-32"
+                  ? "scale-110"
                   : hoveredLogo === "insper"
-                    ? "w-18 sm:w-28"
-                    : "w-20 sm:w-30"
+                    ? "scale-90"
+                    : "scale-100"
               }`}
               priority
             />

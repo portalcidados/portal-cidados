@@ -3,12 +3,16 @@
 import { Share2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import insperLogo from "../../assets/insper-logo.png";
 import portalLogo from "../../assets/portal_cidados_logo.png";
 import backgroundImage from "../assets/background.png";
 import coverImage from "../assets/cover-image.png";
 
 export default function Intro() {
+  const [hoveredLogo, setHoveredLogo] = useState<"insper" | "portal" | null>(
+    null,
+  );
   const handleShare = async () => {
     const shareData = {
       title: "Diagnóstico sobre ilhas de calor e qualidade do ar na Maré",
@@ -56,24 +60,43 @@ export default function Intro() {
               href="https://www.insper.edu.br/pt/home"
               target="_blank"
               rel="noopener noreferrer"
-              className="cursor-pointer"
+              className="cursor-pointer transition-all duration-300"
+              onMouseEnter={() => setHoveredLogo("insper")}
+              onMouseLeave={() => setHoveredLogo(null)}
             >
               <Image
                 src={insperLogo}
                 alt="Insper Logo"
                 width={88}
                 height={33}
-                className="h-auto w-18 sm:w-22"
+                className={`h-auto w-18 sm:w-22 transition-transform duration-300 ${
+                  hoveredLogo === "insper"
+                    ? "scale-110"
+                    : hoveredLogo === "portal"
+                      ? "scale-90"
+                      : "scale-100"
+                }`}
                 priority
               />
             </Link>
-            <Link href="/" className="cursor-pointer">
+            <Link
+              href="/"
+              className="cursor-pointer transition-all duration-300"
+              onMouseEnter={() => setHoveredLogo("portal")}
+              onMouseLeave={() => setHoveredLogo(null)}
+            >
               <Image
                 src={portalLogo}
                 alt="Portal Cidadãos Logo"
                 width={100}
                 height={33}
-                className="h-auto w-20 sm:w-30"
+                className={`h-auto w-20 sm:w-30 transition-transform duration-300 ${
+                  hoveredLogo === "portal"
+                    ? "scale-110"
+                    : hoveredLogo === "insper"
+                      ? "scale-90"
+                      : "scale-100"
+                }`}
                 priority
               />
             </Link>
@@ -113,7 +136,7 @@ export default function Intro() {
               <button
                 type="button"
                 onClick={handleShare}
-                className="flex items-center justify-center w-10 h-10 bg-transparent border-[#3A3434] hover:bg-[#f0f0f0] text-[#333333] rounded-full transition-all duration-300 shadow-lg border"
+                className="flex items-center hover:cursor-pointer justify-center w-10 h-10 bg-transparent border-[#3A3434] hover:bg-[#f0f0f0] text-[#333333] rounded-full transition-all duration-300 shadow-lg border"
                 aria-label="Compartilhar"
               >
                 <Share2 size={18} />
