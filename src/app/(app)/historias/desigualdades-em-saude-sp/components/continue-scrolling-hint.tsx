@@ -38,15 +38,27 @@ export function ContinueScrollingHint() {
       // Esconde o texto imediatamente quando há scroll
       setIsVisible(false);
 
-      // Verifica se não está no topo nem no final da página
+      // Verifica se está na capa (primeira tela)
       const scrollY = window.scrollY;
-      const isAtTop = scrollY < 100;
+      const viewportHeight = window.innerHeight;
+      const isInCover = scrollY < viewportHeight;
+
+      // Verifica se está no footer
+      const footerElement = document.querySelector("footer");
+      let isInFooter = false;
+      if (footerElement) {
+        const footerRect = footerElement.getBoundingClientRect();
+        // Verifica se o footer está visível na viewport
+        isInFooter = footerRect.top < viewportHeight && footerRect.bottom > 0;
+      }
+
+      // Verifica se está no final da página (fallback)
       const isAtBottom =
         window.innerHeight + scrollY >=
         document.documentElement.scrollHeight - 100;
 
-      // Só mostra o hint se não estiver no topo nem no final
-      if (!isAtTop && !isAtBottom) {
+      // Só mostra o hint se não estiver na capa nem no footer
+      if (!isInCover && !isInFooter && !isAtBottom) {
         // Inicia um novo timer de 3 segundos
         timeoutRef.current = setTimeout(() => {
           setIsVisible(true);
@@ -70,12 +82,23 @@ export function ContinueScrollingHint() {
 
     // Inicia o timer inicial após 3 segundos se não houver scroll
     const initialScrollY = window.scrollY;
-    const isAtTop = initialScrollY < 100;
+    const viewportHeight = window.innerHeight;
+    const isInCover = initialScrollY < viewportHeight;
+
+    // Verifica se está no footer
+    const footerElement = document.querySelector("footer");
+    let isInFooter = false;
+    if (footerElement) {
+      const footerRect = footerElement.getBoundingClientRect();
+      isInFooter = footerRect.top < viewportHeight && footerRect.bottom > 0;
+    }
+
+    // Verifica se está no final da página (fallback)
     const isAtBottom =
       window.innerHeight + initialScrollY >=
       document.documentElement.scrollHeight - 100;
 
-    if (!isAtTop && !isAtBottom) {
+    if (!isInCover && !isInFooter && !isAtBottom) {
       timeoutRef.current = setTimeout(() => {
         setIsVisible(true);
       }, 3000);
@@ -130,6 +153,7 @@ export function ContinueScrollingHint() {
     >
       <div className="relative">
         <button
+          type="button"
           onClick={handleDismiss}
           className={`absolute -top-1 -right-6 w-5 h-5 flex items-center justify-center text-black text-lg font-normal hover:opacity-70 transition-opacity focus:outline-none ${
             isVisible ? "pointer-events-auto" : "pointer-events-none"
@@ -145,4 +169,3 @@ export function ContinueScrollingHint() {
     </div>
   );
 }
-
