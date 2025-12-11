@@ -149,9 +149,10 @@ export default function HouseSection() {
         <div className="min-h-screen w-full bg-white flex items-center justify-center relative overflow-hidden">
           {/* First background image with fade effect */}
           <div
-            className="absolute inset-0 bg-cover bg-center transition-opacity duration-500 ease-in-out"
+            className="absolute inset-0 bg-cover bg-center overflow-hidden transition-opacity duration-500 ease-in-out"
             style={{
               backgroundImage: `url(${houseBackground.src})`,
+              backgroundPosition: "0% center",
               opacity: showBackground && !showPanoramicScroll ? 1 : 0,
             }}
           />

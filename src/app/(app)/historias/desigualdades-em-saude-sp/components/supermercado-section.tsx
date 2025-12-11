@@ -8,7 +8,7 @@ import supermercado from "../assets/supermercado.png";
 import supermercadoTwo from "../assets/supermercadoTwo.png";
 import condominioOne from "../assets/condominio1.png";
 import condominioTwo from "../assets/condominio2.png";
-import pontoDeOnibus from "./pontoDeOnibus.png";
+import pontoDeOnibus from "../assets/pontoDeOnibus.png";
 import hospitalReception from "../assets/hospitalReception.png";
 import Image from "next/image";
 

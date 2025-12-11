@@ -21,7 +21,7 @@ export default function Text() {
             insulina, hormônio que regula a glicose no sangue e garante energia
             para o organismo. O diabetes pode causar o aumento da glicemia e as
             altas taxas podem levar a complicações no coração, nas artérias, nos
-            olhos, nos rins e nos nervos.
+            olhos, nos rins e nos nervos.{" "}
             <span className="font-semibold">
               Em casos mais graves, o diabetes pode levar à morte.
             </span>
@@ -61,7 +61,7 @@ export default function Text() {
           <p>
             <span className="font-semibold">
               A qualidade da saúde da população é um reflexo direto das
-              desigualdades sociais.
+              desigualdades sociais.{" "}
             </span>
             Essa realidade é influenciada por determinantes sociais variados,
             como condições de habitação (e sua localização geográfica),
