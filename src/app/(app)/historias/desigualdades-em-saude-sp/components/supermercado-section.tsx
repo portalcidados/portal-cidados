@@ -6,6 +6,9 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef, useState } from "react";
 import supermercado from "../assets/supermercado.png";
 import supermercadoTwo from "../assets/supermercadoTwo.png";
+import condominioOne from "../assets/condominio1.png";
+import condominioTwo from "../assets/condominio2.png";
+import pontoDeOnibus from "./pontoDeOnibus.png";
 import Image from "next/image";
 
 // Register ScrollTrigger plugin
@@ -13,15 +16,28 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function SupermercadoSection() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [currentImage, setCurrentImage] = useState(0); // 0 for first image, 1 for second image
+  const condominioTwoSliderRef = useRef<HTMLDivElement>(null);
+  const pontoDeOnibusSliderRef = useRef<HTMLDivElement>(null);
+  const [currentImage, setCurrentImage] = useState(0); // 0 for first image, 1 for second image, 2 for condominioOne, 3 for condominioTwo, 4 for pontoDeOnibus
+  const [showCondominioTwoScroll, setShowCondominioTwoScroll] = useState(false);
+  const [showPontoDeOnibusScroll, setShowPontoDeOnibusScroll] = useState(false);
 
   // ScrollTrigger for background fade effect
   useGSAP(() => {
     const firstCardElement = containerRef.current?.querySelector(
-      `[data-card-index="0"]`
+      `[data-card-index="0"]`,
     );
     const secondCardElement = containerRef.current?.querySelector(
-      `[data-card-index="1"]`
+      `[data-card-index="1"]`,
+    );
+    const thirdCardElement = containerRef.current?.querySelector(
+      `[data-card-index="2"]`,
+    );
+    const fourthCardElement = containerRef.current?.querySelector(
+      `[data-card-index="3"]`,
+    );
+    const fifthCardElement = containerRef.current?.querySelector(
+      `[data-card-index="4"]`,
     );
 
     if (firstCardElement) {
@@ -54,10 +70,137 @@ export default function SupermercadoSection() {
       });
     }
 
+    if (thirdCardElement) {
+      ScrollTrigger.create({
+        trigger: thirdCardElement,
+        start: "bottom center",
+        onEnter: () => {
+          // Switch to condominioOne when entering third card
+          setCurrentImage(2);
+        },
+        onLeaveBack: () => {
+          // Switch back to second image when leaving third card
+          setCurrentImage(1);
+        },
+      });
+    }
+
+    if (fourthCardElement) {
+      ScrollTrigger.create({
+        trigger: fourthCardElement,
+        start: "bottom center",
+        onEnter: () => {
+          // Switch to condominioTwo when entering fourth card
+          setCurrentImage(3);
+        },
+        onLeaveBack: () => {
+          // Switch back to condominioOne when leaving fourth card
+          setCurrentImage(2);
+        },
+      });
+    }
+
+    if (fifthCardElement) {
+      ScrollTrigger.create({
+        trigger: fifthCardElement,
+        start: "bottom top",
+        onEnter: () => {
+          // Switch to pontoDeOnibus when fifth card exits screen
+          setCurrentImage(4);
+        },
+        onLeaveBack: () => {
+          // Switch back to condominioTwo when leaving fifth card
+          setCurrentImage(3);
+        },
+      });
+    }
+
     return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+      ScrollTrigger.getAll().forEach((trigger) => {
+        trigger.kill();
+      });
     };
   }, []);
+
+  // Separate useGSAP for condominioTwo scroll animation
+  useGSAP(() => {
+    if (showCondominioTwoScroll && condominioTwoSliderRef.current) {
+      const fourthCardElement = containerRef.current?.querySelector(
+        `[data-card-index="3"]`,
+      );
+
+      if (fourthCardElement) {
+        // Animate background-position horizontally until the end of the image
+        // Animation starts after the card passes (when card bottom reaches top of viewport)
+        gsap.to(condominioTwoSliderRef.current, {
+          scrollTrigger: {
+            trigger: fourthCardElement,
+            start: "bottom top",
+            end: "+=100vh", // Continue animation for 100vh after card passes
+            scrub: 1,
+            invalidateOnRefresh: true,
+          },
+          backgroundPosition: "100% center",
+          ease: "none",
+        });
+      }
+    }
+
+    return () => {
+      ScrollTrigger.getAll().forEach((trigger) => {
+        trigger.kill();
+      });
+    };
+  }, [showCondominioTwoScroll]);
+
+  // Trigger the scroll animation when condominioTwo is shown
+  useGSAP(() => {
+    if (currentImage === 3) {
+      setShowCondominioTwoScroll(true);
+    } else {
+      setShowCondominioTwoScroll(false);
+    }
+  }, [currentImage]);
+
+  // Separate useGSAP for pontoDeOnibus scroll animation
+  useGSAP(() => {
+    if (showPontoDeOnibusScroll && pontoDeOnibusSliderRef.current) {
+      const lastCardElement = containerRef.current?.querySelector(
+        `[data-card-index="5"]`,
+      );
+
+      if (lastCardElement) {
+        // Animate background-position horizontally until the end of the image
+        // Animation starts after the last card passes (when card bottom reaches top of viewport)
+        gsap.to(pontoDeOnibusSliderRef.current, {
+          scrollTrigger: {
+            trigger: lastCardElement,
+            start: "bottom top",
+            end: "+=100vh", // Continue animation for 100vh after card passes
+            scrub: 1,
+            invalidateOnRefresh: true,
+          },
+          backgroundPosition: "100% center",
+          ease: "none",
+        });
+      }
+    }
+
+    return () => {
+      ScrollTrigger.getAll().forEach((trigger) => {
+        trigger.kill();
+      });
+    };
+  }, [showPontoDeOnibusScroll]);
+
+  // Trigger the scroll animation when pontoDeOnibus is shown
+  useGSAP(() => {
+    if (currentImage === 4) {
+      setShowPontoDeOnibusScroll(true);
+    } else {
+      setShowPontoDeOnibusScroll(false);
+    }
+  }, [currentImage]);
 
   // Define the text cards content and positions
   const cards = [
@@ -107,12 +250,52 @@ export default function SupermercadoSection() {
         </>
       ),
     },
+    {
+      top: 600,
+      text: (
+        <>
+          Enquanto Maria passa o dia trabalhando no mercado, dona Alice
+          aproveita sua manhã para caminhar em um parque próximo de sua casa.
+          Uma pesquisa realizada nas cidades australianas de Sydney, Wollongong
+          e Newcastle demonstrou que{" "}
+          <strong>
+            indivíduos com maior exposição a áreas verdes apresentaram menores
+            prevalências de diabetes e hipertensão arterial.
+          </strong>
+        </>
+      ),
+    },
+    {
+      top: 750,
+      text: (
+        <>
+          No Jardim Helena, Maria não tem esse privilégio — o bairro carece de
+          espaços verdes adequados, o que também impacta sua saúde. O dia de
+          trabalho de Maria termina e ela volta para sua casa, mais uma jornada
+          de duas horas no transporte público.
+        </>
+      ),
+    },
+    {
+      top: 900,
+      text: (
+        <>
+          Depois de um dia intenso ela precisa buscar seus medicamentos na
+          Farmácia Popular, um recurso essencial, mas que muitas vezes, devido à
+          falta de tempo, ela não consegue. Ao chegar na Farmácia mais próxima a
+          sua casa ela já se encontra fechada.
+        </>
+      ),
+    },
   ];
 
   return (
-    <div ref={containerRef} className="h-[720vh]">
-      <div style={{ position: "sticky", top: 0 }} className="h-screen w-full">
-        <div className="min-h-screen w-full bg-white flex items-center justify-center relative">
+    <div ref={containerRef} className="h-[1130vh]">
+      <div
+        style={{ position: "sticky", top: 0 }}
+        className="h-screen w-full overflow-hidden"
+      >
+        <div className="min-h-screen w-full bg-white flex items-center justify-center relative overflow-hidden">
           {/* First image - supermercado */}
           <Image
             src={supermercado}
@@ -136,13 +319,45 @@ export default function SupermercadoSection() {
             height={400}
             priority
           />
+
+          {/* Third image - condominioOne */}
+          <div
+            className="absolute inset-0 bg-cover bg-center overflow-hidden transition-opacity duration-1000 ease-in-out"
+            style={{
+              backgroundImage: `url(${condominioOne.src})`,
+              backgroundPosition: "0% center",
+              opacity: currentImage === 2 ? 1 : 0,
+            }}
+          />
+
+          {/* Fourth image - condominioTwo with horizontal scroll animation */}
+          <div
+            ref={condominioTwoSliderRef}
+            className="absolute inset-0 bg-cover bg-center overflow-hidden transition-opacity"
+            style={{
+              backgroundImage: `url(${condominioTwo.src})`,
+              backgroundPosition: "0% center",
+              opacity: currentImage === 3 ? 1 : 0,
+            }}
+          />
+
+          {/* Fifth image - pontoDeOnibus with horizontal scroll animation */}
+          <div
+            ref={pontoDeOnibusSliderRef}
+            className="absolute inset-0 bg-cover bg-center overflow-hidden transition-opacity"
+            style={{
+              backgroundImage: `url(${pontoDeOnibus.src})`,
+              backgroundPosition: "0% center",
+              opacity: currentImage === 4 ? 1 : 0,
+            }}
+          />
         </div>
       </div>
 
       <div className="relative flex flex-col items-center">
         {cards.map((card, index) => (
           <div
-            key={index}
+            key={`card-${index}-${card.top}`}
             data-card-index={index}
             className="absolute bg-[#FFFFFF]/90 h-auto w-[80vw] md:w-[460px] border border-[#000000]/20 px-[30px]
     py-[25px]
@@ -161,4 +376,3 @@ export default function SupermercadoSection() {
     </div>
   );
 }
-
