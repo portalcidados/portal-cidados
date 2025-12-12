@@ -267,6 +267,7 @@ export function CityLayersComparison({
                                 <TooltipContent
                                   side="right"
                                   className="max-w-xs bg-black text-white"
+                                  arrowClassName="bg-black fill-black"
                                 >
                                   <p>{layer.description}</p>
                                 </TooltipContent>
@@ -379,6 +380,7 @@ export function CityLayersComparison({
                                 <TooltipContent
                                   side="right"
                                   className="max-w-xs bg-black text-white"
+                                  arrowClassName="bg-black fill-black"
                                 >
                                   <p>{layer.description}</p>
                                 </TooltipContent>

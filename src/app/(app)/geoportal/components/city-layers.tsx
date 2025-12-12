@@ -136,6 +136,7 @@ export function CityLayers({
                                   <TooltipContent
                                     side="right"
                                     className="max-w-xs bg-black text-white"
+                                    arrowClassName="bg-black fill-black"
                                   >
                                     <p>{layer.description}</p>
                                   </TooltipContent>
