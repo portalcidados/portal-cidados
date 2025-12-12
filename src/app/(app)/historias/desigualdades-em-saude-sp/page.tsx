@@ -7,6 +7,7 @@ import HouseSection from "./components/house-section";
 import Loading from "./components/loading";
 import { ScrollToTopIcon } from "../ilhas-de-calor/components/scroll-to-top-icon";
 import { ContinueScrollingHint } from "./components/continue-scrolling-hint";
+import { ScrollProgressBar } from "../ilhas-de-calor/components/scroll-progress-bar";
 
 // Importar todas as imagens para precarregamento
 import coverImage from "./assets/cover.png";
@@ -119,6 +120,7 @@ export default function DesigualdadesEmSaudeSp() {
   return (
     <Suspense fallback={<Loading />}>
       <div className="bg-white">
+        <ScrollProgressBar />
         <Cover />
         <Text />
         <ScrollyCards />

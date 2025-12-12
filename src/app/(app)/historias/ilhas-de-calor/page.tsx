@@ -14,6 +14,7 @@ import { Solucoes } from "./components/solucoes";
 import { PreloadWrapper } from "./components/preload-wrapper";
 import { ScrollToTopIcon } from "./components/scroll-to-top-icon";
 import { ContinueScrollingHint } from "../desigualdades-em-saude-sp/components/continue-scrolling-hint";
+import { ScrollProgressBar } from "./components/scroll-progress-bar";
 
 // Import all images for preloading
 import backgroundImage from "./assets/background.png";
@@ -182,6 +183,7 @@ export default function Desigualdades() {
   return (
     <PreloadWrapper imageSources={imagesToPreload}>
       <div className="bg-white!">
+        <ScrollProgressBar />
         <Intro />
         <IntroMare />
         <IlhasDeCalor />
