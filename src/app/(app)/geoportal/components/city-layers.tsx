@@ -135,7 +135,7 @@ export function CityLayers({
                                   </TooltipTrigger>
                                   <TooltipContent
                                     side="right"
-                                    className="max-w-xs"
+                                    className="max-w-xs bg-black text-white"
                                   >
                                     <p>{layer.description}</p>
                                   </TooltipContent>
