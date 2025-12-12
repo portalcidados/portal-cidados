@@ -27,12 +27,12 @@ export const cityLayersConfig: CityLayersConfig = {
   ],
   "Rio de Janeiro": [
     {
-      id: "ic_areas-3ll8xj",
+      id: "ic_areas-3ii8xj",
       name: "Ilhas de Calor",
       description:
         "Medidas de temperatura registradas em diferentes dias da semana no período de março a setembro de 2023.",
       tilesetId: "observatorio-nacional.cxco0uhi",
-      sourceLayer: "ic_areas-3ll8xj",
+      sourceLayer: "ic_areas-3ii8xj",
       layerType: "fill",
       hasCustomStyle: true,
     },
@@ -47,12 +47,12 @@ export const cityLayersConfig: CityLayersConfig = {
       hasCustomStyle: true,
     },
     {
-      id: "quali_area-1cl0wo",
+      id: "quali_area-1ci0wo",
       name: "Qualidade do Ar",
       description:
         "Medidas de qualidade do ar registradas na última semana de cada mês no período de março a setembro de 2023.",
       tilesetId: "observatorio-nacional.1dkglesm",
-      sourceLayer: "quali_area-1cl0wo",
+      sourceLayer: "quali_area-1ci0wo",
       layerType: "fill",
       hasCustomStyle: true,
     },
