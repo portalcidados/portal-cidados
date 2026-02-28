@@ -7,5 +7,5 @@ export default function CatalogoDeDados() {
       <Header />
       <CatalogPage />
     </div>
-  );
+  )
 }
