@@ -1,22 +1,8 @@
 import backgroundTexture from '../assets/background.png';
-import { SectionCover } from './section-cover';
-import mareMapaImage from '../assets/mare-mapa.png';
 
 export function IlhasDeCalor() {
   return (
     <div className="w-full">
-         {/* Capa da seção com imagem em escala de cinza e título */}
-      <SectionCover
-        title={
-          <>
-            Ilhas de <strong>calor</strong>
-          </>
-        }
-        image={mareMapaImage}
-        imageAlt="Mapa da Maré"
-        sticky={false}
-        grayscaleOpacity={1}
-      />
       {/* Conteúdo da seção (abaixo da capa) com background.png */}
       <section
         className="w-full bg-white!"

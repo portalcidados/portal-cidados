@@ -3,23 +3,53 @@
 import { useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import mareMapaImage from "../assets/mare-mapa.png";
-import mareMapaImage2 from "../assets/mare-mapa-2.png";
-import mareMapaImage2Mobile from "../assets/mare-mapa-2-mobile.png";
-import mareMapaImage3 from "../assets/mare-mapa-3.png";
-import mareMapaImage3Mobile from "../assets/mare-mapa-3-mobile.png";
-import mareMapaImage4 from "../assets/mare-mapa-4.png";
-import mareMapaImage4Mobile from "../assets/mare-mapa-4-mobile.png";
 import imageCard3 from "../assets/image-card-3.png";
 import imageCard4 from "../assets/image-card-4.png";
 import imageCard5 from "../assets/image-card-5.png";
 import imageCard6 from "../assets/image-card-6.png";
-import { SectionCover } from "./section-cover";
-import Image from "next/image";
 import imageCard7 from "../assets/image-card-7.png";
+import Image from "next/image";
+import { Map as MapboxMap } from "react-map-gl/mapbox";
+import "mapbox-gl/dist/mapbox-gl.css";
 
-// Registrar o plugin ScrollTrigger
 gsap.registerPlugin(ScrollTrigger);
+
+// ⚠️  Replace with your Mapbox Studio style URL for the Maré map
+const MAPBOX_STYLE = "mapbox://styles/observatorio-nacional/cmmhtm8qk007201rybwdsa26f";
+const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN ?? "";
+
+// Map positions
+const ORIGINAL_DESKTOP = { lng: -43.244951, lat: -22.856215, zoom: 12.84 };
+const ORIGINAL_MOBILE = { lng: -43.244951, lat: -22.856215, zoom: 11.44 };
+const MORRO_TIMBAU_DESKTOP = { lng: -43.241521, lat: -22.862468, zoom: 15.25 };
+const MORRO_TIMBAU_MOBILE = { lng: -43.241521, lat: -22.861468, zoom: 15.20 };
+const VILA_PINHEIROS_DESKTOP = { lng: -43.238435, lat: -22.869024, zoom: 14.52 };
+const VILA_PINHEIROS_MOBILE = { lng: -43.238435, lat: -22.869024, zoom: 13.52 };
+
+type LayerConfig = { id: string; prop: string; value: number };
+
+const MAP1_LAYERS: LayerConfig[] = [
+  { id: "map1-4mx9os", prop: "fill-opacity", value: 0.63 },
+  { id: "map1-861s78", prop: "line-opacity", value: 1 },
+  { id: "map1-dot-lv-85493o", prop: "icon-opacity", value: 1 },
+  { id: "map1-dot-fiocruz-d5z3ol", prop: "icon-opacity", value: 1 },
+  { id: "map1-dot-avbrasil-bizyex", prop: "icon-opacity", value: 1 },
+  { id: "map1-dot-ufrj-4pjmtb", prop: "icon-opacity", value: 1 },
+  { id: "map1-dot-mare-008hxv", prop: "icon-opacity", value: 1 },
+  { id: "map1-dot-galeao-alo8k6", prop: "icon-opacity", value: 1 },
+];
+
+const MORRO_TIMBAU_LAYERS: LayerConfig[] = [
+  { id: "morro-timbau-01bfni", prop: "icon-opacity", value: 1 },
+];
+
+const VILA_PINHEIROS_LAYERS: LayerConfig[] = [
+  { id: "vila-dos-pinheiros1-31s02c", prop: "fill-opacity", value: 0.63 },
+  { id: "vila-dos-pinheiros2-0hozsm", prop: "fill-opacity", value: 0.63 },
+  { id: "vila-dos-pinheiros1-31s02c (1)", prop: "line-opacity", value: 1 },
+  { id: "vila-dos-pinheiros2-0hozsm (1)", prop: "line-opacity", value: 1 },
+  { id: "vila-dos-pinheiros-dot-7hfgpc", prop: "icon-opacity", value: 1 },
+];
 
 interface ScrollCardProps {
   children?: React.ReactNode;
@@ -32,19 +62,11 @@ function ScrollCard({ children, cardRef }: ScrollCardProps) {
   useLayoutEffect(() => {
     if (!contentRef.current || !children || !cardRef.current) return;
 
-    // Set initial state to ensure cards start hidden
-    gsap.set(contentRef.current, {
-      opacity: 0,
-      y: 100,
-    });
+    gsap.set(contentRef.current, { opacity: 0, y: 100 });
 
-    // Animação de entrada do card usando GSAP
     const animation = gsap.fromTo(
       contentRef.current,
-      {
-        opacity: 0,
-        y: 100,
-      },
+      { opacity: 0, y: 100 },
       {
         opacity: 1,
         y: 0,
@@ -60,15 +82,11 @@ function ScrollCard({ children, cardRef }: ScrollCardProps) {
       },
     );
 
-    // Check if element is already in view on mount and after ScrollTrigger refresh
     const checkInitialState = () => {
       if (!contentRef.current || !cardRef.current) return;
-
       const rect = cardRef.current.getBoundingClientRect();
       const viewportHeight = window.innerHeight;
       const triggerPoint = viewportHeight * 0.8;
-
-      // If already past the trigger point, animate immediately
       if (rect.top < triggerPoint && rect.bottom > 0) {
         gsap.to(contentRef.current, {
           opacity: 1,
@@ -79,10 +97,8 @@ function ScrollCard({ children, cardRef }: ScrollCardProps) {
       }
     };
 
-    // Wait for ScrollTrigger to be ready and refresh
     const timeoutId = setTimeout(() => {
       ScrollTrigger.refresh();
-      // Check after refresh to see if we need to animate immediately
       requestAnimationFrame(() => {
         checkInitialState();
       });
@@ -116,9 +132,11 @@ function ScrollCard({ children, cardRef }: ScrollCardProps) {
 }
 
 export function IntroMare() {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const mapRef = useRef<any>(null);
   const [grayscaleOpacity, setGrayscaleOpacity] = useState(1);
   const [titleOpacity, setTitleOpacity] = useState(1);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [showIlhasTitle, setShowIlhasTitle] = useState(false);
 
   const card0Ref = useRef<HTMLDivElement>(null);
   const card1Ref = useRef<HTMLDivElement>(null);
@@ -132,14 +150,49 @@ export function IntroMare() {
   const card10Ref = useRef<HTMLDivElement>(null);
   const card11Ref = useRef<HTMLDivElement>(null);
   const card12Ref = useRef<HTMLDivElement>(null);
+  const card13Ref = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
     let triggers: ScrollTrigger[] = [];
     let timeoutId: NodeJS.Timeout;
 
-    // Função para criar todos os triggers
+    const isMobile = () =>
+      typeof window !== "undefined" && window.innerWidth < 768;
+
+    const getMap = () => {
+      const map = mapRef.current?.getMap?.();
+      if (map && map.isStyleLoaded()) return map;
+      return null;
+    };
+
+    const flyTo = (
+      desktop: typeof ORIGINAL_DESKTOP,
+      mobile: typeof ORIGINAL_MOBILE,
+    ) => {
+      const map = getMap();
+      if (!map) return;
+      const coords = isMobile() ? mobile : desktop;
+      map.flyTo({
+        center: [coords.lng, coords.lat],
+        zoom: coords.zoom,
+        duration: 2000,
+        essential: true,
+      });
+    };
+
+    const setLayerVisibility = (layers: LayerConfig[], visible: boolean) => {
+      const map = getMap();
+      if (!map) return;
+      for (const layer of layers) {
+        try {
+          map.setPaintProperty(layer.id, layer.prop, visible ? layer.value : 0);
+        } catch {
+          // Layer may not exist in the current style
+        }
+      }
+    };
+
     const createTriggers = () => {
-      // Verificar se todos os refs estão disponíveis
       const refs = [
         card0Ref,
         card1Ref,
@@ -153,21 +206,15 @@ export function IntroMare() {
         card10Ref,
         card11Ref,
         card12Ref,
+        card13Ref,
       ];
 
-      const allRefsReady = refs.every((ref) => ref.current !== null);
+      if (!refs.every((ref) => ref.current !== null)) return;
 
-      if (!allRefsReady) {
-        return;
-      }
-
-      // Limpar triggers anteriores se existirem
-      for (const trigger of triggers) {
-        trigger.kill();
-      }
+      for (const trigger of triggers) trigger.kill();
       triggers = [];
 
-      // Card 0: Remove grayscale e título
+      // Card 0: Remove grayscale and title
       triggers.push(
         ScrollTrigger.create({
           trigger: card0Ref.current,
@@ -180,135 +227,125 @@ export function IntroMare() {
           onLeaveBack: () => {
             setGrayscaleOpacity(1);
             setTitleOpacity(1);
+            setShowIlhasTitle(false);
           },
         }),
       );
 
-      // Card 1: Troca para imagem 2 (mare-mapa-2.png)
+      // Card 1: Show map1 layers (neighborhood boundaries + POI labels)
       triggers.push(
         ScrollTrigger.create({
           trigger: card1Ref.current,
           start: "top center",
           end: "bottom center",
-          onEnter: () => setCurrentImageIndex(1),
-          onLeaveBack: () => setCurrentImageIndex(0),
+          onEnter: () => setLayerVisibility(MAP1_LAYERS, true),
+          onLeaveBack: () => setLayerVisibility(MAP1_LAYERS, false),
         }),
       );
 
-      // Card 2: Mantém imagem 2
-      triggers.push(
-        ScrollTrigger.create({
-          trigger: card2Ref.current,
-          start: "top center",
-          end: "bottom center",
-          onEnter: () => setCurrentImageIndex(1),
-        }),
-      );
-
-      // Card 3: Volta para imagem 1 (mare-mapa.png)
+      // Card 3: Hide map1 layers (same map position, just hide layers)
       triggers.push(
         ScrollTrigger.create({
           trigger: card3Ref.current,
           start: "top center",
           end: "bottom center",
-          onEnter: () => setCurrentImageIndex(0),
-          onLeaveBack: () => setCurrentImageIndex(1),
+          onEnter: () => setLayerVisibility(MAP1_LAYERS, false),
+          onLeaveBack: () => setLayerVisibility(MAP1_LAYERS, true),
         }),
       );
 
-      // Card 8: Trigger invisível para trocar para imagem 3 (mare-mapa-3.png)
+      // Card 8: Fly to Morro do Timbau + show its layer
       triggers.push(
         ScrollTrigger.create({
           trigger: card8Ref.current,
           start: "top center",
           end: "bottom center",
-          onEnter: () => setCurrentImageIndex(2),
-          onLeaveBack: () => setCurrentImageIndex(0),
+          onEnter: () => {
+            flyTo(MORRO_TIMBAU_DESKTOP, MORRO_TIMBAU_MOBILE);
+            setLayerVisibility(MORRO_TIMBAU_LAYERS, true);
+          },
+          onLeaveBack: () => {
+            flyTo(ORIGINAL_DESKTOP, ORIGINAL_MOBILE);
+            setLayerVisibility(MORRO_TIMBAU_LAYERS, false);
+          },
         }),
       );
 
-      // Card 4: Volta para imagem 1 (mare-mapa.png)
+      // Card 4: Fly back to original, hide morro-timbau
       triggers.push(
         ScrollTrigger.create({
           trigger: card4Ref.current,
           start: "top center",
           end: "bottom center",
-          onEnter: () => setCurrentImageIndex(0),
-          onLeaveBack: () => setCurrentImageIndex(2),
+          onEnter: () => {
+            flyTo(ORIGINAL_DESKTOP, ORIGINAL_MOBILE);
+            setLayerVisibility(MORRO_TIMBAU_LAYERS, false);
+          },
+          onLeaveBack: () => {
+            flyTo(MORRO_TIMBAU_DESKTOP, MORRO_TIMBAU_MOBILE);
+            setLayerVisibility(MORRO_TIMBAU_LAYERS, true);
+          },
         }),
       );
 
-      // Card 5: Volta para imagem 1 (mare-mapa.png)
-      triggers.push(
-        ScrollTrigger.create({
-          trigger: card5Ref.current,
-          start: "top center",
-          end: "bottom center",
-          onEnter: () => setCurrentImageIndex(0),
-          onLeaveBack: () => setCurrentImageIndex(2),
-        }),
-      );
-
-      // Card 6: Troca para imagem 4 (mare-mapa-4.png) - trigger invisível
+      // Card 6: Fly to Vila dos Pinheiros + show its layers
       triggers.push(
         ScrollTrigger.create({
           trigger: card6Ref.current,
           start: "top center",
           end: "bottom center",
-          onEnter: () => setCurrentImageIndex(3),
-          onLeaveBack: () => setCurrentImageIndex(0),
+          onEnter: () => {
+            flyTo(VILA_PINHEIROS_DESKTOP, VILA_PINHEIROS_MOBILE);
+            setLayerVisibility(VILA_PINHEIROS_LAYERS, true);
+          },
+          onLeaveBack: () => {
+            flyTo(ORIGINAL_DESKTOP, ORIGINAL_MOBILE);
+            setLayerVisibility(VILA_PINHEIROS_LAYERS, false);
+          },
         }),
       );
 
-      // Card 9: Trigger invisível para voltar para imagem 1 (mare-mapa.png)
+      // Card 9: Hide vila-dos-pinheiros layers and fly back
       triggers.push(
         ScrollTrigger.create({
           trigger: card9Ref.current,
           start: "top center",
           end: "bottom center",
-          onEnter: () => setCurrentImageIndex(0),
-          onLeaveBack: () => setCurrentImageIndex(3),
+          onEnter: () => {
+            setLayerVisibility(VILA_PINHEIROS_LAYERS, false);
+            flyTo(ORIGINAL_DESKTOP, ORIGINAL_MOBILE);
+          },
+          onLeaveBack: () => {
+            setLayerVisibility(VILA_PINHEIROS_LAYERS, true);
+            flyTo(VILA_PINHEIROS_DESKTOP, VILA_PINHEIROS_MOBILE);
+          },
         }),
       );
 
-      // Card 10: Mantém imagem 1 (mare-mapa.png)
+      // Card 13: Transition to "Ilhas de calor" grayscale cover
       triggers.push(
         ScrollTrigger.create({
-          trigger: card10Ref.current,
+          trigger: card13Ref.current,
           start: "top center",
           end: "bottom center",
-          onEnter: () => setCurrentImageIndex(0),
+          onEnter: () => {
+            setGrayscaleOpacity(1);
+            setTitleOpacity(1);
+            setShowIlhasTitle(true);
+          },
+          onLeaveBack: () => {
+            setGrayscaleOpacity(0);
+            setTitleOpacity(0);
+            setShowIlhasTitle(false);
+          },
         }),
       );
 
-      // Card 11: Mantém imagem 1 (mare-mapa.png)
-      triggers.push(
-        ScrollTrigger.create({
-          trigger: card11Ref.current,
-          start: "top center",
-          end: "bottom center",
-          onEnter: () => setCurrentImageIndex(0),
-        }),
-      );
-
-      // Card 12: Mantém imagem 1 (mare-mapa.png)
-      triggers.push(
-        ScrollTrigger.create({
-          trigger: card12Ref.current,
-          start: "top center",
-          end: "bottom center",
-          onEnter: () => setCurrentImageIndex(0),
-        }),
-      );
-
-      // Atualizar ScrollTrigger após criar todos os triggers
-      // Use requestAnimationFrame to ensure DOM is fully updated
       requestAnimationFrame(() => {
         ScrollTrigger.refresh();
       });
     };
 
-    // Função para tentar criar os triggers
     const tryCreateTriggers = () => {
       const refs = [
         card0Ref,
@@ -323,44 +360,33 @@ export function IntroMare() {
         card10Ref,
         card11Ref,
         card12Ref,
+        card13Ref,
       ];
 
-      const allRefsReady = refs.every((ref) => ref.current !== null);
-
-      if (allRefsReady) {
+      if (refs.every((ref) => ref.current !== null)) {
         createTriggers();
         return true;
       }
       return false;
     };
 
-    // Wait for next frame to ensure DOM is ready
     requestAnimationFrame(() => {
-      // Tentar criar imediatamente
       if (!tryCreateTriggers()) {
-        // Se não funcionou, aguardar um pouco
         timeoutId = setTimeout(() => {
           if (!tryCreateTriggers()) {
-            // Se ainda não funcionou, tentar após o load completo
             if (document.readyState === "complete") {
               tryCreateTriggers();
             } else {
-              window.addEventListener(
-                "load",
-                () => {
-                  tryCreateTriggers();
-                },
-                { once: true },
-              );
+              window.addEventListener("load", () => tryCreateTriggers(), {
+                once: true,
+              });
             }
           }
         }, 100);
       }
     });
 
-    // Handler para resize
     const handleResize = () => {
-      // Usar debounce para evitar muitas chamadas
       clearTimeout(timeoutId);
       timeoutId = setTimeout(() => {
         createTriggers();
@@ -368,48 +394,104 @@ export function IntroMare() {
     };
 
     window.addEventListener("resize", handleResize);
-    window.addEventListener("orientationchange", () => {
-      // Aguardar um pouco após mudança de orientação
-      setTimeout(() => {
-        createTriggers();
-      }, 300);
-    });
+    window.addEventListener(
+      "orientationchange",
+      () => {
+        setTimeout(() => {
+          createTriggers();
+        }, 300);
+      },
+    );
 
     return () => {
       clearTimeout(timeoutId);
       window.removeEventListener("resize", handleResize);
-      window.removeEventListener("orientationchange", handleResize);
-      // Matar todos os ScrollTriggers
-      for (const trigger of triggers) {
-        trigger.kill();
-      }
+      for (const trigger of triggers) trigger.kill();
       triggers = [];
     };
   }, []);
 
+  const handleMapLoad = () => {
+    const map = mapRef.current?.getMap?.();
+    if (!map) return;
+    if (typeof window !== "undefined" && window.innerWidth < 768) {
+      map.jumpTo({
+        center: [ORIGINAL_MOBILE.lng, ORIGINAL_MOBILE.lat],
+        zoom: ORIGINAL_MOBILE.zoom,
+      });
+    }
+  };
+
   return (
     <div className="w-full">
-      {/* Capa da seção com imagem sticky e controles de estado */}
-      <SectionCover
-        title={
-          <>
-            A história da <strong>Maré</strong>
-          </>
-        }
-        image={mareMapaImage}
-        image2={mareMapaImage2}
-        image2Mobile={mareMapaImage2Mobile}
-        image3={mareMapaImage3}
-        image3Mobile={mareMapaImage3Mobile}
-        image4={mareMapaImage4}
-        image4Mobile={mareMapaImage4Mobile}
-        imageAlt="Mapa da Maré"
-        grayscaleOpacity={grayscaleOpacity}
-        titleOpacity={titleOpacity}
-        currentImageIndex={currentImageIndex}
-      />
+      {/* Sticky Mapbox Map */}
+      <div
+        className="w-full h-screen overflow-hidden"
+        style={{
+          position: "sticky",
+          top: 0,
+          zIndex: 0,
+          WebkitTransform: "translateZ(0)",
+          transform: "translateZ(0)",
+        }}
+      >
+        {/* Grayscale filter wrapper */}
+        <div
+          className="absolute inset-0"
+          style={{
+            filter: `grayscale(${grayscaleOpacity * 100}%)`,
+            transition: "filter 1000ms ease-in-out",
+          }}
+        >
+          <MapboxMap
+            ref={mapRef}
+            initialViewState={{
+              longitude: ORIGINAL_DESKTOP.lng,
+              latitude: ORIGINAL_DESKTOP.lat,
+              zoom: ORIGINAL_DESKTOP.zoom,
+              pitch: 0,
+              bearing: 0,
+            }}
+            mapStyle={MAPBOX_STYLE}
+            mapboxAccessToken={MAPBOX_TOKEN}
+            style={{ width: "100%", height: "100%" }}
+            onLoad={handleMapLoad}
+            dragPan={false}
+            dragRotate={false}
+            scrollZoom={false}
+            keyboard={false}
+            doubleClickZoom={false}
+            touchZoomRotate={false}
+          />
+        </div>
 
-      {/* Card 0: Primeiro card de texto */}
+        {/* Title overlay */}
+        <div
+          className="absolute inset-0 z-10 flex items-center pl-6 md:pl-20 lg:pl-24"
+          style={{
+            opacity: titleOpacity,
+            transition: "opacity 500ms ease-in-out",
+            pointerEvents: "none",
+          }}
+        >
+          <h1
+            className="text-3xl md:text-4xl lg:text-5xl"
+            style={{ color: "#E50505" }}
+          >
+            {showIlhasTitle ? (
+              <>
+                Ilhas de <strong>calor</strong>
+              </>
+            ) : (
+              <>
+                A história da <strong>Maré</strong>
+              </>
+            )}
+          </h1>
+        </div>
+      </div>
+
+      {/* Card 0: First text card */}
       <ScrollCard cardRef={card0Ref}>
         <div>
           <p className="text-base md:text-lg leading-relaxed">
@@ -421,10 +503,10 @@ export function IntroMare() {
         </div>
       </ScrollCard>
 
-      {/* Card 1: Card invisível (apenas trigger para trocar para imagem 2) */}
+      {/* Card 1: Invisible — triggers map1 layers */}
       <ScrollCard cardRef={card1Ref} />
 
-      {/* Card 2: Segundo card de texto (com imagem 2) */}
+      {/* Card 2: Text with map1 layers visible */}
       <ScrollCard cardRef={card2Ref}>
         <div>
           <p className="text-base md:text-lg leading-relaxed">
@@ -442,7 +524,7 @@ export function IntroMare() {
         </div>
       </ScrollCard>
 
-      {/* Card 3: Terceiro card de texto (volta para imagem 1) */}
+      {/* Card 3: Hides map1 layers */}
       <ScrollCard cardRef={card3Ref}>
         <div>
           <h2 className="text-base md:text-lg font-bold mb-2">
@@ -463,10 +545,10 @@ export function IntroMare() {
         </div>
       </ScrollCard>
 
-      {/* Card 8: Card invisível (apenas trigger para trocar para imagem 3) */}
+      {/* Card 8: Invisible — flies to Morro do Timbau */}
       <ScrollCard cardRef={card8Ref} />
 
-      {/* Card 4: Quarto card de texto (volta para imagem 1) */}
+      {/* Card 4: Flies back to original */}
       <ScrollCard cardRef={card4Ref}>
         <div>
           <h2 className="text-base md:text-lg font-bold mb-2">
@@ -486,7 +568,7 @@ export function IntroMare() {
         </div>
       </ScrollCard>
 
-      {/* Card 5: Quinto card de texto (volta para imagem 1) */}
+      {/* Card 5: Same position */}
       <ScrollCard cardRef={card5Ref}>
         <div>
           <p className="text-base md:text-lg leading-relaxed">
@@ -505,13 +587,13 @@ export function IntroMare() {
         </div>
       </ScrollCard>
 
-      {/* Card 6: Card invisível (apenas trigger para trocar para imagem 4) */}
+      {/* Card 6: Invisible — flies to Vila dos Pinheiros */}
       <ScrollCard cardRef={card6Ref} />
 
-      {/* Card 9: Card invisível (apenas trigger para voltar para imagem 1) */}
+      {/* Card 9: Invisible — hides Vila dos Pinheiros layers, flies back */}
       <ScrollCard cardRef={card9Ref} />
 
-      {/* Card 10: Consolidação e Expansão (1980-2000) */}
+      {/* Card 10: Consolidação e Expansão */}
       <ScrollCard cardRef={card10Ref}>
         <div>
           <h2 className="text-base md:text-lg font-bold mb-2">
@@ -561,6 +643,9 @@ export function IntroMare() {
           </p>
         </div>
       </ScrollCard>
+
+      {/* Card 13: Invisible — transitions to grayscale "Ilhas de calor" cover */}
+      <ScrollCard cardRef={card13Ref} />
     </div>
   );
 }

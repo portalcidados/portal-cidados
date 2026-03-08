@@ -19,10 +19,6 @@ import { ScrollProgressBar } from "./components/scroll-progress-bar";
 // Import all images for preloading
 import backgroundImage from "./assets/background.png";
 import coverImage from "./assets/cover-image.png";
-import mareMapaImage from "./assets/mare-mapa.png";
-import mareMapaImage2 from "./assets/mare-mapa-2.png";
-import mareMapaImage3 from "./assets/mare-mapa-3.png";
-import mareMapaImage4 from "./assets/mare-mapa-4.png";
 import imageCard3 from "./assets/image-card-3.png";
 import imageCard4 from "./assets/image-card-4.png";
 import imageCard5 from "./assets/image-card-5.png";
@@ -147,10 +143,6 @@ export default function Desigualdades() {
   const imagesToPreload = [
     backgroundImage.src,
     coverImage.src,
-    mareMapaImage.src,
-    mareMapaImage2.src,
-    mareMapaImage3.src,
-    mareMapaImage4.src,
     mareMapaImage5.src,
     mareMapaImage52.src,
     mareMapaImage6.src,
