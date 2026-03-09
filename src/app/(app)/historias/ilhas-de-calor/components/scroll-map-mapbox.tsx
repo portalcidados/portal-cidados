@@ -321,7 +321,7 @@ export function ScrollMapMapbox() {
       <div className="w-full">
         {/* Sticky Mapbox map — pins while scroll cards pass beneath it */}
         <div
-          className="w-full h-screen overflow-hidden"
+          className="w-full h-screen overflow-hidden [&_.mapboxgl-canvas]:!cursor-default"
           style={{
             position: "sticky",
             top: 0,

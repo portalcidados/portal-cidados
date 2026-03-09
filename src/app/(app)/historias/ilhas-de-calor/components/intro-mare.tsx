@@ -427,7 +427,7 @@ export function IntroMare() {
     <div className="w-full">
       {/* Sticky Mapbox Map */}
       <div
-        className="w-full h-screen overflow-hidden"
+        className="w-full h-screen overflow-hidden [&_.mapboxgl-canvas]:!cursor-default"
         style={{
           position: "sticky",
           top: 0,
