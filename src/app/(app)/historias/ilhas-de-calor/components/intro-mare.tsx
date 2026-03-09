@@ -323,6 +323,8 @@ export function IntroMare() {
       );
 
       // Card 13: Transition to "Ilhas de calor" grayscale cover
+      // onLeaveBack: não trocar showIlhasTitle aqui — senão ao subir o título pisca
+      // para "A história da Maré" antes do fade-out. Só trocamos no onLeaveBack do card 0.
       triggers.push(
         ScrollTrigger.create({
           trigger: card13Ref.current,
@@ -336,7 +338,6 @@ export function IntroMare() {
           onLeaveBack: () => {
             setGrayscaleOpacity(0);
             setTitleOpacity(0);
-            setShowIlhasTitle(false);
           },
         }),
       );
