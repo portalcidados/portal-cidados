@@ -4,13 +4,8 @@ import { IlhasDeCalor } from "./components/ilhas-de-calor";
 import Intro from "./components/intro";
 import { IntroMare } from "./components/intro-mare";
 import { QualidadeDoAr } from "./components/qualidade-do-ar";
-import mareMapaImage6 from "./assets/mare-mapa-6.png";
-import mareMapaImage62 from "./assets/mare-mapa-62.png";
 import { ScrollMapMapbox } from "./components/scroll-map-mapbox";
-import {
-  ScrollMapQualidadeAr,
-  type MapPoint,
-} from "./components/scroll-map-qualidade-ar";
+import { ScrollMapQualidadeArMapbox } from "./components/scroll-map-qualidade-ar-mapbox";
 import { Solucoes } from "./components/solucoes";
 import { PreloadWrapper } from "./components/preload-wrapper";
 import { ScrollToTopIcon } from "./components/scroll-to-top-icon";
@@ -45,60 +40,10 @@ import s11 from "./assets/s11.png";
 import s12 from "./assets/s12.png";
 
 export default function Desigualdades() {
-  const mapQualidadeDoArPoints: MapPoint[] = [
-    {
-      x: 15,
-      y: 0,
-      name: "Ponto 1",
-      zoom: 2.5,
-      xMobile: 18,
-      yMobile: 0,
-      zoomMobile: 2.5,
-    },
-    {
-      x: 15,
-      y: 15,
-      name: "Ponto 2",
-      zoom: 2.5,
-      xMobile: 44.5,
-      yMobile: 5,
-      zoomMobile: 2.5,
-    },
-    {
-      x: 20,
-      y: 30,
-      name: "Ponto 3",
-      zoom: 2.5,
-      xMobile: 15,
-      yMobile: 30,
-      zoomMobile: 2.1,
-    },
-    {
-      x: 20,
-      y: 30,
-      name: "Ponto 3",
-      zoom: 2.5,
-      xMobile: 50,
-      yMobile: 30,
-      zoomMobile: 2.1,
-    },
-    {
-      x: 20,
-      y: 45,
-      name: "Ponto 4",
-      zoom: 2.5,
-      xMobile: 32,
-      yMobile: 45,
-      zoomMobile: 2.1,
-    },
-  ];
-
   // All images to preload
   const imagesToPreload = [
     backgroundImage.src,
     coverImage.src,
-    mareMapaImage6.src,
-    mareMapaImage62.src,
     imageCard3.src,
     imageCard4.src,
     imageCard5.src,
@@ -133,11 +78,7 @@ export default function Desigualdades() {
         <IlhasDeCalor />
         <ScrollMapMapbox />
         <QualidadeDoAr />
-        <ScrollMapQualidadeAr
-          imageSrc={mareMapaImage6.src}
-          imageSrcMobile={mareMapaImage62.src}
-          points={mapQualidadeDoArPoints}
-        />
+        <ScrollMapQualidadeArMapbox />
         <Solucoes />
         <Conclusao />
         <Footer />

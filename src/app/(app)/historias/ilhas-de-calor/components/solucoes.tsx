@@ -94,6 +94,7 @@ export function Solucoes() {
   return (
     <div className="w-full bg-white">
       {/* Capa da seção com imagem em escala de cinza e título */}
+      <div className="mb-30">
       <SectionCover
         title={<><strong>Soluções</strong></>}
         image={mareMapaImage}
@@ -101,6 +102,7 @@ export function Solucoes() {
         sticky={false}
         grayscaleOpacity={1}
       />
+      </div>
       
       {/* Componente de scrollytelling com 12 imagens */}
       <SolucoesScroll items={solucoesItems} />

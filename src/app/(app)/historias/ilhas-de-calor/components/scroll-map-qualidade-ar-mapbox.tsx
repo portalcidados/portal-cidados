@@ -1,55 +1,60 @@
 "use client";
 
-import { useLayoutEffect, useRef } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Map as MapboxMap } from "react-map-gl/mapbox";
 import "mapbox-gl/dist/mapbox-gl.css";
 import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
-import mapaTemperatura from "../assets/mapa-temperatura.png";
+import mapaDeUmidade from "../assets/mapa-de-umidade.png";
+import mapaDeCO2 from "../assets/mapa-de-co2.png";
+import mapaDeHCHO from "../assets/mapa-de-hcho.png";
+import mapaDePM10 from "../assets/mapa-de-pm10.png";
+import mapaDePM25 from "../assets/mapa-de-pm25.png";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const MAPBOX_STYLE =
-  "mapbox://styles/observatorio-nacional/cmmjnelwx001h01s11ztoe2n6";
+  "mapbox://styles/observatorio-nacional/cmmjrccaj001z01s1f0ls24g8";
 const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN ?? "";
 
 const ORIGINAL_DESKTOP = { lng: -43.244951, lat: -22.856215, zoom: 12.84 };
 const ORIGINAL_MOBILE = { lng: -43.244951, lat: -22.856215, zoom: 11.44 };
 
-type MapPosition = { lng: number; lat: number; zoom: number };
+type MapPosition = {
+  lng: number;
+  lat: number;
+  zoom: number;
+  bearing?: number;
+  pitch?: number;
+};
 
 const TRIGGER_POSITIONS: { desktop: MapPosition; mobile: MapPosition }[] = [
   {
-    desktop: { lng: -43.249911, lat: -22.840191, zoom: 14.93 },
-    mobile: { lng: -43.249911, lat: -22.840191, zoom: 13.9 },
+    desktop: { lng: -43.244107, lat: -22.843399, zoom: 13.8 },
+    mobile: { lng: -43.244107, lat: -22.843399, zoom: 13.8 },
   },
   {
-    desktop: { lng: -43.248355, lat: -22.85196, zoom: 14.17 },
-    mobile: { lng: -43.248355, lat: -22.85196, zoom: 13.9 },
+    desktop: { lng: -43.251429, lat: -22.856089, zoom: 13.23 },
+    mobile: { lng: -43.251429, lat: -22.856089, zoom: 13.23 },
   },
   {
-    desktop: { lng: -43.244029, lat: -22.861132, zoom: 14.6 },
-    mobile: { lng: -43.244029, lat: -22.861132, zoom: 13.9 },
-  },
-  {
-    desktop: { lng: -43.241946, lat: -22.867411, zoom: 14.6 },
-    mobile: { lng: -43.241946, lat: -22.867411, zoom: 13.9 },
-  },
-  {
-    desktop: { lng: -43.248505, lat: -22.876256, zoom: 13.8 },
-    mobile: { lng: -43.248505, lat: -22.876256, zoom: 13.8 },
+    desktop: {
+      lng: -43.240514,
+      lat: -22.86556,
+      zoom: 14.58,
+      bearing: 49.59,
+      pitch: 46.49,
+    },
+    mobile: { lng: -43.240514, lat: -22.86556, zoom: 14.58 },
   },
 ];
 
-// Layer IDs shown at each trigger step (index 0 = trigger 1, etc.)
 const TRIGGER_LAYERS: string[][] = [
-  ["piscinao-4mbq07", "piscinao-b12yr9"],
-  ["rua-ari-leao-0eidsa", "rua-ari-leao-0eidsa copy"],
-  ["nova-mare-7a103m", "nova-mare-7a103m copy"],
-  ["conjunto-bento-ribeiro-19jhxj"],
-  ["conclusao-icone-e-texto-dbjh3k"],
+  ["piscinao-4mbq07", "piscinao-4mbq07 copy"],
+  ["nova-holanda-0i0e88", "nova-holanda-0i0e88 copy"],
+  ["parque-ecologico-7p2oy7", "parque-ecologico-7p2oy7 copy"],
 ];
 
 const ALL_LAYER_IDS = TRIGGER_LAYERS.flat();
@@ -77,13 +82,16 @@ function animateLayerOpacity(
   const tick = (now: number) => {
     const elapsed = now - startTime;
     const rawT = Math.min(elapsed / duration, 1);
-    // Ease in-out quad
     const t = rawT < 0.5 ? 2 * rawT * rawT : 1 - (-2 * rawT + 2) ** 2 / 2;
 
     for (const id of layerIds) {
       const start = startValues.get(id) ?? 0;
       try {
-        map.setPaintProperty(id, "icon-opacity", start + (targetOpacity - start) * t);
+        map.setPaintProperty(
+          id,
+          "icon-opacity",
+          start + (targetOpacity - start) * t,
+        );
       } catch {
         // Layer not found in the current style — skip silently
       }
@@ -95,14 +103,83 @@ function animateLayerOpacity(
   requestAnimationFrame(tick);
 }
 
-export function ScrollMapMapbox() {
+function MapSelector() {
+  const [selectedMap, setSelectedMap] = useState<
+    "PM10" | "PM25" | "CO2" | "HCHO" | "UMIDADE"
+  >("PM10");
+
+  const mapImages = {
+    PM10: mapaDePM10,
+    PM25: mapaDePM25,
+    CO2: mapaDeCO2,
+    HCHO: mapaDeHCHO,
+    UMIDADE: mapaDeUmidade,
+  };
+
+  const currentMapSrc = mapImages[selectedMap];
+
+  return (
+    <div className="bg-white! mx-auto max-w-lg mb-30 flex items-center flex-col justify-center mt-30">
+      <div className="flex bg-white! flex-col justify-start items-start px-4 w-full">
+        {currentMapSrc && (
+          <Zoom>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={currentMapSrc.src}
+              alt="Mapa de Qualidade do Ar"
+              className="rounded-xl"
+            />
+          </Zoom>
+        )}
+        <p className="text-md font-bold mt-2.5">Mapa de temperatura da Maré</p>
+        <p className="text-md text-[#3A3434]">
+          Produzido por <em>Respira Maré</em>
+        </p>
+        <div className="flex flex-row gap-2 mt-4 flex-wrap">
+          {(
+            [
+              { key: "PM10", label: "PM 10" },
+              { key: "PM25", label: "PM 2,5" },
+              { key: "CO2", label: "CO 2" },
+              { key: "HCHO", label: "HCHO" },
+              { key: "UMIDADE", label: "UMIDADE" },
+            ] as const
+          ).map(({ key, label }) => (
+            <button
+              key={key}
+              type="button"
+              onClick={() => setSelectedMap(key)}
+              className={`px-2 py-1 text-xs sm:px-4 sm:py-2 sm:text-sm rounded-md bg-gray-900 text-white font-medium hover:bg-gray-800 transition-colors ${selectedMap === key ? "opacity-50" : ""}`}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+        <div>
+          <p className="text-md text-[#3A3434] my-5">
+            São partículas 5 a 7 vezes mais finas do que um fio de cabelo e
+            podem ser inaladas e chegar até as vias aéreas mais profundas dos
+            pulmões, mas a maioria delas tende a se depositar nas vias aéreas
+            superiores, como traquéia e brônquios.
+          </p>
+          <p className="text-md text-[#3A3434]">
+            Podem causar problemas respiratórios, cardiovasculares e agravar
+            condições de saúde preexistentes. Na Maré, as regiões do Parque
+            Ecológico se destacam na concentração de PM 10 , por motivos
+            diferentes.
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function ScrollMapQualidadeArMapbox() {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const mapRef = useRef<any>(null);
   const card1Ref = useRef<HTMLDivElement>(null);
   const card2Ref = useRef<HTMLDivElement>(null);
   const card3Ref = useRef<HTMLDivElement>(null);
-  const card4Ref = useRef<HTMLDivElement>(null);
-  const card5Ref = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
     let triggers: ScrollTrigger[] = [];
@@ -124,6 +201,8 @@ export function ScrollMapMapbox() {
       map.flyTo({
         center: [coords.lng, coords.lat],
         zoom: coords.zoom,
+        bearing: coords.bearing ?? 0,
+        pitch: coords.pitch ?? 0,
         duration: 2000,
         essential: true,
       });
@@ -136,6 +215,8 @@ export function ScrollMapMapbox() {
       map.flyTo({
         center: [coords.lng, coords.lat],
         zoom: coords.zoom,
+        bearing: 0,
+        pitch: 0,
         duration: 2000,
         essential: true,
       });
@@ -153,7 +234,7 @@ export function ScrollMapMapbox() {
       animateLayerOpacity(map, TRIGGER_LAYERS[idx], 0);
     };
 
-    const cardRefs = [card1Ref, card2Ref, card3Ref, card4Ref, card5Ref];
+    const cardRefs = [card1Ref, card2Ref, card3Ref];
 
     const createTriggers = () => {
       if (!cardRefs.every((ref) => ref.current !== null)) return;
@@ -213,42 +294,6 @@ export function ScrollMapMapbox() {
         }),
       );
 
-      triggers.push(
-        ScrollTrigger.create({
-          trigger: card4Ref.current,
-          start: "top center",
-          end: "bottom center",
-          onEnter: () => {
-            flyTo(TRIGGER_POSITIONS[3]);
-            hideLayers(2);
-            showLayers(3);
-          },
-          onLeaveBack: () => {
-            flyTo(TRIGGER_POSITIONS[2]);
-            hideLayers(3);
-            showLayers(2);
-          },
-        }),
-      );
-
-      triggers.push(
-        ScrollTrigger.create({
-          trigger: card5Ref.current,
-          start: "top center",
-          end: "bottom center",
-          onEnter: () => {
-            flyTo(TRIGGER_POSITIONS[4]);
-            hideLayers(3);
-            showLayers(4);
-          },
-          onLeaveBack: () => {
-            flyTo(TRIGGER_POSITIONS[3]);
-            hideLayers(4);
-            showLayers(3);
-          },
-        }),
-      );
-
       requestAnimationFrame(() => ScrollTrigger.refresh());
     };
 
@@ -298,7 +343,6 @@ export function ScrollMapMapbox() {
     const map = mapRef.current?.getMap?.();
     if (!map) return;
 
-    // Ensure all layers start hidden regardless of style defaults
     for (const id of ALL_LAYER_IDS) {
       try {
         map.setPaintProperty(id, "icon-opacity", 0);
@@ -307,7 +351,6 @@ export function ScrollMapMapbox() {
       }
     }
 
-    // Snap to mobile initial position without animation
     if (typeof window !== "undefined" && window.innerWidth < 768) {
       map.jumpTo({
         center: [ORIGINAL_MOBILE.lng, ORIGINAL_MOBILE.lat],
@@ -356,27 +399,10 @@ export function ScrollMapMapbox() {
         <div ref={card1Ref} style={{ minHeight: "200vh" }} />
         <div ref={card2Ref} style={{ minHeight: "200vh" }} />
         <div ref={card3Ref} style={{ minHeight: "200vh" }} />
-        <div ref={card4Ref} style={{ minHeight: "200vh" }} />
-        <div ref={card5Ref} style={{ minHeight: "200vh" }} />
       </div>
 
-      {/* Static temperature map displayed after the scrollytelling section */}
-      <div className="bg-white! py-110 h-screen flex items-center justify-center">
-        <div className="flex flex-col justify-start items-start px-4">
-          <Zoom>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={mapaTemperatura.src}
-              alt="Mapa"
-              className="max-h-140 object-fit"
-            />
-          </Zoom>
-          <p className="text-md block text-[#3A3434] font-bold mt-2.5">
-            Mapa de temperatura da Maré
-          </p>
-          <p className="text-md text-[#3A3434]">Produzido por Respira Maré</p>
-        </div>
-      </div>
+      {/* Interactive map selector displayed after the scrollytelling section */}
+      <MapSelector />
     </>
   );
 }
