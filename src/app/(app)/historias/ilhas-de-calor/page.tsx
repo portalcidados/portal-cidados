@@ -4,12 +4,13 @@ import { IlhasDeCalor } from "./components/ilhas-de-calor";
 import Intro from "./components/intro";
 import { IntroMare } from "./components/intro-mare";
 import { QualidadeDoAr } from "./components/qualidade-do-ar";
-import mareMapaImage5 from "./assets/mare-mapa-5.png";
-import mareMapaImage52 from "./assets/mare-mapa-52.png";
 import mareMapaImage6 from "./assets/mare-mapa-6.png";
 import mareMapaImage62 from "./assets/mare-mapa-62.png";
-import { ScrollMap, type MapPoint } from "./components/scroll-map";
-import { ScrollMapQualidadeAr } from "./components/scroll-map-qualidade-ar";
+import { ScrollMapMapbox } from "./components/scroll-map-mapbox";
+import {
+  ScrollMapQualidadeAr,
+  type MapPoint,
+} from "./components/scroll-map-qualidade-ar";
 import { Solucoes } from "./components/solucoes";
 import { PreloadWrapper } from "./components/preload-wrapper";
 import { ScrollToTopIcon } from "./components/scroll-to-top-icon";
@@ -44,53 +45,6 @@ import s11 from "./assets/s11.png";
 import s12 from "./assets/s12.png";
 
 export default function Desigualdades() {
-  const mapPoints: MapPoint[] = [
-    {
-      x: 15,
-      y: 0,
-      name: "Ponto 1",
-      zoom: 2.5,
-      xMobile: 20,
-      yMobile: 0,
-      zoomMobile: 2.5,
-    },
-    {
-      x: 15,
-      y: 15,
-      name: "Ponto 2",
-      zoom: 2.5,
-      xMobile: 35,
-      yMobile: 0,
-      zoomMobile: 2.5,
-    },
-    {
-      x: 20,
-      y: 30,
-      name: "Ponto 3",
-      zoom: 2.5,
-      xMobile: 45,
-      yMobile: 30,
-      zoomMobile: 2,
-    },
-    {
-      x: 20,
-      y: 45,
-      name: "Ponto 4",
-      zoom: 2.5,
-      xMobile: 10,
-      yMobile: 45,
-      zoomMobile: 2,
-    },
-    {
-      x: 15,
-      y: 60,
-      name: "Ponto 5",
-      zoom: 2.5,
-      xMobile: 49,
-      yMobile: 55,
-      zoomMobile: 2,
-    },
-  ];
   const mapQualidadeDoArPoints: MapPoint[] = [
     {
       x: 15,
@@ -143,8 +97,6 @@ export default function Desigualdades() {
   const imagesToPreload = [
     backgroundImage.src,
     coverImage.src,
-    mareMapaImage5.src,
-    mareMapaImage52.src,
     mareMapaImage6.src,
     mareMapaImage62.src,
     imageCard3.src,
@@ -179,11 +131,7 @@ export default function Desigualdades() {
         <Intro />
         <IntroMare />
         <IlhasDeCalor />
-        <ScrollMap
-          imageSrc={mareMapaImage5.src}
-          imageSrcMobile={mareMapaImage52.src}
-          points={mapPoints}
-        />
+        <ScrollMapMapbox />
         <QualidadeDoAr />
         <ScrollMapQualidadeAr
           imageSrc={mareMapaImage6.src}
