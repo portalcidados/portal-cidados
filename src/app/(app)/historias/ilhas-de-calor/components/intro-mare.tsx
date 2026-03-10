@@ -8,8 +8,14 @@ import imageCard4 from "../assets/image-card-4.png";
 import imageCard5 from "../assets/image-card-5.png";
 import imageCard6 from "../assets/image-card-6.png";
 import imageCard7 from "../assets/image-card-7.png";
+import ufrjSvg from "../assets/ufrj.svg";
+import mareSvg from "../assets/mare.svg";
+import lvSvg from "../assets/lv.svg";
+import galeaoSvg from "../assets/galeao.svg";
+import fiocruzSvg from "../assets/fiocruz.svg";
+import avbrasilSvg from "../assets/av-brasil.svg";
 import Image from "next/image";
-import { Map as MapboxMap } from "react-map-gl/mapbox";
+import { Map as MapboxMap, Marker } from "react-map-gl/mapbox";
 import "mapbox-gl/dist/mapbox-gl.css";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -31,12 +37,82 @@ type LayerConfig = { id: string; prop: string; value: number };
 const MAP1_LAYERS: LayerConfig[] = [
   { id: "map1-4mx9os", prop: "fill-opacity", value: 0.63 },
   { id: "map1-4mx9os (1)", prop: "line-opacity", value: 1 },
-  { id: "map1-dot-lv-85493o", prop: "icon-opacity", value: 1 },
-  { id: "map1-dot-fiocruz-d5z3ol", prop: "icon-opacity", value: 1 },
-  { id: "map1-dot-avbrasil-bizyex", prop: "icon-opacity", value: 1 },
-  { id: "map1-dot-ufrj-4pjmtb", prop: "icon-opacity", value: 1 },
-  { id: "map1-dot-mare-008hxv", prop: "icon-opacity", value: 1 },
-  { id: "map1-dot-galeao-alo8k6", prop: "icon-opacity", value: 1 },
+];
+
+interface IconConfig {
+  id: string;
+  src: string;
+  longitude: number;
+  latitude: number;
+  width: number;
+  height: number;
+  /** x-coordinate of the anchor dot within the SVG */
+  dotX: number;
+  /** y-coordinate of the anchor dot within the SVG */
+  dotY: number;
+}
+
+const MAP1_ICONS: IconConfig[] = [
+  {
+    id: "ufrj",
+    src: ufrjSvg.src,
+    longitude: -43.2354694,
+    latitude: -22.8483019,
+    width: 80,
+    height: 38,
+    dotX: 5,
+    dotY: 19,
+  },
+  {
+    id: "mare",
+    src: mareSvg.src,
+    longitude: -43.2650903,
+    latitude: -22.8535453,
+    width: 240,
+    height: 0,
+    dotX: 0,
+    dotY: 0,
+  },
+  {
+    id: "lv",
+    src: lvSvg.src,
+    longitude: -43.2326642,
+    latitude: -22.8697329,
+    width: 288,
+    height: 38,
+    dotX: 9,
+    dotY: 19,
+  },
+  {
+    id: "galeao",
+    src: galeaoSvg.src,
+    longitude: -43.2396864,
+    latitude: -22.8279646,
+    width: 200,
+    height: 0,
+    dotX: 50,
+    dotY: 0,
+  },
+  {
+    id: "fiocruz",
+    src: fiocruzSvg.src,
+    longitude: -43.2464299,
+    latitude: -22.8762657,
+    width: 161,
+    height: 100,
+    dotX: 81,
+    dotY: 9,
+  },
+  {
+    id: "avbrasil",
+    src: avbrasilSvg.src,
+    longitude: -43.257527,
+    latitude: -22.8370439,
+    width: 230,
+    height: 38,
+    dotX: 96,
+    dotY: 19,
+  },
 ];
 
 const MORRO_TIMBAU_LAYERS: LayerConfig[] = [
@@ -137,6 +213,7 @@ export function IntroMare() {
   const [grayscaleOpacity, setGrayscaleOpacity] = useState(1);
   const [titleOpacity, setTitleOpacity] = useState(1);
   const [showIlhasTitle, setShowIlhasTitle] = useState(false);
+  const [showMap1Icons, setShowMap1Icons] = useState(false);
 
   const card0Ref = useRef<HTMLDivElement>(null);
   const card1Ref = useRef<HTMLDivElement>(null);
@@ -238,8 +315,14 @@ export function IntroMare() {
           trigger: card1Ref.current,
           start: "top center",
           end: "bottom center",
-          onEnter: () => setLayerVisibility(MAP1_LAYERS, true),
-          onLeaveBack: () => setLayerVisibility(MAP1_LAYERS, false),
+          onEnter: () => {
+            setLayerVisibility(MAP1_LAYERS, true);
+            setShowMap1Icons(true);
+          },
+          onLeaveBack: () => {
+            setLayerVisibility(MAP1_LAYERS, false);
+            setShowMap1Icons(false);
+          },
         }),
       );
 
@@ -249,8 +332,14 @@ export function IntroMare() {
           trigger: card3Ref.current,
           start: "top center",
           end: "bottom center",
-          onEnter: () => setLayerVisibility(MAP1_LAYERS, false),
-          onLeaveBack: () => setLayerVisibility(MAP1_LAYERS, true),
+          onEnter: () => {
+            setLayerVisibility(MAP1_LAYERS, false);
+            setShowMap1Icons(false);
+          },
+          onLeaveBack: () => {
+            setLayerVisibility(MAP1_LAYERS, true);
+            setShowMap1Icons(true);
+          },
         }),
       );
 
@@ -463,7 +552,31 @@ export function IntroMare() {
             keyboard={false}
             doubleClickZoom={false}
             touchZoomRotate={false}
-          />
+          >
+            {MAP1_ICONS.map((icon) => (
+              <Marker
+                key={icon.id}
+                longitude={icon.longitude}
+                latitude={icon.latitude}
+                anchor="top-left"
+                style={{ pointerEvents: "none" }}
+              >
+                <img
+                  src={icon.src}
+                  width={icon.width}
+                  height={icon.height}
+                  alt=""
+                  style={{
+                    display: "block",
+                    marginLeft: -icon.dotX,
+                    marginTop: -icon.dotY,
+                    opacity: showMap1Icons ? 1 : 0,
+                    transition: "opacity 300ms ease-in-out",
+                  }}
+                />
+              </Marker>
+            ))}
+          </MapboxMap>
         </div>
 
         {/* Title overlay */}
