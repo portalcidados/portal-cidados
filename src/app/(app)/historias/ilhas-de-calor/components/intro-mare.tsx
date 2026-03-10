@@ -30,7 +30,7 @@ type LayerConfig = { id: string; prop: string; value: number };
 
 const MAP1_LAYERS: LayerConfig[] = [
   { id: "map1-4mx9os", prop: "fill-opacity", value: 0.63 },
-  { id: "map1-861s78", prop: "line-opacity", value: 1 },
+  { id: "map1-4mx9os (1)", prop: "line-opacity", value: 1 },
   { id: "map1-dot-lv-85493o", prop: "icon-opacity", value: 1 },
   { id: "map1-dot-fiocruz-d5z3ol", prop: "icon-opacity", value: 1 },
   { id: "map1-dot-avbrasil-bizyex", prop: "icon-opacity", value: 1 },
