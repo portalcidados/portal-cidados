@@ -1,6 +1,6 @@
 "use client";
 
-import { useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import imageCard3 from "../assets/image-card-3.png";
@@ -14,6 +14,8 @@ import lvSvg from "../assets/lv.svg";
 import galeaoSvg from "../assets/galeao.svg";
 import fiocruzSvg from "../assets/fiocruz.svg";
 import avbrasilSvg from "../assets/av-brasil.svg";
+import lvMobileSvg from "../assets/lv-mobile.svg";
+import avBrasilMobileSvg from "../assets/av-brasil-mobile.svg";
 import Image from "next/image";
 import { Map as MapboxMap, Marker } from "react-map-gl/mapbox";
 import "mapbox-gl/dist/mapbox-gl.css";
@@ -52,7 +54,7 @@ interface IconConfig {
   dotY: number;
 }
 
-const MAP1_ICONS: IconConfig[] = [
+const MAP1_ICONS_DESKTOP: IconConfig[] = [
   {
     id: "ufrj",
     src: ufrjSvg.src,
@@ -112,6 +114,70 @@ const MAP1_ICONS: IconConfig[] = [
     height: 38,
     dotX: 96,
     dotY: 19,
+  },
+];
+
+// TODO: ajuste as imagens e valores abaixo para mobile
+const MAP1_ICONS_MOBILE: IconConfig[] = [
+  {
+    id: "ufrj",
+    src: ufrjSvg.src,
+    longitude: -43.2354694,
+    latitude: -22.8483019,
+    width: 90,
+    height: 0,
+    dotX: 25,
+    dotY: 19,
+  },
+  {
+    id: "mare",
+    src: mareSvg.src,
+    longitude: -43.2650903,
+    latitude: -22.8535453,
+    width: 220,
+    height: 0,
+    dotX: -30,
+    dotY: 0,
+  },
+  {
+    id: "lv",
+    src: lvMobileSvg.src,
+    longitude: -43.2326642,
+    latitude: -22.8697329,
+    width: 148,
+    height: 38,
+    dotX: 44,
+    dotY: -30,
+  },
+  {
+    id: "galeao",
+    src: galeaoSvg.src,
+    longitude: -43.2396864,
+    latitude: -22.8279646,
+    width: 240,
+    height: 0,
+    dotX: 100,
+    dotY: -20,
+  },
+  {
+    id: "fiocruz",
+    src: fiocruzSvg.src,
+    longitude: -43.2464299,
+    latitude: -22.8762657,
+    width: 141,
+    height: 100,
+    dotX: 60,
+    dotY: 9,
+  },
+  {
+    id: "avbrasil",
+    src: avBrasilMobileSvg.src,
+    longitude: -43.257527,
+    latitude: -22.8370439,
+    width: 150,
+    height: 38,
+    dotX: 10,
+    dotY: 50,
   },
 ];
 
@@ -214,6 +280,17 @@ export function IntroMare() {
   const [titleOpacity, setTitleOpacity] = useState(1);
   const [showIlhasTitle, setShowIlhasTitle] = useState(false);
   const [showMap1Icons, setShowMap1Icons] = useState(false);
+
+  const [isMobileView, setIsMobileView] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobileView(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
+  const map1Icons = isMobileView ? MAP1_ICONS_MOBILE : MAP1_ICONS_DESKTOP;
 
   const card0Ref = useRef<HTMLDivElement>(null);
   const card1Ref = useRef<HTMLDivElement>(null);
@@ -553,7 +630,7 @@ export function IntroMare() {
             doubleClickZoom={false}
             touchZoomRotate={false}
           >
-            {MAP1_ICONS.map((icon) => (
+            {map1Icons.map((icon) => (
               <Marker
                 key={icon.id}
                 longitude={icon.longitude}
