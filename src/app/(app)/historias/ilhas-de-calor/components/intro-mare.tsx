@@ -20,9 +20,9 @@ const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN ?? "";
 
 // Map positions
 const ORIGINAL_DESKTOP = { lng: -43.244951, lat: -22.856215, zoom: 12.84 };
-const ORIGINAL_MOBILE = { lng: -43.244951, lat: -22.856215, zoom: 11.44 };
+const ORIGINAL_MOBILE = { lng: -43.244951, lat: -22.856215, zoom: 12.84 };
 const MORRO_TIMBAU_DESKTOP = { lng: -43.241521, lat: -22.862468, zoom: 15.25 };
-const MORRO_TIMBAU_MOBILE = { lng: -43.241521, lat: -22.861468, zoom: 15.20 };
+const MORRO_TIMBAU_MOBILE = { lng: -43.241099, lat: -22.865645, zoom: 15.20 };
 const VILA_PINHEIROS_DESKTOP = { lng: -43.238435, lat: -22.869024, zoom: 14.52 };
 const VILA_PINHEIROS_MOBILE = { lng: -43.238435, lat: -22.869024, zoom: 13.52 };
 
