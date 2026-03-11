@@ -34,7 +34,7 @@ const TRIGGER_POSITIONS: { desktop: MapPosition; mobile: MapPosition }[] = [
   },
   {
     desktop: { lng: -43.244029, lat: -22.861132, zoom: 14.6 },
-    mobile: { lng: -43.244029, lat: -22.861132, zoom: 13.9 },
+    mobile: { lng: -43.241559, lat: -22.861132, zoom: 13.9 },
   },
   {
     desktop: { lng: -43.241946, lat: -22.867411, zoom: 14.6 },
@@ -42,7 +42,7 @@ const TRIGGER_POSITIONS: { desktop: MapPosition; mobile: MapPosition }[] = [
   },
   {
     desktop: { lng: -43.248505, lat: -22.876256, zoom: 13.8 },
-    mobile: { lng: -43.248505, lat: -22.876256, zoom: 13.8 },
+    mobile: { lng: -43.247605, lat: -22.876256, zoom: 13.8 },
   },
 ];
 
@@ -76,9 +76,9 @@ const MOBILE_OVERLAYS = [
   },
   {
     src: novaMareMobileSvg.src,
-    lng: -43.2401912,
-    lat: -22.8589694,
-    width: 200,
+    lng: -43.2411912,
+    lat: -22.8625694,
+    width: 320,
     offsetX: 0,
     offsetY: 0,
   },
