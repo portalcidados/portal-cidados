@@ -3,10 +3,13 @@
 import { useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Map as MapboxMap } from "react-map-gl/mapbox";
+import { Map as MapboxMap, Marker } from "react-map-gl/mapbox";
 import "mapbox-gl/dist/mapbox-gl.css";
 import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
+import piscinao2MobileSvg from "../assets/piscinao2-mobile.svg";
+import novaHolandaMobileSvg from "../assets/nova-holanda-mobile.svg";
+import parqueEcologicoMobileSvg from "../assets/parque-ecologico-mobile.svg";
 import mapaDeUmidade from "../assets/mapa-de-umidade.png";
 import mapaDeCO2 from "../assets/mapa-de-co2.png";
 import mapaDeHCHO from "../assets/mapa-de-hcho.png";
@@ -33,21 +36,21 @@ type MapPosition = {
 const TRIGGER_POSITIONS: { desktop: MapPosition; mobile: MapPosition }[] = [
   {
     desktop: { lng: -43.244107, lat: -22.843399, zoom: 13.8 },
-    mobile: { lng: -43.244107, lat: -22.843399, zoom: 13.8 },
+    mobile: { lng: -43.250007, lat: -22.840399, zoom: 13.8 },
   },
   {
     desktop: { lng: -43.251429, lat: -22.856089, zoom: 13.23 },
-    mobile: { lng: -43.251429, lat: -22.856089, zoom: 13.23 },
+    mobile: { lng: -43.243577, lat: -22.860809, zoom: 13.23 },
   },
   {
     desktop: {
-      lng: -43.240514,
+      lng: -43.235156,
       lat: -22.86556,
       zoom: 14.58,
       bearing: 49.59,
       pitch: 46.49,
     },
-    mobile: { lng: -43.240514, lat: -22.86556, zoom: 14.58 },
+    mobile: { lng: -43.236156, lat: -22.869024, zoom: 14.58 },
   },
 ];
 
@@ -58,6 +61,33 @@ const TRIGGER_LAYERS: string[][] = [
 ];
 
 const ALL_LAYER_IDS = TRIGGER_LAYERS.flat();
+
+const MOBILE_OVERLAYS = [
+  {
+    src: piscinao2MobileSvg.src,
+    lng: -43.249499,
+    lat: -22.8428554,
+    width: 300,
+    offsetX: 0,
+    offsetY: 0,
+  },
+  {
+    src: novaHolandaMobileSvg.src,
+    lng: -43.243577,
+    lat: -22.860809,
+    width: 300,
+    offsetX: 0,
+    offsetY: 0,
+  },
+  {
+    src: parqueEcologicoMobileSvg.src,
+    lng: -43.236156,
+    lat: -22.869024,
+    width: 300,
+    offsetX: 0,
+    offsetY: 0,
+  },
+];
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function animateLayerOpacity(
@@ -180,6 +210,7 @@ export function ScrollMapQualidadeArMapbox() {
   const card1Ref = useRef<HTMLDivElement>(null);
   const card2Ref = useRef<HTMLDivElement>(null);
   const card3Ref = useRef<HTMLDivElement>(null);
+  const [activeMobileOverlay, setActiveMobileOverlay] = useState<number | null>(null);
 
   useLayoutEffect(() => {
     let triggers: ScrollTrigger[] = [];
@@ -223,12 +254,20 @@ export function ScrollMapQualidadeArMapbox() {
     };
 
     const showLayers = (idx: number) => {
+      if (isMobile() && idx < MOBILE_OVERLAYS.length) {
+        setActiveMobileOverlay(idx);
+        return;
+      }
       const map = getMap();
       if (!map) return;
       animateLayerOpacity(map, TRIGGER_LAYERS[idx], 1);
     };
 
     const hideLayers = (idx: number) => {
+      if (isMobile() && idx < MOBILE_OVERLAYS.length) {
+        setActiveMobileOverlay(null);
+        return;
+      }
       const map = getMap();
       if (!map) return;
       animateLayerOpacity(map, TRIGGER_LAYERS[idx], 0);
@@ -392,7 +431,30 @@ export function ScrollMapQualidadeArMapbox() {
             keyboard={false}
             doubleClickZoom={false}
             touchZoomRotate={false}
-          />
+          >
+            {MOBILE_OVERLAYS.map((overlay, idx) => (
+              <Marker
+                key={idx}
+                longitude={overlay.lng}
+                latitude={overlay.lat}
+                anchor="center"
+                style={{ pointerEvents: "none" }}
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={overlay.src}
+                  alt=""
+                  style={{
+                    display: "block",
+                    width: overlay.width,
+                    transform: `translate(${overlay.offsetX}px, ${overlay.offsetY}px)`,
+                    opacity: activeMobileOverlay === idx ? 1 : 0,
+                    transition: "opacity 600ms ease-in-out",
+                  }}
+                />
+              </Marker>
+            ))}
+          </MapboxMap>
         </div>
 
         {/* Invisible scroll cards — each creates 200vh of scroll space to trigger map transitions */}
