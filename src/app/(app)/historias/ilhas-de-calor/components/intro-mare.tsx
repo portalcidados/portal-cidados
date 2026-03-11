@@ -28,7 +28,7 @@ const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN ?? "";
 
 // Map positions
 const ORIGINAL_DESKTOP = { lng: -43.244951, lat: -22.856215, zoom: 12.84 };
-const ORIGINAL_MOBILE = { lng: -43.244951, lat: -22.856215, zoom: 12.84 };
+const ORIGINAL_MOBILE = { lng: -43.243551, lat: -22.854215, zoom: 12.80 };
 const MORRO_TIMBAU_DESKTOP = { lng: -43.241521, lat: -22.862468, zoom: 15.25 };
 const MORRO_TIMBAU_MOBILE = { lng: -43.241099, lat: -22.865645, zoom: 15.20 };
 const VILA_PINHEIROS_DESKTOP = { lng: -43.238435, lat: -22.869024, zoom: 14.52 };
@@ -38,7 +38,7 @@ type LayerConfig = { id: string; prop: string; value: number };
 
 const MAP1_LAYERS: LayerConfig[] = [
   { id: "map1-4mx9os", prop: "fill-opacity", value: 0.63 },
-  { id: "map1-4mx9os (1)", prop: "line-opacity", value: 1 },
+  { id: "map1-line", prop: "line-opacity", value: 1 },
 ];
 
 interface IconConfig {
@@ -123,8 +123,8 @@ const MAP1_ICONS_MOBILE: IconConfig[] = [
     id: "ufrj",
     src: ufrjSvg.src,
     longitude: -43.2354694,
-    latitude: -22.8483019,
-    width: 90,
+    latitude: -22.8473019,
+    width: 80,
     height: 0,
     dotX: 25,
     dotY: 19,
@@ -132,9 +132,9 @@ const MAP1_ICONS_MOBILE: IconConfig[] = [
   {
     id: "mare",
     src: mareSvg.src,
-    longitude: -43.2650903,
+    longitude: -43.2630903,
     latitude: -22.8535453,
-    width: 220,
+    width: 190,
     height: 0,
     dotX: -30,
     dotY: 0,
@@ -144,7 +144,7 @@ const MAP1_ICONS_MOBILE: IconConfig[] = [
     src: lvMobileSvg.src,
     longitude: -43.2326642,
     latitude: -22.8697329,
-    width: 148,
+    width: 138,
     height: 38,
     dotX: 44,
     dotY: -30,
@@ -153,7 +153,7 @@ const MAP1_ICONS_MOBILE: IconConfig[] = [
     id: "galeao",
     src: galeaoSvg.src,
     longitude: -43.2396864,
-    latitude: -22.8279646,
+    latitude: -22.8259646,
     width: 240,
     height: 0,
     dotX: 100,
@@ -162,9 +162,9 @@ const MAP1_ICONS_MOBILE: IconConfig[] = [
   {
     id: "fiocruz",
     src: fiocruzSvg.src,
-    longitude: -43.2464299,
+    longitude: -43.2444299,
     latitude: -22.8762657,
-    width: 141,
+    width: 121,
     height: 100,
     dotX: 60,
     dotY: 9,
