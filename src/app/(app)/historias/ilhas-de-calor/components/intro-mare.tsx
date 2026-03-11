@@ -27,7 +27,7 @@ const MAPBOX_STYLE = "mapbox://styles/observatorio-nacional/cmmhtm8qk007201rybwd
 const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN ?? "";
 
 // Map positions
-const ORIGINAL_DESKTOP = { lng: -43.244951, lat: -22.856215, zoom: 12.84 };
+const ORIGINAL_DESKTOP = { lng: -43.240951, lat: -22.856215, zoom: 12.84 };
 const ORIGINAL_MOBILE = { lng: -43.243551, lat: -22.854215, zoom: 12.80 };
 const MORRO_TIMBAU_DESKTOP = { lng: -43.241521, lat: -22.862468, zoom: 15.25 };
 const MORRO_TIMBAU_MOBILE = { lng: -43.241000, lat: -22.862645, zoom: 15.20 };
@@ -39,6 +39,7 @@ type LayerConfig = { id: string; prop: string; value: number };
 const MAP1_LAYERS: LayerConfig[] = [
   { id: "map1-4mx9os", prop: "fill-opacity", value: 0.63 },
   { id: "map1-line", prop: "line-opacity", value: 1 },
+  { id: "bahia-de-guanabara-8ry3o4", prop: "text-opacity", value: 1 },
 ];
 
 interface IconConfig {
