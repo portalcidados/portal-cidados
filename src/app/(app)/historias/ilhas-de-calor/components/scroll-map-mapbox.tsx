@@ -1,13 +1,16 @@
 "use client";
 
-import { useLayoutEffect, useRef } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Map as MapboxMap } from "react-map-gl/mapbox";
+import { Map as MapboxMap, Marker } from "react-map-gl/mapbox";
 import "mapbox-gl/dist/mapbox-gl.css";
 import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
 import mapaTemperatura from "../assets/mapa-temperatura.png";
+import piscinaoMobileSvg from "../assets/piscinao-mobile.svg";
+import ruaAriLeaoMobileSvg from "../assets/rua-ari-leao-mobile.svg";
+import novaMareMobileSvg from "../assets/nova-mare-mobile.svg";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -27,7 +30,7 @@ const TRIGGER_POSITIONS: { desktop: MapPosition; mobile: MapPosition }[] = [
   },
   {
     desktop: { lng: -43.248355, lat: -22.85196, zoom: 14.17 },
-    mobile: { lng: -43.248355, lat: -22.85196, zoom: 13.9 },
+    mobile: { lng: -43.245305, lat: -22.850732, zoom: 14.17 },
   },
   {
     desktop: { lng: -43.244029, lat: -22.861132, zoom: 14.6 },
@@ -53,6 +56,33 @@ const TRIGGER_LAYERS: string[][] = [
 ];
 
 const ALL_LAYER_IDS = TRIGGER_LAYERS.flat();
+
+const MOBILE_OVERLAYS = [
+  {
+    src: piscinaoMobileSvg.src,
+    lng: -43.250499,
+    lat: -22.8393554,
+    width: 300,
+    offsetX: 15,
+    offsetY: 40,
+  },
+  {
+    src: ruaAriLeaoMobileSvg.src,
+    lng: -43.2442508,
+    lat: -22.8504434,
+    width: 340,
+    offsetX: -23,
+    offsetY: 0,
+  },
+  {
+    src: novaMareMobileSvg.src,
+    lng: -43.2401912,
+    lat: -22.8589694,
+    width: 200,
+    offsetX: 0,
+    offsetY: 0,
+  },
+];
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function animateLayerOpacity(
@@ -103,6 +133,7 @@ export function ScrollMapMapbox() {
   const card3Ref = useRef<HTMLDivElement>(null);
   const card4Ref = useRef<HTMLDivElement>(null);
   const card5Ref = useRef<HTMLDivElement>(null);
+  const [activeMobileOverlay, setActiveMobileOverlay] = useState<number | null>(null);
 
   useLayoutEffect(() => {
     let triggers: ScrollTrigger[] = [];
@@ -142,12 +173,20 @@ export function ScrollMapMapbox() {
     };
 
     const showLayers = (idx: number) => {
+      if (isMobile() && idx < MOBILE_OVERLAYS.length) {
+        setActiveMobileOverlay(idx);
+        return;
+      }
       const map = getMap();
       if (!map) return;
       animateLayerOpacity(map, TRIGGER_LAYERS[idx], 1);
     };
 
     const hideLayers = (idx: number) => {
+      if (isMobile() && idx < MOBILE_OVERLAYS.length) {
+        setActiveMobileOverlay(null);
+        return;
+      }
       const map = getMap();
       if (!map) return;
       animateLayerOpacity(map, TRIGGER_LAYERS[idx], 0);
@@ -349,7 +388,30 @@ export function ScrollMapMapbox() {
             keyboard={false}
             doubleClickZoom={false}
             touchZoomRotate={false}
-          />
+          >
+            {MOBILE_OVERLAYS.map((overlay, idx) => (
+              <Marker
+                key={idx}
+                longitude={overlay.lng}
+                latitude={overlay.lat}
+                anchor="center"
+                style={{ pointerEvents: "none" }}
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={overlay.src}
+                  alt=""
+                  style={{
+                    display: "block",
+                    width: overlay.width,
+                    transform: `translate(${overlay.offsetX}px, ${overlay.offsetY}px)`,
+                    opacity: activeMobileOverlay === idx ? 1 : 0,
+                    transition: "opacity 600ms ease-in-out",
+                  }}
+                />
+              </Marker>
+            ))}
+          </MapboxMap>
         </div>
 
         {/* Invisible scroll cards — each creates 200vh of scroll space to trigger map transitions */}
