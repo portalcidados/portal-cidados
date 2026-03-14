@@ -111,7 +111,7 @@ export default function MortalidadeMaterna() {
     <div ref={sectionRef} className="min-h-screen bg-white p-6 lg:p-12">
       <div className="max-w-7xl mx-auto">
         {/* Main Grid Container */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 pb-16">
           {/* Left Column - Title and Text Content */}
           <div>
             {/* Main Title */}

@@ -128,9 +128,16 @@ export default function DesigualdadesEmSaudeSp() {
         <SupermercadoSection />
         <DiseasesIntroduction />
         <DiabetesMellitus />
+        <div className="px-8 max-w-4xl mx-auto py-10">
+        <hr className="max-w-2xl mx-auto border-t border-dashed border-gray-300" />
+        </div>
         <DoencasCerebrovasculares />
-        <DoencasIsquemicasDoCoracao />
-        <MortalidadeMaterna />
+<div className="px-8 max-w-4xl mx-auto py-10">
+        <hr className="max-w-2xl mx-auto border-t border-dashed border-gray-300" />
+        </div>        <DoencasIsquemicasDoCoracao />
+<div className="px-8 max-w-4xl mx-auto py-10">
+        <hr className="max-w-2xl mx-auto border-t border-dashed border-gray-300" />
+        </div>        <MortalidadeMaterna />
         <Conclusion />
         <Footer />
         <ScrollToTopIcon />
