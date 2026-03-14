@@ -79,7 +79,7 @@ export function MapLegend({ type }: MapLegendProps) {
   if (!config) return null;
 
   return (
-    <div className="fixed top-4 right-4 z-40 rounded-lg bg-white/90 p-4 shadow-lg backdrop-blur-sm max-w-[220px] text-sm transition-opacity duration-300">
+    <div className="fixed top-4 right-4 rounded-lg bg-white/90 p-4 shadow-lg backdrop-blur-sm max-w-[220px] text-sm transition-opacity duration-300">
       <h3 className="font-semibold text-base mb-1 leading-tight">{config.title}</h3>
       {config.subtitle && (
         <p className="text-sm italic text-gray-500 mb-1">{config.subtitle}</p>

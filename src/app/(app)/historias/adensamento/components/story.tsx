@@ -367,9 +367,9 @@ export default function AdensamentoStory() {
       <MapLegend type={activeLegend} />
 
       {/* ============================================================== */}
-      {/* Scrolling content                                               */}
+      {/* Scrolling content — above map (z-0), overlays (z-10), building (z-20) */}
       {/* ============================================================== */}
-      <main className="relative z-30">
+      <main className="relative z-[100] isolate">
         {/* ------------------------------------------------------------ */}
         {/* COVER — full viewport height, content centered                 */}
         {/* ------------------------------------------------------------ */}
@@ -470,7 +470,7 @@ export default function AdensamentoStory() {
         {/* ------------------------------------------------------------ */}
         <section
           id="mapa_capitulo"
-          className="flex w-full min-h-screen items-center justify-center lg:justify-center p-[10%] bg-[#2BA680] text-white"
+          className="relative z-10 flex w-full min-h-screen items-center justify-center lg:justify-center p-[10%] bg-[#2BA680] text-white"
         >
           <div className="flex flex-col items-start max-w-xs lg:max-w-[40%]">
             <h2 className="text-white underline font-semibold text-2xl mb-6 max-w-[400px] selection:bg-white selection:text-[#2BA680]">
