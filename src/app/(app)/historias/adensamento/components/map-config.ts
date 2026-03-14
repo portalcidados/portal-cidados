@@ -85,8 +85,13 @@ export const MAP_FLY_TRIGGERS: {
   { id: "mapa_quatro", mapKey: "mapa_quatro", legend: "eetu" },
   { id: "cep_capitulo", mapKey: "cep_capitulo", legend: "eetu" },
   { id: "mapa_cinco", mapKey: "mapa_cinco", legend: "eetu" },
+  { id: "cep_capitulo3a", legend: null },
+  { id: "cep_blank2", legend: null },
   { id: "mapa_seis", mapKey: "mapa_seis", legend: "density-const" },
+  { id: "cep_capitulo5", legend: null },
+  { id: "cep_capitulo6b", legend: null },
   { id: "mapa_sete", mapKey: "mapa_sete", legend: "density-pop" },
+  { id: "cep_capitulo7", legend: null },
   { id: "capitulo_final", legend: null },
   { id: "creditos", legend: null },
 ];

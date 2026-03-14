@@ -160,6 +160,51 @@
   }
 }
 
+/* Slider com progresso na cor do thumb (#3ACC9F) */
+.slider-adensamento {
+  --slider-progress: 0%;
+  --slider-track: #e5e7eb;
+  --slider-fill: #3ACC9F;
+}
+.slider-adensamento::-webkit-slider-runnable-track {
+  height: 8px;
+  border-radius: 9999px;
+  background: linear-gradient(
+    to right,
+    var(--slider-fill) 0%,
+    var(--slider-fill) var(--slider-progress),
+    var(--slider-track) var(--slider-progress),
+    var(--slider-track) 100%
+  );
+}
+.slider-adensamento::-webkit-slider-thumb {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--slider-fill);
+  cursor: pointer;
+  margin-top: -5px;
+}
+.slider-adensamento::-moz-range-track {
+  height: 8px;
+  border-radius: 9999px;
+  background: var(--slider-track);
+}
+.slider-adensamento::-moz-range-progress {
+  height: 8px;
+  border-radius: 9999px 0 0 9999px;
+  background: var(--slider-fill);
+}
+.slider-adensamento::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--slider-fill);
+  cursor: pointer;
+  border: none;
+}
+
 .scrollbar-hide {
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none;  /* IE/Edge */

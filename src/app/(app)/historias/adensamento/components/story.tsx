@@ -7,7 +7,9 @@ import { Map as MapboxMap } from "react-map-gl/mapbox";
 import "mapbox-gl/dist/mapbox-gl.css";
 import Image from "next/image";
 import Link from "next/link";
-import { Share2 } from "lucide-react";
+import { Share2, Search } from "lucide-react";
+import Zoom from "react-medium-image-zoom";
+import "react-medium-image-zoom/dist/styles.css";
 
 import {
   MAP_POSITIONS,
@@ -686,7 +688,7 @@ export default function AdensamentoStory() {
 
             <div className="mt-6 space-y-4">
               <div className="flex items-center gap-3 text-sm">
-                <label htmlFor="slider-ca" className="font-semibold w-16">
+                <label htmlFor="slider-ca" className="font-semibold w-16 shrink-0">
                   CA:
                 </label>
                 <input
@@ -697,12 +699,13 @@ export default function AdensamentoStory() {
                   step="0.1"
                   value={ca}
                   onChange={(e) => setCa(parseFloat(e.target.value))}
-                  className="w-48 h-2 rounded-lg appearance-none cursor-pointer bg-gray-200 accent-[#3ACC9F]"
+                  className="slider-adensamento h-2 min-w-0 flex-1 rounded-lg appearance-none cursor-pointer bg-transparent"
+                  style={{ "--slider-progress": `${(ca / 4) * 100}%` } as React.CSSProperties}
                 />
-                <span className="font-mono w-10 text-right">{ca}×</span>
+                <span className="font-mono w-10 shrink-0 text-right">{ca}×</span>
               </div>
               <div className="flex items-center gap-3 text-sm">
-                <label htmlFor="slider-to" className="font-semibold w-16">
+                <label htmlFor="slider-to" className="font-semibold w-16 shrink-0">
                   TO (%):
                 </label>
                 <input
@@ -713,9 +716,10 @@ export default function AdensamentoStory() {
                   step="0.1"
                   value={to}
                   onChange={(e) => setTo(parseFloat(e.target.value))}
-                  className="w-48 h-2 rounded-lg appearance-none cursor-pointer bg-gray-200 accent-[#3ACC9F]"
+                  className="slider-adensamento h-2 min-w-0 flex-1 rounded-lg appearance-none cursor-pointer bg-transparent"
+                  style={{ "--slider-progress": `${to}%` } as React.CSSProperties}
                 />
-                <span className="font-mono w-10 text-right">{to}%</span>
+                <span className="font-mono w-10 shrink-0 text-right">{to}%</span>
               </div>
             </div>
           </div>
@@ -823,13 +827,23 @@ export default function AdensamentoStory() {
           id="cep_capitulo7b"
           className="flex w-full min-h-screen items-center justify-center lg:justify-start p-[10%]"
         >
-          <div className="backdrop-blur-[20px] bg-white/[0.46] max-w-xs lg:max-w-lg p-8 lg:p-12">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={figura13.src}
-              alt="Gráfico de relevância dos fatores construtivos"
-              className="w-[250px] lg:w-[600px] h-auto mx-auto selection:bg-[#ef4444] selection:text-white"
-            />
+          <div className="backdrop-blur-[20px] bg-white/[0.46] max-w-xs lg:max-w-lg p-8 lg:p-12 relative overflow-visible">
+            <Zoom>
+              <div className="relative w-full overflow-visible">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={figura13.src}
+                  alt="Gráfico de relevância dos fatores construtivos"
+                  className="w-[250px] lg:w-[600px] h-auto mx-auto selection:bg-[#ef4444] selection:text-white block cursor-zoom-in"
+                />
+                <span
+                  className="absolute -top-6 -right-6 lg:-top-10 lg:-right-10 p-2 rounded-full bg-white/90 shadow-md cursor-zoom-in flex items-center justify-center text-gray-700 hover:bg-white hover:shadow-lg transition-colors"
+                  aria-label="Ampliar imagem"
+                >
+                  <Search className="w-5 h-5 lg:w-6 lg:h-6" />
+                </span>
+              </div>
+            </Zoom>
           </div>
         </section>
 
@@ -886,7 +900,7 @@ export default function AdensamentoStory() {
         {/* ------------------------------------------------------------ */}
         <section
           id="capitulo_final"
-          className="flex w-full min-h-screen items-center justify-center lg:justify-start p-[10%] bg-[#2BA680] text-white"
+          className="flex w-full min-h-screen items-center justify-center lg:justify-center p-[10%] bg-[#2BA680] text-white"
         >
           <div className="flex flex-col items-start max-w-xs lg:max-w-[40%]">
             <h2 className="text-white underline font-semibold text-2xl mb-6 max-w-[400px] selection:bg-white selection:text-[#2BA680]">
@@ -943,7 +957,7 @@ export default function AdensamentoStory() {
               <br />
               <b>Designer:</b> Pedro Meneghel
               <br />
-              <b>Desenvolvimento:</b> Renan Rodrigues
+              <b>Desenvolvimento:</b> Renan Rodrigues, Lucas Tavares
             </WhiteText>
 
             <h2 className="text-white underline font-semibold text-2xl mb-1 mt-15 selection:bg-white selection:text-[#2BA680]">

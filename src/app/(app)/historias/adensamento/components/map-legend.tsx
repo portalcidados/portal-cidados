@@ -79,19 +79,19 @@ export function MapLegend({ type }: MapLegendProps) {
   if (!config) return null;
 
   return (
-    <div className="fixed bottom-4 left-4 z-40 rounded-lg bg-white/90 p-4 shadow-lg backdrop-blur-sm max-w-[220px] text-sm transition-opacity duration-300">
-      <h3 className="font-semibold text-sm mb-1">{config.title}</h3>
+    <div className="fixed top-4 right-4 z-40 rounded-lg bg-white/90 p-4 shadow-lg backdrop-blur-sm max-w-[220px] text-sm transition-opacity duration-300">
+      <h3 className="font-semibold text-base mb-1 leading-tight">{config.title}</h3>
       {config.subtitle && (
-        <p className="text-xs italic text-gray-500 mb-2">{config.subtitle}</p>
+        <p className="text-sm italic text-gray-500 mb-1">{config.subtitle}</p>
       )}
-      <ul className="space-y-1">
+      <ul className="space-y-1 mt-2">
         {config.items.map((item) => (
           <li key={item.label} className="flex items-center gap-2">
             <span
-              className="w-4 h-4 rounded-sm shrink-0"
+              className="w-5 h-5 rounded-sm shrink-0"
               style={{ backgroundColor: item.color }}
             />
-            <span className="text-xs leading-tight">{item.label}</span>
+            <span className="text-sm leading-tight">{item.label}</span>
           </li>
         ))}
       </ul>
