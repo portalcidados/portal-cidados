@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, type ReactNode } from "react";
+import { useState, useLayoutEffect, type ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import insperLogo from "../../assets/insper-logo.png";
@@ -22,7 +22,7 @@ export function PreloadWrapper({
   const [isReady, setIsReady] = useState(false);
   const [fadeOut, setFadeOut] = useState(false);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     document.body.style.overflow = "hidden";
     let mounted = true;
 
@@ -75,7 +75,9 @@ export function PreloadWrapper({
 
   return (
     <>
-      {children}
+      <div className={isReady ? undefined : "h-screen overflow-hidden"}>
+        {children}
+      </div>
 
       {!isReady && (
         <div
@@ -157,3 +159,4 @@ export function PreloadWrapper({
     </>
   );
 }
+
