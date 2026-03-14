@@ -136,7 +136,7 @@ export default function Intro() {
               <button
                 type="button"
                 onClick={handleShare}
-                className="flex items-center hover:cursor-pointer justify-center w-10 h-10 bg-transparent border-[#3A3434] hover:bg-[#f0f0f0] text-[#333333] rounded-full transition-all duration-300 shadow-lg border"
+                className="flex items-center hover:cursor-pointer justify-center w-10 h-10 bg-transparent border-[#3A3434] hover:bg-[#000000]/5 text-[#333333] rounded-full transition-all duration-300 shadow-lg border"
                 aria-label="Compartilhar"
               >
                 <Share2 size={18} />

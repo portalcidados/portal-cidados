@@ -2,7 +2,13 @@
 
 import { useEffect, useState, useRef } from "react";
 
-export function ScrollProgressBar() {
+const DEFAULT_BAR_COLOR = "#C00026";
+
+interface ScrollProgressBarProps {
+  barColor?: string;
+}
+
+export function ScrollProgressBar({ barColor = DEFAULT_BAR_COLOR }: ScrollProgressBarProps) {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isVisible, setIsVisible] = useState(true);
   const hideTimeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -80,7 +86,7 @@ export function ScrollProgressBar() {
         style={{
           height: "100%",
           width: `${scrollProgress * 100}%`,
-          backgroundColor: "#C00026",
+          backgroundColor: barColor,
           transition: "width 0.1s ease-out",
         }}
       />

@@ -3,6 +3,7 @@
 import coverImage from "../assets/cover.png";
 import insperLogo from "../../assets/insper-logo.png";
 import portalLogo from "../../assets/portal_cidados_logo.png";
+import { Share2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -11,6 +12,27 @@ export default function Cover() {
   const [hoveredLogo, setHoveredLogo] = useState<"insper" | "portal" | null>(
     null,
   );
+
+  const handleShare = async () => {
+    const shareData = {
+      title: "Retrato das Desigualdades em Saúde no Município de São Paulo",
+      text: "Confira o estudo sobre riscos de mortalidade e determinantes socioeconômicos no Município de São Paulo.",
+      url: window.location.href,
+    };
+
+    try {
+      if (navigator.share) {
+        await navigator.share(shareData);
+      } else {
+        await navigator.clipboard.writeText(window.location.href);
+        alert("Link copiado para a área de transferência!");
+      }
+    } catch (err) {
+      if ((err as Error).name !== "AbortError") {
+        console.error("Erro ao compartilhar:", err);
+      }
+    }
+  };
 
   return (
     <div
@@ -82,6 +104,17 @@ export default function Cover() {
           Barrozo, Catia Martinez Minto, Sara Lopes de Moraes e Paulo Afonso de
           André.
         </p>
+
+        <div className="flex gap-2 justify-center mt-6">
+          <button
+            type="button"
+            onClick={handleShare}
+            className="flex items-center hover:cursor-pointer justify-center w-10 h-10 bg-transparent border-[#3A3434] hover:bg-[#000000]/10 text-[#333333] rounded-full transition-all duration-300 shadow-lg border"
+            aria-label="Compartilhar"
+          >
+            <Share2 size={18} className="text-white" />
+          </button>
+        </div>
       </div>
     </div>
   );
