@@ -146,7 +146,7 @@ export function ScrollToTopIcon() {
       ref={buttonRef}
       type="button"
       onClick={scrollToTop}
-      className={`fixed bottom-6 right-6 z-50 cursor-pointer transition-all duration-300 ease-in-out hover:opacity-75 focus:outline-none ${
+      className={`fixed bottom-6 right-6 z-[9999] cursor-pointer transition-all duration-300 ease-in-out hover:opacity-75 focus:outline-none ${
         isVisible
           ? "opacity-60 pointer-events-auto"
           : "opacity-0 pointer-events-none"
