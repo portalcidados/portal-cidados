@@ -443,7 +443,7 @@ export default function AdensamentoStory() {
           </div>
 
           {/* Title, subtitle, author and share — centered */}
-          <div className="relative z-10 flex flex-col items-center justify-center text-center max-w-4xl pt-[20vh] sm:px-4">
+          <div className="relative z-10 flex flex-col items-center justify-center text-center max-w-4xl md:pt-[20vh] sm:px-4">
             <h1 className="font-sans font-bold text-[23px] lg:text-[33px] leading-[44px] lg:leading-[48px] text-[#3F3F3F] selection:bg-[#3F3F3F] selection:text-white">
               Verticalização gera adensamento populacional?
               <br />
