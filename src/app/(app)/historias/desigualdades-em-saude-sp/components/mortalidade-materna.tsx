@@ -116,7 +116,7 @@ export default function MortalidadeMaterna() {
           <div>
             {/* Main Title */}
             <div className="mb-12">
-              <h1 className="text-4xl lg:text-6xl font-semibold text-[#000000] mb-8">
+              <h1 className="text-3xl lg:text-4xl font-semibold text-[#000000] mb-8">
                 Mortalidade
                 <br />
                 Materna
@@ -127,7 +127,7 @@ export default function MortalidadeMaterna() {
             <div className="space-y-12">
               {/* Tendências por gênero */}
               <section>
-                <h2 className="text-2xl font-semibold text-[#000000] mb-6">
+                <h2 className="text-xl font-semibold text-[#000000] mb-6">
                   Distribuição populacional
                 </h2>
                 <div className="space-y-6">
@@ -144,7 +144,7 @@ export default function MortalidadeMaterna() {
                         height={20}
                       />
                     </div>
-                    <p className="text-[#000000] leading-[140%] lg:text-xl md:text-xl text-lg flex-1">
+                    <p className="text-[#000000] leading-[140%] lg:text-base text-lg flex-1">
                       Maior percentual de mulheres em idade fértil nas regiões
                       sul, leste e norte.
                     </p>
@@ -154,7 +154,7 @@ export default function MortalidadeMaterna() {
 
               {/* Faixas etárias */}
               <section>
-                <h2 className="text-2xl font-semibold text-[#000000] mb-6">
+                <h2 className="text-xl font-semibold text-[#000000] mb-6">
                   Redução de mortalidade materna
                 </h2>
                 <div className="space-y-6">
@@ -171,7 +171,7 @@ export default function MortalidadeMaterna() {
                         height={20}
                       />
                     </div>
-                    <p className="text-[#000000] leading-[140%] lg:text-xl md:text-xl text-lg flex-1">
+                    <p className="text-[#000000] leading-[140%] lg:text-base text-lg flex-1">
                       Redução entre 2010 e 2012, mas aumento expressivo após
                       2013, atingindo 61,8 em 2019.
                     </p>
@@ -189,7 +189,7 @@ export default function MortalidadeMaterna() {
                         height={20}
                       />
                     </div>
-                    <p className="text-[#000000] leading-[140%] lg:text-xl md:text-xl text-lg flex-1">
+                    <p className="text-[#000000] leading-[140%] lg:text-base text-lg flex-1">
                       Concentrada em faixas etárias de 20 a 39 anos.
                     </p>
                   </div>
@@ -198,7 +198,7 @@ export default function MortalidadeMaterna() {
 
               {/* Influência socioeconômica */}
               <section className="mb-30">
-                <h2 className="text-2xl font-semibold text-[#000000] mb-6">
+                <h2 className="text-xl font-semibold text-[#000000] mb-6">
                   Influência socioeconômica
                 </h2>
                 <div className="space-y-6">
@@ -215,7 +215,7 @@ export default function MortalidadeMaterna() {
                         height={20}
                       />
                     </div>
-                    <p className="text-[#000000] leading-[140%] lg:text-xl md:text-xl text-lg flex-1">
+                    <p className="text-[#000000] leading-[140%] lg:text-base text-lg flex-1">
                       Diretas: complicações obstétricas durante gravidez, parto
                       ou puerpério.
                     </p>
@@ -233,7 +233,7 @@ export default function MortalidadeMaterna() {
                         height={20}
                       />
                     </div>
-                    <p className="text-[#000000] leading-[140%] lg:text-xl md:text-xl text-lg flex-1">
+                    <p className="text-[#000000] leading-[140%] lg:text-base text-lg flex-1">
                       Indiretas: doenças pré-existentes agravadas pela gestação.
                     </p>
                   </div>

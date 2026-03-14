@@ -117,15 +117,13 @@ export default function DiabetesMellitus() {
     <div ref={sectionRef} className="min-h-screen bg-white p-6 lg:p-12">
       <div className="max-w-7xl mx-auto">
         {/* Main Grid Container */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 pt-20">
           {/* Left Column - Title and Text Content */}
           <div>
             {/* Main Title */}
             <div className="mb-12">
-              <h1 className="text-4xl lg:text-6xl font-semibold text-[#000000] mb-8">
-                Diabetes
-                <br />
-                Mellitus
+              <h1 className="text-3xl lg:text-4xl font-semibold text-[#000000] mb-8">
+                Diabetes Mellitus
               </h1>
             </div>
 
@@ -133,7 +131,7 @@ export default function DiabetesMellitus() {
             <div className="space-y-12">
               {/* Tendências por gênero */}
               <section>
-                <h2 className="text-2xl font-semibold text-[#000000] mb-6">
+                <h2 className="text-xl font-semibold text-[#000000] mb-6">
                   Tendências por gênero
                 </h2>
                 <div className="space-y-6">
@@ -150,7 +148,7 @@ export default function DiabetesMellitus() {
                         height={20}
                       />
                     </div>
-                    <p className="text-[#000000] leading-[140%] lg:text-xl md:text-xl text-lg flex-1">
+                    <p className="text-[#000000] leading-[140%] lg:text-base text-lg flex-1">
                       Redução no risco relativo entre mulheres ao longo do
                       período estudado.
                     </p>
@@ -168,7 +166,7 @@ export default function DiabetesMellitus() {
                         height={20}
                       />
                     </div>
-                    <p className="text-[#000000] leading-[140%] lg:text-xl md:text-xl text-lg flex-1">
+                    <p className="text-[#000000] leading-[140%] lg:text-base text-lg flex-1">
                       Para homens, houve estabilização com leve aumento no final
                       do período.
                     </p>
@@ -178,7 +176,7 @@ export default function DiabetesMellitus() {
 
               {/* Faixas etárias */}
               <section>
-                <h2 className="text-2xl font-semibold text-[#000000] mb-6">
+                <h2 className="text-xl font-semibold text-[#000000] mb-6">
                   Faixas etárias
                 </h2>
                 <div className="space-y-6">
@@ -195,7 +193,7 @@ export default function DiabetesMellitus() {
                         height={30}
                       />
                     </div>
-                    <p className="text-[#000000] leading-[140%] lg:text-xl md:text-xl text-lg flex-1">
+                    <p className="text-[#000000] leading-[140%] lg:text-base text-lg flex-1">
                       Aumento do risco entre 20 e 39 anos, mais acentuado em
                       mulheres.
                     </p>
@@ -210,7 +208,7 @@ export default function DiabetesMellitus() {
                         height={20}
                       />
                     </div>
-                    <p className="text-[#000000] leading-[140%] lg:text-xl md:text-xl text-lg flex-1">
+                    <p className="text-[#000000] leading-[140%] lg:text-base text-lg flex-1">
                       Estabilidade entre 40 e 49 anos; redução para mulheres
                       acima de 50 anos.
                     </p>
@@ -220,7 +218,7 @@ export default function DiabetesMellitus() {
 
               {/* Influência socioeconômica */}
               <section>
-                <h2 className="text-2xl font-semibold text-[#000000] mb-6">
+                <h2 className="text-xl font-semibold text-[#000000] mb-6">
                   Influência socioeconômica
                 </h2>
                 <div className="space-y-6">
@@ -237,7 +235,7 @@ export default function DiabetesMellitus() {
                         height={20}
                       />
                     </div>
-                    <p className="text-[#000000] leading-[140%] lg:text-xl md:text-xl text-lg flex-1">
+                    <p className="text-[#000000] leading-[140%] lg:text-base text-lg flex-1">
                       Condições socioeconômicas explicam 38% da variabilidade
                       entre mulheres e 25% entre homens.
                     </p>
@@ -255,7 +253,7 @@ export default function DiabetesMellitus() {
                         height={20}
                       />
                     </div>
-                    <p className="text-[#000000] leading-[140%] lg:text-xl md:text-xl text-lg flex-1">
+                    <p className="text-[#000000] leading-[140%] lg:text-base text-lg flex-1">
                       Risco relativo mais elevado em distritos como Jardim
                       Helena, e menor em Moema.
                     </p>

@@ -122,7 +122,7 @@ export default function DoencasIsquemicasDoCoracao() {
           <div>
             {/* Main Title */}
             <div className="mb-12">
-              <h1 className="text-4xl lg:text-6xl font-semibold text-[#000000] mb-8">
+              <h1 className="text-3xl lg:text-4xl font-semibold text-[#000000] mb-8">
                 Doenças Isquêmicas
                 <br />
                 do Coração
@@ -133,7 +133,7 @@ export default function DoencasIsquemicasDoCoracao() {
             <div className="space-y-12">
               {/* Tendências por gênero */}
               <section>
-                <h2 className="text-2xl font-semibold text-[#000000] mb-6">
+                <h2 className="text-xl font-semibold text-[#000000] mb-6">
                   Tendências por gênero
                 </h2>
                 <div className="space-y-6">
@@ -150,7 +150,7 @@ export default function DoencasIsquemicasDoCoracao() {
                         height={20}
                       />
                     </div>
-                    <p className="text-[#000000] leading-[140%] lg:text-xl md:text-xl text-lg flex-1">
+                    <p className="text-[#000000] leading-[140%] lg:text-base text-lg flex-1">
                       Mulheres apresentaram baixo risco estável, com leve
                       redução a partir de 2012.
                     </p>
@@ -168,7 +168,7 @@ export default function DoencasIsquemicasDoCoracao() {
                         height={20}
                       />
                     </div>
-                    <p className="text-[#000000] leading-[140%] lg:text-xl md:text-xl text-lg flex-1">
+                    <p className="text-[#000000] leading-[140%] lg:text-base text-lg flex-1">
                       Homens iniciaram o período com alto risco, reduzido para
                       baixo risco a partir de 2015.
                     </p>
@@ -178,7 +178,7 @@ export default function DoencasIsquemicasDoCoracao() {
 
               {/* Faixas etárias */}
               <section>
-                <h2 className="text-2xl font-semibold text-[#000000] mb-6">
+                <h2 className="text-xl font-semibold text-[#000000] mb-6">
                   Faixas etárias
                 </h2>
                 <div className="space-y-6">
@@ -195,7 +195,7 @@ export default function DoencasIsquemicasDoCoracao() {
                         height={30}
                       />
                     </div>
-                    <p className="text-[#000000] leading-[140%] lg:text-xl md:text-xl text-lg flex-1">
+                    <p className="text-[#000000] leading-[140%] lg:text-base text-lg flex-1">
                       Aumento significativo entre mulheres e homens na faixa de
                       60 a 69 anos.
                     </p>
@@ -213,7 +213,7 @@ export default function DoencasIsquemicasDoCoracao() {
                         height={20}
                       />
                     </div>
-                    <p className="text-[#000000] leading-[140%] lg:text-xl md:text-xl text-lg flex-1">
+                    <p className="text-[#000000] leading-[140%] lg:text-base text-lg flex-1">
                       Maior desigualdade observada entre distritos nas faixas
                       etárias de 30 a 39 anos e 60 a 69 anos.
                     </p>
@@ -223,7 +223,7 @@ export default function DoencasIsquemicasDoCoracao() {
 
               {/* Influência socioeconômica */}
               <section>
-                <h2 className="text-2xl font-semibold text-[#000000] mb-6">
+                <h2 className="text-xl font-semibold text-[#000000] mb-6">
                   Destaques regionais:
                 </h2>
                 <div className="space-y-6">
@@ -240,7 +240,7 @@ export default function DoencasIsquemicasDoCoracao() {
                         height={20}
                       />
                     </div>
-                    <p className="text-[#000000] leading-[140%] lg:text-xl md:text-xl text-lg flex-1">
+                    <p className="text-[#000000] leading-[140%] lg:text-base text-lg flex-1">
                       Brasilândia registrou o maior risco para mulheres; São
                       Miguel, para homens.
                     </p>
