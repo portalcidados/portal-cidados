@@ -15,7 +15,7 @@ const storiesData = [
       "/assets/viz1/viz1.3.png",
       "/assets/viz1/viz1.1.png",
     ],
-    href: "https://portalcidados.github.io/datavis/#/adensamento",
+    href: "/historias/adensamento",
   },
   {
     id: 2,
