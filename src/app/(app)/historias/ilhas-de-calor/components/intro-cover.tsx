@@ -2,9 +2,7 @@
 
 import { Share2 } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
-import insperLogo from "../../assets/insper-logo.png";
-import portalLogo from "../../assets/portal_cidados_logo.png";
+import { StoryLogos } from "../../components/story-logos";
 import backgroundImage from "../assets/background.png";
 import coverImage from "../assets/cover-image.png";
 
@@ -46,47 +44,10 @@ export default function IntroCover() {
         }}
       />
 
-      {/* Logo Insper e Portal - No topo da capa */}
-      <div
-        className="absolute top-0 left-0 right-0 z-50 flex flex-col items-center px-6 py-4 md:px-12 lg:px-24"
-        style={{
-          backgroundImage: `url(${backgroundImage.src})`,
-          backgroundRepeat: "repeat",
-          backgroundPosition: "top left",
-          backgroundSize: `${Math.round(backgroundImage.width / 2)}px ${Math.round(backgroundImage.height / 2)}px`,
-        }}
-      >
-        <div className="absolute inset-0 bg-white/80 backdrop-blur-sm"></div>
-        <div className="relative z-10 flex flex-col items-center w-full">
-          <div className="flex flex-row gap-5 items-center justify-center w-full max-w-5xl">
-            <Link
-              href="https://www.insper.edu.br/pt/home"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="cursor-pointer"
-            >
-              <Image
-                src={insperLogo}
-                alt="Insper Logo"
-                width={88}
-                height={33}
-                className="h-auto w-18 sm:w-22"
-                priority
-              />
-            </Link>
-            <Link href="/" className="cursor-pointer">
-              <Image
-                src={portalLogo}
-                alt="Portal Cidadãos Logo"
-                width={100}
-                height={33}
-                className="h-auto w-20 sm:w-30"
-                priority
-              />
-            </Link>
-          </div>
-          {/* Linha de Separação - Embaixo dos logos */}
-          <div className="w-full max-w-5xl border-t border-[#cccccc] mt-4"></div>
+      {/* Logos no topo */}
+      <div className="absolute top-16 left-0 right-0 z-50 flex flex-col items-center px-6 md:px-12 lg:px-24">
+        <div className="mb-6">
+          <StoryLogos hoverable={false} />
         </div>
       </div>
 

@@ -1,18 +1,10 @@
 "use client";
 
 import coverImage from "../assets/cover.png";
-import insperLogo from "../../assets/insper-logo.png";
-import portalLogo from "../../assets/portal_cidados_logo.png";
+import { StoryLogos } from "../../components/story-logos";
 import { Share2 } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
-import { useState } from "react";
 
 export default function Cover() {
-  const [hoveredLogo, setHoveredLogo] = useState<"insper" | "portal" | null>(
-    null,
-  );
-
   const handleShare = async () => {
     const shareData = {
       title: "Retrato das Desigualdades em Saúde no Município de São Paulo",
@@ -42,54 +34,9 @@ export default function Cover() {
         overflow: "hidden !important",
       }}
     >
-      {/* Insper logo/text at the top */}
+      {/* Logos at the top */}
       <div className="absolute top-16 left-1/2 transform -translate-x-1/2">
-        <div className="flex flex-row gap-5 items-center justify-center w-full max-w-5xl">
-          <Link
-            href="https://www.insper.edu.br/pt/home"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="cursor-pointer transition-all duration-300"
-            onMouseEnter={() => setHoveredLogo("insper")}
-            onMouseLeave={() => setHoveredLogo(null)}
-          >
-            <Image
-              src={insperLogo}
-              alt="Insper Logo"
-              width={88}
-              height={33}
-              className={`h-auto w-18 sm:w-22 brightness-0 invert transition-transform duration-300 ${
-                hoveredLogo === "insper"
-                  ? "scale-110"
-                  : hoveredLogo === "portal"
-                    ? "scale-90"
-                    : "scale-100"
-              }`}
-              priority
-            />
-          </Link>
-          <Link
-            href="/"
-            className="cursor-pointer transition-all duration-300"
-            onMouseEnter={() => setHoveredLogo("portal")}
-            onMouseLeave={() => setHoveredLogo(null)}
-          >
-            <Image
-              src={portalLogo}
-              alt="Portal Cidadãos Logo"
-              width={100}
-              height={33}
-              className={`h-auto w-20 sm:w-30 brightness-0 invert transition-transform duration-300 ${
-                hoveredLogo === "portal"
-                  ? "scale-110"
-                  : hoveredLogo === "insper"
-                    ? "scale-90"
-                    : "scale-100"
-              }`}
-              priority
-            />
-          </Link>
-        </div>
+        <StoryLogos inverted />
       </div>
 
       {/* Main content centered */}

@@ -25,8 +25,7 @@ import { ScrollProgressBar } from "../../ilhas-de-calor/components/scroll-progre
 // Cover images
 import capa from "../images/capa.png";
 import capaMobile from "../images/capa_mobile.png";
-import insperLogo from "../../assets/insper-logo.png";
-import portalLogo from "../../assets/portal_cidados_logo.png";
+import { StoryLogos } from "../../components/story-logos";
 
 // Inline figure
 import figura13 from "../images/Figura 13.png";
@@ -156,8 +155,6 @@ export default function AdensamentoStory() {
   const [activeLegend, setActiveLegend] = useState<LegendType>(null);
   const [ca, setCa] = useState(1);
   const [to, setTo] = useState(100);
-  const [hoveredLogo, setHoveredLogo] = useState<"insper" | "portal" | null>(null);
-
   const handleShare = useCallback(async () => {
     const shareData = {
       title: "Verticalização gera adensamento populacional?",
@@ -392,53 +389,10 @@ export default function AdensamentoStory() {
             priority
           />
 
-          {/* Logos at top — hover: scale up focused, scale down the other */}
+          {/* Logos at top */}
           <div className="absolute top-16 left-0 right-0 z-20 flex flex-col items-center px-6 md:px-12 lg:px-24">
-            <div className="flex flex-row gap-5 mb-6">
-              <Link
-                href="https://www.insper.edu.br/pt/home"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="cursor-pointer transition-all duration-300"
-                onMouseEnter={() => setHoveredLogo("insper")}
-                onMouseLeave={() => setHoveredLogo(null)}
-              >
-                <Image
-                  src={insperLogo}
-                  alt="Insper Logo"
-                  width={88}
-                  height={33}
-                  className={`h-auto w-20 sm:w-26 transition-transform duration-300 ${
-                    hoveredLogo === "insper"
-                      ? "scale-110"
-                      : hoveredLogo === "portal"
-                        ? "scale-90"
-                        : "scale-100"
-                  }`}
-                  priority
-                />
-              </Link>
-              <Link
-                href="/"
-                className="cursor-pointer transition-all duration-300"
-                onMouseEnter={() => setHoveredLogo("portal")}
-                onMouseLeave={() => setHoveredLogo(null)}
-              >
-                <Image
-                  src={portalLogo}
-                  alt="Portal Cidadãos Logo"
-                  width={100}
-                  height={33}
-                  className={`h-auto w-22 sm:w-34 transition-transform duration-300 ${
-                    hoveredLogo === "portal"
-                      ? "scale-110"
-                      : hoveredLogo === "insper"
-                        ? "scale-90"
-                        : "scale-100"
-                  }`}
-                  priority
-                />
-              </Link>
+            <div className="mb-6">
+              <StoryLogos />
             </div>
           </div>
 

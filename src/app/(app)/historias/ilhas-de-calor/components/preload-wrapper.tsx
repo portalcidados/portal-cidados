@@ -3,9 +3,7 @@
 import { useState, useEffect, type ReactNode } from "react";
 import { Share2 } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
-import insperLogo from "../../assets/insper-logo.png";
-import portalLogo from "../../assets/portal_cidados_logo.png";
+import { StoryLogos } from "../../components/story-logos";
 import backgroundImage from "../assets/background.png";
 import coverImage from "../assets/cover-image.png";
 
@@ -97,39 +95,11 @@ export function PreloadWrapper({
           }}
         />
 
-        {/* Logos e linha no topo - Posição absoluta */}
-        <div className="absolute top-6 left-0 right-0 z-20 flex flex-col items-center px-6 md:px-12 lg:px-24">
-          {/* Logos */}
-          <div className="flex flex-row gap-5 mb-6">
-            <Link
-              href="https://www.insper.edu.br/pt/home"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="cursor-pointer"
-            >
-              <Image
-                src={insperLogo}
-                alt="Insper Logo"
-                width={88}
-                height={33}
-                className="h-auto w-18 sm:w-22"
-                priority
-              />
-            </Link>
-            <Link href="/" className="cursor-pointer">
-              <Image
-                src={portalLogo}
-                alt="Portal Cidadãos Logo"
-                width={100}
-                height={33}
-                className="h-auto w-20 sm:w-30"
-                priority
-              />
-            </Link>
+        {/* Logos no topo */}
+        <div className="absolute top-16 left-0 right-0 z-20 flex flex-col items-center px-6 md:px-12 lg:px-24">
+          <div className="mb-6">
+            <StoryLogos hoverable={false} />
           </div>
-
-          {/* Linha de Separação */}
-          <div className="w-full max-w-5xl border-t border-[#cccccc]"></div>
         </div>
 
         {/* Cover Image centralizada com blur */}

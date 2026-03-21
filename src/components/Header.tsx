@@ -102,7 +102,7 @@ export function Header() {
 
             {/* Logo Arq Futuro - visível apenas no mobile (junto com Portal Cidados) */}
             <Link
-              href="https://www.insper.edu.br/pt/home"
+              href="https://www.insper.edu.br/pt/pesquisa/centro-de-estudos-das-cidades"
               target="_blank"
               rel="noopener noreferrer"
               className="cursor-pointer md:hidden"
@@ -123,7 +123,7 @@ export function Header() {
 
           {/* Centro - Logo Arq Futuro (visível apenas no desktop) */}
           <Link
-            href="https://www.insper.edu.br/pt/home"
+            href="https://www.insper.edu.br/pt/pesquisa/centro-de-estudos-das-cidades"
             target="_blank"
             rel="noopener noreferrer"
             className="hidden md:block absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 cursor-pointer"

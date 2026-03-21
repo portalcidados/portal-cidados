@@ -2,9 +2,7 @@
 
 import { useState, useLayoutEffect, type ReactNode } from "react";
 import Image from "next/image";
-import Link from "next/link";
-import insperLogo from "../../assets/insper-logo.png";
-import portalLogo from "../../assets/portal_cidados_logo.png";
+import { StoryLogos } from "../../components/story-logos";
 import capa from "../images/capa.png";
 import capaMobile from "../images/capa_mobile.png";
 
@@ -104,31 +102,8 @@ export function PreloadWrapper({
 
           {/* Logos at top */}
           <div className="absolute top-16 left-0 right-0 z-20 flex flex-col items-center px-6 md:px-12 lg:px-24">
-            <div className="flex flex-row gap-5 mb-6">
-              <Link
-                href="https://www.insper.edu.br/pt/home"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Image
-                  src={insperLogo}
-                  alt="Insper Logo"
-                  width={88}
-                  height={33}
-                  className="h-auto w-20 sm:w-26"
-                  priority
-                />
-              </Link>
-              <Link href="/">
-                <Image
-                  src={portalLogo}
-                  alt="Portal Cidadãos Logo"
-                  width={100}
-                  height={33}
-                  className="h-auto w-22 sm:w-34"
-                  priority
-                />
-              </Link>
+            <div className="mb-6">
+              <StoryLogos hoverable={false} />
             </div>
           </div>
 

@@ -1,11 +1,8 @@
 "use client";
 
 import coverImage from "../assets/cover.png";
-import insperLogo from "../../assets/insper-logo.png";
-import portalLogo from "../../assets/portal_cidados_logo.png";
+import { StoryLogos } from "../../components/story-logos";
 import { Share2 } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
 
 export default function Loading() {
   const handleShare = async () => {
@@ -65,35 +62,9 @@ export default function Loading() {
       {/* Blur effect on background - over the text */}
       <div className="absolute inset-0 backdrop-blur-sm bg-black/20 z-10"></div>
 
-      {/* Insper logo/text at the top */}
+      {/* Logos at the top */}
       <div className="absolute top-16 left-1/2 transform -translate-x-1/2 z-30">
-        <div className="flex flex-row gap-5 items-center justify-center w-full max-w-5xl">
-          <Link
-            href="https://www.insper.edu.br/pt/home"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="cursor-pointer"
-          >
-            <Image
-              src={insperLogo}
-              alt="Insper Logo"
-              width={88}
-              height={33}
-              className="h-auto w-18 sm:w-22 brightness-0 invert"
-              priority
-            />
-          </Link>
-          <Link href="/" className="cursor-pointer">
-            <Image
-              src={portalLogo}
-              alt="Portal Cidadãos Logo"
-              width={100}
-              height={33}
-              className="h-auto w-20 sm:w-30 brightness-0 invert"
-              priority
-            />
-          </Link>
-        </div>
+        <StoryLogos inverted hoverable={false} />
       </div>
 
       {/* Loading indicator - animated dots centered in the middle of screen */}
