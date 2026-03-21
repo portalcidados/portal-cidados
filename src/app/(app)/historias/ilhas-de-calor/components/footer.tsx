@@ -44,7 +44,7 @@ export default function Footer() {
           {/* Logos - Top Right */}
           <div className="lg:order-2 order-1 lg:text-right flex lg:justify-end justify-start lg:col-span-1 items-center gap-4 lg:gap-6">
             <a
-              href="https://www.insper.edu.br/"
+              href="https://www.insper.edu.br/pt/pesquisa/centro-de-estudos-das-cidades"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block"

@@ -934,7 +934,7 @@ export default function AdensamentoStory() {
             <WhiteText>
               <a
                 className="font-bold underline"
-                href="http://www.insper.edu.br"
+                href="https://www.insper.edu.br/pt/pesquisa/centro-de-estudos-das-cidades"
                 target="_blank"
                 rel="noreferrer"
               >
