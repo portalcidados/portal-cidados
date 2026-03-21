@@ -197,9 +197,10 @@ const VILA_PINHEIROS_LAYERS: LayerConfig[] = [
 interface ScrollCardProps {
   children?: React.ReactNode;
   cardRef: React.RefObject<HTMLDivElement | null>;
+  minHeight?: string;
 }
 
-function ScrollCard({ children, cardRef }: ScrollCardProps) {
+function ScrollCard({ children, cardRef, minHeight = "200vh" }: ScrollCardProps) {
   const contentRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
@@ -259,7 +260,7 @@ function ScrollCard({ children, cardRef }: ScrollCardProps) {
       className={
         children ? "flex items-center justify-center p-6 md:p-8 lg:p-10" : ""
       }
-      style={{ minHeight: "200vh" }}
+      style={{ minHeight }}
     >
       {children ? (
         <div
@@ -684,7 +685,7 @@ export function IntroMare() {
       </div>
 
       {/* Card 0: First text card */}
-      <ScrollCard cardRef={card0Ref}>
+      <ScrollCard cardRef={card0Ref} minHeight="120vh">
         <div>
           <p className="text-base md:text-lg leading-relaxed">
             A Maré é{" "}
@@ -696,7 +697,7 @@ export function IntroMare() {
       </ScrollCard>
 
       {/* Card 1: Invisible — triggers map1 layers */}
-      <ScrollCard cardRef={card1Ref} />
+      <ScrollCard cardRef={card1Ref} minHeight="10vh"/>
 
       {/* Card 2: Text with map1 layers visible */}
       <ScrollCard cardRef={card2Ref}>
@@ -738,7 +739,7 @@ export function IntroMare() {
       </ScrollCard>
 
       {/* Card 8: Invisible — flies to Morro do Timbau */}
-      <ScrollCard cardRef={card8Ref} />
+      <ScrollCard cardRef={card8Ref} minHeight="100vh"/>
 
       {/* Card 4: Flies back to original */}
       <ScrollCard cardRef={card4Ref}>
@@ -780,10 +781,10 @@ export function IntroMare() {
       </ScrollCard>
 
       {/* Card 6: Invisible — flies to Vila dos Pinheiros */}
-      <ScrollCard cardRef={card6Ref} />
+      <ScrollCard cardRef={card6Ref} minHeight="80vh"/>
 
       {/* Card 9: Invisible — hides Vila dos Pinheiros layers, flies back */}
-      <ScrollCard cardRef={card9Ref} />
+      <ScrollCard cardRef={card9Ref} minHeight="100vh"/>
 
       {/* Card 10: Consolidação e Expansão */}
       <ScrollCard cardRef={card10Ref}>
@@ -808,7 +809,7 @@ export function IntroMare() {
       </ScrollCard>
 
       {/* Card 11: Atualmente, a Maré */}
-      <ScrollCard cardRef={card11Ref}>
+      <ScrollCard cardRef={card11Ref} minHeight="100vh">
         <div>
           <p className="text-base md:text-lg leading-relaxed">
             Atualmente,{" "}
@@ -825,7 +826,7 @@ export function IntroMare() {
       </ScrollCard>
 
       {/* Card 12: O fato de quase metade das favelas */}
-      <ScrollCard cardRef={card12Ref}>
+      <ScrollCard cardRef={card12Ref} minHeight="100vh">
         <div>
           <p className="text-base md:text-lg leading-relaxed">
             O fato de quase metade das favelas da Maré ter sido construída pelo
@@ -837,7 +838,7 @@ export function IntroMare() {
       </ScrollCard>
 
       {/* Card 13: Invisible — transitions to grayscale "Ilhas de calor" cover */}
-      <ScrollCard cardRef={card13Ref} />
+      <ScrollCard cardRef={card13Ref} minHeight="100vh" />
     </div>
   );
 }

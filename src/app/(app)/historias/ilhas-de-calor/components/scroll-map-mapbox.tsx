@@ -57,6 +57,8 @@ const TRIGGER_LAYERS: string[][] = [
 
 const ALL_LAYER_IDS = TRIGGER_LAYERS.flat();
 
+const CARD_HEIGHTS = ["100vh", "100vh", "100vh", "100vh", "100vh"];
+
 const MOBILE_OVERLAYS = [
   {
     src: piscinaoMobileSvg.src,
@@ -415,11 +417,11 @@ export function ScrollMapMapbox() {
         </div>
 
         {/* Invisible scroll cards — each creates 200vh of scroll space to trigger map transitions */}
-        <div ref={card1Ref} style={{ minHeight: "200vh" }} />
-        <div ref={card2Ref} style={{ minHeight: "200vh" }} />
-        <div ref={card3Ref} style={{ minHeight: "200vh" }} />
-        <div ref={card4Ref} style={{ minHeight: "200vh" }} />
-        <div ref={card5Ref} style={{ minHeight: "200vh" }} />
+        <div ref={card1Ref} style={{ minHeight: CARD_HEIGHTS[0] }} />
+        <div ref={card2Ref} style={{ minHeight: CARD_HEIGHTS[1] }} />
+        <div ref={card3Ref} style={{ minHeight: CARD_HEIGHTS[2] }} />
+        <div ref={card4Ref} style={{ minHeight: CARD_HEIGHTS[3] }} />
+        <div ref={card5Ref} style={{ minHeight: CARD_HEIGHTS[4] }} />
       </div>
 
       {/* Static temperature map displayed after the scrollytelling section */}
