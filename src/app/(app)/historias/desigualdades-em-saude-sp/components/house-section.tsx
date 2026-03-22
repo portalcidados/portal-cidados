@@ -11,97 +11,181 @@ import { default as panoramicImageMobile } from "../assets/panoramicImageMobile.
 import houseOne from "../assets/houseOne.png";
 import Image from "next/image";
 
-// Register ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
+
+// Desktop: pixel position of houseOne's top-left corner within houseBackground.png
+const HOUSE_ONE_OFFSET = { x: 531, y: 164 };
+const BG_NATURAL_W = 4711;
+const BG_NATURAL_H = 1067;
+
+// Mobile: houseBackgroundMobile.png has different dimensions (2631x711)
+// Mobile pode ter crop diferente - ajuste fino manual: casa deve ficar na área visível (esquerda)
+const BG_NATURAL_W_MOBILE = 2631;
+const BG_NATURAL_H_MOBILE = 711;
+const HOUSE_ONE_OFFSET_MOBILE = {
+  x: -151,   // Casa na esquerda do mobile (0% center) - ajuste se precisar
+  y: 3,
+};
+
+const HOUSE_ONE_NATURAL_W = 633;
+const HOUSE_ONE_DISPLAY_W = 600; // width/height prop on <Image>
+
+function computeMorphDeltasDesktop() {
+  const viewW = window.innerWidth;
+  const viewH = window.innerHeight;
+  const bgScale = Math.max(viewW / BG_NATURAL_W, viewH / BG_NATURAL_H);
+  const displayedBgH = BG_NATURAL_H * bgScale;
+  const clipX = 0;
+  const clipY = Math.max(0, (displayedBgH - viewH) / 2);
+  const targetCenterX =
+    HOUSE_ONE_OFFSET.x * bgScale - clipX + (HOUSE_ONE_NATURAL_W * bgScale) / 2;
+  const targetCenterY =
+    HOUSE_ONE_OFFSET.y * bgScale - clipY + (HOUSE_ONE_NATURAL_W * bgScale) / 2;
+  return {
+    deltaX: targetCenterX - viewW / 2,
+    deltaY: targetCenterY - viewH / 2,
+    targetScale: (HOUSE_ONE_NATURAL_W * bgScale) / HOUSE_ONE_DISPLAY_W,
+  };
+}
+
+function computeMorphDeltasMobile() {
+  const viewW = window.innerWidth;
+  const viewH = window.innerHeight;
+  const bgScale = Math.max(viewW / BG_NATURAL_W_MOBILE, viewH / BG_NATURAL_H_MOBILE);
+  const displayedBgH = BG_NATURAL_H_MOBILE * bgScale;
+  const clipX = 0;
+  const clipY = Math.max(0, (displayedBgH - viewH) / 2);
+  const targetCenterX =
+    HOUSE_ONE_OFFSET_MOBILE.x * bgScale - clipX + (HOUSE_ONE_NATURAL_W * bgScale) / 2;
+  const targetCenterY =
+    HOUSE_ONE_OFFSET_MOBILE.y * bgScale - clipY + (HOUSE_ONE_NATURAL_W * bgScale) / 2;
+  // No mobile, houseOne não deve crescer - manter scale 1
+  return {
+    deltaX: targetCenterX - viewW / 2,
+    deltaY: targetCenterY - viewH / 2,
+    targetScale: 1.12,
+  };
+}
+
+function computeMorphDeltas() {
+  return window.innerWidth < 768 ? computeMorphDeltasMobile() : computeMorphDeltasDesktop();
+}
 
 export default function HouseSection() {
   const containerRef = useRef<HTMLDivElement>(null);
   const panoramicSliderRef = useRef<HTMLDivElement>(null);
-  const [showBackground, setShowBackground] = useState(false);
-  const [showPanoramicScroll, setShowPanoramicScroll] = useState(false);
+  const houseOneRef = useRef<HTMLImageElement>(null);
+  const houseBackgroundRef = useRef<HTMLDivElement>(null);
   const [isMobile, setIsMobile] = useState(false);
 
-  // Detect mobile device
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
     window.addEventListener("resize", checkMobile);
-
-    return () => {
-      window.removeEventListener("resize", checkMobile);
-    };
+    return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  // ScrollTrigger for background fade effect and panoramic scroll
+  // Morph animation + panoramic visibility triggers
   useGSAP(() => {
-    const firstCardElement = containerRef.current?.querySelector(
-      `[data-card-index="0"]`,
-    );
-    const secondCardElement = containerRef.current?.querySelector(
-      `[data-card-index="1"]`,
-    );
+    const firstCard = containerRef.current?.querySelector(`[data-card-index="0"]`);
+    const secondCard = containerRef.current?.querySelector(`[data-card-index="1"]`);
 
-    if (firstCardElement) {
-      ScrollTrigger.create({
-        trigger: firstCardElement,
+    if (!firstCard || !houseOneRef.current || !houseBackgroundRef.current) return;
+
+    // --- Morph: houseOne moves from center into its position in houseBackground ---
+    const morphTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: firstCard,
         start: "bottom center",
-        onEnter: () => {
-          setShowBackground(true);
-        },
-        onLeaveBack: () => {
-          setShowBackground(false);
-        },
-      });
-    }
+        toggleActions: "play none none reverse",
+        invalidateOnRefresh: true,
+      },
+    });
 
-    if (secondCardElement) {
-      ScrollTrigger.create({
-        trigger: secondCardElement,
-        start: "bottom center",
-        onEnter: () => {
-          setShowPanoramicScroll(true);
+    morphTl
+      // Background fades in and houseOne starts moving simultaneously
+      .to(
+        houseBackgroundRef.current,
+        { opacity: 1, duration: 0.4, ease: "power1.out", overwrite: "auto" },
+        0,
+      )
+      .to(
+        houseOneRef.current,
+        {
+          x: () => computeMorphDeltas().deltaX,
+          y: () => computeMorphDeltas().deltaY,
+          scale: () => computeMorphDeltas().targetScale,
+          duration: 0.8,
+          ease: "power2.inOut",
+          overwrite: "auto",
         },
-        onLeaveBack: () => {
-          setShowPanoramicScroll(false);
-        },
-      });
-    }
-
-    return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-    };
-  }, []);
-
-  // Separate useGSAP for panoramic scroll animation
-  useGSAP(() => {
-    if (showPanoramicScroll && panoramicSliderRef.current) {
-      const thirdCardElement = containerRef.current?.querySelector(
-        `[data-card-index="2"]`,
+        0,
+      )
+      // houseOne fades out as it merges into the background
+      .to(
+        houseOneRef.current,
+        { opacity: 0, duration: 0.25, ease: "power1.in", overwrite: "auto" },
+        0.6,
       );
 
-      if (thirdCardElement) {
-        // Animate background-position instead of img transform
-        gsap.to(panoramicSliderRef.current, {
-          scrollTrigger: {
-            trigger: thirdCardElement,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: 1,
-            invalidateOnRefresh: true,
-          },
-          backgroundPosition: "100% center",
-          ease: "none",
-        });
-      }
+    // --- Panoramic section: swap houseBackground → panoramic ---
+    if (secondCard) {
+      ScrollTrigger.create({
+        trigger: secondCard,
+        start: "bottom center",
+        onEnter: () => {
+          gsap.to(houseBackgroundRef.current, {
+            opacity: 0,
+            duration: 0.5,
+            overwrite: "auto",
+          });
+          gsap.to(panoramicSliderRef.current, {
+            opacity: 1,
+            duration: 0.5,
+            overwrite: "auto",
+          });
+        },
+        onLeaveBack: () => {
+          gsap.to(houseBackgroundRef.current, {
+            opacity: 1,
+            duration: 0.5,
+            overwrite: "auto",
+          });
+          gsap.to(panoramicSliderRef.current, {
+            opacity: 0,
+            duration: 0.5,
+            overwrite: "auto",
+          });
+        },
+      });
     }
 
     return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+      ScrollTrigger.getAll().forEach((t) => t.kill());
     };
-  }, [showPanoramicScroll]);
+  }, []);
+
+  // Panoramic horizontal scroll animation
+  useGSAP(() => {
+    const thirdCard = containerRef.current?.querySelector(`[data-card-index="2"]`);
+    if (!thirdCard || !panoramicSliderRef.current) return;
+
+    gsap.to(panoramicSliderRef.current, {
+      scrollTrigger: {
+        trigger: thirdCard,
+        start: "top bottom",
+        end: "bottom top",
+        scrub: 1,
+        invalidateOnRefresh: true,
+      },
+      backgroundPosition: "100% center",
+      ease: "none",
+    });
+
+    return () => {
+      ScrollTrigger.getAll().forEach((t) => t.kill());
+    };
+  }, []);
 
   // Define the text cards content and positions (removed the third card)
   const cards = [
@@ -164,35 +248,34 @@ export default function HouseSection() {
         className="h-screen w-full overflow-hidden"
       >
         <div className="min-h-screen w-full bg-white flex items-center justify-center relative overflow-hidden">
-          {/* First background image with fade effect */}
+          {/* Background — GSAP controls opacity (starts hidden) */}
           <div
-            className="absolute inset-0 bg-cover bg-center overflow-hidden transition-opacity duration-500 ease-in-out"
+            ref={houseBackgroundRef}
+            className="absolute inset-0 bg-cover bg-center overflow-hidden"
             style={{
               backgroundImage: `url(${isMobile ? houseBackgroundMobile.src : houseBackground.src})`,
               backgroundPosition: "0% center",
-              opacity: showBackground && !showPanoramicScroll ? 1 : 0,
+              opacity: 0,
             }}
           />
 
-          {/* Panoramic horizontal scroll container */}
+          {/* Panoramic horizontal scroll container — GSAP controls opacity */}
           <div
             ref={panoramicSliderRef}
-            className="absolute inset-0 bg-cover overflow-hidden transition-opacity "
+            className="absolute inset-0 bg-cover overflow-hidden"
             style={{
               backgroundImage: `url(${isMobile ? panoramicImageMobile.src : panoramicImage.src})`,
               backgroundPosition: "0% center",
-              opacity: showPanoramicScroll ? 1 : 0,
+              opacity: 0,
             }}
           />
 
-          {/* Main house image - fades out when background appears */}
+          {/* houseOne — GSAP morphs this into houseBackground */}
           <Image
+            ref={houseOneRef}
             src={houseOne}
             alt="House illustration"
-            className="max-w-full max-h-full object-contain relative z-10 transition-opacity duration-500 ease-in-out"
-            style={{
-              opacity: showBackground ? 0 : 1,
-            }}
+            className="max-w-full max-h-full object-contain relative z-10"
             width={600}
             height={600}
             priority
