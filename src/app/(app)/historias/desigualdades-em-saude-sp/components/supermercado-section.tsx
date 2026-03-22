@@ -68,12 +68,6 @@ export default function SupermercadoSection() {
     const seventhCardElement = containerRef.current?.querySelector(
       `[data-card-index="7"]`,
     );
-    const drawerOneTrigger = containerRef.current?.querySelector(
-      `[data-card-index="drawer-one-trigger"]`,
-    );
-    const drawerTwoTrigger = containerRef.current?.querySelector(
-      `[data-card-index="drawer-two-trigger"]`,
-    );
 
     if (firstCardElement) {
       ScrollTrigger.create({
@@ -180,21 +174,24 @@ export default function SupermercadoSection() {
       });
     }
 
-    // Drawer One - appears after third card exits the screen, stays visible for 120vh
-    if (thirdCardElement && drawerOneTrigger) {
+    // Drawer One - show when 3rd card exits screen, hide when 4th card touches top
+    if (thirdCardElement && fourthCardElement) {
       ScrollTrigger.create({
         trigger: thirdCardElement,
-        start: "bottom top", // When card bottom reaches top of viewport (card exits screen)
-        endTrigger: drawerOneTrigger,
-        end: "top center", // Continue showing until trigger element reaches center
+        start: "bottom top",
+        endTrigger: fourthCardElement,
+        end: "top top",
         onEnter: () => {
           setShowDrawerOne(true);
+          setShowDrawerTwo(false);
         },
         onLeave: () => {
           setShowDrawerOne(false);
+          setShowDrawerTwo(true);
         },
         onEnterBack: () => {
           setShowDrawerOne(true);
+          setShowDrawerTwo(false);
         },
         onLeaveBack: () => {
           setShowDrawerOne(false);
@@ -202,24 +199,27 @@ export default function SupermercadoSection() {
       });
     }
 
-    // Drawer Two - appears after fourth card exits the screen, stays visible for 120vh
-    if (fourthCardElement && drawerTwoTrigger) {
+    // Drawer Two - show when 4th card touches top, hide when 5th card touches top
+    if (fourthCardElement && fifthCardElement) {
       ScrollTrigger.create({
         trigger: fourthCardElement,
-        start: "bottom top", // When card bottom reaches top of viewport (card exits screen)
-        endTrigger: drawerTwoTrigger,
-        end: "top center", // Continue showing until trigger element reaches center
+        start: "top top",
+        endTrigger: fifthCardElement,
+        end: "top top",
         onEnter: () => {
           setShowDrawerTwo(true);
+          setShowDrawerOne(false);
         },
         onLeave: () => {
           setShowDrawerTwo(false);
         },
         onEnterBack: () => {
           setShowDrawerTwo(true);
+          setShowDrawerOne(false);
         },
         onLeaveBack: () => {
           setShowDrawerTwo(false);
+          setShowDrawerOne(true);
         },
       });
     }
@@ -505,23 +505,6 @@ export default function SupermercadoSection() {
           </div>
         ))}
 
-        {/* Invisible trigger card for Drawer One - positioned 120vh after third card */}
-        <div
-          data-card-index="drawer-one-trigger"
-          className="absolute w-1 h-1 opacity-0 pointer-events-none"
-          style={{
-            top: `${300 + 120}vh`,
-          }}
-        />
-
-        {/* Invisible trigger card for Drawer Two - positioned 120vh after fourth card */}
-        <div
-          data-card-index="drawer-two-trigger"
-          className="absolute w-1 h-1 opacity-0 pointer-events-none"
-          style={{
-            top: `${450 + 120}vh`,
-          }}
-        />
       </div>
 
       {/* Drawer One */}
