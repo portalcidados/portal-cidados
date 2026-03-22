@@ -201,59 +201,6 @@ interface ScrollCardProps {
 }
 
 function ScrollCard({ children, cardRef, minHeight = "200vh" }: ScrollCardProps) {
-  const contentRef = useRef<HTMLDivElement>(null);
-
-  useLayoutEffect(() => {
-    if (!contentRef.current || !children || !cardRef.current) return;
-
-    gsap.set(contentRef.current, { opacity: 0, y: 100 });
-
-    const animation = gsap.fromTo(
-      contentRef.current,
-      { opacity: 0, y: 100 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: cardRef.current,
-          start: "top 80%",
-          end: "top 20%",
-          toggleActions: "play none none reverse",
-          immediateRender: false,
-        },
-      },
-    );
-
-    const checkInitialState = () => {
-      if (!contentRef.current || !cardRef.current) return;
-      const rect = cardRef.current.getBoundingClientRect();
-      const viewportHeight = window.innerHeight;
-      const triggerPoint = viewportHeight * 0.8;
-      if (rect.top < triggerPoint && rect.bottom > 0) {
-        gsap.to(contentRef.current, {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          ease: "power3.out",
-        });
-      }
-    };
-
-    const timeoutId = setTimeout(() => {
-      ScrollTrigger.refresh();
-      requestAnimationFrame(() => {
-        checkInitialState();
-      });
-    }, 150);
-
-    return () => {
-      clearTimeout(timeoutId);
-      animation.kill();
-    };
-  }, [cardRef, children]);
-
   return (
     <div
       ref={cardRef}
@@ -263,11 +210,7 @@ function ScrollCard({ children, cardRef, minHeight = "200vh" }: ScrollCardProps)
       style={{ minHeight }}
     >
       {children ? (
-        <div
-          ref={contentRef}
-          className="bg-white/70 backdrop-blur-sm text-black p-6 md:p-8 lg:p-10 max-w-2xl shadow-lg rounded-lg w-full"
-          style={{ opacity: 0, transform: "translateY(100px)" }}
-        >
+        <div className="bg-white/70 backdrop-blur-sm text-black p-6 md:p-8 lg:p-10 max-w-2xl shadow-lg rounded-lg w-full">
           {children}
         </div>
       ) : null}
