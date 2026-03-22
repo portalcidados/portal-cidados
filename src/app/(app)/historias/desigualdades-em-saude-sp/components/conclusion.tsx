@@ -95,7 +95,7 @@ export default function Conclusion() {
   return (
     <div
       ref={sectionRef}
-      className="bg-cover bg-center bg-no-repeat flex flex-col items-center pt-30 overflow-x-hidden"
+      className="min-h-screen bg-auto bg-center bg-repeat flex flex-col items-center pt-30 overflow-x-hidden"
       style={{
         backgroundImage: `url(${textBackground.src})`,
       }}
