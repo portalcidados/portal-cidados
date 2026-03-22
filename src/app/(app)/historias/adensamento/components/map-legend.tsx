@@ -63,7 +63,7 @@ const LEGENDS: Record<Exclude<LegendType, null>, LegendGroup> = {
     items: [
       { label: "Favelas e Loteamentos irregulares", color: "#61D6B2" },
       { label: "Pessoas fora do cadastro IPTU", color: "#E53935" },
-      { label: "Pessoas dentro do cadastro IPTU", color: "#9E9E9E" },
+      // { label: "Pessoas dentro do cadastro IPTU", color: "#9E9E9E" },
     ],
   },
 };

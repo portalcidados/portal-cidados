@@ -16,6 +16,7 @@ import {
   MAP_FLY_TRIGGERS,
   IMAGE_FADE_INS,
   IMAGE_FADE_OUTS,
+  MANAGED_LAYERS,
   type LegendType,
 } from "./map-config";
 import { MapLegend } from "./map-legend";
@@ -60,8 +61,9 @@ import card3dbgMobile from "../images/card3dbg_mobile.png";
 gsap.registerPlugin(ScrollTrigger);
 
 const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN ?? "";
-// TODO: replace with a custom Mapbox style configured for the adensamento layers
-const MAPBOX_STYLE = "mapbox://styles/mapbox/light-v11";
+// Set NEXT_PUBLIC_MAPBOX_STYLE_ADENSAMENTO in .env to your custom Mapbox Studio style URL
+// (the style must contain all layers in MANAGED_LAYERS, each with opacity 0 as default)
+const MAPBOX_STYLE = "mapbox://styles/observatorio-nacional/cmmqkrnvl00be01qtcfoibtnb"
 
 const INITIAL_VIEW = { longitude: -46.6333, latitude: -23.5505, zoom: 14 };
 
@@ -199,14 +201,46 @@ export default function AdensamentoStory() {
     [isMobile],
   );
 
+  /**
+   * Set Mapbox layer opacities based on the active layer IDs.
+   * All layers in MANAGED_LAYERS not present in `activeLayerIds` are hidden (opacity 0).
+   * If the style isn't loaded yet the change is deferred to the next style.load event.
+   */
+  const applyMapLayers = useCallback((activeLayerIds: string[]) => {
+    const map = mapRef.current?.getMap?.();
+    if (!map) return;
+
+    const apply = () => {
+      for (const layer of MANAGED_LAYERS) {
+        if (!map.getLayer(layer.id)) continue;
+        const opacity = activeLayerIds.includes(layer.id)
+          ? layer.activeOpacity
+          : 0;
+        // Apply a short paint transition so opacity changes feel smooth
+        map.setPaintProperty(
+          layer.id,
+          `${layer.opacityProperty}-transition` as Parameters<typeof map.setPaintProperty>[1],
+          { duration: 600, delay: 0 },
+        );
+        map.setPaintProperty(layer.id, layer.opacityProperty, opacity);
+      }
+    };
+
+    if (map.isStyleLoaded()) {
+      apply();
+    } else {
+      map.once("style.load", apply);
+    }
+  }, []);
+
   // -----------------------------------------------------------------------
   // GSAP ScrollTrigger setup
   // -----------------------------------------------------------------------
   useLayoutEffect(() => {
     const triggers: ScrollTrigger[] = [];
 
-    // Map flyTo + legend triggers
-    MAP_FLY_TRIGGERS.forEach(({ id, mapKey, legend }) => {
+    // Map flyTo + legend + layer visibility triggers
+    MAP_FLY_TRIGGERS.forEach(({ id, mapKey, legend, layers }) => {
       triggers.push(
         ScrollTrigger.create({
           trigger: `#${id}`,
@@ -215,10 +249,12 @@ export default function AdensamentoStory() {
           onEnter: () => {
             if (mapKey) flyTo(mapKey);
             setActiveLegend(legend);
+            applyMapLayers(layers);
           },
           onEnterBack: () => {
             if (mapKey) flyTo(mapKey);
             setActiveLegend(legend);
+            applyMapLayers(layers);
           },
         }),
       );
@@ -289,7 +325,7 @@ export default function AdensamentoStory() {
     return () => {
       triggers.forEach((t) => t.kill());
     };
-  }, [flyTo]);
+  }, [flyTo, applyMapLayers]);
 
   // -----------------------------------------------------------------------
   // Render
