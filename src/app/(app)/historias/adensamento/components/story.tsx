@@ -3,7 +3,7 @@
 import { useLayoutEffect, useRef, useState, useCallback } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Map as MapboxMap } from "react-map-gl/mapbox";
+import { Map as MapboxMap, Marker } from "react-map-gl/mapbox";
 import "mapbox-gl/dist/mapbox-gl.css";
 import Image from "next/image";
 import Link from "next/link";
@@ -22,6 +22,9 @@ import {
 import { MapLegend } from "./map-legend";
 import { InteractiveBuilding } from "./interactive-building";
 import { ScrollProgressBar } from "../../ilhas-de-calor/components/scroll-progress-bar";
+
+// Map pin
+import localizarSvg from "../images/localizar.svg";
 
 // Cover images
 import capa from "../images/capa.png";
@@ -155,6 +158,7 @@ export default function AdensamentoStory() {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const mapRef = useRef<any>(null);
   const [activeLegend, setActiveLegend] = useState<LegendType>(null);
+  const [showPaulistaPin, setShowPaulistaPin] = useState(false);
   const [ca, setCa] = useState(1);
   const [to, setTo] = useState(100);
   const handleShare = useCallback(async () => {
@@ -260,6 +264,19 @@ export default function AdensamentoStory() {
       );
     });
 
+    // Av. Paulista pin — visible only during mapa_mais_um
+    triggers.push(
+      ScrollTrigger.create({
+        trigger: "#mapa_mais_um",
+        start: "top center",
+        end: "bottom center",
+        onEnter: () => setShowPaulistaPin(true),
+        onEnterBack: () => setShowPaulistaPin(true),
+        onLeave: () => setShowPaulistaPin(false),
+        onLeaveBack: () => setShowPaulistaPin(false),
+      }),
+    );
+
     // Image fade-in triggers (scrubbed)
     Object.entries(IMAGE_FADE_INS).forEach(([chapterId, overlayIds]) => {
       const targets = overlayIds.map((id) => `#${id}`).join(", ");
@@ -359,7 +376,43 @@ export default function AdensamentoStory() {
           keyboard={false}
           doubleClickZoom={false}
           touchZoomRotate={false}
-        />
+        >
+          <Marker longitude={-46.6544} latitude={-23.5613} anchor="bottom">
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                opacity: showPaulistaPin ? 1 : 0,
+                transition: "opacity 0.6s ease",
+                pointerEvents: "none",
+              }}
+            >
+              <div
+                style={{
+                  background: "white",
+                  color: "black",
+                  padding: "10px 18px",
+                  borderRadius: "16px",
+                  fontSize: "16px",
+                  fontWeight: "normal",
+                  whiteSpace: "nowrap",
+                  boxShadow: "0 2px 6px rgba(0,0,0,0.25)",
+                  marginBottom: "6px",
+                  fontFamily: "sans-serif",
+                }}
+              >
+                Av. Paulista
+              </div>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={(localizarSvg as unknown as { src: string }).src ?? (localizarSvg as unknown as string)}
+                alt="Av. Paulista"
+                style={{ width: "50px", height: "50px" }}
+              />
+            </div>
+          </Marker>
+        </MapboxMap>
       </div>
 
       {/* ============================================================== */}
