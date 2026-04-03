@@ -181,10 +181,10 @@ export default function ScrollyCards() {
             const map = mapRef.current.getMap();
             if (map.isStyleLoaded()) {
               console.log("Fading out layer");
-              map.setPaintProperty("geoses-b9o06r", "fill-opacity", 0);
+              map.setPaintProperty("geoses-spo", "fill-opacity", 0);
             } else {
               map.on("styledata", () => {
-                map.setPaintProperty("geoses-b9o06r", "fill-opacity", 0);
+                map.setPaintProperty("geoses-spo", "fill-opacity", 0);
               });
             }
           }
@@ -194,10 +194,10 @@ export default function ScrollyCards() {
           if (mapRef.current) {
             const map = mapRef.current.getMap();
             if (map.isStyleLoaded()) {
-              map.setPaintProperty("geoses-b9o06r", "fill-opacity", 0);
+              map.setPaintProperty("geoses-spo", "fill-opacity", 0);
             } else {
               map.on("styledata", () => {
-                map.setPaintProperty("geoses-b9o06r", "fill-opacity", 0);
+                map.setPaintProperty("geoses-spo", "fill-opacity", 0);
               });
             }
           }
@@ -206,10 +206,10 @@ export default function ScrollyCards() {
           if (mapRef.current) {
             const map = mapRef.current.getMap();
             if (map.isStyleLoaded()) {
-              map.setPaintProperty("geoses-b9o06r", "fill-opacity", 1);
+              map.setPaintProperty("geoses-spo", "fill-opacity", 1);
             } else {
               map.on("styledata", () => {
-                map.setPaintProperty("geoses-b9o06r", "fill-opacity", 1);
+                map.setPaintProperty("geoses-spo", "fill-opacity", 1);
               });
             }
           }
