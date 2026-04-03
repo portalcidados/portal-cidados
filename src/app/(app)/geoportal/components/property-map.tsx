@@ -1,12 +1,12 @@
 "use client";
+import { Compass, Layers, Menu, Minus, Plus, X } from "lucide-react";
+import mapboxgl from "mapbox-gl";
 import { Button } from "@/components/ui/button";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { Compass, Layers, Menu, Minus, Plus, X } from "lucide-react";
-import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -121,7 +121,6 @@ export default function PropertyMap() {
   const beforeMap = useRef<mapboxgl.Map | null>(null);
   const afterMap = useRef<mapboxgl.Map | null>(null);
   const compare = useRef<MapboxCompareInstance | null>(null);
-  const [zoom] = useState(10.5);
   const [selectedCity, setSelectedCity] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [selectedLayers, setSelectedLayers] = useState<string[]>([]);
@@ -331,11 +330,11 @@ export default function PropertyMap() {
 
     if (isComparisonMode) {
       // In comparison mode, update opacity on the map that contains the layer
-      if (beforeMap.current && beforeMap.current.getLayer(layerId)) {
+      if (beforeMap.current?.getLayer(layerId)) {
         console.log(`Updating opacity for layer ${layerId} on beforeMap`);
         updateLayerOpacity(layerId, opacity, beforeMap.current);
       }
-      if (afterMap.current && afterMap.current.getLayer(layerId)) {
+      if (afterMap.current?.getLayer(layerId)) {
         console.log(`Updating opacity for layer ${layerId} on afterMap`);
         updateLayerOpacity(layerId, opacity, afterMap.current);
       }
@@ -539,6 +538,7 @@ export default function PropertyMap() {
   };
 
   // Initialize single map
+  // biome-ignore lint/correctness/useExhaustiveDependencies: Mount once per normal mode; theme and city updates use setStyle/flyTo, not remount
   useEffect(() => {
     if (!mapContainer.current || isComparisonMode) return;
 
@@ -567,10 +567,10 @@ export default function PropertyMap() {
         map.current = null;
       }
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [zoom, isComparisonMode]);
+  }, [isComparisonMode]);
 
   // Initialize comparison maps
+  // biome-ignore lint/correctness/useExhaustiveDependencies: Mount when entering comparison mode; theme and city updates use setStyle/flyTo
   useEffect(() => {
     if (
       !isComparisonMode ||
@@ -616,16 +616,16 @@ export default function PropertyMap() {
       }
 
       const isMobile = window.innerWidth < 768; // md breakpoint
-      compare.current = new mapboxglCompare(
-        beforeMap.current!,
-        afterMap.current!,
-        comparisonContainer.current!,
-        {
-          orientation: isMobile ? "horizontal" : "vertical",
-          // mousemove: true,
-          // touchmove: true
-        },
-      );
+      const before = beforeMap.current;
+      const after = afterMap.current;
+      const container = comparisonContainer.current;
+      if (!before || !after || !container) return;
+
+      compare.current = new mapboxglCompare(before, after, container, {
+        orientation: isMobile ? "horizontal" : "vertical",
+        // mousemove: true,
+        // touchmove: true
+      });
     };
 
     initializeComparison();
@@ -661,14 +661,14 @@ export default function PropertyMap() {
             mapboxglCompare = compareModule.default;
           }
 
-          compare.current = new mapboxglCompare(
-            beforeMap.current!,
-            afterMap.current!,
-            comparisonContainer.current!,
-            {
-              orientation: newOrientation,
-            },
-          );
+          const before = beforeMap.current;
+          const after = afterMap.current;
+          const container = comparisonContainer.current;
+          if (!before || !after || !container) return;
+
+          compare.current = new mapboxglCompare(before, after, container, {
+            orientation: newOrientation,
+          });
         }
       }
     };
@@ -690,10 +690,10 @@ export default function PropertyMap() {
         afterMap.current = null;
       }
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [zoom, isComparisonMode]);
+  }, [isComparisonMode]);
 
   // Add layers when comparison maps are loaded and layers are selected
+  // biome-ignore lint/correctness/useExhaustiveDependencies: handleComparisonLayerChange is recreated each render; effect only syncs selected layers when maps become ready
   useEffect(() => {
     if (
       !isComparisonMode ||
@@ -734,12 +734,20 @@ export default function PropertyMap() {
         handleComparisonLayerChange(selectedLayer2, false);
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isComparisonMode, mapLoaded, selectedLayer1, selectedLayer2]);
+  }, [
+    isComparisonMode,
+    mapLoaded,
+    selectedLayer1,
+    selectedLayer2,
+    selectedCity,
+  ]);
 
   // Add layers when normal map is loaded and layers are selected
+  // biome-ignore lint/correctness/useExhaustiveDependencies: Intentionally runs when toggling comparison mode; full deps would rerun on every opacity change and handler identity
   useEffect(() => {
     if (isComparisonMode || !mapLoaded || !map.current) return;
+
+    const mapInstance = map.current;
 
     // Add all selected layers
     if (selectedLayers.length > 0) {
@@ -751,7 +759,7 @@ export default function PropertyMap() {
         if (
           layerConfig?.tilesetId &&
           layerConfig?.sourceLayer &&
-          !map.current?.getLayer(layerId)
+          !mapInstance.getLayer(layerId)
         ) {
           console.log(
             `Adding layer to normal map after mode switch: ${layerId}`,
@@ -759,7 +767,7 @@ export default function PropertyMap() {
 
           try {
             // Add source
-            map.current!.addSource(layerId, {
+            mapInstance.addSource(layerId, {
               type: "vector",
               url: `mapbox://${layerConfig.tilesetId}`,
             });
@@ -787,14 +795,14 @@ export default function PropertyMap() {
               });
             }
 
-            map.current!.addLayer(layerConfigToAdd);
+            mapInstance.addLayer(layerConfigToAdd);
 
             // Add hover functionality
-            addHoverHandlers(layerId, layerConfig.name, map.current!);
+            addHoverHandlers(layerId, layerConfig.name, mapInstance);
 
             // Set default opacity
             const opacity = layerOpacities[layerId] ?? 80;
-            updateLayerOpacity(layerId, opacity, map.current!);
+            updateLayerOpacity(layerId, opacity, mapInstance);
 
             // Set loading state
             setLayerLoadingStates((prev) => ({ ...prev, [layerId]: "loaded" }));
@@ -808,7 +816,6 @@ export default function PropertyMap() {
         }
       });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isComparisonMode, mapLoaded]);
 
   // Helper function to safely execute flyTo when map is ready
@@ -1019,9 +1026,10 @@ export default function PropertyMap() {
       try {
         // Determine target map
         const targetMap = isLayer1 ? beforeMap.current : afterMap.current;
+        if (!targetMap) return;
 
         // Add source
-        targetMap!.addSource(layerId, {
+        targetMap.addSource(layerId, {
           type: "vector",
           url: `mapbox://${layerConfig.tilesetId}`,
         });
@@ -1055,7 +1063,7 @@ export default function PropertyMap() {
           );
         }
 
-        targetMap!.addLayer(layerConfigToAdd);
+        targetMap.addLayer(layerConfigToAdd);
 
         // Add hover functionality for this layer
         addHoverHandlers(layerId, layerConfig.name, targetMap);
@@ -1121,6 +1129,8 @@ export default function PropertyMap() {
   const handleLayersChange = (layers: string[]) => {
     if (!map.current || !mapLoaded) return;
 
+    const mapInstance = map.current;
+
     const targetCity = selectedCity || "Brasil";
     console.log("Handling layers change:", {
       previous: selectedLayers,
@@ -1140,13 +1150,13 @@ export default function PropertyMap() {
           console.log(`Removing layer: ${layerId}`);
 
           // Remove hover handlers first
-          removeHoverHandlers(layerId, map.current!);
+          removeHoverHandlers(layerId, mapInstance);
 
-          if (map.current?.getLayer(layerId)) {
-            map.current.removeLayer(layerId);
+          if (mapInstance.getLayer(layerId)) {
+            mapInstance.removeLayer(layerId);
           }
-          if (map.current?.getSource(layerId)) {
-            map.current.removeSource(layerId);
+          if (mapInstance.getSource(layerId)) {
+            mapInstance.removeSource(layerId);
           }
           // Update loading state
           setLayerLoadingStates((prev) => {
@@ -1179,7 +1189,7 @@ export default function PropertyMap() {
 
           try {
             // Add source
-            map.current!.addSource(layerId, {
+            mapInstance.addSource(layerId, {
               type: "vector",
               url: `mapbox://${layerConfig.tilesetId}`,
             });
@@ -1213,10 +1223,10 @@ export default function PropertyMap() {
               );
             }
 
-            map.current!.addLayer(layerConfigToAdd);
+            mapInstance.addLayer(layerConfigToAdd);
 
             // Add hover functionality for this layer
-            addHoverHandlers(layerId, layerConfig.name, map.current!);
+            addHoverHandlers(layerId, layerConfig.name, mapInstance);
 
             // Set default opacity for the layer
             const defaultOpacity = 80;
@@ -1224,16 +1234,16 @@ export default function PropertyMap() {
               ...prev,
               [layerId]: defaultOpacity,
             }));
-            updateLayerOpacity(layerId, defaultOpacity, map.current!);
+            updateLayerOpacity(layerId, defaultOpacity, mapInstance);
 
             // Fly to layer view if configured
-            if (layerConfig.mapView && map.current) {
+            if (layerConfig.mapView) {
               const isMobile = window.innerWidth < 768;
               const targetZoom = isMobile
                 ? (layerConfig.mapView.zoomMobile ??
                   layerConfig.mapView.zoom - 0.8)
                 : layerConfig.mapView.zoom;
-              map.current.flyTo({
+              mapInstance.flyTo({
                 center: layerConfig.mapView.center,
                 zoom: targetZoom,
                 bearing: layerConfig.mapView.bearing,
@@ -1410,6 +1420,7 @@ export default function PropertyMap() {
         <Tooltip>
           <TooltipTrigger asChild>
             <button
+              type="button"
               onClick={handleZoomIn}
               className="w-12 h-12 bg-white rounded-full shadow-lg hover:shadow-xl transition-all duration-200 flex items-center justify-center hover:bg-gray-50 border border-gray-200"
             >
@@ -1425,6 +1436,7 @@ export default function PropertyMap() {
         <Tooltip>
           <TooltipTrigger asChild>
             <button
+              type="button"
               onClick={handleZoomOut}
               className="w-12 h-12 bg-white rounded-full shadow-lg hover:shadow-xl transition-all duration-200 flex items-center justify-center hover:bg-gray-50 border border-gray-200"
             >
@@ -1440,6 +1452,7 @@ export default function PropertyMap() {
         <Tooltip>
           <TooltipTrigger asChild>
             <button
+              type="button"
               onClick={handleRecenter}
               className="w-12 h-12 bg-white rounded-full shadow-lg hover:shadow-xl transition-all duration-200 flex items-center justify-center hover:bg-gray-50 border border-gray-200"
             >
@@ -1453,8 +1466,10 @@ export default function PropertyMap() {
       </div>
 
       {isMenuOpen && (
-        <div
-          className="fixed inset-0 bg-opacity-50 z-5 md:hidden"
+        <button
+          type="button"
+          aria-label="Fechar menu"
+          className="fixed inset-0 z-5 md:hidden bg-black/50 border-0 p-0 cursor-pointer"
           onClick={toggleMenu}
         />
       )}
