@@ -1,3 +1,11 @@
+export interface LayerMapView {
+  center: [number, number]; // [lng, lat]
+  zoom: number;
+  zoomMobile?: number; // optional override for mobile; defaults to zoom - 0.8
+  bearing: number;
+  pitch: number;
+}
+
 export interface CityLayer {
   id: string;
   name: string;
@@ -6,6 +14,7 @@ export interface CityLayer {
   sourceLayer?: string;
   layerType?: "fill" | "line" | "circle" | "symbol";
   hasCustomStyle?: boolean; // Indicates if this layer has a custom style defined in layer-styles.ts
+  mapView?: LayerMapView; // optional flyTo config when layer is selected
 }
 
 export interface CityLayersConfig {
@@ -35,6 +44,12 @@ export const cityLayersConfig: CityLayersConfig = {
       sourceLayer: "ic_areas-3ii8xj",
       layerType: "fill",
       hasCustomStyle: true,
+      mapView: {
+        center: [-43.269054, -22.84302],
+        zoom: 12.29,
+        bearing: 17.6,
+        pitch: 34.5,
+      },
     },
     {
       id: "ic_pontos-90vwh4",
@@ -45,6 +60,12 @@ export const cityLayersConfig: CityLayersConfig = {
       sourceLayer: "ic_pontos-90vwh4",
       layerType: "circle",
       hasCustomStyle: true,
+      mapView: {
+        center: [-43.259054, -22.86302],
+        zoom: 12.36,
+        bearing: -73.6,
+        pitch: 40.0,
+      },
     },
     {
       id: "quali_area-1ci0wo",
@@ -55,6 +76,12 @@ export const cityLayersConfig: CityLayersConfig = {
       sourceLayer: "quali_area-1ci0wo",
       layerType: "fill",
       hasCustomStyle: true,
+      mapView: {
+        center: [-43.269054, -22.84302],
+        zoom: 12.29,
+        bearing: 17.6,
+        pitch: 34.5,
+      },
     },
     {
       id: "quali_pontos-b424eh",
@@ -65,6 +92,12 @@ export const cityLayersConfig: CityLayersConfig = {
       sourceLayer: "quali_pontos-b424eh",
       layerType: "circle",
       hasCustomStyle: true,
+      mapView: {
+        center: [-43.259054, -22.86302],
+        zoom: 12.36,
+        bearing: -73.6,
+        pitch: 40.0,
+      },
     },
   ],
   "São Paulo": [

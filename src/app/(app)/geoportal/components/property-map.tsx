@@ -1226,6 +1226,23 @@ export default function PropertyMap() {
             }));
             updateLayerOpacity(layerId, defaultOpacity, map.current!);
 
+            // Fly to layer view if configured
+            if (layerConfig.mapView && map.current) {
+              const isMobile = window.innerWidth < 768;
+              const targetZoom = isMobile
+                ? (layerConfig.mapView.zoomMobile ??
+                  layerConfig.mapView.zoom - 0.8)
+                : layerConfig.mapView.zoom;
+              map.current.flyTo({
+                center: layerConfig.mapView.center,
+                zoom: targetZoom,
+                bearing: layerConfig.mapView.bearing,
+                pitch: layerConfig.mapView.pitch,
+                duration: 2000,
+                essential: true,
+              });
+            }
+
             console.log(`Successfully added layer: ${layerId}`);
 
             // Set loaded state
