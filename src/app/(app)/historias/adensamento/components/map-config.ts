@@ -43,6 +43,40 @@ export const MANAGED_LAYERS: ManagedLayer[] = [
   { id: "dens-construtiva-spo", opacityProperty: "fill-opacity", activeOpacity: 1 },
 ];
 
+/**
+ * Paint + filter for `dens-construtiva-spo` (source-layer `dens_construtiva_spo`).
+ * Applied on map load so the map matches the intended ramp without republishing Studio.
+ */
+export const DENS_CONSTRUTIVA_SPO_LAYER_PATCH = {
+  fillColor: [
+    "interpolate",
+    ["linear"],
+    ["get", "densidade_construtiva"],
+    0.15,
+    "#d1f1ea",
+    0.28,
+    "#abe6d6",
+    0.36,
+    "#86dcc1",
+    0.44,
+    "#81d9be",
+    0.52,
+    "#7ed6ba",
+    0.67,
+    "#7bd2b7",
+    1.15,
+    "#62bb9f",
+    2.23,
+    "#48a286",
+    3.9,
+    "#2d896d",
+    18,
+    "#1d7a5d",
+  ],
+  fillOutlineColor: "#000000",
+  filter: ["has", "densidade_construtiva"],
+} as const;
+
 // ---------------------------------------------------------------------------
 // Map positions
 // ---------------------------------------------------------------------------
@@ -111,8 +145,8 @@ export const MAP_FLY_TRIGGERS: {
 }[] = [
   { id: "capa", mapKey: "capa", legend: null, layers: [] },
   { id: "mapa_capitulo", legend: null, layers: [] },
-  // ── Chapter 1 – densidade populacional ──────────────────────────────────
-  { id: "mapa_zero", mapKey: "mapa_zero", legend: "density-pop", layers: [] },
+  // ── Chapter 1 – densidade populacional (camada só no card "A Pesquisa" / mapa_um)
+  { id: "mapa_zero", mapKey: "mapa_zero", legend: null, layers: [] },
   {
     id: "mapa_um",
     mapKey: "mapa_um",
@@ -122,20 +156,20 @@ export const MAP_FLY_TRIGGERS: {
   {
     id: "mapa_mais_um",
     mapKey: "mapa_mais_um",
-    legend: "density-pop",
-    layers: ["dens-demografica-spo", "highlight"],
+    legend: null,
+    layers: ["highlight"],
   },
   {
     id: "mapa_dois",
     mapKey: "mapa_dois",
-    legend: "density-pop",
-    layers: ["dens-demografica-spo", "highlight"],
+    legend: null,
+    layers: ["highlight"],
   },
   {
     id: "mapa_dois_helio",
     mapKey: "mapa_dois_helio",
-    legend: "density-pop",
-    layers: ["dens-demografica-spo", "highlight"],
+    legend: null,
+    layers: ["highlight"],
   },
   // ── Chapter 2 – informalidade ────────────────────────────────────────────
   {
@@ -187,8 +221,8 @@ export const MAP_FLY_TRIGGERS: {
   {
     id: "mapa_sete",
     mapKey: "mapa_sete",
-    legend: "density-pop",
-    layers: ["dens-demografica-spo"],
+    legend: null,
+    layers: [],
   },
   { id: "cep_capitulo7", legend: null, layers: [] },
   { id: "capitulo_final", legend: null, layers: [] },

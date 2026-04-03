@@ -1,74 +1,88 @@
 "use client";
 
-import { useLayoutEffect, useRef, useState, useCallback } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Map as MapboxMap, Marker } from "react-map-gl/mapbox";
+import type { Map as MapboxMapInstance } from "mapbox-gl";
+import { useCallback, useLayoutEffect, useRef, useState } from "react";
+import { Map as MapboxMap, type MapRef, Marker } from "react-map-gl/mapbox";
 import "mapbox-gl/dist/mapbox-gl.css";
+import { Search, Share2 } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
-import { Share2, Search } from "lucide-react";
 import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
 
-import {
-  MAP_POSITIONS,
-  MAP_FLY_TRIGGERS,
-  IMAGE_FADE_INS,
-  IMAGE_FADE_OUTS,
-  MANAGED_LAYERS,
-  type LegendType,
-} from "./map-config";
-import { MapLegend } from "./map-legend";
-import { InteractiveBuilding } from "./interactive-building";
+import { StoryLogos } from "../../components/story-logos";
 import { ScrollProgressBar } from "../../ilhas-de-calor/components/scroll-progress-bar";
-
-// Map pin
-import localizarSvg from "../images/localizar.svg";
-
 // Cover images
 import capa from "../images/capa.png";
 import capaMobile from "../images/capa_mobile.png";
-import { StoryLogos } from "../../components/story-logos";
-
-// Inline figure
-import figura13 from "../images/Figura 13.png";
-
+import card3dbg from "../images/card3dbg.png";
+import card3dbgMobile from "../images/card3dbg_mobile.png";
 // Desktop overlay images
 import card7 from "../images/card7.png";
-import card7b from "../images/card7b.png";
-import card10 from "../images/card10.gif";
-import card11a from "../images/card11a.gif";
-import card11B from "../images/card11B.gif";
-import card12 from "../images/card12.png";
-import card13 from "../images/card13.gif";
-import card18 from "../images/card18.png";
-import card19 from "../images/card19.png";
-import card20 from "../images/card20.png";
-import card21 from "../images/card21.png";
-import card3dbg from "../images/card3dbg.png";
-
 // Mobile overlay images
 import card7Mobile from "../images/card7_mobile.png";
+import card7b from "../images/card7b.png";
 import card7bMobile from "../images/card7b_mobile.png";
+import card10 from "../images/card10.gif";
 import card10Mobile from "../images/card10_mobile.gif";
+import card11a from "../images/card11a.gif";
 import card11aMobile from "../images/card11a_mobile.gif";
+import card11B from "../images/card11B.gif";
 import card11bMobile from "../images/card11b_mobile.gif";
+import card12 from "../images/card12.png";
 import card12Mobile from "../images/card12_mobile.png";
+import card13 from "../images/card13.gif";
 import card13Mobile from "../images/card13_mobile.gif";
+import card18 from "../images/card18.png";
 import card18Mobile from "../images/card18_mobile.png";
+import card19 from "../images/card19.png";
+import card20 from "../images/card20.png";
 import card20Mobile from "../images/card20_mobile.png";
+import card21 from "../images/card21.png";
 import card21Mobile from "../images/card21_mobile.png";
-import card3dbgMobile from "../images/card3dbg_mobile.png";
+// Inline figure
+import figura13 from "../images/Figura 13.png";
+// Map pin
+import localizarSvg from "../images/localizar.svg";
+import { InteractiveBuilding } from "./interactive-building";
+import {
+  DENS_CONSTRUTIVA_SPO_LAYER_PATCH,
+  IMAGE_FADE_INS,
+  IMAGE_FADE_OUTS,
+  type LegendType,
+  MANAGED_LAYERS,
+  MAP_FLY_TRIGGERS,
+  MAP_POSITIONS,
+} from "./map-config";
+import { MapLegend } from "./map-legend";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN ?? "";
 // Set NEXT_PUBLIC_MAPBOX_STYLE_ADENSAMENTO in .env to your custom Mapbox Studio style URL
 // (the style must contain all layers in MANAGED_LAYERS, each with opacity 0 as default)
-const MAPBOX_STYLE = "mapbox://styles/observatorio-nacional/cmmqkrnvl00be01qtcfoibtnb"
+const MAPBOX_STYLE =
+  "mapbox://styles/observatorio-nacional/cmmqkrnvl00be01qtcfoibtnb";
 
 const INITIAL_VIEW = { longitude: -46.6333, latitude: -23.5505, zoom: 14 };
+
+const DENS_CONSTRUTIVA_SPO_LAYER_ID = "dens-construtiva-spo" as const;
+
+function applyDensConstrutivaSpoLayerStyle(map: MapboxMapInstance) {
+  if (!map.getLayer(DENS_CONSTRUTIVA_SPO_LAYER_ID)) return;
+  const p = DENS_CONSTRUTIVA_SPO_LAYER_PATCH;
+  map.setPaintProperty(DENS_CONSTRUTIVA_SPO_LAYER_ID, "fill-color", [
+    ...p.fillColor,
+  ]);
+  map.setPaintProperty(
+    DENS_CONSTRUTIVA_SPO_LAYER_ID,
+    "fill-outline-color",
+    p.fillOutlineColor,
+  );
+  // Opacity is driven only by applyMapLayers (scrollytelling); do not force visible on load.
+  map.setFilter(DENS_CONSTRUTIVA_SPO_LAYER_ID, [...p.filter]);
+}
 
 // ---------------------------------------------------------------------------
 // Image overlay definitions (desktop / mobile pairs)
@@ -92,19 +106,13 @@ const IMAGE_OVERLAYS = [
 // ---------------------------------------------------------------------------
 // Shared UI helpers
 // ---------------------------------------------------------------------------
-function MapCard({
-  id,
-  children,
-}: {
-  id: string;
-  children: React.ReactNode;
-}) {
+function MapCard({ id, children }: { id: string; children: React.ReactNode }) {
   return (
     <section
       id={id}
       className="flex w-full min-h-screen items-center justify-center lg:justify-start p-[10%]"
     >
-      <div className="backdrop-blur-[20px] bg-white/[0.46] max-w-xs lg:max-w-lg p-8 lg:p-12">
+      <div className="backdrop-blur-[20px] bg-white/46 max-w-xs lg:max-w-lg p-8 lg:p-12">
         {children}
       </div>
     </section>
@@ -155,8 +163,7 @@ function WhiteText({ children }: { children: React.ReactNode }) {
 // Main component
 // ---------------------------------------------------------------------------
 export default function AdensamentoStory() {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const mapRef = useRef<any>(null);
+  const mapRef = useRef<MapRef | null>(null);
   const [activeLegend, setActiveLegend] = useState<LegendType>(null);
   const [showPaulistaPin, setShowPaulistaPin] = useState(false);
   const [ca, setCa] = useState(1);
@@ -223,7 +230,9 @@ export default function AdensamentoStory() {
         // Apply a short paint transition so opacity changes feel smooth
         map.setPaintProperty(
           layer.id,
-          `${layer.opacityProperty}-transition` as Parameters<typeof map.setPaintProperty>[1],
+          `${layer.opacityProperty}-transition` as Parameters<
+            typeof map.setPaintProperty
+          >[1],
           { duration: 600, delay: 0 },
         );
         map.setPaintProperty(layer.id, layer.opacityProperty, opacity);
@@ -340,7 +349,9 @@ export default function AdensamentoStory() {
     );
 
     return () => {
-      triggers.forEach((t) => t.kill());
+      for (const t of triggers) {
+        t.kill();
+      }
     };
   }, [flyTo, applyMapLayers]);
 
@@ -376,6 +387,17 @@ export default function AdensamentoStory() {
           keyboard={false}
           doubleClickZoom={false}
           touchZoomRotate={false}
+          onLoad={(e) => {
+            const map = e.target;
+            const run = () => {
+              applyDensConstrutivaSpoLayerStyle(map);
+              // Studio defaults (or missing ScrollTrigger onEnter) must not show data layers
+              // before the first section that enables them (e.g. Introdução / capa).
+              applyMapLayers([]);
+            };
+            if (map.isStyleLoaded()) run();
+            else map.once("style.load", run);
+          }}
         >
           <Marker longitude={-46.6544} latitude={-23.5613} anchor="bottom">
             <div
@@ -404,11 +426,12 @@ export default function AdensamentoStory() {
               >
                 Av. Paulista
               </div>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={(localizarSvg as unknown as { src: string }).src ?? (localizarSvg as unknown as string)}
+              <Image
+                src={localizarSvg}
                 alt="Av. Paulista"
-                style={{ width: "50px", height: "50px" }}
+                width={50}
+                height={50}
+                className="h-[50px] w-[50px]"
               />
             </div>
           </Marker>
@@ -427,10 +450,7 @@ export default function AdensamentoStory() {
             style={{ opacity: 0 }}
           >
             <picture>
-              <source
-                media="(max-width: 767px)"
-                srcSet={ov.mobile.src}
-              />
+              <source media="(max-width: 767px)" srcSet={ov.mobile.src} />
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={ov.desktop.src}
@@ -455,7 +475,7 @@ export default function AdensamentoStory() {
       {/* ============================================================== */}
       {/* Scrolling content — above map (z-0), overlays (z-10), building (z-20) */}
       {/* ============================================================== */}
-      <main className="relative z-[100] isolate">
+      <main className="relative z-100 isolate">
         {/* ------------------------------------------------------------ */}
         {/* COVER — full viewport height, content centered                 */}
         {/* ------------------------------------------------------------ */}
@@ -565,17 +585,16 @@ export default function AdensamentoStory() {
             infraestrutura urbana já existente em São Paulo. Ao incentivar que
             mais moradias e empregos estejam localizados próximos às
             infraestruturas de transporte público, estimula-se modos de
-            deslocamento mais sustentáveis e maior acesso às oportunidades que as
-            cidades oferecem.
+            deslocamento mais sustentáveis e maior acesso às oportunidades que
+            as cidades oferecem.
             <br />
-            <br />
-            O mapa ao lado, produzido com dados do Censo 2022, mostra a
-            <H>densidade populacional</H>de várias regiões da capital paulista. A
-            unidade escolhida é a de habitantes por hectare. A área de um hectare
-            equivale a área de um quadrado de 100m de lado, ou seja, muito
-            próxima do tamanho médio de um quarteirão da cidade. Dessa maneira,
-            propomos uma leitura de dados mais próxima da sua experiência urbana.
-            E então, quantas pessoas moram na sua quadra?
+            <br />O mapa ao lado, produzido com dados do Censo 2022, mostra a
+            <H>densidade populacional</H>de várias regiões da capital paulista.
+            A unidade escolhida é a de habitantes por hectare. A área de um
+            hectare equivale a área de um quadrado de 100m de lado, ou seja,
+            muito próxima do tamanho médio de um quarteirão da cidade. Dessa
+            maneira, propomos uma leitura de dados mais próxima da sua
+            experiência urbana. E então, quantas pessoas moram na sua quadra?
           </CardText>
         </MapCard>
 
@@ -596,7 +615,8 @@ export default function AdensamentoStory() {
             As áreas de maior<H>densidade populacional</H>de São Paulo não se
             limitam à sua zona central, mas
             <H>se espalham por diversas regiões da capital,</H>por diferentes
-            motivos. É interessante notar a densidade populacional nas favelas de
+            motivos. É interessante notar a densidade populacional nas favelas
+            de
             <H>Paraisópolis</H>(conforme se vê no mapa) e Heliópolis, que acabam
             por ser as áreas mais densas da cidade.
           </CardText>
@@ -620,13 +640,13 @@ export default function AdensamentoStory() {
           <CardText>
             Cerca de metade dos domicílios paulistanos identificados no Censo
             2022 não estão no Cadastro Imobiliário Fiscal da prefeitura,
-            revelando a grande informalidade habitacional existente em São Paulo,
-            onde os parâmetros de regulação urbana discutidos aqui possuem pouca
-            ou nenhuma incidência. As regiões que apresentam maior informalidade
-            são favelas, lotes irregulares e ocupações em regiões de risco.
+            revelando a grande informalidade habitacional existente em São
+            Paulo, onde os parâmetros de regulação urbana discutidos aqui
+            possuem pouca ou nenhuma incidência. As regiões que apresentam maior
+            informalidade são favelas, lotes irregulares e ocupações em regiões
+            de risco.
             <br />
-            <br />
-            O mapa ao lado mostra a distribuição da população da capital
+            <br />O mapa ao lado mostra a distribuição da população da capital
             paulista em pontos. Cada ponto representa mil habitantes vivendo
             próximos à região indicada. Em pontos vermelhos, temos a população
             que vive em habitações fora do cadastro legal de imóveis da cidade e
@@ -640,12 +660,13 @@ export default function AdensamentoStory() {
         {/* MapaQuatro — EETU */}
         <MapCard id="mapa_quatro">
           <CardText>
-            Considerando as áreas mais consolidadas de São Paulo, como é possível
-            estimular o aumento da densidade em regiões com melhor infraestrutura
-            urbana? O PDE define os Eixos de Estruturação da Transformação Urbana
-            (EETU), que são quadras próximas ao transporte público de média e
-            alta capacidade (corredores de ônibus e estações de metrô e trem),
-            onde se busca incentivar maior densidade populacional.
+            Considerando as áreas mais consolidadas de São Paulo, como é
+            possível estimular o aumento da densidade em regiões com melhor
+            infraestrutura urbana? O PDE define os Eixos de Estruturação da
+            Transformação Urbana (EETU), que são quadras próximas ao transporte
+            público de média e alta capacidade (corredores de ônibus e estações
+            de metrô e trem), onde se busca incentivar maior densidade
+            populacional.
           </CardText>
         </MapCard>
 
@@ -691,12 +712,11 @@ export default function AdensamentoStory() {
         {/* CepCapitulo3a — CA = 4, full lot (triggers overlay-3a) */}
         <MapCard id="cep_capitulo3a">
           <CardText>
-            O primeiro deles é o
-            <H>coeficiente de aproveitamento (CA),</H>que determina quantas
-            vezes a área do lote pode ser construída em novos empreendimentos
-            imobiliários. Se o CA for igual a 4, por exemplo, isso significa que,
-            se a nova construção ocupar o lote inteiro, podem ser construídos 4
-            andares.
+            O primeiro deles é o<H>coeficiente de aproveitamento (CA),</H>que
+            determina quantas vezes a área do lote pode ser construída em novos
+            empreendimentos imobiliários. Se o CA for igual a 4, por exemplo,
+            isso significa que, se a nova construção ocupar o lote inteiro,
+            podem ser construídos 4 andares.
           </CardText>
         </MapCard>
 
@@ -713,8 +733,8 @@ export default function AdensamentoStory() {
           <CardText>
             Um<H>coeficiente de aproveitamento (CA)</H>de 0,1, como acontece em
             regiões de preservação ambiental, implica que se pode construir até
-            10% da área do terreno. Portanto, para construir dois andares, a área
-            ocupada não pode exceder 5% da área total do terreno.
+            10% da área do terreno. Portanto, para construir dois andares, a
+            área ocupada não pode exceder 5% da área total do terreno.
           </CardText>
         </MapCard>
 
@@ -723,7 +743,7 @@ export default function AdensamentoStory() {
           id="cep_capitulo4b"
           className="flex w-full min-h-screen items-center justify-center lg:justify-start p-[10%]"
         >
-          <div className="backdrop-blur-[20px] bg-white/[0.46] max-w-xs lg:max-w-lg p-8 lg:p-12">
+          <div className="backdrop-blur-[20px] bg-white/46 max-w-xs lg:max-w-lg p-8 lg:p-12">
             <CardText>
               Sua vez! Use os painéis abaixo para alterar a TO e o CA do
               edifício ao lado.
@@ -731,7 +751,10 @@ export default function AdensamentoStory() {
 
             <div className="mt-6 space-y-4">
               <div className="flex items-center gap-3 text-sm">
-                <label htmlFor="slider-ca" className="font-semibold w-16 shrink-0">
+                <label
+                  htmlFor="slider-ca"
+                  className="font-semibold w-16 shrink-0"
+                >
                   CA:
                 </label>
                 <input
@@ -743,12 +766,21 @@ export default function AdensamentoStory() {
                   value={ca}
                   onChange={(e) => setCa(parseFloat(e.target.value))}
                   className="slider-adensamento h-2 min-w-0 flex-1 rounded-lg appearance-none cursor-pointer bg-transparent"
-                  style={{ "--slider-progress": `${(ca / 4) * 100}%` } as React.CSSProperties}
+                  style={
+                    {
+                      "--slider-progress": `${(ca / 4) * 100}%`,
+                    } as React.CSSProperties
+                  }
                 />
-                <span className="font-mono w-10 shrink-0 text-right">{ca}×</span>
+                <span className="font-mono w-10 shrink-0 text-right">
+                  {ca}×
+                </span>
               </div>
               <div className="flex items-center gap-3 text-sm">
-                <label htmlFor="slider-to" className="font-semibold w-16 shrink-0">
+                <label
+                  htmlFor="slider-to"
+                  className="font-semibold w-16 shrink-0"
+                >
                   TO (%):
                 </label>
                 <input
@@ -760,9 +792,13 @@ export default function AdensamentoStory() {
                   value={to}
                   onChange={(e) => setTo(parseFloat(e.target.value))}
                   className="slider-adensamento h-2 min-w-0 flex-1 rounded-lg appearance-none cursor-pointer bg-transparent"
-                  style={{ "--slider-progress": `${to}%` } as React.CSSProperties}
+                  style={
+                    { "--slider-progress": `${to}%` } as React.CSSProperties
+                  }
                 />
-                <span className="font-mono w-10 shrink-0 text-right">{to}%</span>
+                <span className="font-mono w-10 shrink-0 text-right">
+                  {to}%
+                </span>
               </div>
             </div>
           </div>
@@ -799,9 +835,8 @@ export default function AdensamentoStory() {
             <H>cota parte máxima</H>igual a 20m², um terreno de 1.000m² deve
             conter ao menos 50 unidades habitacionais nas novas edificações.
             <br />
-            <br />A<H>cota parte máxima</H>define a
-            <H>densidade habitacional</H>das novas edificações em um terreno, em
-            uma quadra ou em uma região.
+            <br />A<H>cota parte máxima</H>define a<H>densidade habitacional</H>
+            das novas edificações em um terreno, em uma quadra ou em uma região.
           </CardText>
         </MapCard>
 
@@ -859,7 +894,8 @@ export default function AdensamentoStory() {
           <CardText>
             A pesquisa concluiu que, nas regiões em que o PDE exerce influência,
             ou seja, naquelas sem grande informalidade em termos de moradia, a
-            <H>densidade habitacional,</H>estimulada pela<H>cota parte máxima,</H>
+            <H>densidade habitacional,</H>estimulada pela
+            <H>cota parte máxima,</H>
             foi a característica construtiva mais relevante para definir a
             <H>densidade populacional</H>.
           </CardText>
@@ -870,21 +906,23 @@ export default function AdensamentoStory() {
           id="cep_capitulo7b"
           className="flex w-full min-h-screen items-center justify-center lg:justify-start p-[10%]"
         >
-          <div className="backdrop-blur-[20px] bg-white/[0.46] max-w-xs lg:max-w-lg p-8 lg:p-12 relative overflow-visible">
+          <div className="backdrop-blur-[20px] bg-white/46 max-w-xs lg:max-w-lg p-8 lg:p-12 relative overflow-visible">
             <Zoom>
               <div className="relative w-full overflow-visible">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={figura13.src}
+                <Image
+                  src={figura13}
                   alt="Gráfico de relevância dos fatores construtivos"
+                  width={figura13.width}
+                  height={figura13.height}
                   className="w-[250px] lg:w-[600px] h-auto mx-auto selection:bg-[#ef4444] selection:text-white block cursor-zoom-in"
                 />
-                <span
-                  className="absolute -top-6 -right-6 lg:-top-10 lg:-right-10 p-2 rounded-full bg-white/90 shadow-md cursor-zoom-in flex items-center justify-center text-gray-700 hover:bg-white hover:shadow-lg transition-colors"
+                <button
+                  type="button"
+                  className="absolute -top-6 -right-6 lg:-top-10 lg:-right-10 p-2 rounded-full border-0 bg-white/90 shadow-md cursor-zoom-in flex items-center justify-center text-gray-700 hover:bg-white hover:shadow-lg transition-colors"
                   aria-label="Ampliar imagem"
                 >
                   <Search className="w-5 h-5 lg:w-6 lg:h-6" />
-                </span>
+                </button>
               </div>
             </Zoom>
           </div>
@@ -926,8 +964,7 @@ export default function AdensamentoStory() {
             Entretanto, sem<H>verticalização</H>também não é possível gerar
             <H>densidade habitacional e construtiva</H>.
             <br />
-            <br />
-            A questão central, então, é: qual o modelo ideal de
+            <br />A questão central, então, é: qual o modelo ideal de
             <H>verticalização</H>para promover<H>densidade populacional</H>?
             <br />
             <br />A evidência trazida pela pesquisa aponta que o PDE deve
@@ -961,18 +998,18 @@ export default function AdensamentoStory() {
               <br />
               <br />
               Por fim, cerca de metade das moradias de São Paulo se encontram em
-              situação de informalidade e, portanto, a regulação não surte efeito
-              direto nelas. Para fins de planejamento urbano, este é um problema
-              grave e suas raízes devem ser investigadas. Uma hipótese que está
-              em linha com os pontos trazidos anteriormente, se refere à
-              possibilidade da demanda reprimida e de preços elevados gerarem
+              situação de informalidade e, portanto, a regulação não surte
+              efeito direto nelas. Para fins de planejamento urbano, este é um
+              problema grave e suas raízes devem ser investigadas. Uma hipótese
+              que está em linha com os pontos trazidos anteriormente, se refere
+              à possibilidade da demanda reprimida e de preços elevados gerarem
               incentivos para a formação de um mercado de moradia informal.
               <br />
               <br />A história aqui apresentada é resultado do trabalho de
               Iniciação Científica de Gustavo Theil, intitulado &quot;Para o bem
-              ou para o mal: análise da capacidade que o governo tem de controlar
-              a densidade habitacional&quot;. Para acessar a pesquisa completa
-              acesse o link.
+              ou para o mal: análise da capacidade que o governo tem de
+              controlar a densidade habitacional&quot;. Para acessar a pesquisa
+              completa acesse o link.
             </WhiteText>
           </div>
         </section>
@@ -1010,11 +1047,11 @@ export default function AdensamentoStory() {
               Para chegar no resultado apresentado por esta pesquisa, foram
               aplicados dois modelos: random forest e regressão linear. O random
               forest foi utilizado para capturar relações mais complexas e não
-              lineares entre as variáveis, identificando a importância de fatores
-              como cota parte máxima e coeficiente de aproveitamento na densidade
-              populacional. Já a regressão linear mediu de forma mais simples o
-              impacto direto das variáveis construtivas, evidenciando a
-              correlação entre CA e adensamento.
+              lineares entre as variáveis, identificando a importância de
+              fatores como cota parte máxima e coeficiente de aproveitamento na
+              densidade populacional. Já a regressão linear mediu de forma mais
+              simples o impacto direto das variáveis construtivas, evidenciando
+              a correlação entre CA e adensamento.
             </WhiteText>
 
             <h2 className="text-white underline font-semibold text-2xl mb-1 mt-15 selection:bg-white selection:text-[#2BA680]">
