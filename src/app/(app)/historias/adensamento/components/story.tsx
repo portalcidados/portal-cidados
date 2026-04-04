@@ -110,7 +110,7 @@ function MapCard({ id, children }: { id: string; children: React.ReactNode }) {
   return (
     <section
       id={id}
-      className="pointer-events-none flex w-full min-h-screen items-center justify-center lg:justify-start p-[10%]"
+      className="pointer-events-none flex w-full min-h-screen items-center justify-center lg:justify-start p-[10%] mb-[50vh] lg:mb-20"
     >
       <div className="pointer-events-auto backdrop-blur-[20px] bg-white/46 max-w-xs lg:max-w-lg p-8 lg:p-12">
         {children}
@@ -756,7 +756,7 @@ export default function AdensamentoStory() {
         {/* CepCapitulo4b — interactive sliders (triggers overlay-4b + 3D) */}
         <section
           id="cep_capitulo4b"
-          className="pointer-events-none flex w-full min-h-screen items-center justify-center lg:justify-start p-[10%]"
+          className="pointer-events-none flex w-full min-h-screen items-center justify-center lg:justify-start p-[10%] mb-[50vh] lg:mb-20"
         >
           <div className="pointer-events-auto backdrop-blur-[20px] bg-white/46 max-w-xs lg:max-w-lg p-8 lg:p-12">
             <CardText>
@@ -919,7 +919,7 @@ export default function AdensamentoStory() {
         {/* CepCapitulo7b — figure (Figura 13) */}
         <section
           id="cep_capitulo7b"
-          className="pointer-events-none flex w-full min-h-screen items-center justify-center lg:justify-start p-[10%]"
+          className="pointer-events-none flex w-full min-h-screen items-center justify-center lg:justify-start p-[10%] mb-[50vh] lg:mb-20"
         >
           <div className="pointer-events-auto backdrop-blur-[20px] bg-white/46 max-w-xs lg:max-w-lg p-8 lg:p-12 relative overflow-visible">
             <Zoom>
