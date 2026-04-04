@@ -491,12 +491,13 @@ export default function SupermercadoSection() {
           <div
             key={`card-${index}-${card.top}`}
             data-card-index={index}
-            className="absolute bg-[#FFFFFF]/90 h-auto w-[80vw] md:w-[460px] border border-[#000000]/20 px-[30px]
+            className={`absolute bg-[#FFFFFF]/90 h-auto w-[80vw] md:w-[460px] border border-[#000000]/20 px-[30px]
     py-[25px]
     lg:px-[32px]
     lg:py-[25px]
     rounded-xl shadow-lg
-    "
+    ${index === 3 || index === 4 ? "z-60" : ""}
+    `}
             style={{
               top: `${card.top}vh`,
             }}
