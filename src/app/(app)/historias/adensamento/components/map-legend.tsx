@@ -1,5 +1,7 @@
 "use client";
 
+import { ChevronDown } from "lucide-react";
+import { useState } from "react";
 import type { LegendType } from "./map-config";
 
 interface LegendItem {
@@ -73,28 +75,52 @@ interface MapLegendProps {
 }
 
 export function MapLegend({ type }: MapLegendProps) {
+  const [collapsed, setCollapsed] = useState(false);
+
   if (!type) return null;
 
   const config = LEGENDS[type];
   if (!config) return null;
 
   return (
-    <div className="fixed top-4 right-4 rounded-lg bg-white/90 p-4 shadow-lg backdrop-blur-sm max-w-[220px] text-sm transition-opacity duration-300">
-      <h3 className="font-semibold text-base mb-1 leading-tight">{config.title}</h3>
-      {config.subtitle && (
-        <p className="text-sm italic text-gray-500 mb-1">{config.subtitle}</p>
-      )}
-      <ul className="space-y-1 mt-2">
-        {config.items.map((item) => (
-          <li key={item.label} className="flex items-center gap-2">
-            <span
-              className="w-5 h-5 rounded-sm shrink-0"
-              style={{ backgroundColor: item.color }}
-            />
-            <span className="text-sm leading-tight">{item.label}</span>
-          </li>
-        ))}
-      </ul>
+    <div className="absolute top-4 right-4 z-20 rounded-lg bg-white/90 shadow-lg backdrop-blur-sm max-w-[220px] text-sm">
+      <button
+        type="button"
+        onClick={() => setCollapsed((c) => !c)}
+        className="flex w-full items-start justify-between gap-2 p-4 cursor-pointer"
+      >
+        <div className="text-left">
+          <h3 className="font-semibold text-base leading-tight">
+            {config.title}
+          </h3>
+          {config.subtitle && (
+            <p className="text-sm italic text-gray-500 leading-tight mt-0.5">
+              {config.subtitle}
+            </p>
+          )}
+        </div>
+        <ChevronDown
+          className={`mt-0.5 w-4 h-4 shrink-0 text-gray-500 transition-transform duration-300 ${collapsed ? "-rotate-90" : ""}`}
+        />
+      </button>
+
+      <div
+        className={`grid transition-all duration-300 ease-in-out ${collapsed ? "grid-rows-[0fr]" : "grid-rows-[1fr]"}`}
+      >
+        <div className="overflow-hidden">
+          <ul className="space-y-1 px-4 pb-4">
+            {config.items.map((item) => (
+              <li key={item.label} className="flex items-center gap-2">
+                <span
+                  className="w-5 h-5 rounded-sm shrink-0"
+                  style={{ backgroundColor: item.color }}
+                />
+                <span className="text-sm leading-tight">{item.label}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
     </div>
   );
 }

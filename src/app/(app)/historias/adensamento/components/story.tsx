@@ -65,7 +65,7 @@ const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN ?? "";
 const MAPBOX_STYLE =
   "mapbox://styles/observatorio-nacional/cmmqkrnvl00be01qtcfoibtnb";
 
-const INITIAL_VIEW = { longitude: -46.6333, latitude: -23.5505, zoom: 14 };
+const INITIAL_VIEW = { longitude: -46.6383, latitude: -23.565, zoom: 10.2 };
 
 const DENS_CONSTRUTIVA_SPO_LAYER_ID = "dens-construtiva-spo" as const;
 
@@ -110,9 +110,9 @@ function MapCard({ id, children }: { id: string; children: React.ReactNode }) {
   return (
     <section
       id={id}
-      className="flex w-full min-h-screen items-center justify-center lg:justify-start p-[10%]"
+      className="pointer-events-none flex w-full min-h-screen items-center justify-center lg:justify-start p-[10%]"
     >
-      <div className="backdrop-blur-[20px] bg-white/46 max-w-xs lg:max-w-lg p-8 lg:p-12">
+      <div className="pointer-events-auto backdrop-blur-[20px] bg-white/46 max-w-xs lg:max-w-lg p-8 lg:p-12">
         {children}
       </div>
     </section>
@@ -366,216 +366,231 @@ export default function AdensamentoStory() {
       <ScrollProgressBar barColor="#2BA680" />
 
       {/* ============================================================== */}
-      {/* Fixed Mapbox Map                                                */}
+      {/* COVER — outside map wrapper                                     */}
       {/* ============================================================== */}
-      <div className="fixed inset-0 z-0">
-        <MapboxMap
-          ref={mapRef}
-          initialViewState={{
-            longitude: INITIAL_VIEW.longitude,
-            latitude: INITIAL_VIEW.latitude,
-            zoom: INITIAL_VIEW.zoom,
-            pitch: 0,
-            bearing: 0,
-          }}
-          mapStyle={MAPBOX_STYLE}
-          mapboxAccessToken={MAPBOX_TOKEN}
-          style={{ width: "100%", height: "100%" }}
-          dragPan={false}
-          dragRotate={false}
-          scrollZoom={false}
-          keyboard={false}
-          doubleClickZoom={false}
-          touchZoomRotate={false}
-          onLoad={(e) => {
-            const map = e.target;
-            const run = () => {
-              applyDensConstrutivaSpoLayerStyle(map);
-              // Studio defaults (or missing ScrollTrigger onEnter) must not show data layers
-              // before the first section that enables them (e.g. Introdução / capa).
-              applyMapLayers([]);
-            };
-            if (map.isStyleLoaded()) run();
-            else map.once("style.load", run);
+      <section
+        id="capa"
+        className="relative isolate min-h-screen h-screen w-full flex flex-col items-center justify-center px-6 md:px-12 lg:px-24 overflow-hidden"
+      >
+        <Image
+          src={capa}
+          alt=""
+          fill
+          className="object-cover object-center hidden md:block -z-10"
+          priority
+        />
+        <Image
+          src={capaMobile}
+          alt=""
+          fill
+          className="object-cover object-center block md:hidden -z-10"
+          priority
+        />
+
+        {/* Logos at top */}
+        <div className="absolute top-16 left-0 right-0 z-20 flex flex-col items-center px-6 md:px-12 lg:px-24">
+          <div className="mb-6">
+            <StoryLogos />
+          </div>
+        </div>
+
+        {/* Title, subtitle, author and share — centered */}
+        <div className="relative z-10 flex flex-col items-center justify-center text-center max-w-4xl md:pt-[20vh] sm:px-4">
+          <h1 className="font-sans font-bold text-[23px] lg:text-[33px] leading-[44px] lg:leading-[48px] text-[#3F3F3F] selection:bg-[#3F3F3F] selection:text-white">
+            Verticalização gera adensamento populacional?
+            <br />
+            Como o Plano Diretor pode estimular uma cidade mais compacta
+          </h1>
+          <p className="font-sans text-base text-[#414042] mt-4 selection:bg-[#2BA680] selection:text-white">
+            Trabalho de Gustavo Theil, orientado por Adriano Borges Costa.
+          </p>
+          <div className="flex gap-2 justify-center mt-6">
+            <button
+              type="button"
+              onClick={handleShare}
+              className="flex items-center justify-center w-10 h-10 bg-transparent border border-[#3A3434] hover:bg-[#f0f0f0]/20 text-[#333333] rounded-full transition-all duration-300 shadow-lg cursor-pointer"
+              aria-label="Compartilhar"
+            >
+              <Share2 size={18} />
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* ============================================================== */}
+      {/* INTRODUÇÃO — outside map wrapper                                */}
+      {/* ============================================================== */}
+      <section
+        id="mapa_capitulo"
+        className="relative z-10 flex w-full min-h-screen items-center justify-center lg:justify-center p-[10%] bg-[#2BA680] text-white"
+      >
+        <div className="flex flex-col items-start max-w-xs lg:max-w-[40%]">
+          <h2 className="text-white underline font-semibold text-2xl mb-6 max-w-[400px] selection:bg-white selection:text-[#2BA680]">
+            Introdução
+          </h2>
+          <WhiteText>
+            2024.
+            <br />
+            São Paulo, SP.
+            <br />
+            11.451.999 de habitantes.
+            <br />
+            4.996.529 de domicílios existentes.
+            <br />
+            <br />
+            São Paulo é a cidade mais populosa do Hemisfério Sul, cuja região
+            metropolitana ultrapassa 20 milhões de habitantes.
+            <br />
+            <br />
+            Atualmente, os mecanismos que regulam o crescimento da capital
+            paulista são definidos pelo Plano Diretor Estratégico (PDE),
+            estabelecido em 2014 e revisado em 2023. Entre os 17 objetivos que
+            ele estabelece, ao menos nove estão relacionados a estratégias de
+            adensamento urbano. Um princípio central do PDE é direcionar o
+            adensamento para áreas com melhor infraestrutura urbana,
+            especialmente no entorno do transporte público de média e alta
+            capacidade, tais como corredores de ônibus e estações de metrô e
+            trem.
+            <br />
+            <br />A seguir exploramos quais dos parâmetros construtivos
+            regulados e incentivados pelo PDE são de fato capazes de estimular
+            o adensamento urbano, quando desejado.
+          </WhiteText>
+        </div>
+      </section>
+
+      {/* ============================================================== */}
+      {/* MAP SECTION WRAPPER — sticky region                             */}
+      {/* ============================================================== */}
+      <div className="relative">
+        {/* Sticky background container (map + overlays + building + legend) */}
+        <div
+          style={{
+            position: "sticky",
+            top: 0,
+            height: "100vh",
+            overflow: "hidden",
+            zIndex: 0,
           }}
         >
-          <Marker longitude={-46.6544} latitude={-23.5613} anchor="bottom">
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                opacity: showPaulistaPin ? 1 : 0,
-                transition: "opacity 0.6s ease",
-                pointerEvents: "none",
-              }}
-            >
+          {/* ---------------------------------------------------------- */}
+          {/* Mapbox Map                                                   */}
+          {/* ---------------------------------------------------------- */}
+          <MapboxMap
+            ref={mapRef}
+            initialViewState={{
+              longitude: INITIAL_VIEW.longitude,
+              latitude: INITIAL_VIEW.latitude,
+              zoom: INITIAL_VIEW.zoom,
+              pitch: 0,
+              bearing: 0,
+            }}
+            mapStyle={MAPBOX_STYLE}
+            mapboxAccessToken={MAPBOX_TOKEN}
+            style={{ width: "100%", height: "100%" }}
+            dragPan={false}
+            dragRotate={false}
+            scrollZoom={false}
+            keyboard={false}
+            doubleClickZoom={false}
+            touchZoomRotate={false}
+            onLoad={(e) => {
+              const map = e.target;
+              const run = () => {
+                applyDensConstrutivaSpoLayerStyle(map);
+                applyMapLayers([]);
+              };
+              if (map.isStyleLoaded()) run();
+              else map.once("style.load", run);
+            }}
+          >
+            <Marker longitude={-46.6544} latitude={-23.5613} anchor="bottom">
               <div
                 style={{
-                  background: "white",
-                  color: "black",
-                  padding: "10px 18px",
-                  borderRadius: "16px",
-                  fontSize: "16px",
-                  fontWeight: "normal",
-                  whiteSpace: "nowrap",
-                  boxShadow: "0 2px 6px rgba(0,0,0,0.25)",
-                  marginBottom: "6px",
-                  fontFamily: "sans-serif",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  opacity: showPaulistaPin ? 1 : 0,
+                  transition: "opacity 0.6s ease",
+                  pointerEvents: "none",
                 }}
               >
-                Av. Paulista
+                <div
+                  style={{
+                    background: "white",
+                    color: "black",
+                    padding: "10px 18px",
+                    borderRadius: "16px",
+                    fontSize: "16px",
+                    fontWeight: "normal",
+                    whiteSpace: "nowrap",
+                    boxShadow: "0 2px 6px rgba(0,0,0,0.25)",
+                    marginBottom: "6px",
+                    fontFamily: "sans-serif",
+                  }}
+                >
+                  Av. Paulista
+                </div>
+                <Image
+                  src={localizarSvg}
+                  alt="Av. Paulista"
+                  width={50}
+                  height={50}
+                  className="h-[50px] w-[50px]"
+                />
               </div>
-              <Image
-                src={localizarSvg}
-                alt="Av. Paulista"
-                width={50}
-                height={50}
-                className="h-[50px] w-[50px]"
-              />
-            </div>
-          </Marker>
-        </MapboxMap>
-      </div>
+            </Marker>
+          </MapboxMap>
 
-      {/* ============================================================== */}
-      {/* Fixed image overlays                                            */}
-      {/* ============================================================== */}
-      <div className="fixed inset-0 z-10 pointer-events-none">
-        {IMAGE_OVERLAYS.map((ov) => (
-          <div
-            key={ov.id}
-            id={ov.id}
-            className="absolute inset-0"
-            style={{ opacity: 0 }}
-          >
-            <picture>
-              <source media="(max-width: 767px)" srcSet={ov.mobile.src} />
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={ov.desktop.src}
-                alt=""
-                className="h-full w-full object-cover"
-              />
-            </picture>
-          </div>
-        ))}
-      </div>
-
-      {/* ============================================================== */}
-      {/* Three.js interactive building (CA / TO)                         */}
-      {/* ============================================================== */}
-      <InteractiveBuilding ca={ca} to={to} />
-
-      {/* ============================================================== */}
-      {/* Map legend                                                      */}
-      {/* ============================================================== */}
-      <MapLegend type={activeLegend} />
-
-      {/* ============================================================== */}
-      {/* Scrolling content — above map (z-0), overlays (z-10), building (z-20) */}
-      {/* ============================================================== */}
-      <main className="relative z-100 isolate">
-        {/* ------------------------------------------------------------ */}
-        {/* COVER — full viewport height, content centered                 */}
-        {/* ------------------------------------------------------------ */}
-        <section
-          id="capa"
-          className="relative min-h-screen h-screen w-full flex flex-col items-center justify-center px-6 md:px-12 lg:px-24 overflow-hidden"
-        >
-          <Image
-            src={capa}
-            alt=""
-            fill
-            className="object-cover object-center hidden md:block -z-10"
-            priority
-          />
-          <Image
-            src={capaMobile}
-            alt=""
-            fill
-            className="object-cover object-center block md:hidden -z-10"
-            priority
-          />
-
-          {/* Logos at top */}
-          <div className="absolute top-16 left-0 right-0 z-20 flex flex-col items-center px-6 md:px-12 lg:px-24">
-            <div className="mb-6">
-              <StoryLogos />
-            </div>
-          </div>
-
-          {/* Title, subtitle, author and share — centered */}
-          <div className="relative z-10 flex flex-col items-center justify-center text-center max-w-4xl md:pt-[20vh] sm:px-4">
-            <h1 className="font-sans font-bold text-[23px] lg:text-[33px] leading-[44px] lg:leading-[48px] text-[#3F3F3F] selection:bg-[#3F3F3F] selection:text-white">
-              Verticalização gera adensamento populacional?
-              <br />
-              Como o Plano Diretor pode estimular uma cidade mais compacta
-            </h1>
-            <p className="font-sans text-base text-[#414042] mt-4 selection:bg-[#2BA680] selection:text-white">
-              Trabalho de Gustavo Theil, orientado por Adriano Borges Costa.
-            </p>
-            <div className="flex gap-2 justify-center mt-6">
-              <button
-                type="button"
-                onClick={handleShare}
-                className="flex items-center justify-center w-10 h-10 bg-transparent border border-[#3A3434] hover:bg-[#f0f0f0]/20 text-[#333333] rounded-full transition-all duration-300 shadow-lg cursor-pointer"
-                aria-label="Compartilhar"
+          {/* ---------------------------------------------------------- */}
+          {/* Image overlays                                               */}
+          {/* ---------------------------------------------------------- */}
+          <div className="absolute inset-0 z-10 pointer-events-none">
+            {IMAGE_OVERLAYS.map((ov) => (
+              <div
+                key={ov.id}
+                id={ov.id}
+                className="absolute inset-0"
+                style={{ opacity: 0 }}
               >
-                <Share2 size={18} />
-              </button>
-            </div>
+                <picture>
+                  <source media="(max-width: 767px)" srcSet={ov.mobile.src} />
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={ov.desktop.src}
+                    alt=""
+                    className="h-full w-full object-cover"
+                  />
+                </picture>
+              </div>
+            ))}
           </div>
-        </section>
 
-        {/* ------------------------------------------------------------ */}
-        {/* INTRODUÇÃO                                                    */}
-        {/* ------------------------------------------------------------ */}
-        <section
-          id="mapa_capitulo"
-          className="relative z-10 flex w-full min-h-screen items-center justify-center lg:justify-center p-[10%] bg-[#2BA680] text-white"
+          {/* ---------------------------------------------------------- */}
+          {/* Three.js interactive building (CA / TO)                      */}
+          {/* ---------------------------------------------------------- */}
+          <InteractiveBuilding ca={ca} to={to} />
+
+          {/* ---------------------------------------------------------- */}
+          {/* Map legend                                                   */}
+          {/* ---------------------------------------------------------- */}
+          <MapLegend type={activeLegend} />
+        </div>
+        {/* End sticky background */}
+
+        {/* ============================================================ */}
+        {/* Scrolling content — overlaps the sticky background            */}
+        {/* ============================================================ */}
+        <main
+          className="pointer-events-none relative z-100 isolate"
+          style={{ marginTop: "-100vh" }}
         >
-          <div className="flex flex-col items-start max-w-xs lg:max-w-[40%]">
-            <h2 className="text-white underline font-semibold text-2xl mb-6 max-w-[400px] selection:bg-white selection:text-[#2BA680]">
-              Introdução
-            </h2>
-            <WhiteText>
-              2024.
-              <br />
-              São Paulo, SP.
-              <br />
-              11.451.999 de habitantes.
-              <br />
-              4.996.529 de domicílios existentes.
-              <br />
-              <br />
-              São Paulo é a cidade mais populosa do Hemisfério Sul, cuja região
-              metropolitana ultrapassa 20 milhões de habitantes.
-              <br />
-              <br />
-              Atualmente, os mecanismos que regulam o crescimento da capital
-              paulista são definidos pelo Plano Diretor Estratégico (PDE),
-              estabelecido em 2014 e revisado em 2023. Entre os 17 objetivos que
-              ele estabelece, ao menos nove estão relacionados a estratégias de
-              adensamento urbano. Um princípio central do PDE é direcionar o
-              adensamento para áreas com melhor infraestrutura urbana,
-              especialmente no entorno do transporte público de média e alta
-              capacidade, tais como corredores de ônibus e estações de metrô e
-              trem.
-              <br />
-              <br />A seguir exploramos quais dos parâmetros construtivos
-              regulados e incentivados pelo PDE são de fato capazes de estimular
-              o adensamento urbano, quando desejado.
-            </WhiteText>
-          </div>
-        </section>
-
         {/* ------------------------------------------------------------ */}
         {/* MAP CHAPTERS                                                  */}
         {/* ------------------------------------------------------------ */}
 
         {/* MapaZero — empty spacer so the map becomes visible */}
-        <div id="mapa_zero" className="h-screen" />
+        <div id="mapa_zero" className="pointer-events-none h-screen" />
 
         {/* MapaUm — "A Pesquisa" */}
         <MapCard id="mapa_um">
@@ -689,7 +704,7 @@ export default function AdensamentoStory() {
         </MapCard>
 
         {/* Blank transition — fades out overlays 1, 2 */}
-        <div id="cep_blank1" className="h-[33vh]" />
+        <div id="cep_blank1" className="pointer-events-none h-[33vh]" />
 
         {/* MapaCinco — adensamento nos eixos */}
         <MapCard id="mapa_cinco">
@@ -741,9 +756,9 @@ export default function AdensamentoStory() {
         {/* CepCapitulo4b — interactive sliders (triggers overlay-4b + 3D) */}
         <section
           id="cep_capitulo4b"
-          className="flex w-full min-h-screen items-center justify-center lg:justify-start p-[10%]"
+          className="pointer-events-none flex w-full min-h-screen items-center justify-center lg:justify-start p-[10%]"
         >
-          <div className="backdrop-blur-[20px] bg-white/46 max-w-xs lg:max-w-lg p-8 lg:p-12">
+          <div className="pointer-events-auto backdrop-blur-[20px] bg-white/46 max-w-xs lg:max-w-lg p-8 lg:p-12">
             <CardText>
               Sua vez! Use os painéis abaixo para alterar a TO e o CA do
               edifício ao lado.
@@ -805,7 +820,7 @@ export default function AdensamentoStory() {
         </section>
 
         {/* Blank transition — fades out overlays 3a, 3b, 4, 4b */}
-        <div id="cep_blank2" className="h-[33vh]" />
+        <div id="cep_blank2" className="pointer-events-none h-[33vh]" />
 
         {/* ------------------------------------------------------------ */}
         {/* MAP CHAPTERS — density construtiva                            */}
@@ -872,7 +887,7 @@ export default function AdensamentoStory() {
         </MapCard>
 
         {/* Blank transition — fades out overlays 5, 6 */}
-        <div id="cep_blank3" className="h-[33vh]" />
+        <div id="cep_blank3" className="pointer-events-none h-[33vh]" />
 
         {/* ------------------------------------------------------------ */}
         {/* RESEARCH RESULTS                                              */}
@@ -904,9 +919,9 @@ export default function AdensamentoStory() {
         {/* CepCapitulo7b — figure (Figura 13) */}
         <section
           id="cep_capitulo7b"
-          className="flex w-full min-h-screen items-center justify-center lg:justify-start p-[10%]"
+          className="pointer-events-none flex w-full min-h-screen items-center justify-center lg:justify-start p-[10%]"
         >
-          <div className="backdrop-blur-[20px] bg-white/46 max-w-xs lg:max-w-lg p-8 lg:p-12 relative overflow-visible">
+          <div className="pointer-events-auto backdrop-blur-[20px] bg-white/46 max-w-xs lg:max-w-lg p-8 lg:p-12 relative overflow-visible">
             <Zoom>
               <div className="relative w-full overflow-visible">
                 <Image
@@ -959,6 +974,7 @@ export default function AdensamentoStory() {
         </MapCard>
 
         {/* CepCapitulo11 — ideal model (triggers overlay-11) */}
+            <div className="pointer-events-none" style={{ height: "200vh" }}>
         <MapCard id="cep_capitulo11">
           <CardText>
             Entretanto, sem<H>verticalização</H>também não é possível gerar
@@ -972,8 +988,17 @@ export default function AdensamentoStory() {
             que ocupam a maior parte do terreno e que possuem apartamentos
             pequenos, de forma a gerar
             <H>verticalização com adensamento habitacional e construtivo</H>.
+          
           </CardText>
         </MapCard>
+            </div>
+
+        {/* ------------------------------------------------------------ */}
+        {/* End of map scrollytelling content                             */}
+        {/* ------------------------------------------------------------ */}
+      </main>
+      </div>
+      {/* End map section wrapper — sections below have no map behind them */}
 
         {/* ------------------------------------------------------------ */}
         {/* CONCLUSÃO                                                     */}
@@ -1082,7 +1107,6 @@ export default function AdensamentoStory() {
             </WhiteText>
           </div>
         </section>
-      </main>
     </>
   );
 }

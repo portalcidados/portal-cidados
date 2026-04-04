@@ -82,41 +82,41 @@ export const DENS_CONSTRUTIVA_SPO_LAYER_PATCH = {
 // ---------------------------------------------------------------------------
 
 export const MAP_POSITIONS: Record<string, ChapterMapConfig> = {
-  capa: {
-    desktop: { center: [-46.6333, -23.5505], zoom: 14, duration: 6 },
-    mobile: { center: [-46.6333, -23.5505], zoom: 14, duration: 6 },
-  },
+  // capa: {
+  //   desktop: { center: [-46.6333, -23.5505], zoom: 11, duration: 6 },
+  //   mobile: { center: [-46.6333, -23.5505], zoom: 11, duration: 6 },
+  // },
   mapa_zero: {
-    desktop: { center: [-46.6383, -23.565], zoom: 11.0, duration: 6 },
-    mobile: { center: [-46.6383, -23.565], zoom: 11.0, duration: 6 },
+    desktop: { center: [-46.6383, -23.565], zoom: 10.2, duration: 6 },
+    mobile: { center: [-46.6083, -23.595], zoom: 9.7, duration: 6 },
   },
   mapa_um: {
     desktop: { center: [-46.7383, -23.595], zoom: 10.2, duration: 4 },
-    mobile: { center: [-46.6383, -23.565], zoom: 10.2, duration: 4 },
+    mobile: { center: [-46.6383, -23.565], zoom: 10.0, duration: 4 },
   },
   mapa_mais_um: {
     desktop: { center: [-46.6683, -23.551], zoom: 12.8, duration: 4 },
-    mobile: { center: [-46.6483, -23.545], zoom: 13.0, duration: 4 },
+    mobile: { center: [-46.6483, -23.545], zoom: 12.0, duration: 4 },
   },
   mapa_dois: {
     desktop: { center: [-46.7311, -23.6156], zoom: 14.8, duration: 4 },
-    mobile: { center: [-46.7259, -23.6159], zoom: 15.0, duration: 4 },
+    mobile: { center: [-46.7259, -23.6159], zoom: 14.0, duration: 4 },
   },
   mapa_dois_helio: {
     desktop: { center: [-46.6028, -23.6109], zoom: 14.7, duration: 4 },
-    mobile: { center: [-46.5926, -23.61], zoom: 15.0, duration: 4 },
+    mobile: { center: [-46.5926, -23.61], zoom: 14.2, duration: 4 },
   },
   mapa_tres: {
-    desktop: { center: [-46.7583, -23.575], zoom: 10.5, duration: 4 },
-    mobile: { center: [-46.6383, -23.665], zoom: 10.0, duration: 4 },
+    desktop: { center: [-46.7993, -23.595], zoom: 10, duration: 4 },
+    mobile: { center: [-46.6083, -23.645], zoom: 10, duration: 4 },
   },
   mapa_quatro: {
     desktop: { center: [-46.7133, -23.5705], zoom: 11.5, duration: 4 },
-    mobile: { center: [-46.6383, -23.665], zoom: 10.0, duration: 4 },
+    mobile: { center: [-46.6383, -23.545], zoom: 9.8, duration: 4 },
   },
   cep_capitulo: {
     desktop: { center: [-46.7133, -23.5705], zoom: 11.5, duration: 2 },
-    mobile: { center: [-46.6383, -23.665], zoom: 10.0, duration: 2 },
+    mobile: { center: [-46.6383, -23.545], zoom: 9.8, duration: 2 },
   },
   mapa_cinco: {
     desktop: { center: [-46.7133, -23.5705], zoom: 11.5, duration: 4 },
@@ -124,7 +124,7 @@ export const MAP_POSITIONS: Record<string, ChapterMapConfig> = {
   },
   mapa_seis: {
     desktop: { center: [-46.7333, -23.5805], zoom: 10.8, duration: 4 },
-    mobile: { center: [-46.6383, -23.665], zoom: 10.0, duration: 4 },
+    mobile: { center: [-46.6183, -23.555], zoom: 10.0, duration: 4 },
   },
   mapa_sete: {
     desktop: { center: [-46.7383, -23.595], zoom: 10.2, duration: 4 },
@@ -143,10 +143,10 @@ export const MAP_FLY_TRIGGERS: {
   /** IDs of MANAGED_LAYERS that should be visible at this section. All others are hidden. */
   layers: string[];
 }[] = [
-  { id: "capa", mapKey: "capa", legend: null, layers: [] },
-  { id: "mapa_capitulo", legend: null, layers: [] },
-  // ── Chapter 1 – densidade populacional (camada só no card "A Pesquisa" / mapa_um)
-  { id: "mapa_zero", mapKey: "mapa_zero", legend: null, layers: [] },
+  // { id: "capa", legend: null, layers: [] },
+  // { id: "mapa_capitulo", legend: null, layers: [] },
+  // ── Chapter 1 – densidade populacional
+  { id: "mapa_zero", mapKey: "mapa_zero", legend: "density-pop", layers: ["dens-demografica-spo"] },
   {
     id: "mapa_um",
     mapKey: "mapa_um",

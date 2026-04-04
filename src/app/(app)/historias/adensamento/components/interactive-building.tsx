@@ -127,7 +127,7 @@ export function InteractiveBuilding({ ca, to }: InteractiveBuildingProps) {
     <div
       id="container3d"
       ref={containerRef}
-      className="fixed inset-0 pointer-events-none"
+      className="absolute inset-0 pointer-events-none"
       style={{ zIndex: 20, opacity: 0 }}
     />
   );
