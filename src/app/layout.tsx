@@ -1,9 +1,10 @@
-import { ThemeProvider } from "@/components/theme-provider";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Inter } from "next/font/google";
 import localFont from "next/font/local";
-import "./globals.css";
+import { headers } from "next/headers";
+import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "sonner";
+import "./globals.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -139,13 +140,14 @@ export const metadata: Metadata = {
   description: "Portal Cidados",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const nonce = (await headers()).get("x-nonce") ?? "";
   return (
-    <html lang="pt-BR" suppressHydrationWarning>
+    <html lang="pt-BR" nonce={nonce} suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${gtUltra.variable} ${gtUltraFine.variable} ${inter.variable} antialiased`}
       >
