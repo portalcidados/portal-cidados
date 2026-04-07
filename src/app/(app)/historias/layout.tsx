@@ -4,8 +4,6 @@ export default function HistoriasLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="force-light-theme bg-background text-foreground min-h-screen">
-      {children}
-    </div>
+    <div className="bg-background text-foreground min-h-screen">{children}</div>
   );
 }

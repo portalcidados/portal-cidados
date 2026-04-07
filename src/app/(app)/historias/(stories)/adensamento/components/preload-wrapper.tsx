@@ -2,7 +2,7 @@
 
 import { useState, useLayoutEffect, type ReactNode } from "react";
 import Image from "next/image";
-import { StoryLogos } from "../../components/story-logos";
+import { StoryLogos } from "../../../components/story-logos";
 import capa from "../images/capa.png";
 import capaMobile from "../images/capa_mobile.png";
 

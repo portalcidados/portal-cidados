@@ -3,7 +3,7 @@
 import { useState, useEffect, type ReactNode } from "react";
 import { Share2 } from "lucide-react";
 import Image from "next/image";
-import { StoryLogos } from "../../components/story-logos";
+import { StoryLogos } from "../../../components/story-logos";
 import backgroundImage from "../assets/background.png";
 import coverImage from "../assets/cover-image.png";
 

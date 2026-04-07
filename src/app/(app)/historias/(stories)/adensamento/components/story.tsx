@@ -11,7 +11,7 @@ import Image from "next/image";
 import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
 
-import { StoryLogos } from "../../components/story-logos";
+import { StoryLogos } from "../../../components/story-logos";
 import { ScrollProgressBar } from "../../ilhas-de-calor/components/scroll-progress-bar";
 // Cover images
 import capa from "../images/capa.png";

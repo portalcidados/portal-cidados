@@ -11,8 +11,8 @@ import { ScrollProgressBar } from "../ilhas-de-calor/components/scroll-progress-
 
 // Importar todas as imagens para precarregamento
 import coverImage from "./assets/cover.png";
-import insperLogo from "../assets/insper-logo.png";
-import portalLogo from "../assets/portal_cidados_logo.png";
+import insperLogo from "../../assets/insper-logo.png";
+import portalLogo from "../../assets/portal_cidados_logo.png";
 import textBackground from "./assets/text-background.png";
 import houseBackground from "./assets/houseBackground.png";
 import houseOne from "./assets/houseOne.png";

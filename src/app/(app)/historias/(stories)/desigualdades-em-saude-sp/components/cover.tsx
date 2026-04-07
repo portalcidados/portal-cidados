@@ -1,10 +1,10 @@
 "use client";
 
 import coverImage from "../assets/cover.png";
-import { StoryLogos } from "../../components/story-logos";
+import { StoryLogos } from "../../../components/story-logos";
 import { Share2 } from "lucide-react";
 
-export default function Loading() {
+export default function Cover() {
   const handleShare = async () => {
     const shareData = {
       title: "Retrato das Desigualdades em Saúde no Município de São Paulo",
@@ -34,8 +34,13 @@ export default function Loading() {
         overflow: "hidden !important",
       }}
     >
-      {/* Main content centered - behind blur */}
-      <div className="flex-1 flex flex-col justify-center items-center px-4 md:px-8 text-center max-w-[900px] relative z-0">
+      {/* Logos at the top */}
+      <div className="absolute top-16 left-1/2 transform -translate-x-1/2">
+        <StoryLogos inverted />
+      </div>
+
+      {/* Main content centered */}
+      <div className="flex-1 flex flex-col justify-center items-center px-4 md:px-8 text-center max-w-[900px]">
         <h2 className="text-white text-lg md:text-2xl lg:text-2xl font-bold max-w-4xl mb-6">
           Retrato das Desigualdades em Saúde: Riscos de Mortalidade e
           Determinantes Socioeconômicos no Município de São Paulo
@@ -56,23 +61,6 @@ export default function Loading() {
           >
             <Share2 size={18} className="text-white" />
           </button>
-        </div>
-      </div>
-
-      {/* Blur effect on background - over the text */}
-      <div className="absolute inset-0 backdrop-blur-sm bg-black/20 z-10"></div>
-
-      {/* Logos at the top */}
-      <div className="absolute top-16 left-1/2 transform -translate-x-1/2 z-30">
-        <StoryLogos inverted hoverable={false} />
-      </div>
-
-      {/* Loading indicator - animated dots centered in the middle of screen */}
-      <div className="absolute inset-0 z-30 flex items-center justify-center">
-        <div className="flex items-center justify-center gap-2">
-          <div className="w-2 h-2 bg-[#C00026] rounded-full animate-bounce [animation-delay:-0.3s]"></div>
-          <div className="w-2 h-2 bg-[#C00026] rounded-full animate-bounce [animation-delay:-0.15s]"></div>
-          <div className="w-2 h-2 bg-[#C00026] rounded-full animate-bounce"></div>
         </div>
       </div>
     </div>
