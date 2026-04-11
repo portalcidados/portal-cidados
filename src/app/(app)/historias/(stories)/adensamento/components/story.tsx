@@ -545,7 +545,7 @@ export default function AdensamentoStory() {
           {/* ---------------------------------------------------------- */}
           {/* Image overlays                                               */}
           {/* ---------------------------------------------------------- */}
-          <div className="absolute inset-0 z-10 pointer-events-none">
+          <div className="absolute inset-0 z-30 pointer-events-none">
             {IMAGE_OVERLAYS.map((ov) => (
               <div
                 key={ov.id}
