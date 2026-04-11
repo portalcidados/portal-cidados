@@ -165,6 +165,8 @@ function WhiteText({ children }: { children: React.ReactNode }) {
 // ---------------------------------------------------------------------------
 export default function AdensamentoStory() {
   const mapRef = useRef<MapRef | null>(null);
+  const pendingFlyToRef = useRef<(() => void) | null>(null);
+  const pendingLayersRef = useRef<(() => void) | null>(null);
   const [activeLegend, setActiveLegend] = useState<LegendType>(null);
   const [showPaulistaPin, setShowPaulistaPin] = useState(false);
   const [ca, setCa] = useState(1);
@@ -198,18 +200,35 @@ export default function AdensamentoStory() {
   const flyTo = useCallback(
     (key: string) => {
       const map = mapRef.current?.getMap?.();
-      if (!map || !map.isStyleLoaded()) return;
+      if (!map) return;
       const cfg = MAP_POSITIONS[key];
       if (!cfg) return;
-      const pos = isMobile() ? cfg.mobile : cfg.desktop;
-      map.flyTo({
-        center: pos.center,
-        zoom: pos.zoom,
-        pitch: pos.pitch ?? 0,
-        bearing: pos.bearing ?? 0,
-        duration: (pos.duration ?? 4) * 1000,
-        essential: true,
-      });
+
+      const perform = () => {
+        pendingFlyToRef.current = null;
+        const pos = isMobile() ? cfg.mobile : cfg.desktop;
+        map.flyTo({
+          center: pos.center,
+          zoom: pos.zoom,
+          pitch: pos.pitch ?? 0,
+          bearing: pos.bearing ?? 0,
+          duration: (pos.duration ?? 4) * 1000,
+          essential: true,
+        });
+      };
+
+      if (map.isStyleLoaded()) {
+        perform();
+      } else {
+        // isStyleLoaded() can return false while tiles are loading mid-flyTo.
+        // Cancel any previously queued flyTo and defer to the next idle event,
+        // which fires once all camera animations and tile fetches have settled.
+        if (pendingFlyToRef.current) {
+          map.off("idle", pendingFlyToRef.current);
+        }
+        pendingFlyToRef.current = perform;
+        map.once("idle", perform);
+      }
     },
     [isMobile],
   );
@@ -217,13 +236,17 @@ export default function AdensamentoStory() {
   /**
    * Set Mapbox layer opacities based on the active layer IDs.
    * All layers in MANAGED_LAYERS not present in `activeLayerIds` are hidden (opacity 0).
-   * If the style isn't loaded yet the change is deferred to the next style.load event.
+   * If tiles are still loading (isStyleLoaded() false mid-flyTo), the change is
+   * deferred to the next `idle` event — which fires after all camera animations
+   * and tile fetches settle. Stale deferred calls are cancelled so only the
+   * latest requested state is applied.
    */
   const applyMapLayers = useCallback((activeLayerIds: string[]) => {
     const map = mapRef.current?.getMap?.();
     if (!map) return;
 
     const apply = () => {
+      pendingLayersRef.current = null;
       for (const layer of MANAGED_LAYERS) {
         if (!map.getLayer(layer.id)) continue;
         const opacity = activeLayerIds.includes(layer.id)
@@ -244,7 +267,13 @@ export default function AdensamentoStory() {
     if (map.isStyleLoaded()) {
       apply();
     } else {
-      map.once("style.load", apply);
+      // Cancel any previously queued layer application so rapid scroll triggers
+      // don't stack up stale handlers that fire in the wrong order.
+      if (pendingLayersRef.current) {
+        map.off("idle", pendingLayersRef.current);
+      }
+      pendingLayersRef.current = apply;
+      map.once("idle", apply);
     }
   }, []);
 
