@@ -7,6 +7,61 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import { useRef, useState } from "react";
 import MapboxMap from "react-map-gl/mapbox";
 
+const HIGHLIGHT_GEOJSON = {
+  type: "Feature",
+  geometry: {
+    type: "MultiPolygon",
+    coordinates: [
+      [
+        [
+          [-46.6825903, -23.5419420],
+          [-46.6761500, -23.5329372],
+          [-46.6726579, -23.5352496],
+          [-46.6760840, -23.5289438],
+          [-46.6823887, -23.5248480],
+          [-46.6920547, -23.5385460],
+          [-46.6896019, -23.5374108],
+          [-46.6825903, -23.5419420],
+        ],
+      ],
+    ],
+  },
+  properties: {},
+};
+
+const JARDIM_HELENA_GEOJSON = {
+  type: "Feature",
+  geometry: {
+    type: "Polygon",
+    coordinates: [
+      [
+        [-46.4014107, -23.4808892],
+        [-46.4026644, -23.474154],
+        [-46.4087537, -23.4675828],
+        [-46.4193205, -23.4687328],
+        [-46.42935, -23.4692257],
+        [-46.4368721, -23.4728398],
+        [-46.4415286, -23.4769467],
+        [-46.4443942, -23.4835174],
+        [-46.4409913, -23.489595],
+        [-46.438484, -23.4933729],
+        [-46.4343647, -23.4953439],
+        [-46.418425, -23.4974791],
+        [-46.3994406, -23.4981361],
+        [-46.3903066, -23.4946869],
+        [-46.3820681, -23.4887738],
+        [-46.3725759, -23.4815462],
+        [-46.3790234, -23.4700471],
+        [-46.3843964, -23.4672543],
+        [-46.3888738, -23.4713613],
+        [-46.3920976, -23.4748111],
+        [-46.4014107, -23.4808892],
+      ],
+    ],
+  },
+  properties: {},
+};
+
 // Register ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
 
@@ -59,9 +114,9 @@ export default function ScrollyCards() {
       ),
     },
     {
-      longitude: -46.6333,
+      longitude: -46.7033,
       latitude: -23.5505,
-      zoom: 10,
+      zoom: 12,
       pitch: 0,
       bearing: 0,
       top: 150,
@@ -148,6 +203,10 @@ export default function ScrollyCards() {
                 essential: true,
               });
             }
+            toggleHighlightLayer(index === 1);
+            if (index < locations.length - 1) {
+              toggleJardimHelenaLayer(index === 2);
+            }
           },
           onEnterBack: () => {
             if (mapRef.current) {
@@ -161,58 +220,44 @@ export default function ScrollyCards() {
                 essential: true,
               });
             }
+            toggleHighlightLayer(index === 1);
+            if (index < locations.length - 1) {
+              toggleJardimHelenaLayer(index === 2);
+            }
           },
         });
       }
     });
 
-    // Create a separate ScrollTrigger for the last card fade effect
+    // Separate trigger for geoses-spo visibility on last card
     const lastCardElement = containerRef.current?.querySelector(
       `[data-card-index="${locations.length - 1}"]`,
     );
+
+    const setGeosesOpacity = (opacity: number) => {
+      if (!mapRef.current) return;
+      const map = mapRef.current.getMap();
+      if (map.isStyleLoaded()) {
+        map.setPaintProperty("geoses-spo", "fill-opacity", opacity);
+      }
+    };
 
     if (lastCardElement) {
       ScrollTrigger.create({
         trigger: lastCardElement,
         start: "center center",
-
+        end: "bottom center",
         onEnter: () => {
-          if (mapRef.current) {
-            const map = mapRef.current.getMap();
-            if (map.isStyleLoaded()) {
-              console.log("Fading out layer");
-              map.setPaintProperty("geoses-spo", "fill-opacity", 0);
-            } else {
-              map.on("styledata", () => {
-                map.setPaintProperty("geoses-spo", "fill-opacity", 0);
-              });
-            }
-          }
+          setGeosesOpacity(0);
+          toggleJardimHelenaLayer(false);
         },
-
         onEnterBack: () => {
-          if (mapRef.current) {
-            const map = mapRef.current.getMap();
-            if (map.isStyleLoaded()) {
-              map.setPaintProperty("geoses-spo", "fill-opacity", 0);
-            } else {
-              map.on("styledata", () => {
-                map.setPaintProperty("geoses-spo", "fill-opacity", 0);
-              });
-            }
-          }
+          setGeosesOpacity(0);
+          toggleJardimHelenaLayer(false);
         },
         onLeaveBack: () => {
-          if (mapRef.current) {
-            const map = mapRef.current.getMap();
-            if (map.isStyleLoaded()) {
-              map.setPaintProperty("geoses-spo", "fill-opacity", 1);
-            } else {
-              map.on("styledata", () => {
-                map.setPaintProperty("geoses-spo", "fill-opacity", 1);
-              });
-            }
-          }
+          setGeosesOpacity(1);
+          toggleJardimHelenaLayer(true);
         },
       });
     }
@@ -223,6 +268,219 @@ export default function ScrollyCards() {
       });
     };
   }, []);
+
+  const handleMapLoad = () => {
+    if (!mapRef.current) return;
+    const map = mapRef.current.getMap();
+
+    map.addSource("highlight-area", {
+      type: "geojson",
+      data: HIGHLIGHT_GEOJSON as GeoJSON.Feature,
+    });
+
+    map.addLayer({
+      id: "highlight-area-fill",
+      type: "fill",
+      source: "highlight-area",
+      paint: {
+        "fill-color": "#ffffff",
+        "fill-opacity": 0.33,
+      },
+      layout: {
+        visibility: "none",
+      },
+    });
+
+    map.addLayer({
+      id: "highlight-area-line",
+      type: "line",
+      source: "highlight-area",
+      paint: {
+        "line-color": "#000000",
+        "line-width": 1.5,
+        "line-dasharray": [2, 2],
+      },
+      layout: {
+        visibility: "none",
+      },
+    });
+
+    const centroStart: [number, number] = [-46.6920547, -23.5385460];
+    const centroEnd: [number, number] = [-46.708, -23.5385460];
+
+    map.addSource("centro-line", {
+      type: "geojson",
+      data: {
+        type: "Feature",
+        geometry: { type: "LineString", coordinates: [centroStart, centroEnd] },
+        properties: {},
+      } as GeoJSON.Feature,
+    });
+
+    map.addLayer({
+      id: "centro-line-layer",
+      type: "line",
+      source: "centro-line",
+      paint: {
+        "line-color": "#000000",
+        "line-width": 1.5,
+        "line-dasharray": [2, 2],
+      },
+      layout: { visibility: "none" },
+    });
+
+    map.addSource("centro-label", {
+      type: "geojson",
+      data: {
+        type: "Feature",
+        geometry: { type: "Point", coordinates: centroEnd },
+        properties: { label: "Centro" },
+      } as GeoJSON.Feature,
+    });
+
+    map.addLayer({
+      id: "centro-label-layer",
+      type: "symbol",
+      source: "centro-label",
+      layout: {
+        "text-field": [
+          "format",
+          "Centro",
+          {
+            "font-scale": 1.0,
+            "text-font": ["literal", ["Open Sans Bold", "Arial Unicode MS Bold"]],
+            "text-color": "#000000",
+          },
+          "\n",
+          {},
+          "Bairro",
+          {
+            "font-scale": 0.9,
+            "text-color": "rgba(0, 0, 0, 0.5)",
+          },
+        ],
+        "text-size": 20,
+        "text-anchor": "right",
+        "text-justify": "left",
+        "text-offset": [-0.4, 0.6],
+        "text-allow-overlap": true,
+        visibility: "none",
+      },
+      paint: {
+        "text-color": "#000000",
+      },
+    });
+
+    map.addSource("jardim-helena-area", {
+      type: "geojson",
+      data: JARDIM_HELENA_GEOJSON as GeoJSON.Feature,
+    });
+
+    map.addLayer({
+      id: "jardim-helena-fill",
+      type: "fill",
+      source: "jardim-helena-area",
+      paint: { "fill-color": "#ffffff", "fill-opacity": 0.33 },
+      layout: { visibility: "none" },
+    });
+
+    map.addLayer({
+      id: "jardim-helena-line",
+      type: "line",
+      source: "jardim-helena-area",
+      paint: { "line-color": "#000000", "line-width": 1.5, "line-dasharray": [2, 2] },
+      layout: { visibility: "none" },
+    });
+
+    const jhStart: [number, number] = [-46.4087537, -23.4675828];
+    const jhEnd: [number, number] = [-46.4088408, -23.443];
+
+    map.addSource("jardim-helena-vline", {
+      type: "geojson",
+      data: {
+        type: "Feature",
+        geometry: { type: "LineString", coordinates: [jhStart, jhEnd] },
+        properties: {},
+      } as GeoJSON.Feature,
+    });
+
+    map.addLayer({
+      id: "jardim-helena-vline-layer",
+      type: "line",
+      source: "jardim-helena-vline",
+      paint: { "line-color": "#000000", "line-width": 1.5, "line-dasharray": [2, 2] },
+      layout: { visibility: "none" },
+    });
+
+    map.addSource("jardim-helena-label", {
+      type: "geojson",
+      data: {
+        type: "Feature",
+        geometry: { type: "Point", coordinates: jhEnd },
+        properties: {},
+      } as GeoJSON.Feature,
+    });
+
+    map.addLayer({
+      id: "jardim-helena-label-layer",
+      type: "symbol",
+      source: "jardim-helena-label",
+      layout: {
+        "text-field": [
+          "format",
+          "Jardim Helena",
+          {
+            "font-scale": 1.0,
+            "text-font": ["literal", ["Open Sans Bold", "Arial Unicode MS Bold"]],
+            "text-color": "#000000",
+          },
+          "\n",
+          {},
+          "Bairro",
+          { "font-scale": 0.9, "text-color": "rgba(0, 0, 0, 0.5)" },
+        ],
+        "text-size": 20,
+        "text-anchor": "left",
+        "text-justify": "left",
+        "text-offset": [0.4, 0.6],
+        "text-allow-overlap": true,
+        visibility: "none",
+      },
+      paint: { "text-color": "#000000" },
+    });
+  };
+
+  const toggleHighlightLayer = (visible: boolean) => {
+    if (!mapRef.current) return;
+    const map = mapRef.current.getMap();
+    const v = visible ? "visible" : "none";
+    for (const id of [
+      "highlight-area-fill",
+      "highlight-area-line",
+      "centro-line-layer",
+      "centro-label-layer",
+    ]) {
+      if (map.getLayer(id)) {
+        map.setLayoutProperty(id, "visibility", v);
+      }
+    }
+  };
+
+  const toggleJardimHelenaLayer = (visible: boolean) => {
+    if (!mapRef.current) return;
+    const map = mapRef.current.getMap();
+    const v = visible ? "visible" : "none";
+    for (const id of [
+      "jardim-helena-fill",
+      "jardim-helena-line",
+      "jardim-helena-vline-layer",
+      "jardim-helena-label-layer",
+    ]) {
+      if (map.getLayer(id)) {
+        map.setLayoutProperty(id, "visibility", v);
+      }
+    }
+  };
 
   const mapboxToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
 
@@ -248,6 +506,7 @@ export default function ScrollyCards() {
           onMove={(evt) => setViewState(evt.viewState)}
           mapStyle="mapbox://styles/observatorio-nacional/cmj069yd2009i01qi0jh88i3h"
           mapboxAccessToken={mapboxToken}
+          onLoad={handleMapLoad}
           style={{ width: "100%", height: "100%" }}
           interactiveLayerIds={[]}
           dragPan={false}
