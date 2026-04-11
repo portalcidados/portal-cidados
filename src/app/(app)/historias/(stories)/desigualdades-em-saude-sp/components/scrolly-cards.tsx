@@ -3,9 +3,22 @@
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ChevronDown } from "lucide-react";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { useRef, useState } from "react";
 import MapboxMap from "react-map-gl/mapbox";
+
+const GEOSES_LEGEND = [
+  { label: "-1", color: "#b2182b" },
+  { label: "-0.75", color: "#d6604d" },
+  { label: "-0.5", color: "#f4a582" },
+  { label: "-0.25", color: "#fddbc7" },
+  { label: "0", color: "#f7f7f7" },
+  { label: "0.25", color: "#d1e5f0" },
+  { label: "0.5", color: "#92c5de" },
+  { label: "0.75", color: "#4393c3" },
+  { label: "1", color: "#2166ac" },
+];
 
 const HIGHLIGHT_GEOJSON = {
   type: "Feature",
@@ -90,6 +103,9 @@ export default function ScrollyCards() {
       bearing: 0,
     };
   });
+
+  const [legendVisible, setLegendVisible] = useState(true);
+  const [legendCollapsed, setLegendCollapsed] = useState(false);
 
   // Define your travel locations
   const locations = [
@@ -250,14 +266,17 @@ export default function ScrollyCards() {
         onEnter: () => {
           setGeosesOpacity(0);
           toggleJardimHelenaLayer(false);
+          setLegendVisible(false);
         },
         onEnterBack: () => {
           setGeosesOpacity(0);
           toggleJardimHelenaLayer(false);
+          setLegendVisible(false);
         },
         onLeaveBack: () => {
           setGeosesOpacity(1);
           toggleJardimHelenaLayer(true);
+          setLegendVisible(true);
         },
       });
     }
@@ -499,7 +518,7 @@ export default function ScrollyCards() {
         alignItems: "center",
       }}
     >
-      <div style={{ position: "sticky", top: 0 }} className="h-screen w-full">
+      <div style={{ position: "sticky", top: 0 }} className="h-screen w-full relative">
         <MapboxMap
           ref={mapRef}
           initialViewState={viewState}
@@ -515,6 +534,48 @@ export default function ScrollyCards() {
           keyboard={false}
           doubleClickZoom={false}
         ></MapboxMap>
+
+        <div className={`absolute top-4 right-4 z-20 rounded-lg bg-white/90 shadow-lg backdrop-blur-sm max-w-[220px] text-sm transition-opacity duration-300 ${legendVisible ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
+          <button
+            type="button"
+            onClick={() => setLegendCollapsed((c) => !c)}
+            className="flex w-full items-start justify-between gap-2 p-4 cursor-pointer"
+          >
+            <div className="text-left">
+              <h3 className="font-semibold text-base leading-tight">
+                Índice GeoSES
+              </h3>
+              <p className="text-sm italic text-gray-500 leading-tight mt-0.5">
+                Pondera dados censitários de renda, educação, qualidade de vida
+                e similares.
+              </p>
+            </div>
+            <ChevronDown
+              className={`mt-0.5 w-4 h-4 shrink-0 text-gray-500 transition-transform duration-300 ${legendCollapsed ? "-rotate-90" : ""}`}
+            />
+          </button>
+
+          <div
+            className={`grid transition-all duration-300 ease-in-out ${legendCollapsed ? "grid-rows-[0fr]" : "grid-rows-[1fr]"}`}
+          >
+            <div className="overflow-hidden">
+              <ul className="space-y-1 px-4 pb-3">
+                {GEOSES_LEGEND.map((item) => (
+                  <li key={item.label} className="flex items-center gap-2">
+                    <span
+                      className="w-5 h-5 rounded-sm shrink-0"
+                      style={{ backgroundColor: item.color }}
+                    />
+                    <span className="text-sm leading-tight">{item.label}</span>
+                  </li>
+                ))}
+              </ul>
+              <p className="px-4 pb-4 text-xs italic text-gray-500 leading-tight">
+                Fonte: Barrozo, L. V. et al. (2020).
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div className="relative flex flex-col items-center">
