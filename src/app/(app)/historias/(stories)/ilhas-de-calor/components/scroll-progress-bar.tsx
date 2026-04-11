@@ -74,7 +74,7 @@ export function ScrollProgressBar({ barColor = DEFAULT_BAR_COLOR }: ScrollProgre
         top: 0,
         left: 0,
         right: 0,
-        height: "3px",
+        height: "6px",
         backgroundColor: "transparent",
         zIndex: 9999,
         transform: isVisible ? "translateY(0)" : "translateY(-100%)",
