@@ -3,7 +3,7 @@
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import type { Map as MapboxMapInstance } from "mapbox-gl";
-import { useCallback, useLayoutEffect, useRef, useState } from "react";
+import { useCallback, useContext, useLayoutEffect, useRef, useState } from "react";
 import { Map as MapboxMap, type MapRef, Marker } from "react-map-gl/mapbox";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { Search, Share2 } from "lucide-react";
@@ -56,6 +56,7 @@ import {
   MAP_POSITIONS,
 } from "./map-config";
 import { MapLegend } from "./map-legend";
+import { MapReadyContext } from "./preload-wrapper";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -168,6 +169,7 @@ export default function AdensamentoStory() {
   const [showPaulistaPin, setShowPaulistaPin] = useState(false);
   const [ca, setCa] = useState(1);
   const [to, setTo] = useState(100);
+  const signalMapReady = useContext(MapReadyContext);
   const handleShare = useCallback(async () => {
     const shareData = {
       title: "Verticalização gera adensamento populacional?",
@@ -498,7 +500,23 @@ export default function AdensamentoStory() {
               const map = e.target;
               const run = () => {
                 applyDensConstrutivaSpoLayerStyle(map);
-                applyMapLayers([]);
+                // Set every managed layer to a near-zero opacity so Mapbox
+                // fetches their tiles for the current viewport while the
+                // loading screen is still visible.
+                for (const layer of MANAGED_LAYERS) {
+                  if (!map.getLayer(layer.id)) continue;
+                  map.setPaintProperty(
+                    layer.id,
+                    layer.opacityProperty,
+                    0.001,
+                  );
+                }
+                // `idle` fires once all pending tile requests are settled.
+                // Reset layers to hidden and release the loading screen.
+                map.once("idle", () => {
+                  applyMapLayers([]);
+                  signalMapReady();
+                });
               };
               if (map.isStyleLoaded()) run();
               else map.once("style.load", run);
