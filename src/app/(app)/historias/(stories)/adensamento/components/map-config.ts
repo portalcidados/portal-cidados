@@ -210,19 +210,19 @@ export const MAP_FLY_TRIGGERS: {
   {
     id: "cep_capitulo5",
     legend: null,
-    layers: ["dens-construtiva-spo"],
+    layers: [],
   },
   {
     id: "cep_capitulo6b",
     legend: null,
-    layers: ["dens-construtiva-spo"],
+    layers: [],
   },
   // ── Chapter 5 – research results ────────────────────────────────────────
   {
     id: "mapa_sete",
     mapKey: "mapa_sete",
-    legend: null,
-    layers: [],
+    legend: "density-pop",
+    layers: ["dens-demografica-spo"],
   },
   { id: "cep_capitulo7", legend: null, layers: [] },
   { id: "capitulo_final", legend: null, layers: [] },
