@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import AdensamentoStory from "./components/story";
-import { ScrollToTopIcon } from "../ilhas-de-calor/components/scroll-to-top-icon";
 import { ContinueScrollingHint } from "../desigualdades-em-saude-sp/components/continue-scrolling-hint";
+import { ScrollToTopIcon } from "../ilhas-de-calor/components/scroll-to-top-icon";
+import Footer from "./components/footer";
 import { PreloadWrapper } from "./components/preload-wrapper";
+import AdensamentoStory from "./components/story";
 
 import capa from "./images/capa.png";
 import capaMobile from "./images/capa_mobile.png";
@@ -70,6 +71,7 @@ export default function AdensamentoPage() {
   return (
     <PreloadWrapper imageSources={imagesToPreload}>
       <AdensamentoStory />
+      <Footer />
       <ScrollToTopIcon />
       <ContinueScrollingHint />
     </PreloadWrapper>
