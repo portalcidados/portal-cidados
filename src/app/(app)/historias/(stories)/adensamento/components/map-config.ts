@@ -157,19 +157,19 @@ export const MAP_FLY_TRIGGERS: {
     id: "mapa_mais_um",
     mapKey: "mapa_mais_um",
     legend: null,
-    layers: ["highlight"],
+    layers: ["dens-demografica-spo", "highlight"],
   },
   {
     id: "mapa_dois",
     mapKey: "mapa_dois",
     legend: null,
-    layers: ["highlight"],
+    layers: ["dens-demografica-spo", "highlight"],
   },
   {
     id: "mapa_dois_helio",
     mapKey: "mapa_dois_helio",
     legend: null,
-    layers: ["highlight"],
+    layers: ["dens-demografica-spo", "highlight"],
   },
   // ── Chapter 2 – informalidade ────────────────────────────────────────────
   {
