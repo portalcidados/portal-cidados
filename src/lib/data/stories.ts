@@ -12,7 +12,7 @@ export function getStoriesForHome(): Story[] {
     {
       id: "3",
       title:
-        "Diagnóstico sobre ilhas de calor e qualidade do ar em um dos maiores conjunto de favelas do Brasil",
+        "Diagnóstico sobre ilhas de calor e qualidade do ar na Maré",
       description:
         "Estudo mapeia ilhas de calor e poluição na Maré, revelando impactos diretos na saúde dos moradores",
       image: "/assets/viz3/viz3.1.png",
@@ -27,7 +27,7 @@ export function getStoriesForHome(): Story[] {
     {
       id: "1",
       title:
-        "Para o bem ou para o mal: análise da capacidade que o governo tem de controlar a densidade habitacional",
+        "Verticalização gera adensamento populacional? Como o Plano Diretor pode estimular uma cidade mais compacta",
       description:
         "Como os instrumentos de planejamento urbano buscam equilibrar adensamento, mobilidade e qualidade de vida",
       image: "/assets/viz1/viz1.4.png",
