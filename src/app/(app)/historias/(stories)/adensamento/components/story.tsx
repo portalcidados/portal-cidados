@@ -335,15 +335,15 @@ export default function AdensamentoStory() {
       );
     });
 
-    // 3D container fade-out at mapa_seis
+    // 3D container fade-out when cep_capitulo4b scrolls off the top
     const tl3dOut = gsap.timeline();
     tl3dOut.to("#container3d", { opacity: 0 });
     triggers.push(
       ScrollTrigger.create({
         animation: tl3dOut,
-        trigger: "#mapa_seis",
-        start: "top bottom",
-        end: "bottom bottom",
+        trigger: "#cep_capitulo4b",
+        start: "center top",
+        end: "bottom top",
         scrub: true,
       }),
     );
