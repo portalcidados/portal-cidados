@@ -35,8 +35,10 @@ export default function Cover() {
       }}
     >
       {/* Logos at the top */}
-      <div className="absolute top-16 left-1/2 transform -translate-x-1/2">
-        <StoryLogos inverted />
+      <div className="absolute top-16 left-0 right-0 z-20 flex flex-col items-center px-6 md:px-12 lg:px-24">
+        <div className="mb-6">
+          <StoryLogos inverted />
+        </div>
       </div>
 
       {/* Main content centered */}

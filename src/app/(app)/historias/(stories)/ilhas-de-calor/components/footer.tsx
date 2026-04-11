@@ -1,4 +1,3 @@
-import insperLogo from "../../../assets/insper-logo.png";
 import Image from "next/image";
 
 export default function Footer() {
@@ -49,10 +48,13 @@ export default function Footer() {
               rel="noopener noreferrer"
               className="inline-block"
             >
-              <img
-                src={insperLogo.src}
+              <Image
+                src="/arq_futuro_icon.png"
                 alt="Insper Logo"
-                className="h-10 lg:h-12 brightness-0 invert"
+                className="h-10 lg:h-12 w-auto brightness-0 invert"
+                width={120}
+                height={48}
+                priority
               />
             </a>
             <a

@@ -3,7 +3,6 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import insperLogo from "../assets/insper-logo.png";
 import portalLogo from "../assets/portal_cidados_logo.png";
 
 interface StoryLogosProps {
@@ -50,11 +49,11 @@ export function StoryLogos({
         })}
       >
         <Image
-          src={insperLogo}
+          src="/arq_futuro_icon.png"
           alt="Insper Logo"
-          width={88}
+          width={100}
           height={33}
-          className={`h-auto w-20 sm:w-26 transition-transform duration-300 ${invertClass} ${insperScale}`}
+          className={`h-auto w-40 sm:w-48 max-w-none transition-transform duration-300 ${invertClass} ${insperScale}`}
           priority
         />
       </Link>
@@ -71,7 +70,7 @@ export function StoryLogos({
           alt="Portal Cidadãos Logo"
           width={100}
           height={33}
-          className={`h-auto w-22 sm:w-34 transition-transform duration-300 ${invertClass} ${portalScale}`}
+          className={`h-auto w-26 sm:w-34 max-w-none transition-transform duration-300 ${invertClass} ${portalScale}`}
           priority
         />
       </Link>

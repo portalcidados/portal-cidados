@@ -11,7 +11,6 @@ import { ScrollProgressBar } from "../ilhas-de-calor/components/scroll-progress-
 
 // Importar todas as imagens para precarregamento
 import coverImage from "./assets/cover.png";
-import insperLogo from "../../assets/insper-logo.png";
 import portalLogo from "../../assets/portal_cidados_logo.png";
 import textBackground from "./assets/text-background.png";
 import houseBackground from "./assets/houseBackground.png";
@@ -59,7 +58,7 @@ export default function DesigualdadesEmSaudeSp() {
     () => [
       // Cover component
       { src: coverImage },
-      { src: insperLogo },
+      { src: "/arq_futuro_icon.png" },
       { src: portalLogo },
       // Text component
       { src: textBackground },
@@ -84,7 +83,7 @@ export default function DesigualdadesEmSaudeSp() {
       // MortalidadeMaterna component (usa chart1, chart2, chart3, icon1)
       // DiseasesIntroduction component (usa textBackground)
       // Conclusion component (usa textBackground)
-      // Footer component (usa insperLogo)
+      // Footer component (usa /arq_futuro_icon.png)
     ],
     [],
   );

@@ -1,6 +1,5 @@
 "use client";
 
-import insperLogo from "../../../assets/insper-logo.png";
 import Image from "next/image";
 
 export default function Footer() {
@@ -43,9 +42,9 @@ export default function Footer() {
               className="inline-block"
             >
               <Image
-                src={insperLogo}
+                src="/arq_futuro_icon.png"
                 alt="Insper Logo"
-                className="h-10 lg:h-12 brightness-0 invert"
+                className="h-auto w-36 sm:w-42 brightness-0 invert"
                 width={120}
                 height={48}
                 priority
