@@ -9,21 +9,18 @@ export function ScrollToTopIcon() {
   useEffect(() => {
     const handleScroll = () => {
       const introSection = document.querySelector("section.h-screen");
-      const footerSection = document.querySelector("footer");
 
-      if (!introSection || !footerSection) {
+      if (!introSection) {
         setIsVisible(window.scrollY > 100);
         return;
       }
 
       const introRect = introSection.getBoundingClientRect();
-      const footerRect = footerSection.getBoundingClientRect();
 
       const pastIntro = introRect.bottom < 0;
-      const beforeFooter = footerRect.top > window.innerHeight;
       const notAtTop = window.scrollY > 100;
 
-      setIsVisible(pastIntro && beforeFooter && notAtTop);
+      setIsVisible(pastIntro && notAtTop);
     };
 
     handleScroll();
