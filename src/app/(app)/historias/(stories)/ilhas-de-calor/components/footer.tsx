@@ -85,12 +85,12 @@ export default function Footer() {
       ]}
       databases={[
         {
-          title: "Imposto sobre Transmissão de Bens Imóveis (ITBI)",
-          href: "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/AOLEOI",
+          title: "Qualidade do Ar - Favela da Maré [2023]",
+          href: "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/OICDGN",
         },
         {
-          title: "Dados de Transporte Coletivo (Ônibus e Metrô)",
-          href: "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/UTGQ0I",
+          title: "Ilhas de Calor - Favela da Maré [2023]",
+          href: "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/NQA7LY",
         },
       ]}
     />

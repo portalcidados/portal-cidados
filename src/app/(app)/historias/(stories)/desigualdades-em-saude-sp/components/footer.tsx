@@ -15,6 +15,16 @@ export default function Footer() {
         extraLines: ["Ciências Econômicas"],
         year: 2024,
       }}
+      databases={[
+        {
+          title: "Mortalidade prematura por distrito de São Paulo [2019]",
+          href: "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/JJ8JIN",
+        },
+        {
+          title: "Gastos com UBS por distrito de São Paulo [2019]",
+          href: "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/YZBSBF",
+        },
+      ]}
       realizacao={[
         {
           src: "/arq_futuro_icon.png",

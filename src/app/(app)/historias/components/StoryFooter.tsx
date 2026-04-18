@@ -240,20 +240,17 @@ export default function StoryFooter({
             </h2>
             <div className="space-y-5 text-md lg:text-lg">
               {databases.map((db) => (
-                <div
-                  key={db.href}
-                  className="flex flex-wrap items-baseline gap-x-3 gap-y-1"
-                >
-                  <span className="font-semibold text-white">{db.title}</span>
+                <p key={db.href}>
+                  <span className="font-semibold text-white">{db.title}&nbsp;&nbsp;</span>
                   <a
                     href={db.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="shrink-0 underline underline-offset-2 text-[#FFF]/40"
+                    className="underline underline-offset-2 text-[#FFF]/40"
                   >
                     Acesse aqui
                   </a>
-                </div>
+                </p>
               ))}
             </div>
           </section>
