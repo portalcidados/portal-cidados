@@ -207,7 +207,7 @@ function ScrollCard({ children, cardRef, minHeight = "200vh" }: ScrollCardProps)
       className={
         children ? "flex items-center justify-center p-6 md:p-8 lg:p-10" : ""
       }
-      style={{ minHeight }}
+      style={{ minHeight, position: "relative", zIndex: 1 }}
     >
       {children ? (
         <div className="bg-white/70 backdrop-blur-sm text-black p-6 md:p-8 lg:p-10 max-w-2xl shadow-lg rounded-lg w-full">
