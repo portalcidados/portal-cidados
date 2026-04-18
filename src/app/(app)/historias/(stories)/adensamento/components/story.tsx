@@ -6,7 +6,7 @@ import type { Map as MapboxMapInstance } from "mapbox-gl";
 import { useCallback, useContext, useLayoutEffect, useRef, useState } from "react";
 import { Map as MapboxMap, type MapRef, Marker } from "react-map-gl/mapbox";
 import "mapbox-gl/dist/mapbox-gl.css";
-import { Search, Share2 } from "lucide-react";
+import { Share2 } from "lucide-react";
 import Image from "next/image";
 import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
@@ -42,7 +42,7 @@ import card20Mobile from "../images/card20_mobile.png";
 import card21 from "../images/card21.png";
 import card21Mobile from "../images/card21_mobile.png";
 // Inline figure
-import figura13 from "../images/Figura 13.png";
+import figura13 from "../images/figura13.svg";
 // Map pin
 import localizarSvg from "../images/localizar.svg";
 import { InteractiveBuilding } from "./interactive-building";
@@ -966,26 +966,19 @@ export default function AdensamentoStory() {
         {/* CepCapitulo7b — figure (Figura 13) */}
         <section
           id="cep_capitulo7b"
-          className="pointer-events-none flex w-full min-h-screen items-center justify-center lg:justify-start p-[10%] mb-[50vh] lg:mb-20"
+          className="pointer-events-none flex w-full min-h-screen items-center justify-center p-[5%] mb-[50vh] lg:mb-20"
         >
-          <div className="pointer-events-auto backdrop-blur-[20px] bg-white/46 max-w-xs lg:max-w-lg p-8 lg:p-12 relative overflow-visible">
+          <div className="pointer-events-auto bg-white p-10">
             <Zoom>
-              <div className="relative w-full overflow-visible">
-                <Image
-                  src={figura13}
-                  alt="Gráfico de relevância dos fatores construtivos"
-                  width={figura13.width}
-                  height={figura13.height}
-                  className="w-[250px] lg:w-[600px] h-auto mx-auto selection:bg-[#ef4444] selection:text-white block cursor-zoom-in"
-                />
-                <button
-                  type="button"
-                  className="absolute -top-6 -right-6 lg:-top-10 lg:-right-10 p-2 rounded-full border-0 bg-white/90 shadow-md cursor-zoom-in flex items-center justify-center text-gray-700 hover:bg-white hover:shadow-lg transition-colors"
-                  aria-label="Ampliar imagem"
-                >
-                  <Search className="w-5 h-5 lg:w-6 lg:h-6" />
-                </button>
-              </div>
+              <Image
+                src={figura13}
+                alt="Gráfico de relevância dos fatores construtivos"
+                width={899}
+                height={610}
+                className="w-[50vw] h-auto block cursor-zoom-in selection:bg-[#ef4444] selection:text-white"
+                unoptimized
+                draggable={false}
+              />
             </Zoom>
           </div>
         </section>
