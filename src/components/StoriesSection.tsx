@@ -100,14 +100,14 @@ export function StoriesSection() {
         {/* Stories Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-4">
           {stories.map((story) => (
-            <div key={story.id} className="group">
+            <article
+              key={story.id}
+              className="group"
+              onMouseEnter={() => handleStoryMouseEnter(story.id)}
+              onMouseLeave={() => handleStoryMouseLeave(story.id)}
+            >
               {story.href ? (
-                <Link
-                  href={story.href}
-                  className="block"
-                  onMouseEnter={() => handleStoryMouseEnter(story.id)}
-                  onMouseLeave={() => handleStoryMouseLeave(story.id)}
-                >
+                <Link href={story.href} className="block">
                   {/* Story Card */}
                   <div className="relative overflow-hidden aspect-square w-full">
                     <Image
@@ -118,36 +118,44 @@ export function StoriesSection() {
                       draggable={false}
                     />
                   </div>
+                  {/* Story Info */}
+                  <div className="mt-4 text-left">
+                    <h3 className="text-md font-medium text-foreground mb-2 font-gt-ultra-fine leading-tight">
+                      {story.title}
+                    </h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed font-gt-ultra-fine">
+                      {story.description}
+                    </p>
+                  </div>
                 </Link>
               ) : (
-                /* Story Card without link */
-                <div
-                  className="relative overflow-hidden aspect-square w-full"
-                  onMouseEnter={() => handleStoryMouseEnter(story.id)}
-                  onMouseLeave={() => handleStoryMouseLeave(story.id)}
-                  role="img"
-                  aria-label={story.title}
-                >
-                  <Image
-                    src={getCurrentImage(story)}
-                    alt={story.title}
-                    fill
-                    className="object-cover transition-transform duration-300 group-hover:scale-105"
-                    draggable={false}
-                  />
-                </div>
+                <>
+                  {/* Story Card without link */}
+                  <div
+                    className="relative overflow-hidden aspect-square w-full"
+                    role="img"
+                    aria-label={story.title}
+                  >
+                    <Image
+                      src={getCurrentImage(story)}
+                      alt={story.title}
+                      fill
+                      className="object-cover transition-transform duration-300 group-hover:scale-105"
+                      draggable={false}
+                    />
+                  </div>
+                  {/* Story Info */}
+                  <div className="mt-4 text-left">
+                    <h3 className="text-md font-medium text-foreground mb-2 font-gt-ultra-fine leading-tight">
+                      {story.title}
+                    </h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed font-gt-ultra-fine">
+                      {story.description}
+                    </p>
+                  </div>
+                </>
               )}
-
-              {/* Story Info */}
-              <div className="mt-4 text-left">
-                <h3 className="text-md font-medium text-foreground mb-2 font-gt-ultra-fine leading-tight">
-                  {story.title}
-                </h3>
-                <p className="text-sm text-muted-foreground leading-relaxed font-gt-ultra-fine">
-                  {story.description}
-                </p>
-              </div>
-            </div>
+            </article>
           ))}
         </div>
       </div>
