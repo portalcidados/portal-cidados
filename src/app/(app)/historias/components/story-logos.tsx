@@ -51,8 +51,8 @@ export function StoryLogos({
         <Image
           src="/arq_futuro_icon.png"
           alt="Insper Logo"
-          width={100}
-          height={33}
+          width={384}
+          height={128}
           className={`h-auto w-40 sm:w-48 max-w-none transition-transform duration-300 ${invertClass} ${insperScale}`}
           priority
         />
@@ -68,8 +68,8 @@ export function StoryLogos({
         <Image
           src={portalLogo}
           alt="Portal Cidadãos Logo"
-          width={100}
-          height={33}
+          width={272}
+          height={90}
           className={`h-auto w-26 sm:w-34 max-w-none transition-transform duration-300 ${invertClass} ${portalScale}`}
           priority
         />
