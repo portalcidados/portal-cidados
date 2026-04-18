@@ -1,4 +1,5 @@
 import StoryFooter from "@/app/(app)/historias/components/StoryFooter";
+import redesMare from "../assets/redes_mare.png";
 
 export default function Footer() {
   return (
@@ -29,15 +30,11 @@ export default function Footer() {
       ]}
       parceiros={[
         {
-          src: "https://climaesociedade.org/wp-content/uploads/2026/01/logo-ics-header-padrao.png",
-          alt: "ICS",
-          href: "https://climaesociedade.org/",
+          src: redesMare.src,
+          alt: "Redes da Maré",
+          href: "https://www.redesdamare.org.br/",
+          className: "h-14 lg:h-18 w-auto brightness-0 invert",
         },
-        // {
-        //   src: "/portal_cidados_icon.png",
-        //   alt: "Portal Cidados",
-        //   href: "/",
-        // },
       ]}
       teams={[
         {

@@ -6,6 +6,7 @@ export interface FooterIcon {
   href: string;
   width?: number;
   height?: number;
+  className?: string;
 }
 
 export interface TeamMember {
@@ -63,7 +64,7 @@ function IconGroup({ icons }: { icons: FooterIcon[] }) {
           <Image
             src={icon.src}
             alt={icon.alt}
-            className="h-10 lg:h-12 w-auto brightness-0 invert"
+            className={icon.className ?? "h-10 lg:h-12 w-auto brightness-0 invert"}
             width={icon.width ?? 120}
             height={icon.height ?? 48}
           />
