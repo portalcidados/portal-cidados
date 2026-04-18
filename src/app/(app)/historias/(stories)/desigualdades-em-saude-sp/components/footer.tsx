@@ -6,6 +6,8 @@ export default function Footer() {
       studyDetail={{
         description:
           '"Síntese de evidências sobre saúde no município de São Paulo"',
+        descriptionHref:
+          "https://observatoriosaudepublica.com.br/static/frontend/pesquisa/executivo-saude-sp.pdf",
         organization:
           "Paulo H. Nascimento Saldiva, Lígia Vizeu Barrozo, Catia Martinez Minto, Sara Lopes de Moraes e Paulo Afonso de André",
         documentType: "Relatório",

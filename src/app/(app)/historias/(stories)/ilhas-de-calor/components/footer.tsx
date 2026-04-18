@@ -7,6 +7,8 @@ export default function Footer() {
       studyDetail={{
         description:
           "Diagnóstico sobre ilhas de calor e qualidade do ar nas 16 favelas da Maré",
+        descriptionHref:
+          "https://www.redesdamare.org.br/media/downloads/arquivos/RespiraMareRelatorio.pdf",
         organization: "Redes da Maré",
         documentType: "Relatório",
         institution: "Instituto de Ensino e Pesquisa",
