@@ -1,6 +1,6 @@
 "use client";
 
-import { useLayoutEffect, useRef } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
@@ -16,6 +16,31 @@ export default function Conclusion() {
   const card2Ref = useRef<HTMLDivElement>(null);
   const card3Ref = useRef<HTMLDivElement>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
+  const audioRef = useRef<HTMLAudioElement>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  const bonusTrackSrc = "/historias/desigualdades-em-saude-sp/sample.mp3";
+  const captionsSrc =
+    "/historias/desigualdades-em-saude-sp/bonus-placeholder.vtt";
+
+  useEffect(() => {
+    const el = audioRef.current;
+    if (!el) return;
+
+    const onEnded = () => setIsPlaying(false);
+    const onPause = () => setIsPlaying(false);
+    const onPlay = () => setIsPlaying(true);
+
+    el.addEventListener("ended", onEnded);
+    el.addEventListener("pause", onPause);
+    el.addEventListener("play", onPlay);
+
+    return () => {
+      el.removeEventListener("ended", onEnded);
+      el.removeEventListener("pause", onPause);
+      el.removeEventListener("play", onPlay);
+    };
+  }, []);
 
   useLayoutEffect(() => {
     const cards = [
@@ -91,6 +116,19 @@ export default function Conclusion() {
       });
     };
   }, []);
+
+  const toggleBonusAudio = () => {
+    const el = audioRef.current;
+    if (!el) return;
+
+    if (el.paused) {
+      void el.play().catch(() => {
+        setIsPlaying(false);
+      });
+    } else {
+      el.pause();
+    }
+  };
 
   return (
     <div
@@ -230,28 +268,49 @@ export default function Conclusion() {
             reportagem em versos e rimas.
           </p>
 
+          <audio
+            ref={audioRef}
+            src={bonusTrackSrc}
+            preload="metadata"
+            className="sr-only"
+          >
+            <track
+              kind="captions"
+              srcLang="pt-BR"
+              label="Português"
+              src={captionsSrc}
+            />
+          </audio>
+
           <button
             type="button"
             className="flex items-center gap-2 bg-black text-white px-6 py-3 rounded-full hover:bg-black/80 hover:cursor-pointer transition-colors duration-200"
-            onClick={() => {
-              // TODO: Add song.mp3 to src/assets/ and uncomment the import above
-              // const audio = new Audio(songAudio);
-              // audio.play().catch(err => console.log('Error playing audio:', err));
-              console.log(
-                "Audio feature not yet implemented - add song.mp3 to assets",
-              );
-            }}
+            onClick={toggleBonusAudio}
+            aria-pressed={isPlaying}
+            aria-label={isPlaying ? "Pausar áudio" : "Reproduzir áudio"}
           >
-            <svg
-              className="w-5 h-5"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-              aria-label="Play icon"
-            >
-              <title>Play icon</title>
-              <path d="M8 5v14l11-7z" />
-            </svg>
-            Play
+            {isPlaying ? (
+              <svg
+                className="w-5 h-5 shrink-0"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden
+              >
+                <title>Pausar</title>
+                <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
+              </svg>
+            ) : (
+              <svg
+                className="w-5 h-5 shrink-0"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden
+              >
+                <title>Reproduzir</title>
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            )}
+            {isPlaying ? "Pausar" : "Play"}
           </button>
         </div>
       </div>
