@@ -1296,14 +1296,14 @@ export default function PropertyMap() {
       <Button
         variant="outline"
         size="icon"
-        className="absolute top-4 left-4 z-20 md:hidden bg-white shadow-lg h-12 w-12 mr-2"
+        className="absolute top-4 left-4 z-20 md:hidden bg-white shadow-lg h-11 w-11 mr-2"
         onClick={toggleMenu}
       >
         {isMenuOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
       </Button>
 
       <div
-        className={`absolute bg-white top-6 left-6 z-20 overflow-y-auto! w-85 rounded-lg lg:min-h-[calc(100vh-48px)] max-h-[calc(100vh-48px)] shadow-lg transition-transform duration-300 ease-in-out
+        className={`absolute bg-white top-6 left-6 z-20 overflow-y-auto! w-85 lg:min-h-[calc(100vh-48px)] max-h-[calc(100vh-48px)] shadow-lg transition-transform duration-300 ease-in-out
           max-md:top-20 max-md:left-4 max-md:right-4 max-md:w-auto max-md:max-h-[calc(100vh-100px)]
           ${isMenuOpen ? "max-md:translate-x-0" : "max-md:-translate-x-full max-md:opacity-0"}
           md:translate-x-0 md:opacity-100
@@ -1372,7 +1372,7 @@ export default function PropertyMap() {
             <button
               type="button"
               onClick={() => router.push("/")}
-              className="p-3 rounded-md outline-none transition-colors bg-white hover:bg-gray-50 cursor-pointer"
+              className="p-3 rounded-full outline-none transition-colors bg-white hover:bg-gray-50 cursor-pointer"
             >
               <Image
                 src="/favicon.ico"
@@ -1393,7 +1393,7 @@ export default function PropertyMap() {
             <button
               type="button"
               onClick={toggleComparisonMode}
-              className={`p-3 rounded-md outline-none transition-colors ${
+              className={`p-3 rounded-full outline-none transition-colors ${
                 isComparisonMode
                   ? "bg-[#171717]  hover:bg-[#171717]/90 border-[#171717] text-white"
                   : "bg-white hover:bg-gray-50 cursor-pointer"

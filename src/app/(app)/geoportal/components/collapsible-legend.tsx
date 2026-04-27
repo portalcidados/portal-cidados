@@ -52,7 +52,7 @@ export function CollapsibleLegend({
               <button
                 onClick={hasLayers ? toggleCollapse : undefined}
                 disabled={!hasLayers}
-                className={`p-3 rounded-md outline-none border-gray-200 ${
+                className={`p-3 rounded-full outline-none border-gray-200 ${
                   hasLayers
                     ? "bg-white hover:bg-gray-50 cursor-pointer"
                     : "bg-gray-100 cursor-not-allowed opacity-50"
@@ -72,7 +72,7 @@ export function CollapsibleLegend({
             <TooltipTrigger asChild>
               <button
                 onClick={onThemeToggle}
-                className="p-3 rounded-md outline-none border-gray-200 bg-white hover:bg-gray-50 cursor-pointer text-gray-900!"
+                className="p-3 rounded-full outline-none border-gray-200 bg-white hover:bg-gray-50 cursor-pointer text-gray-900!"
               >
                 {mapTheme === "dark" ? (
                   <Sun className="w-5 h-5 text-gray-900!" />
