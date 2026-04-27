@@ -76,7 +76,7 @@ export default function Footer() {
         {
           title: "Equipe do dataviz",
           members: [
-            { role: "Design", names: "Pictomonster" },
+            // { role: "Design", names: "Pictomonster" },
             { role: "Roteirista", names: "Caio Jacintho" },
             { role: "Designer", names: "Pedro Meneghel" },
             { role: "Desenvolvimento", names: "Lucas Tavares" },
