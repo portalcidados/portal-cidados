@@ -69,7 +69,7 @@ export function StoriesList() {
                     {story.images.map((image, imgIndex) => (
                       <div
                         key={`${story.id}-${image}-${imgIndex}`}
-                        className={`flex-shrink-0 w-16 h-16 md:w-32 md:h-32 rounded-lg overflow-hidden ${
+                        className={`flex-shrink-0 w-16 h-16 md:w-32 md:h-32 overflow-hidden ${
                           imgIndex >= 3 ? "hidden sm:block" : ""
                         }`}
                       >
