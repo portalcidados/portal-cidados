@@ -103,8 +103,8 @@ export const MAP_POSITIONS: Record<string, ChapterMapConfig> = {
     mobile: { center: [-46.7259, -23.6159], zoom: 14.0, duration: 3 },
   },
   mapa_dois_helio: {
-    desktop: { center: [-46.6028, -23.6109], zoom: 14.7, duration: 3 },
-    mobile: { center: [-46.5926, -23.61], zoom: 14.2, duration: 3 },
+    desktop: { center: [-46.6108, -23.6109], zoom: 13.9, duration: 3 },
+    mobile: { center: [-46.5926, -23.61], zoom: 13.2, duration: 3 },
   },
   mapa_tres: {
     desktop: { center: [-46.7993, -23.595], zoom: 10, duration: 3 },

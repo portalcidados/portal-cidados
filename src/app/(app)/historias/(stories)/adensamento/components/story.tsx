@@ -169,6 +169,8 @@ export default function AdensamentoStory() {
   const pendingLayersRef = useRef<(() => void) | null>(null);
   const [activeLegend, setActiveLegend] = useState<LegendType>(null);
   const [showPaulistaPin, setShowPaulistaPin] = useState(false);
+  const [showParaisoPin, setShowParaisoPin] = useState(false);
+  const [showHelioPin, setShowHelioPin] = useState(false);
   const [ca, setCa] = useState(1);
   const [to, setTo] = useState(100);
   const signalMapReady = useContext(MapReadyContext);
@@ -314,6 +316,32 @@ export default function AdensamentoStory() {
         onEnterBack: () => setShowPaulistaPin(true),
         onLeave: () => setShowPaulistaPin(false),
         onLeaveBack: () => setShowPaulistaPin(false),
+      }),
+    );
+
+    // Paraisópolis pin — visible only during mapa_dois
+    triggers.push(
+      ScrollTrigger.create({
+        trigger: "#mapa_dois",
+        start: "top center",
+        end: "bottom center",
+        onEnter: () => setShowParaisoPin(true),
+        onEnterBack: () => setShowParaisoPin(true),
+        onLeave: () => setShowParaisoPin(false),
+        onLeaveBack: () => setShowParaisoPin(false),
+      }),
+    );
+
+    // Heliópolis pin — visible only during mapa_dois_helio
+    triggers.push(
+      ScrollTrigger.create({
+        trigger: "#mapa_dois_helio",
+        start: "top center",
+        end: "bottom center",
+        onEnter: () => setShowHelioPin(true),
+        onEnterBack: () => setShowHelioPin(true),
+        onLeave: () => setShowHelioPin(false),
+        onLeaveBack: () => setShowHelioPin(false),
       }),
     );
 
@@ -587,6 +615,80 @@ export default function AdensamentoStory() {
                 />
               </div>
             </Marker>
+
+            <Marker longitude={-46.7260} latitude={-23.6169} anchor="bottom">
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  opacity: showParaisoPin ? 1 : 0,
+                  transition: "opacity 0.6s ease",
+                  pointerEvents: "none",
+                }}
+              >
+                <div
+                  style={{
+                    background: "white",
+                    color: "black",
+                    padding: "10px 18px",
+                    borderRadius: "16px",
+                    fontSize: "16px",
+                    fontWeight: "normal",
+                    whiteSpace: "nowrap",
+                    boxShadow: "0 2px 6px rgba(0,0,0,0.25)",
+                    marginBottom: "6px",
+                    fontFamily: "sans-serif",
+                  }}
+                >
+                  Paraisópolis
+                </div>
+                <Image
+                  src={localizarSvg}
+                  alt="Paraisópolis"
+                  width={50}
+                  height={50}
+                  className="h-[50px] w-[50px]"
+                />
+              </div>
+            </Marker>
+
+            <Marker longitude={-46.5919} latitude={-23.6094} anchor="bottom">
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  opacity: showHelioPin ? 1 : 0,
+                  transition: "opacity 0.6s ease",
+                  pointerEvents: "none",
+                }}
+              >
+                <div
+                  style={{
+                    background: "white",
+                    color: "black",
+                    padding: "10px 18px",
+                    borderRadius: "16px",
+                    fontSize: "16px",
+                    fontWeight: "normal",
+                    whiteSpace: "nowrap",
+                    boxShadow: "0 2px 6px rgba(0,0,0,0.25)",
+                    marginBottom: "6px",
+                    fontFamily: "sans-serif",
+                  }}
+                >
+                  Heliópolis
+                </div>
+                <Image
+                  src={localizarSvg}
+                  alt="Heliópolis"
+                  width={50}
+                  height={50}
+                  className="h-[50px] w-[50px]"
+                />
+              </div>
+            </Marker>
           </MapboxMap>
 
           {/* ---------------------------------------------------------- */}
@@ -652,11 +754,10 @@ export default function AdensamentoStory() {
             <br />
             <br />O mapa ao lado, produzido com dados do Censo 2022, mostra a
             <H>densidade populacional</H>de várias regiões da capital paulista.
-            A unidade escolhida é a de habitantes por hectare. A área de um
-            hectare equivale a área de um quadrado de 100m de lado, ou seja,
-            muito próxima do tamanho médio de um quarteirão da cidade. Dessa
-            maneira, propomos uma leitura de dados mais próxima da sua
-            experiência urbana. E então, quantas pessoas moram na sua quadra?
+            Os valores representam o número de habitantes por hectare, que
+            equivale ao tamanho médio de um quarteirão da cidade. No mapa,
+            quanto mais escura a cor, mais gente mora naquele pedaço da cidade.
+            Quantas pessoas moram na sua quadra?
           </CardText>
         </MapCard>
 
@@ -667,7 +768,7 @@ export default function AdensamentoStory() {
             comércio e serviços, o que gera
             <H>economias de aglomeração,</H>aumentando sua eficiência e sua
             produtividade. Em geral, regiões centrais concentram infraestrutura,
-            oportunidades e pessoas.
+            oportunidades e pessoas, como é o caso dos bairros no entorno da Avenida Paulista.
           </CardText>
         </MapCard>
 
@@ -679,7 +780,7 @@ export default function AdensamentoStory() {
             <H>se espalham por diversas regiões da capital,</H>por diferentes
             motivos. É interessante notar a densidade populacional nas favelas
             de
-            <H>Paraisópolis</H>(conforme se vê no mapa) e Heliópolis, que acabam
+            <H>Paraisópolis</H>e Heliópolis, que acabam
             por ser as áreas mais densas da cidade.
           </CardText>
         </MapCard>
@@ -687,11 +788,11 @@ export default function AdensamentoStory() {
         {/* MapaDois_helio — Heliópolis */}
         <MapCard id="mapa_dois_helio">
           <CardText>
-            Nos casos de Paraisópolis e<H>Heliópolis</H>(como ilustrado no
-            mapa), as altas densidades urbanas não se devem a incentivos do
-            planejamento urbano e sim, ao crescimento desordenado de áreas
-            informais impulsionado por décadas de urbanização acelerada e pela
-            ausência de políticas habitacionais inclusivas. Esse processo gera
+            Nos casos de Paraisópolis e<H>Heliópolis,</H>as altas densidades
+            urbanas não se devem a incentivos do planejamento urbano e sim, ao
+            crescimento desordenado de áreas informais impulsionado por décadas
+            de urbanização acelerada e pela ausência de políticas integrais de
+            habitação. Esse processo gera
             desafios significativos para a mobilidade e a qualidade de vida de
             seus habitantes.
           </CardText>
