@@ -20,7 +20,7 @@ import imageCard4 from "./assets/image-card-4.png";
 import imageCard5 from "./assets/image-card-5.png";
 import imageCard6 from "./assets/image-card-6.png";
 import imageCard7 from "./assets/image-card-7.png";
-import mapaTemperatura from "./assets/mapa-temperatura.png";
+import mapaTemperatura from "./assets/mapa-temperatura-crop.png";
 import mapaDeUmidade from "./assets/mapa-de-umidade.png";
 import mapaDeCO2 from "./assets/mapa-de-co2.png";
 import mapaDeHCHO from "./assets/mapa-de-hcho.png";

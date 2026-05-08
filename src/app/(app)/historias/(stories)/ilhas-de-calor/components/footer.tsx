@@ -11,12 +11,7 @@ export default function Footer() {
           "https://www.redesdamare.org.br/media/downloads/arquivos/RespiraMareRelatorio.pdf",
         organization: "Redes da Maré",
         documentType: "Relatório",
-        institution: "Instituto de Ensino e Pesquisa",
         year: 2024,
-        partnership: {
-          href: "https://climaesociedade.org/sobre/",
-          label: "Instituto Clima e Sociedade",
-        },
       }}
       realizacao={[
         {

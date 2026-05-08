@@ -159,7 +159,6 @@ function MapSelector() {
             <img
               src={currentMapSrc.src}
               alt="Mapa de Qualidade do Ar"
-              className="rounded-xl"
             />
           </Zoom>
         )}
@@ -181,7 +180,7 @@ function MapSelector() {
               key={key}
               type="button"
               onClick={() => setSelectedMap(key)}
-              className={`px-2 py-1 text-xs sm:px-4 sm:py-2 sm:text-sm rounded-md bg-gray-900 text-white font-medium hover:bg-gray-800 transition-colors ${selectedMap === key ? "opacity-50" : ""}`}
+              className={`px-2 py-1 text-xs sm:px-4 sm:py-2 sm:text-sm bg-gray-900 text-white font-medium hover:bg-gray-800 transition-colors ${selectedMap === key ? "opacity-50" : ""}`}
             >
               {label}
             </button>
@@ -189,16 +188,14 @@ function MapSelector() {
         </div>
         <div>
           <p className="text-md text-[#3A3434] my-5">
-            São partículas 5 a 7 vezes mais finas do que um fio de cabelo e
-            podem ser inaladas e chegar até as vias aéreas mais profundas dos
-            pulmões, mas a maioria delas tende a se depositar nas vias aéreas
-            superiores, como traquéia e brônquios.
+            As partículas acima são 5 a 7 vezes mais finas do que um fio de
+            cabelo e podem ser inaladas e chegar até as vias aéreas mais
+            profundas dos pulmões, mas a maioria delas tende a se depositar nas
+            vias aéreas superiores, como traquéia e brônquios.
           </p>
           <p className="text-md text-[#3A3434]">
             Podem causar problemas respiratórios, cardiovasculares e agravar
-            condições de saúde preexistentes. Na Maré, as regiões do Parque
-            Ecológico se destacam na concentração de PM 10 , por motivos
-            diferentes.
+            condições de saúde preexistentes.
           </p>
         </div>
       </div>
@@ -436,7 +433,7 @@ export function ScrollMapQualidadeArMapbox() {
           >
             {MOBILE_OVERLAYS.map((overlay, idx) => (
               <Marker
-                key={idx}
+                key={overlay.src}
                 longitude={overlay.lng}
                 latitude={overlay.lat}
                 anchor="center"

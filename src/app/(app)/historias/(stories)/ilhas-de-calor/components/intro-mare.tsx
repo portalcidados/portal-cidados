@@ -16,6 +16,7 @@ import fiocruzSvg from "../assets/fiocruz.svg";
 import avbrasilSvg from "../assets/av-brasil.svg";
 import lvMobileSvg from "../assets/lv-mobile.svg";
 import avBrasilMobileSvg from "../assets/av-brasil-mobile.svg";
+import vilaDoJoaoSvg from "../assets/vila-do-joao.svg";
 import Image from "next/image";
 import { Map as MapboxMap, Marker } from "react-map-gl/mapbox";
 import "mapbox-gl/dist/mapbox-gl.css";
@@ -61,17 +62,17 @@ const MAP1_ICONS_DESKTOP: IconConfig[] = [
     src: ufrjSvg.src,
     longitude: -43.2354694,
     latitude: -22.8483019,
-    width: 80,
-    height: 38,
+    width: 88,
+    height: 40,
     dotX: 5,
     dotY: 19,
   },
   {
     id: "mare",
     src: mareSvg.src,
-    longitude: -43.2650903,
+    longitude: -43.2698903,
     latitude: -22.8535453,
-    width: 240,
+    width: 300,
     height: 0,
     dotX: 0,
     dotY: 0,
@@ -81,8 +82,8 @@ const MAP1_ICONS_DESKTOP: IconConfig[] = [
     src: lvSvg.src,
     longitude: -43.2326642,
     latitude: -22.8697329,
-    width: 288,
-    height: 38,
+    width: 290,
+    height: 40,
     dotX: 9,
     dotY: 19,
   },
@@ -91,7 +92,7 @@ const MAP1_ICONS_DESKTOP: IconConfig[] = [
     src: galeaoSvg.src,
     longitude: -43.2396864,
     latitude: -22.8279646,
-    width: 200,
+    width: 230,
     height: 0,
     dotX: 50,
     dotY: 0,
@@ -99,20 +100,20 @@ const MAP1_ICONS_DESKTOP: IconConfig[] = [
   {
     id: "fiocruz",
     src: fiocruzSvg.src,
-    longitude: -43.2464299,
+    longitude: -43.2554299,
     latitude: -22.8762657,
-    width: 161,
-    height: 100,
-    dotX: 81,
-    dotY: 9,
+    width: 108,
+    height: 0,
+    dotX: 0,
+    dotY: 0,
   },
   {
     id: "avbrasil",
     src: avbrasilSvg.src,
     longitude: -43.257527,
     latitude: -22.8370439,
-    width: 230,
-    height: 38,
+    width: 250,
+    height: 45,
     dotX: 96,
     dotY: 19,
   },
@@ -135,7 +136,7 @@ const MAP1_ICONS_MOBILE: IconConfig[] = [
     src: mareSvg.src,
     longitude: -43.2630903,
     latitude: -22.8535453,
-    width: 190,
+    width: 200,
     height: 0,
     dotX: -30,
     dotY: 0,
@@ -143,10 +144,10 @@ const MAP1_ICONS_MOBILE: IconConfig[] = [
   {
     id: "lv",
     src: lvMobileSvg.src,
-    longitude: -43.2326642,
-    latitude: -22.8697329,
-    width: 138,
-    height: 38,
+    longitude: -43.2328642,
+    latitude: -22.8677329,
+    width: 160,
+    height: 50,
     dotX: 44,
     dotY: -30,
   },
@@ -155,7 +156,7 @@ const MAP1_ICONS_MOBILE: IconConfig[] = [
     src: galeaoSvg.src,
     longitude: -43.2396864,
     latitude: -22.8259646,
-    width: 240,
+    width: 230,
     height: 0,
     dotX: 100,
     dotY: -20,
@@ -165,8 +166,8 @@ const MAP1_ICONS_MOBILE: IconConfig[] = [
     src: fiocruzSvg.src,
     longitude: -43.2444299,
     latitude: -22.8762657,
-    width: 121,
-    height: 100,
+    width: 130,
+    height: 110,
     dotX: 60,
     dotY: 9,
   },
@@ -210,7 +211,7 @@ function ScrollCard({ children, cardRef, minHeight = "200vh" }: ScrollCardProps)
       style={{ minHeight, position: "relative", zIndex: 1 }}
     >
       {children ? (
-        <div className="bg-white/70 backdrop-blur-sm text-black p-6 md:p-8 lg:p-10 max-w-2xl shadow-lg rounded-lg w-full">
+        <div className="bg-white/70 backdrop-blur-sm text-black p-6 md:p-8 lg:p-10 max-w-2xl shadow-lg w-full">
           {children}
         </div>
       ) : null}
@@ -225,6 +226,7 @@ export function IntroMare() {
   const [titleOpacity, setTitleOpacity] = useState(1);
   const [showIlhasTitle, setShowIlhasTitle] = useState(false);
   const [showMap1Icons, setShowMap1Icons] = useState(false);
+  const [showVilaJoaoIcon, setShowVilaJoaoIcon] = useState(false);
 
   const [isMobileView, setIsMobileView] = useState(false);
 
@@ -399,7 +401,7 @@ export function IntroMare() {
         }),
       );
 
-      // Card 6: Fly to Vila dos Pinheiros + show its layers
+      // Card 6: Fly to Vila dos Pinheiros + show its layers + Vila do João icon
       triggers.push(
         ScrollTrigger.create({
           trigger: card6Ref.current,
@@ -408,15 +410,17 @@ export function IntroMare() {
           onEnter: () => {
             flyTo(VILA_PINHEIROS_DESKTOP, VILA_PINHEIROS_MOBILE);
             setLayerVisibility(VILA_PINHEIROS_LAYERS, true);
+            setShowVilaJoaoIcon(true);
           },
           onLeaveBack: () => {
             flyTo(ORIGINAL_DESKTOP, ORIGINAL_MOBILE);
             setLayerVisibility(VILA_PINHEIROS_LAYERS, false);
+            setShowVilaJoaoIcon(false);
           },
         }),
       );
 
-      // Card 9: Hide vila-dos-pinheiros layers and fly back
+      // Card 9: Hide vila-dos-pinheiros layers, Vila do João icon, and fly back
       triggers.push(
         ScrollTrigger.create({
           trigger: card9Ref.current,
@@ -425,10 +429,12 @@ export function IntroMare() {
           onEnter: () => {
             setLayerVisibility(VILA_PINHEIROS_LAYERS, false);
             flyTo(ORIGINAL_DESKTOP, ORIGINAL_MOBILE);
+            setShowVilaJoaoIcon(false);
           },
           onLeaveBack: () => {
             setLayerVisibility(VILA_PINHEIROS_LAYERS, true);
             flyTo(VILA_PINHEIROS_DESKTOP, VILA_PINHEIROS_MOBILE);
+            setShowVilaJoaoIcon(true);
           },
         }),
       );
@@ -598,6 +604,26 @@ export function IntroMare() {
                 />
               </Marker>
             ))}
+            <Marker
+              longitude={-43.2402}
+              latitude={-22.8739}
+              anchor="top-left"
+              style={{ pointerEvents: "none" }}
+            >
+              <img
+                src={vilaDoJoaoSvg.src}
+                width={240}
+                height={35}
+                alt=""
+                style={{
+                  display: "block",
+                  marginLeft: -5,
+                  marginTop: -20,
+                  opacity: showVilaJoaoIcon ? 1 : 0,
+                  transition: "opacity 300ms ease-in-out",
+                }}
+              />
+            </Marker>
           </MapboxMap>
         </div>
 

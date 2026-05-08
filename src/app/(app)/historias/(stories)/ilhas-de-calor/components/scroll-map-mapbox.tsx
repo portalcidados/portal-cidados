@@ -7,7 +7,7 @@ import { Map as MapboxMap, Marker } from "react-map-gl/mapbox";
 import "mapbox-gl/dist/mapbox-gl.css";
 import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
-import mapaTemperatura from "../assets/mapa-temperatura.png";
+import mapaTemperatura from "../assets/mapa-temperatura-crop.png";
 import piscinaoMobileSvg from "../assets/piscinao-mobile.svg";
 import ruaAriLeaoMobileSvg from "../assets/rua-ari-leao-mobile.svg";
 import novaMareMobileSvg from "../assets/nova-mare-mobile.svg";
@@ -393,7 +393,7 @@ export function ScrollMapMapbox() {
           >
             {MOBILE_OVERLAYS.map((overlay, idx) => (
               <Marker
-                key={idx}
+                key={overlay.src}
                 longitude={overlay.lng}
                 latitude={overlay.lat}
                 anchor="center"
@@ -428,12 +428,14 @@ export function ScrollMapMapbox() {
       <div className="bg-white! py-110 h-screen flex items-center justify-center">
         <div className="flex flex-col justify-start items-start px-4">
           <Zoom>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={mapaTemperatura.src}
-              alt="Mapa"
-              className="max-h-140 object-fit"
-            />
+            <div className="bg-white overflow-hidden">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={mapaTemperatura.src}
+                alt="Mapa"
+                className="max-h-160 object-fit block"
+              />
+            </div>
           </Zoom>
           <p className="text-md block text-[#3A3434] font-bold mt-2.5">
             Mapa de temperatura da Maré

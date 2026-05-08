@@ -12,7 +12,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
-import mapaTemperatura from "../assets/mapa-temperatura.png";
+import mapaTemperatura from "../assets/mapa-temperatura-crop.png";
 import type { CSSProperties } from "react";
 
 gsap.registerPlugin(ScrollTrigger);
