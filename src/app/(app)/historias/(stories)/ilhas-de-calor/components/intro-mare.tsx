@@ -606,13 +606,13 @@ export function IntroMare() {
             ))}
             <Marker
               longitude={-43.2402}
-              latitude={-22.8739}
+              latitude={-22.8729}
               anchor="top-left"
               style={{ pointerEvents: "none" }}
             >
               <img
                 src={vilaDoJoaoSvg.src}
-                width={240}
+                width={230}
                 height={35}
                 alt=""
                 style={{
