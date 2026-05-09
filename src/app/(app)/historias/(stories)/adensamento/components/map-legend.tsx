@@ -55,7 +55,7 @@ const LEGENDS: Record<Exclude<LegendType, null>, LegendGroup> = {
   eetu: {
     title: "Zonas de Estruturação Urbana",
     items: [
-      { label: "EETU", color: "#1d7a5d" },
+      { label: "Eixos", color: "#1d7a5d" },
       { label: "Metrô / Trem", color: "#E53935" },
       { label: "Corredor de Ônibus", color: "#FFB300" },
     ],

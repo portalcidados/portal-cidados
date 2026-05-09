@@ -128,21 +128,6 @@ function H({ children }: { children: React.ReactNode }) {
   );
 }
 
-function SectionTitle({
-  children,
-  className,
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) {
-  return (
-    <h3
-      className={`underline font-semibold text-2xl mb-6 max-w-[400px] ${className ?? "text-[#3ACC9F] selection:bg-[#3ACC9F] selection:text-white"}`}
-    >
-      {children}
-    </h3>
-  );
-}
 
 function CardText({ children }: { children: React.ReactNode }) {
   return (
@@ -502,18 +487,18 @@ export default function AdensamentoStory() {
             <br />
             <br />
             Atualmente, os mecanismos que regulam o crescimento da capital
-            paulista são definidos pelo Plano Diretor Estratégico (PDE),
-            estabelecido em 2014 e revisado em 2023. Entre os 17 objetivos que
-            ele estabelece, ao menos nove estão relacionados a estratégias de
-            adensamento urbano. Um princípio central do PDE é direcionar o
+            paulista são definidos pelo Plano Diretor,
+            estabelecido em 2014 e revisado em 2023. Entre seus 17 objetivos,
+            ao menos nove estão relacionados a estratégias de
+            adensamento urbano. Um princípio central do Plano Diretor é direcionar o
             adensamento para áreas com melhor infraestrutura urbana,
             especialmente no entorno do transporte público de média e alta
             capacidade, tais como corredores de ônibus e estações de metrô e
             trem.
             <br />
-            <br />A seguir exploramos quais dos parâmetros construtivos
-            regulados e incentivados pelo PDE são de fato capazes de estimular
-            o adensamento urbano, quando desejado.
+            <br />A seguir exploramos <strong className="font-bold">quais dos parâmetros construtivos
+            regulados e incentivados pelo Plano Diretor são de fato capazes de estimular
+            o adensamento urbano</strong>, quando desejado.
           </WhiteText>
         </div>
       </section>
@@ -741,14 +726,13 @@ export default function AdensamentoStory() {
         {/* MapaZero — empty spacer so the map becomes visible */}
         <div id="mapa_zero" className="pointer-events-none h-screen" />
 
-        {/* MapaUm — "A Pesquisa" */}
+        {/* MapaUm — "O adensamento proposto pelo ..." */}
         <MapCard id="mapa_um">
-          <SectionTitle>A Pesquisa</SectionTitle>
           <CardText>
-            O adensamento proposto pelo PDE busca otimizar o uso da
-            infraestrutura urbana já existente em São Paulo. Ao incentivar que
+            O adensamento proposto pelo Plano Diretor busca otimizar o uso da
+            infraestrutura urbana já existente em São Paulo. Ao <strong>incentivar que
             mais moradias e empregos estejam localizados próximos às
-            infraestruturas de transporte público, estimula-se modos de
+            infraestruturas de transporte público</strong>, estimula-se modos de
             deslocamento mais sustentáveis e maior acesso às oportunidades que
             as cidades oferecem.
             <br />
@@ -768,20 +752,20 @@ export default function AdensamentoStory() {
             comércio e serviços, o que gera
             <H>economias de aglomeração,</H>aumentando sua eficiência e sua
             produtividade. Em geral, regiões centrais concentram infraestrutura,
-            oportunidades e pessoas, como é o caso dos bairros no entorno da Avenida Paulista.
+            oportunidades e pessoas, como é o caso dos bairros no entorno da <strong className="font-bold">Avenida Paulista</strong>.
           </CardText>
         </MapCard>
 
         {/* MapaDois — Paraisópolis */}
         <MapCard id="mapa_dois">
           <CardText>
-            As áreas de maior<H>densidade populacional</H>de São Paulo não se
+            As áreas de maior densidade populacional de São Paulo não se
             limitam à sua zona central, mas
-            <H>se espalham por diversas regiões da capital,</H>por diferentes
+            se espalham por diversas regiões da capital, por diferentes
             motivos. É interessante notar a densidade populacional nas favelas
             de
             <H>Paraisópolis</H>e Heliópolis, que acabam
-            por ser as áreas mais densas da cidade.
+            por ser as <H>áreas mais densas da cidade.</H>
           </CardText>
         </MapCard>
 
@@ -809,27 +793,40 @@ export default function AdensamentoStory() {
             informalidade são favelas, lotes irregulares e ocupações em regiões
             de risco.
             <br />
-            <br />O mapa ao lado mostra a distribuição da população da capital
-            paulista em pontos. Cada ponto representa mil habitantes vivendo
-            próximos à região indicada. Em pontos vermelhos, temos a população
-            que vive em habitações fora do cadastro legal de imóveis da cidade e
-            em pontos cinzas, a população que mora em imóveis legalizados pela
-            prefeitura.
+            <br />O mapa ao lado mostra, em{" "}
+            <strong
+              className="font-bold inline box-decoration-clone"
+              style={{ color: "#E53935" }}
+            >
+              vermelho
+            </strong>
+            , os lugares que concentram as{" "}
+            <strong className="font-bold">pessoas que vivem em domicílios informais na cidade</strong>. Veja que
+            há uma maior concentração de informalidade habitacional nas{" "}
+            <strong className="font-bold">periferias</strong> e nas <strong className="font-bold">favelas e loteamentos informais</strong>, que
+            estão destacados em{" "}
+            <strong
+              className="font-bold inline box-decoration-clone"
+              style={{ color: "#9148b0" }}
+            >
+              roxo
+            </strong>
+            .
             <br />
-            <br />E então, consegue encontrar algum padrão nessa distribuição?
+            <br />Para tais regiões com grande presença de informalidade, são
+            necessárias intervenções integrais de urbanização e qualificação.
           </CardText>
         </MapCard>
 
         {/* MapaQuatro — EETU */}
         <MapCard id="mapa_quatro">
           <CardText>
-            Considerando as áreas mais consolidadas de São Paulo, como é
-            possível estimular o aumento da densidade em regiões com melhor
-            infraestrutura urbana? O PDE define os Eixos de Estruturação da
-            Transformação Urbana (EETU), que são quadras próximas ao transporte
-            público de média e alta capacidade (corredores de ônibus e estações
-            de metrô e trem), onde se busca incentivar maior densidade
-            populacional.
+            Já nos bairros e nas quadras mais consolidadas e com melhor
+            infraestrutura na cidade de São Paulo, a estratégia foi estimular o
+            mercado imobiliário residencial. Para tanto, em algumas quadras
+            próximas ao transporte público de massa, foram estabelecidos os
+            Eixos de Estruturação da Transformação Urbana, ou simplesmente
+            Eixos, onde se busca promover o adensamento populacional.
           </CardText>
         </MapCard>
 
@@ -845,7 +842,7 @@ export default function AdensamentoStory() {
         {/* CepCapitulo2 — EETU 400m (triggers overlay-2) */}
         <MapCard id="cep_capitulo2">
           <CardText>
-            Com a revisão do PDE, os Eixos passaram a abranger quadras situadas
+            Com a revisão do Plano Diretor, os Eixos passaram a abranger quadras situadas
             em uma faixa de 400 metros de cada lado dos corredores de ônibus e
             em um raio de 700 metros ao redor das estações de metrô e trem.
           </CardText>
@@ -857,14 +854,11 @@ export default function AdensamentoStory() {
         {/* MapaCinco — adensamento nos eixos */}
         <MapCard id="mapa_cinco">
           <CardText>
-            Nos eixos, o objetivo seria permitir e estimular um maior
+            Nos Eixos, o objetivo seria permitir e estimular maior{" "}
             <H>adensamento populacional,</H>ou seja, aumentar a quantidade de
-            pessoas vivendo numa mesma área. Lembra-se lá do começo quando
-            falamos de habitantes por hectare, ou quarteirão?! É isto mesmo, o
-            objetivo é aumentar a quantidade de moradores que vivem numa mesma
-            quadra. Vejamos agora quais são os três instrumentos regulatórios
-            definidos pelo PDE para incentivar e viabilizar o adensamento
-            populacional.
+            pessoas vivendo nessas quadras. Para tanto, três instrumentos
+            regulatórios foram definidos pelo Plano Diretor para incentivar e
+            viabilizar tal adensamento.
           </CardText>
         </MapCard>
 
@@ -908,7 +902,8 @@ export default function AdensamentoStory() {
         >
           <div className="pointer-events-auto backdrop-blur-[20px] bg-white/46 max-w-xs lg:max-w-lg p-8 lg:p-12">
             <CardText>
-              Sua vez! Use os painéis abaixo para alterar a TO e o CA do
+              Sua vez! Use os sliders abaixo para alterar a <strong className="font-bold">taxa de ocupação
+              (TO)</strong> do terreno e o <strong className="font-bold">coeficiente de aproveitamento (CA)</strong> do
               edifício ao lado.
             </CardText>
 
@@ -1018,7 +1013,7 @@ export default function AdensamentoStory() {
         {/* CepCapitulo6b — summary */}
         <MapCard id="cep_capitulo6b">
           <CardText>
-            Em áreas que se quer criar<H>densidade populacional,</H>o PDE pode
+            Em áreas que se quer criar<H>densidade populacional,</H>o Plano Diretor pode
             definir tais instrumentos para gerar maior
             <H>densidade construtiva,</H>
             <H>densidade habitacional</H>e<H>verticalização</H>. Já em miolos de
@@ -1048,14 +1043,14 @@ export default function AdensamentoStory() {
             professor e pesquisador do Centro de Estudos das Cidades do Insper,
             investigaram quais desses fatores melhor determinam a
             <H>densidade populacional</H>e, portanto, deveriam ser privilegiados
-            no PDE em regiões para as quais se busca adensamento populacional.
+            no Plano Diretor em regiões para as quais se busca adensamento populacional.
           </CardText>
         </MapCard>
 
         {/* CepCapitulo7 — conclusion (triggers overlay-7) */}
         <MapCard id="cep_capitulo7">
           <CardText>
-            A pesquisa concluiu que, nas regiões em que o PDE exerce influência,
+            A pesquisa concluiu que, nas regiões em que o Plano Diretor exerce influência,
             ou seja, naquelas sem grande informalidade em termos de moradia, a
             <H>densidade habitacional,</H>estimulada pela
             <H>cota parte máxima,</H>
@@ -1110,7 +1105,7 @@ export default function AdensamentoStory() {
             <H>densidade populacional</H>de uma região. Ou seja, prédios altos,
             mas que ocupam apenas uma área pequena do terreno e possuem
             apartamentos grandes, não promovem o adensamento populacional
-            desejado pelo PDE para regiões com melhor infraestrutura.
+            desejado pelo Plano Diretor para regiões com melhor infraestrutura.
           </CardText>
         </MapCard>
 
@@ -1124,7 +1119,7 @@ export default function AdensamentoStory() {
             <br />A questão central, então, é: qual o modelo ideal de
             <H>verticalização</H>para promover<H>densidade populacional</H>?
             <br />
-            <br />A evidência trazida pela pesquisa aponta que o PDE deve
+            <br />A evidência trazida pela pesquisa aponta que o Plano Diretor deve
             estimular, nos Eixos, a construção de edifícios com poucos recuos,
             que ocupam a maior parte do terreno e que possuem apartamentos
             pequenos, de forma a gerar
@@ -1159,7 +1154,7 @@ export default function AdensamentoStory() {
               desacompanhado de perigos: dependerá de uma administração
               responsável. Se, por ventura, a demanda nas regiões centrais
               estiver sendo reprimida pela regulação, é possível que ela venha
-              causando um espraiamento urbano, algo que o próprio PDE almeja
+              causando um espraiamento urbano, algo que o próprio Plano Diretor almeja
               combater.
               <br />
               <br />
