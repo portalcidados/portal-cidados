@@ -73,7 +73,7 @@ export const DENS_CONSTRUTIVA_SPO_LAYER_PATCH = {
     18,
     "#1d7a5d",
   ],
-  fillOutlineColor: "",
+  fillOutlineColor: "transparent",
   filter: ["has", "densidade_construtiva"],
 } as const;
 
