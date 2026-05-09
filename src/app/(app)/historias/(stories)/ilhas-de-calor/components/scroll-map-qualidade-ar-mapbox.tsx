@@ -1,20 +1,23 @@
 "use client";
 
-import { useLayoutEffect, useRef, useState } from "react";
+import { Fragment, useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Map as MapboxMap, Marker } from "react-map-gl/mapbox";
 import "mapbox-gl/dist/mapbox-gl.css";
 import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
-import piscinao2MobileSvg from "../assets/piscinao2-mobile.svg";
+import novaHolandaSvg from "../assets/nova-holanda.svg";
 import novaHolandaMobileSvg from "../assets/nova-holanda-mobile.svg";
+import parqueEcologicoSvg from "../assets/parque-ecologico.svg";
 import parqueEcologicoMobileSvg from "../assets/parque-ecologico-mobile.svg";
-import mapaDeUmidade from "../assets/mapa-de-umidade.png";
+import piscinao2Svg from "../assets/piscinao2.svg";
+import piscinao2MobileSvg from "../assets/piscinao2-mobile.svg";
 import mapaDeCO2 from "../assets/mapa-de-co2.png";
 import mapaDeHCHO from "../assets/mapa-de-hcho.png";
 import mapaDePM10 from "../assets/mapa-de-pm10.png";
 import mapaDePM25 from "../assets/mapa-de-pm25.png";
+import mapaDeUmidade from "../assets/mapa-de-umidade.png";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -54,86 +57,22 @@ const TRIGGER_POSITIONS: { desktop: MapPosition; mobile: MapPosition }[] = [
   },
 ];
 
-const TRIGGER_LAYERS: string[][] = [
-  ["piscinao-4mbq07", "piscinao-4mbq07 copy"],
-  ["nova-holanda-0i0e88", "nova-holanda-0i0e88 copy"],
-  ["parque-ecologico-7p2oy7", "parque-ecologico-7p2oy7 copy"],
-];
-
-const ALL_LAYER_IDS = TRIGGER_LAYERS.flat();
-
 const CARD_HEIGHTS = ["100vh", "100vh", "110vh"];
 
-const MOBILE_OVERLAYS = [
+const OVERLAYS = [
   {
-    src: piscinao2MobileSvg.src,
-    lng: -43.249499,
-    lat: -22.8428554,
-    width: 300,
-    offsetX: 0,
-    offsetY: 0,
+    desktop: { src: piscinao2Svg.src, width: 560, offsetX: 0, offsetY: 0, lng: -43.243499, lat: -22.8418554 },
+    mobile: { src: piscinao2MobileSvg.src, width: 300, offsetX: 0, offsetY: 0, lng: -43.249499, lat: -22.8428554 },
   },
   {
-    src: novaHolandaMobileSvg.src,
-    lng: -43.243577,
-    lat: -22.860809,
-    width: 300,
-    offsetX: 0,
-    offsetY: 0,
+    desktop: { src: novaHolandaSvg.src, width: 450, offsetX: 0, offsetY: 0, lng: -43.253577, lat: -22.858809 },
+    mobile: { src: novaHolandaMobileSvg.src, width: 300, offsetX: 0, offsetY: 0, lng: -43.243577, lat: -22.860809 },
   },
   {
-    src: parqueEcologicoMobileSvg.src,
-    lng: -43.236156,
-    lat: -22.869024,
-    width: 300,
-    offsetX: 0,
-    offsetY: 0,
+    desktop: { src: parqueEcologicoSvg.src, width: 500, offsetX: 0, offsetY: 0, lng: -43.2406556, lat: -22.864524 },
+    mobile: { src: parqueEcologicoMobileSvg.src, width: 300, offsetX: 0, offsetY: 0, lng: -43.236156, lat: -22.869024 },
   },
 ];
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function animateLayerOpacity(
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  map: any,
-  layerIds: string[],
-  targetOpacity: number,
-  duration = 600,
-) {
-  const startTime = performance.now();
-  const startValues = new Map<string, number>();
-
-  for (const id of layerIds) {
-    try {
-      const val = map.getPaintProperty(id, "icon-opacity");
-      startValues.set(id, typeof val === "number" ? val : 0);
-    } catch {
-      startValues.set(id, 0);
-    }
-  }
-
-  const tick = (now: number) => {
-    const elapsed = now - startTime;
-    const rawT = Math.min(elapsed / duration, 1);
-    const t = rawT < 0.5 ? 2 * rawT * rawT : 1 - (-2 * rawT + 2) ** 2 / 2;
-
-    for (const id of layerIds) {
-      const start = startValues.get(id) ?? 0;
-      try {
-        map.setPaintProperty(
-          id,
-          "icon-opacity",
-          start + (targetOpacity - start) * t,
-        );
-      } catch {
-        // Layer not found in the current style — skip silently
-      }
-    }
-
-    if (rawT < 1) requestAnimationFrame(tick);
-  };
-
-  requestAnimationFrame(tick);
-}
 
 function MapSelector() {
   const [selectedMap, setSelectedMap] = useState<
@@ -209,7 +148,7 @@ export function ScrollMapQualidadeArMapbox() {
   const card1Ref = useRef<HTMLDivElement>(null);
   const card2Ref = useRef<HTMLDivElement>(null);
   const card3Ref = useRef<HTMLDivElement>(null);
-  const [activeMobileOverlay, setActiveMobileOverlay] = useState<number | null>(null);
+  const [activeOverlay, setActiveOverlay] = useState<number | null>(null);
 
   useLayoutEffect(() => {
     let triggers: ScrollTrigger[] = [];
@@ -253,23 +192,11 @@ export function ScrollMapQualidadeArMapbox() {
     };
 
     const showLayers = (idx: number) => {
-      if (isMobile() && idx < MOBILE_OVERLAYS.length) {
-        setActiveMobileOverlay(idx);
-        return;
-      }
-      const map = getMap();
-      if (!map) return;
-      animateLayerOpacity(map, TRIGGER_LAYERS[idx], 1);
+      setActiveOverlay(idx);
     };
 
-    const hideLayers = (idx: number) => {
-      if (isMobile() && idx < MOBILE_OVERLAYS.length) {
-        setActiveMobileOverlay(null);
-        return;
-      }
-      const map = getMap();
-      if (!map) return;
-      animateLayerOpacity(map, TRIGGER_LAYERS[idx], 0);
+    const hideLayers = (_idx: number) => {
+      setActiveOverlay(null);
     };
 
     const cardRefs = [card1Ref, card2Ref, card3Ref];
@@ -381,14 +308,6 @@ export function ScrollMapQualidadeArMapbox() {
     const map = mapRef.current?.getMap?.();
     if (!map) return;
 
-    for (const id of ALL_LAYER_IDS) {
-      try {
-        map.setPaintProperty(id, "icon-opacity", 0);
-      } catch {
-        // Layer may not exist in the style yet
-      }
-    }
-
     if (typeof window !== "undefined" && window.innerWidth < 768) {
       map.jumpTo({
         center: [ORIGINAL_MOBILE.lng, ORIGINAL_MOBILE.lat],
@@ -431,27 +350,47 @@ export function ScrollMapQualidadeArMapbox() {
             doubleClickZoom={false}
             touchZoomRotate={false}
           >
-            {MOBILE_OVERLAYS.map((overlay, idx) => (
-              <Marker
-                key={overlay.src}
-                longitude={overlay.lng}
-                latitude={overlay.lat}
-                anchor="center"
-                style={{ pointerEvents: "none" }}
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={overlay.src}
-                  alt=""
-                  style={{
-                    display: "block",
-                    width: overlay.width,
-                    transform: `translate(${overlay.offsetX}px, ${overlay.offsetY}px)`,
-                    opacity: activeMobileOverlay === idx ? 1 : 0,
-                    transition: "opacity 600ms ease-in-out",
-                  }}
-                />
-              </Marker>
+            {OVERLAYS.map((overlay, idx) => (
+              <Fragment key={overlay.desktop.src}>
+                <Marker
+                  longitude={overlay.desktop.lng}
+                  latitude={overlay.desktop.lat}
+                  anchor="center"
+                  style={{ pointerEvents: "none" }}
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={overlay.desktop.src}
+                    alt=""
+                    className="hidden md:block"
+                    style={{
+                      width: overlay.desktop.width,
+                      transform: `translate(${overlay.desktop.offsetX}px, ${overlay.desktop.offsetY}px)`,
+                      opacity: activeOverlay === idx ? 1 : 0,
+                      transition: "opacity 600ms ease-in-out",
+                    }}
+                  />
+                </Marker>
+                <Marker
+                  longitude={overlay.mobile.lng}
+                  latitude={overlay.mobile.lat}
+                  anchor="center"
+                  style={{ pointerEvents: "none" }}
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={overlay.mobile.src}
+                    alt=""
+                    className="md:hidden"
+                    style={{
+                      width: overlay.mobile.width,
+                      transform: `translate(${overlay.mobile.offsetX}px, ${overlay.mobile.offsetY}px)`,
+                      opacity: activeOverlay === idx ? 1 : 0,
+                      transition: "opacity 600ms ease-in-out",
+                    }}
+                  />
+                </Marker>
+              </Fragment>
             ))}
           </MapboxMap>
         </div>
