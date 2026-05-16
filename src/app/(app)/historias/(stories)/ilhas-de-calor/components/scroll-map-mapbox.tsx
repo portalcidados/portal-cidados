@@ -429,23 +429,19 @@ export function ScrollMapMapbox() {
         >
           <div className="bg-white/70 backdrop-blur-sm text-black p-6 md:p-8 lg:p-10 max-w-2xl shadow-lg w-full">
             <p className="text-base md:text-lg leading-relaxed mb-6">
-              Durante o dia, materiais urbanos, como asfalto e concreto, absorvem
-              calor da radiação solar, elevando a temperatura. À noite, esses
-              materiais liberam gradualmente o calor armazenado, mantendo as
-              temperaturas elevadas nas áreas urbanas.
-            </p>
+              <strong className="font-bold">Durante o dia</strong>, materiais urbanos, como asfalto e concreto, absorvem calor da radiação solar, <strong className="font-bold">elevando a temperatura</strong>. <br/><br/>
+              <strong className="font-bold">À noite</strong>, esses materiais liberam gradualmente o calor armazenado, <strong className="font-bold">mantendo as temperaturas elevadas nas áreas urbanas</strong>.             </p>
             <div className="flex flex-wrap items-center gap-2 text-base md:text-lg">
               {[
-                "Noite",
-                "Calor",
-                "Ventilador",
+                "+ Calor",
+                "+ Ventilador",
                 "Infraestrutura precária",
-                "Apagão e quedas de energia",
+                "+ apagões",
               ].map((item, i, arr) => (
                 <span key={item} className="flex items-center gap-2">
                   <span>{item}</span>
                   {i < arr.length - 1 && (
-                    <span className="text-[#E50505] text-lg">&gt;</span>
+                    <span className="text-[#E50505] text-xl font-bold">→</span>
                   )}
                 </span>
               ))}

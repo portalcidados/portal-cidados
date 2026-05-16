@@ -236,7 +236,7 @@ export default function StoryFooter({
         {databases && databases.length > 0 && (
           <section className="px-6 py-6 lg:px-10 lg:py-10 max-w-[600px] bg-white/6">
             <h2 className="text-2xl font-bold mb-6 underline decoration-2 underline-offset-4">
-              Base de dados
+              Bases de Dados
             </h2>
             <div className="space-y-5 text-md lg:text-lg">
               {databases.map((db) => (

@@ -66,6 +66,14 @@ export default function Footer() {
               role: "Identidade visual",
               names: "Robert dos Santos da Silva",
             },
+            {
+              role: "Coordenador executivo",
+              names: "Maurício Bouskela e Adriano Borges Costa",
+            },
+            {
+              role: "Tratamento de dados",
+              names: "Vinicius Oike",
+            },
           ],
         },
         {
