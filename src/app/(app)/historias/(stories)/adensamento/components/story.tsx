@@ -854,8 +854,7 @@ export default function AdensamentoStory() {
         {/* MapaCinco — adensamento nos eixos */}
         <MapCard id="mapa_cinco">
           <CardText>
-            Nos Eixos, o objetivo seria permitir e estimular maior{" "}
-            <H>adensamento populacional,</H>ou seja, aumentar a quantidade de
+            Nos Eixos, o objetivo seria permitir e estimular maior <strong className="font-bold">adensamento populacional</strong>, ou seja, aumentar a quantidade de
             pessoas vivendo nessas quadras. Para tanto, três instrumentos
             regulatórios foram definidos pelo Plano Diretor para incentivar e
             viabilizar tal adensamento.
@@ -869,7 +868,7 @@ export default function AdensamentoStory() {
         {/* CepCapitulo3a — CA = 4, full lot (triggers overlay-3a) */}
         <MapCard id="cep_capitulo3a">
           <CardText>
-            O primeiro deles é o<H>limite de coeficiente de aproveitamento (CA),</H>que
+            O primeiro deles é o <strong className="font-bold">limite de coeficiente de aproveitamento (CA)</strong>, que
             determina quantas vezes a área do lote pode ser construída em novos
             empreendimentos imobiliários. Se o CA for igual a 4, por exemplo,
             isso significa que, se a nova construção ocupar o lote inteiro,
@@ -980,45 +979,38 @@ export default function AdensamentoStory() {
         {/* CepCapitulo5 — cota parte máxima (triggers overlay-5) */}
         <MapCard id="cep_capitulo5">
           <CardText>
-            O segundo instrumento é a definição de
-            <H>cota parte máxima</H>. Ela é a cota de terreno por unidade
+            O segundo instrumento é a definição de <strong className="font-bold">cota parte máxima</strong>. Ela é a cota de terreno por unidade
             habitacional e determina o número mínimo de unidades de moradia que
             devem ser feitas em novas edificações, dado o tamanho do terreno a
-            ser incorporado. Em uma região com
-            <H>cota parte máxima igual a 25m²</H>,<strong className="font-bold">um terreno de 500m²</strong> deve conter <strong className="font-bold">ao menos 20 unidades habitacionais</strong> nas novas edificações.
+            ser incorporado. Em uma região com <strong className="font-bold">cota parte máxima igual a 25m²</strong>, um<strong className="font-bold"> terreno de 500m²</strong> deve conter <strong className="font-bold">ao menos 20 unidades habitacionais</strong> nas novas edificações.
             <br />
-            <br />A<H>cota parte máxima</H>define a<H>densidade habitacional</H>
-            das novas edificações em um terreno, em uma quadra ou em uma região.
+            <br />A <strong className="font-bold">cota parte máxima</strong> define a <strong className="font-bold">densidade habitacional</strong> das novas edificações em um terreno, em uma quadra ou em uma região.
           </CardText>
         </MapCard>
 
         {/* CepCapitulo6 — gabarito (triggers overlay-6) */}
         <MapCard id="cep_capitulo6">
           <CardText>
-            O terceiro instrumento é o<H>gabarito,</H>que é a altura máxima dos
-            edifícios.
+          O terceiro instrumento é o <strong className="font-bold">limite de gabarito</strong>, que é a altura máxima dos edifícios. 
             <br />
             <br />
-            <H>gabarito</H>define a<H>verticalização</H>das novas edificações em
-            um terreno, em uma quadra ou em uma região.
+            O gabarito define a <strong className="font-bold"> verticalização</strong> das novas edificações em um terreno, em uma quadra ou em uma região.
           </CardText>
         </MapCard>
 
         {/* CepCapitulo6b — summary */}
         <MapCard id="cep_capitulo6b">
           <CardText>
-            Em áreas que se quer criar<H>densidade populacional,</H>o Plano Diretor pode
-            definir tais instrumentos para gerar maior
-            <H>densidade construtiva,</H>
-            <H>densidade habitacional</H>e<H>verticalização</H>. Já em miolos de
+            Em áreas que se quer criar <strong className="font-bold">densidade populacional</strong>, o Plano Diretor pode
+            definir tais instrumentos para gerar maior <strong className="font-bold">densidade construtiva</strong>, <strong className="font-bold">densidade habitacional</strong> e <strong className="font-bold">verticalização</strong>. Já em miolos de
             bairros, ou regiões de preservação histórica ou ambiental, o oposto
             pode ser feito, desestimulando ou não permitindo maiores densidades
             populacionais.
             <br />
             <br />
             Afinal, quais parâmetros construtivos são mais relevantes para
-            definir a<H>densidade populacional</H>de uma região?
-            <H>verticalização</H>está necessariamente associada a uma maior
+            definir a <strong className="font-bold">densidade populacional</strong> de uma região?
+            <strong className="font-bold"> verticalização</strong> está necessariamente associada a uma maior
             densidade?
           </CardText>
         </MapCard>
@@ -1044,12 +1036,11 @@ export default function AdensamentoStory() {
         {/* CepCapitulo7 — conclusion (triggers overlay-7) */}
         <MapCard id="cep_capitulo7">
           <CardText>
-            A pesquisa concluiu que, nas regiões em que o Plano Diretor exerce influência,
-            ou seja, naquelas sem grande informalidade em termos de moradia, a
-            <H>densidade habitacional,</H>estimulada pela
-            <H>cota parte máxima,</H>
+            A pesquisa concluiu que, nas regiões em que o Plano Diretor exerce influência, ou seja, naquelas sem grande informalidade em termos de moradia, a
+            <strong className="font-bold"> densidade habitacional </strong>, estimulada pela
+            <strong className="font-bold"> cota parte máxima </strong>,
             foi a característica construtiva mais relevante para definir a
-            <H>densidade populacional</H>.
+            <strong className="font-bold"> densidade populacional </strong>.
           </CardText>
         </MapCard>
 
@@ -1077,8 +1068,8 @@ export default function AdensamentoStory() {
         <MapCard id="cep_capitulo8">
           <CardText>
             Esse resultado é muito importante, visto que a regulação sobre a
-            <H>cota parte máxima</H>vigora apenas nas regiões dos
-            <H>eixos,</H>em que ela é de 20m².
+            <strong className="font-bold"> cota parte máxima </strong>vigora apenas nas regiões dos
+            <strong className="font-bold"> eixos</strong>, em que ela é de 20m².
           </CardText>
         </MapCard>
 
@@ -1142,29 +1133,16 @@ export default function AdensamentoStory() {
               Conclusão
             </h2>
             <WhiteText>
-              Dessa forma, para o bem ou para o mal, caso a prefeitura consiga
-              regulamentar os padrões construtivos, ela será capaz de definir a
-              densidade em cada parte da capital paulista. Esse poder não vem
-              desacompanhado de perigos: dependerá de uma administração
-              responsável. Se, por ventura, a demanda nas regiões centrais
-              estiver sendo reprimida pela regulação, é possível que ela venha
-              causando um espraiamento urbano, algo que o próprio Plano Diretor almeja
-              combater.
+            Dessa forma, para o bem ou para o mal, ao utilizar instrumentos de regulação construtiva, a prefeitura é capaz de definir a densidade populacional em cada parte da capital paulista. Esse poder não vem desacompanhado de perigos: se, porventura, a demanda por viver em regiões centrais for reprimida pela regulação urbana, causará espraiamento urbano, algo que o próprio Plano Diretor almeja combater.
               <br />
               <br />
-              Por fim, cerca de metade das moradias de São Paulo se encontram em
-              situação de informalidade e, portanto, a regulação não surte
-              efeito direto nelas. Para fins de planejamento urbano, este é um
-              problema grave e suas raízes devem ser investigadas. Uma hipótese
-              que está em linha com os pontos trazidos anteriormente, se refere
-              à possibilidade da demanda reprimida e de preços elevados gerarem
-              incentivos para a formação de um mercado de moradia informal.
+              No mesmo sentido, <strong className="font-bold">não é desejável que a regulação urbana incentive uma verticalização ineficiente, que não promova adensamento populacional ou outros benefícios para a cidade</strong>, já que transforma a paisagem, arquitetura e história dos bairros. Prédios altos e desacompanhados de densidade construtiva e habitacional geralmente apresentam recuos consideráveis e são murados, afastando moradores da rua e do espaço público. A criação de “enclaves fortificados” aprofunda as desigualdades e a segregação urbana.
               <br />
-              <br />A história aqui apresentada é resultado do trabalho de
-              Iniciação Científica de Gustavo Theil, intitulado &quot;Para o bem
-              ou para o mal: análise da capacidade que o governo tem de
-              controlar a densidade habitacional&quot;. Para acessar a pesquisa
-              completa acesse o link.
+              <br />
+              Dessa maneira, <strong className="font-bold">é possível separar a “boa” da “má” verticalização</strong>, ou seja, verticalização que gera adensamento e verticalização que não gera. E o “componente secreto”, digamos, que separa as duas é, na realidade, a densidade habitacional. Portanto, deve ficar claro que <strong className="font-bold">há uma diferença significativa entre verticalizar e adensar.</strong> 
+              <br />
+              <br />
+              A história aqui apresentada é resultado do trabalho de Iniciação Científica de Gustavo Theil, intitulado "Para o bem ou para o mal: análise da capacidade que o governo tem de controlar a densidade habitacional". Para acessar a pesquisa completa, acesse o link abaixo. 
             </WhiteText>
           </div>
         </section>

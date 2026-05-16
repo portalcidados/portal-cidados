@@ -114,7 +114,7 @@ export default function StoryFooter({
                 <h2 className="text-2xl font-bold mb-6 underline decoration-2 underline-offset-4">
                   Detalhes do estudo
                 </h2>
-                <div className="space-y-2 text-md lg:text-lg">
+                <div className="space-y-2 text-md lg:text-lg font-bold">
                   {studyDetail.descriptionHref ? (
                     <a
                       href={studyDetail.descriptionHref}
