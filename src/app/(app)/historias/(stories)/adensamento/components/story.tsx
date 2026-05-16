@@ -469,11 +469,11 @@ export default function AdensamentoStory() {
         className="relative z-10 flex w-full min-h-screen items-center justify-center lg:justify-center p-[10%] bg-[#2BA680] text-white"
       >
         <div className="flex flex-col items-start max-w-xs lg:max-w-[40%]">
-          <h2 className="text-white underline font-semibold text-2xl mb-6 max-w-[400px] selection:bg-white selection:text-[#2BA680]">
+          {/* <h2 className="text-white underline font-semibold text-2xl mb-6 max-w-[400px] selection:bg-white selection:text-[#2BA680]">
             Introdução
-          </h2>
+          </h2> */}
           <WhiteText>
-            2024.
+            2022.
             <br />
             São Paulo, SP.
             <br />
@@ -823,9 +823,9 @@ export default function AdensamentoStory() {
           <CardText>
             Já nos bairros e nas quadras mais consolidadas e com melhor
             infraestrutura na cidade de São Paulo, a estratégia foi estimular o
-            mercado imobiliário residencial. Para tanto, em algumas quadras
+            mercado imobiliário residencial. Para tanto, <strong className="font-bold">em algumas quadras
             próximas ao transporte público de massa, foram estabelecidos os
-            Eixos de Estruturação da Transformação Urbana, ou simplesmente
+            Eixos</strong> de Estruturação da Transformação Urbana, ou simplesmente
             Eixos, onde se busca promover o adensamento populacional.
           </CardText>
         </MapCard>
@@ -869,7 +869,7 @@ export default function AdensamentoStory() {
         {/* CepCapitulo3a — CA = 4, full lot (triggers overlay-3a) */}
         <MapCard id="cep_capitulo3a">
           <CardText>
-            O primeiro deles é o<H>coeficiente de aproveitamento (CA),</H>que
+            O primeiro deles é o<H>limite de coeficiente de aproveitamento (CA),</H>que
             determina quantas vezes a área do lote pode ser construída em novos
             empreendimentos imobiliários. Se o CA for igual a 4, por exemplo,
             isso significa que, se a nova construção ocupar o lote inteiro,
@@ -902,9 +902,7 @@ export default function AdensamentoStory() {
         >
           <div className="pointer-events-auto backdrop-blur-[20px] bg-white/46 max-w-xs lg:max-w-lg p-8 lg:p-12">
             <CardText>
-              Sua vez! Use os sliders abaixo para alterar a <strong className="font-bold">taxa de ocupação
-              (TO)</strong> do terreno e o <strong className="font-bold">coeficiente de aproveitamento (CA)</strong> do
-              edifício ao lado.
+              Sua vez! Use o painel abaixo para alterar a <strong className="font-bold">taxa de ocupação (TO)</strong> do terreno e o <strong className="font-bold">coeficiente de aproveitamento (CA)</strong> do edifício ao lado.
             </CardText>
 
             <div className="mt-6 space-y-4">
@@ -972,13 +970,10 @@ export default function AdensamentoStory() {
         {/* MapaSeis — density construtiva */}
         <MapCard id="mapa_seis">
           <CardText>
-            Assim, o CA define a densidade construtiva das novas edificações em
-            um terreno, em uma quadra ou em uma região.
+          Assim, o coeficiente de aproveitamento (CA) representa a <strong className="font-bold">densidade construtiva</strong> das edificações em um terreno, em uma quadra ou em uma região.
             <br />
             <br />
-            No mapa ao lado, você pode verificar a atual densidade construtiva
-            da capital paulista, ou seja, qual o coeficiente de aproveitamento
-            real aplicado.
+            No mapa ao lado, você pode verificar como varia, entre as regiões, a densidade construtiva das edificações que existem na cidade.
           </CardText>
         </MapCard>
 
@@ -989,9 +984,8 @@ export default function AdensamentoStory() {
             <H>cota parte máxima</H>. Ela é a cota de terreno por unidade
             habitacional e determina o número mínimo de unidades de moradia que
             devem ser feitas em novas edificações, dado o tamanho do terreno a
-            ser incorporado. Em uma região de
-            <H>cota parte máxima</H>igual a 20m², um terreno de 1.000m² deve
-            conter ao menos 50 unidades habitacionais nas novas edificações.
+            ser incorporado. Em uma região com
+            <H>cota parte máxima igual a 25m²</H>,<strong className="font-bold">um terreno de 500m²</strong> deve conter <strong className="font-bold">ao menos 20 unidades habitacionais</strong> nas novas edificações.
             <br />
             <br />A<H>cota parte máxima</H>define a<H>densidade habitacional</H>
             das novas edificações em um terreno, em uma quadra ou em uma região.
