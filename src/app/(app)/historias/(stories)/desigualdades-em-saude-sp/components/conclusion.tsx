@@ -195,6 +195,16 @@ export default function Conclusion() {
             para enfrentar as desigualdades no acesso aos cuidados médicos.
           </p>
 
+          <p className="pb-10">
+            Apesar do panorama desafiador, o setor de saúde brasileiro tem
+            alcançado avanços significativos através do Sistema Único de Saúde
+            (SUS), que tem desempenhado um papel decisivo na melhoria de
+            indicadores, como a redução expressiva da mortalidade infantil e o
+            aumento da expectativa de vida nas últimas décadas. Esses resultados
+            evidenciam a importância do SUS como o principal meio de acesso
+            cuidados integrais de saúde para grande parte da população.
+          </p>
+
           <p>
             <span className="font-semibold">Propostas</span>
           </p>
@@ -202,7 +212,7 @@ export default function Conclusion() {
           <div className="space-y-4 pb-16">
             <div
               ref={card1Ref}
-              className="bg-white rounded-lg p-8 backdrop-blur-sm"
+              className="bg-white p-8 backdrop-blur-sm"
             >
               <h3 className="font-semibold mb-3">
                 UBS no sistema de transporte
@@ -222,7 +232,7 @@ export default function Conclusion() {
 
             <div
               ref={card2Ref}
-              className="bg-white rounded-lg p-8 backdrop-blur-sm"
+              className="bg-white p-8 backdrop-blur-sm"
             >
               <h3 className="font-semibold mb-3">
                 Reeducação alimentar na infância
@@ -240,7 +250,7 @@ export default function Conclusion() {
 
             <div
               ref={card3Ref}
-              className="bg-white rounded-lg p-8 backdrop-blur-sm"
+              className="bg-white p-8 backdrop-blur-sm"
             >
               <h3 className="font-semibold mb-3">
                 Criação do Observatório de Saúde Urbana
@@ -284,7 +294,7 @@ export default function Conclusion() {
 
           <button
             type="button"
-            className="flex items-center gap-2 bg-black text-white px-6 py-3 rounded-full hover:bg-black/80 hover:cursor-pointer transition-colors duration-200"
+            className="flex items-center gap-2 bg-black text-white px-6 py-3  hover:bg-black/80 hover:cursor-pointer transition-colors duration-200"
             onClick={toggleBonusAudio}
             aria-pressed={isPlaying}
             aria-label={isPlaying ? "Pausar áudio" : "Reproduzir áudio"}

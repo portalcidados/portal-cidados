@@ -292,7 +292,7 @@ export default function HouseSection() {
     py-[25px]
     lg:px-[32px]
     lg:py-[25px]
-    rounded-xl shadow-lg
+    shadow-lg
     "
             style={{
               top: `${card.top}vh`,

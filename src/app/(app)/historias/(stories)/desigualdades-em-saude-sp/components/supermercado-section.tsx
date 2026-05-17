@@ -495,7 +495,7 @@ export default function SupermercadoSection() {
     py-[25px]
     lg:px-[32px]
     lg:py-[25px]
-    rounded-xl shadow-lg
+    shadow-lg
     ${index === 3 || index === 4 ? "z-60" : ""}
     `}
             style={{
