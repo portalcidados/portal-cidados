@@ -88,7 +88,7 @@ export default function HouseSection() {
   // Morph animation + panoramic visibility triggers
   useGSAP(() => {
     const firstCard = containerRef.current?.querySelector(`[data-card-index="0"]`);
-    const secondCard = containerRef.current?.querySelector(`[data-card-index="1"]`);
+    const secondCard = containerRef.current?.querySelector(`[data-card-index="2"]`);
 
     if (!firstCard || !houseOneRef.current || !houseBackgroundRef.current) return;
 
@@ -96,7 +96,7 @@ export default function HouseSection() {
     const morphTl = gsap.timeline({
       scrollTrigger: {
         trigger: firstCard,
-        start: "bottom center",
+        start: "bottom top",
         toggleActions: "play none none reverse",
         invalidateOnRefresh: true,
       },
@@ -132,7 +132,7 @@ export default function HouseSection() {
     if (secondCard) {
       ScrollTrigger.create({
         trigger: secondCard,
-        start: "bottom center",
+        start: "top bottom",
         onEnter: () => {
           gsap.to(houseBackgroundRef.current, {
             opacity: 0,
@@ -161,13 +161,13 @@ export default function HouseSection() {
     }
 
     return () => {
-      ScrollTrigger.getAll().forEach((t) => t.kill());
+      for (const t of ScrollTrigger.getAll()) t.kill();
     };
   }, []);
 
   // Panoramic horizontal scroll animation
   useGSAP(() => {
-    const thirdCard = containerRef.current?.querySelector(`[data-card-index="2"]`);
+    const thirdCard = containerRef.current?.querySelector(`[data-card-index="3"]`);
     if (!thirdCard || !panoramicSliderRef.current) return;
 
     gsap.to(panoramicSliderRef.current, {
@@ -183,14 +183,36 @@ export default function HouseSection() {
     });
 
     return () => {
-      ScrollTrigger.getAll().forEach((t) => t.kill());
+      for (const t of ScrollTrigger.getAll()) t.kill();
     };
   }, []);
 
-  // Define the text cards content and positions (removed the third card)
+  // Define the text cards content and positions
   const cards = [
     {
       top: 0,
+      text: (
+        <>
+          O dia começa cedo: às 4h da manhã, Maria já está de pé para preparar o
+          café das crianças e tomar um banho rápido antes de sair.{" "}
+          <strong>
+            Como o tempo é curto, a primeira refeição do dia não é feita como
+            deveria.
+          </strong>{" "}
+          Os alimentos ultraprocessados, como achocolatados e biscoitos
+          recheados dão lugar às frutas, aos ovos e ao suco caseiro.
+          <br />
+          <strong className="mt-4 block">
+            {" "}
+            Maria tem <strong>Diabetes Mellitus</strong> e precisa medir sua
+            glicose diariamente, mas sua rotina é tão corrida que nem sempre ela
+            consegue fazer isso como deveria.
+          </strong>
+        </>
+      ),
+    },
+    {
+      top: 200,
       text: (
         <>
           Às 5h30, Maria já está no ponto de ônibus. Duas conduções e quase duas
@@ -203,33 +225,12 @@ export default function HouseSection() {
       ),
     },
     {
-      top: 150,
+      top: 230,
       text: (
         <>
-          Durante o trajeto, Maria aproveita para tomar o café da manhã que não
-          conseguiu fazer em casa.{" "}
-          <strong>
-            Um biscoito recheado e um suco de caixinha substituem uma refeição
-            mais nutritiva
-          </strong>
-          , mas é o que o tempo e o orçamento permitem.
         </>
       ),
     },
-    // {
-    //   top: 300,
-    //   text: (
-    //     <>
-    //       Ao final do dia, Maria retorna para casa às 19h.{" "}
-    //       <strong>
-    //         Entre trabalho, transporte e cuidados domésticos, sobra pouco tempo
-    //         para cuidar da própria saúde
-    //       </strong>
-    //       , perpetuando um ciclo que afeta diretamente o controle de sua
-    //       diabetes.
-    //     </>
-    //   ),
-    // },
     {
       top: 300,
       text: (
@@ -242,7 +243,7 @@ export default function HouseSection() {
   ];
 
   return (
-    <div ref={containerRef} className="h-[600vh]">
+    <div ref={containerRef} className="h-[550vh]">
       <div
         style={{ position: "sticky", top: 0 }}
         className="h-screen w-full overflow-hidden"
@@ -286,7 +287,7 @@ export default function HouseSection() {
       <div className="relative flex flex-col items-center">
         {cards.map((card, index) => (
           <div
-            key={index}
+            key={`card-${card.top}-${index}`}
             data-card-index={index}
             className="absolute bg-[#FFFFFF]/90 h-auto w-[80vw] md:w-[460px] border border-[#000000]/20 px-[30px]
     py-[25px]
@@ -296,7 +297,7 @@ export default function HouseSection() {
     "
             style={{
               top: `${card.top}vh`,
-              opacity: index === 0 || index === 1 ? 0 : 1,
+              opacity: index === 1 || index === 2 ? 0 : 1,
             }}
           >
             <div className="text-[#000000]">{card.text}</div>
