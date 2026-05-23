@@ -317,8 +317,14 @@ export default function SupermercadoSection() {
       top: 0,
       text: (
         <>
-          Lá, Maria trabalha como caixa de supermercado. Todo dia, pontualmente
-          às 8h da manhã, ela recebe dona Alice, cliente de carteirinha da loja.
+          Lá,{" "}
+          <strong>Maria trabalha como caixa de supermercado</strong>. Todo dia,
+          pontualmente às 8h da manhã, ela atende a Alice, que vai comprar pão e
+          frutas para seu café da manhã.{" "}
+          <strong>
+            Alice mora no mesmo prédio onde fica a loja em que Maria trabalha
+          </strong>
+          .
         </>
       ),
     },
@@ -326,10 +332,13 @@ export default function SupermercadoSection() {
       top: 150,
       text: (
         <>
-          Recentemente dona Alice sofreu um AVC (acidente vascular cerebral ou
-          derrame), mas felizmente, recebeu atendimento rápido em um hospital de
+          Recentemente,{" "}
+          <strong>Alice sofreu um AVC</strong> (acidente vascular cerebral ou
+          derrame), mas felizmente{" "}
+          <strong>recebeu atendimento rápido</strong> em um hospital de
           excelência, localizado a poucos minutos de sua casa. Graças a isso,
-          ela se recuperou sem maiores complicações.
+          ela{" "}
+          <strong>se recuperou sem maiores complicações</strong>.
         </>
       ),
     },

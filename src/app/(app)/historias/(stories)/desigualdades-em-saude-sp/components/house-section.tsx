@@ -235,8 +235,10 @@ export default function HouseSection() {
       top: 300,
       text: (
         <>
-          Às 5hs, ela pega o ônibus. São duas horas de viagem até o Jardim
-          Paulista, um bairro de classe média alta na área central da cidade.
+          Às 5hs,{" "}
+          <strong>Maria pega o ônibus em direção ao trabalho</strong>. São{" "}
+          <strong>duas horas de viagem</strong> até o Jardim Paulista, um
+          bairro de classe média alta próximo à Avenida Paulista.
         </>
       ),
     },
