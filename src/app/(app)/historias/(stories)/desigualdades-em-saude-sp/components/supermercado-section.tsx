@@ -97,6 +97,18 @@ export default function SupermercadoSection() {
           setCurrentImage(0);
         },
       });
+
+      // condominioOne appears when "Recentemente, Alice sofreu..." exits the screen
+      ScrollTrigger.create({
+        trigger: secondCardElement,
+        start: "bottom top",
+        onEnter: () => {
+          setCurrentImage(2);
+        },
+        onLeaveBack: () => {
+          setCurrentImage(1);
+        },
+      });
     }
 
     if (thirdCardElement) {
@@ -104,12 +116,12 @@ export default function SupermercadoSection() {
         trigger: thirdCardElement,
         start: "bottom center",
         onEnter: () => {
-          // Switch to condominioOne when entering third card
+          // condominioOne already shown by secondCard exit — keep as fallback for jump-scrolls
           setCurrentImage(2);
         },
         onLeaveBack: () => {
-          // Switch back to second image when leaving third card
-          setCurrentImage(1);
+          // Still between thirdCard and secondCard exit — stay on condominioOne
+          setCurrentImage(2);
         },
       });
     }
