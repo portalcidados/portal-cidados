@@ -358,7 +358,7 @@ export default function SupermercadoSection() {
       top: 300,
       text: (
         <>
-          Se dona Alice morasse no Jardim Helena, a história poderia ser
+          Se Alice morasse no Jardim Helena, a história poderia ser
           diferente.{" "}
           <strong>
             Este estudo mostra que, em bairros periféricos como o de Maria, a
@@ -384,7 +384,7 @@ export default function SupermercadoSection() {
       top: 600,
       text: (
         <>
-          Enquanto Maria passa o dia trabalhando no mercado, dona Alice
+          Enquanto Maria passa o dia trabalhando no mercado, Alice
           aproveita sua manhã para caminhar em um parque próximo de sua casa.
           Uma pesquisa realizada nas cidades australianas de Sydney, Wollongong
           e Newcastle demonstrou que{" "}
