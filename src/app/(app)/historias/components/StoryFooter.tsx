@@ -129,11 +129,6 @@ export default function StoryFooter({
                       {studyDetail.description}
                     </p>
                   )}
-                  {studyDetail.organization && (
-                    <p className="text-[#FFFFFF] opacity-40">
-                      {studyDetail.organization}
-                    </p>
-                  )}
                 </div>
               </section>
             )}
@@ -154,6 +149,11 @@ export default function StoryFooter({
                 className={`order-3 lg:col-start-1 lg:row-start-2 ${hasRightColumn ? "lg:col-span-2" : ""}`}
               >
                 <div className="space-y-1 text-md lg:text-lg">
+                  {studyDetail.organization && (
+                    <p className="text-white opacity-40">
+                      {studyDetail.organization}
+                    </p>
+                  )}
                   {studyDetail.documentType && (
                     <p className="text-white opacity-40">
                       {studyDetail.documentType}

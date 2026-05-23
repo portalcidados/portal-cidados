@@ -20,26 +20,38 @@ const GEOSES_LEGEND = [
   { label: "1", color: "#2166ac" },
 ];
 
-const HIGHLIGHT_GEOJSON = {
-  type: "Feature",
-  geometry: {
-    type: "MultiPolygon",
-    coordinates: [
-      [
-        [
-          [-46.6825903, -23.5419420],
-          [-46.6761500, -23.5329372],
-          [-46.6726579, -23.5352496],
-          [-46.6760840, -23.5289438],
-          [-46.6823887, -23.5248480],
-          [-46.6920547, -23.5385460],
-          [-46.6896019, -23.5374108],
-          [-46.6825903, -23.5419420],
+const AV_PAULISTA_GEOJSON = {
+  type: "FeatureCollection",
+  features: [
+    {
+      type: "Feature",
+      properties: {},
+      geometry: {
+        type: "LineString",
+        coordinates: [
+          [-46.6640713, -23.5545146],
+          [-46.6581239, -23.5599362],
+          [-46.6559479, -23.5617991],
+          [-46.6546584, -23.5628434],
+          [-46.6507785, -23.5660968],
+          [-46.6470213, -23.5691157],
         ],
-      ],
-    ],
-  },
-  properties: {},
+      },
+    },
+    {
+      type: "Feature",
+      properties: {},
+      geometry: {
+        type: "LineString",
+        coordinates: [
+          [-46.6470405, -23.5691045],
+          [-46.646032,  -23.5698428],
+          [-46.6450229, -23.5705971],
+          [-46.6442632, -23.5712031],
+        ],
+      },
+    },
+  ],
 };
 
 const JARDIM_HELENA_GEOJSON = {
@@ -118,33 +130,32 @@ export default function ScrollyCards() {
       top: 0,
       text: (
         <>
-          A desigualdade socioeconômica no município de São Paulo pode ser
-          visualizada de forma clara por meio do Índice GeoSES, que resume as
-          condições socioeconômicas da cidade. O mapa a seguir, com dados de
-          2010, revela como fatores como renda, educação e infraestrutura urbana
-          estão distribuídos de maneira desigual entre diferentes regiões da
-          cidade. As áreas em azul indicam regiões com melhores condições
+          <b>A desigualdade existente do município de São Paulo</b> pode ser
+          visualizada de forma clara por meio do Índice GeoSES, que resume as{" "}
+          <b>condições socioeconômicas vividas nas diferentes regiões da cidade</b>
+          . Este mapa, com dados de 2010, revela como fatores como renda,
+          educação e infraestrutura urbana estão distribuídos de maneira desigual
+          na cidade. As áreas em azul indicam regiões com melhores condições
           socioeconômicas, enquanto as áreas em vermelho representam regiões com
           maior vulnerabilidade.
         </>
       ),
     },
     {
-      longitude: -46.7033,
-      latitude: -23.5505,
+      longitude: -46.6583,
+      latitude: -23.5655,
       zoom: 12,
       pitch: 0,
       bearing: 0,
       top: 150,
       text: (
         <>
-          Notamos que{" "}
-          <strong>
-            a desigualdade aumenta progressivamente à medida que nos afastamos
-            do centro da cidade
-          </strong>
-          . Tenha este mapa em mente, pois ele será fundamental para compreender
-          a relação com os demais mapas apresentados a seguir.
+          Notamos a <b>desigualdade entre os bairros</b> à medida que nos
+          afastamos progressivamente das{" "}
+          <b>regiões centrais da cidade</b>, como a{" "}
+          <b>Avenida Paulista</b>, e nos aproximamos da{" "}
+          <b>periferia</b>, como o bairro do{" "}
+          <b>Jardim Helena</b>, na Zona Leste de São Paulo.
         </>
       ),
     },
@@ -157,12 +168,10 @@ export default function ScrollyCards() {
       top: 300,
       text: (
         <>
-          A seguir, contaremos a história de Maria, que mora no Jardim Helena,
-          um bairro periférico da Zona Leste de São Paulo.{" "}
-          <strong>
-            Este é um caso hipotético, mas pode ser muito comum na realidade
-            brasileira.
-          </strong>
+          A seguir, contaremos a{" "}
+          <strong>história de Maria</strong>, que{" "}
+          <strong>mora no Jardim Helena</strong>. Este é um caso hipotético,
+          mas muito comum na realidade Palistana.
         </>
       ),
     },
@@ -214,7 +223,21 @@ export default function ScrollyCards() {
               toggleJardimHelenaLayer(index === 2);
             }
           },
-          onLeave: index === 1 ? () => {
+          onLeave: index === 0 ? () => {
+            const card1Location = locations[1];
+            if (mapRef.current) {
+              const map = mapRef.current.getMap();
+              map.flyTo({
+                center: [card1Location.longitude, card1Location.latitude],
+                zoom: card1Location.zoom,
+                pitch: card1Location.pitch,
+                bearing: card1Location.bearing,
+                duration: 2000,
+                essential: true,
+              });
+            }
+            toggleHighlightLayer(true);
+          } : index === 1 ? () => {
             const jhLocation = locations[locations.length - 1];
             if (mapRef.current) {
               const map = mapRef.current.getMap();
@@ -280,54 +303,54 @@ export default function ScrollyCards() {
     if (!mapRef.current) return;
     const map = mapRef.current.getMap();
 
-    map.addSource("highlight-area", {
+    map.addSource("av-paulista", {
       type: "geojson",
-      data: HIGHLIGHT_GEOJSON as GeoJSON.Feature,
+      data: AV_PAULISTA_GEOJSON as unknown as GeoJSON.FeatureCollection,
     });
 
+    // Asfalto — base larga escura
     map.addLayer({
-      id: "highlight-area-fill",
-      type: "fill",
-      source: "highlight-area",
-      paint: {
-        "fill-color": "#ffffff",
-        "fill-opacity": 0.33,
-      },
-      layout: {
-        visibility: "none",
-      },
-    });
-
-    map.addLayer({
-      id: "highlight-area-line",
+      id: "av-paulista-outline",
       type: "line",
-      source: "highlight-area",
+      source: "av-paulista",
       paint: {
-        "line-color": "#000000",
-        "line-width": 1.5,
-        "line-dasharray": [2, 2],
+        "line-color": "#2c2c2c",
+        "line-width": 14,
+        "line-opacity": 0.95,
       },
-      layout: {
-        visibility: "none",
-      },
+      layout: { visibility: "none" },
     });
 
-    const centroStart: [number, number] = [-46.6920547, -23.5385460];
-    const centroEnd: [number, number] = [-46.708, -23.5385460];
+    // Faixa central tracejada branca
+    map.addLayer({
+      id: "av-paulista-solid",
+      type: "line",
+      source: "av-paulista",
+      paint: {
+        "line-color": "#ffffff",
+        "line-width": 2,
+        "line-dasharray": [6, 5],
+        "line-opacity": 0.9,
+      },
+      layout: { visibility: "none" },
+    });
 
-    map.addSource("centro-line", {
+    const avPaulistaLabelStart: [number, number] = [-46.6640713, -23.5545146];
+    const avPaulistaLabelEnd: [number, number] = [-46.685, -23.5545146];
+
+    map.addSource("av-paulista-leader", {
       type: "geojson",
       data: {
         type: "Feature",
-        geometry: { type: "LineString", coordinates: [centroStart, centroEnd] },
+        geometry: { type: "LineString", coordinates: [avPaulistaLabelStart, avPaulistaLabelEnd] },
         properties: {},
       } as GeoJSON.Feature,
     });
 
     map.addLayer({
-      id: "centro-line-layer",
+      id: "av-paulista-leader-layer",
       type: "line",
-      source: "centro-line",
+      source: "av-paulista-leader",
       paint: {
         "line-color": "#000000",
         "line-width": 1.5,
@@ -336,23 +359,23 @@ export default function ScrollyCards() {
       layout: { visibility: "none" },
     });
 
-    map.addSource("centro-label", {
+    map.addSource("av-paulista-label", {
       type: "geojson",
       data: {
         type: "Feature",
-        geometry: { type: "Point", coordinates: centroEnd },
-        properties: { label: "Centro" },
+        geometry: { type: "Point", coordinates: avPaulistaLabelEnd },
+        properties: {},
       } as GeoJSON.Feature,
     });
 
     map.addLayer({
-      id: "centro-label-layer",
+      id: "av-paulista-label-layer",
       type: "symbol",
-      source: "centro-label",
+      source: "av-paulista-label",
       layout: {
         "text-field": [
           "format",
-          "Centro",
+          "Av. Paulista",
           {
             "font-scale": 1.0,
             "text-font": ["literal", ["Open Sans Bold", "Arial Unicode MS Bold"]],
@@ -360,7 +383,7 @@ export default function ScrollyCards() {
           },
           "\n",
           {},
-          "Bairro",
+          "Avenida",
           {
             "font-scale": 0.9,
             "text-color": "rgba(0, 0, 0, 0.5)",
@@ -368,7 +391,7 @@ export default function ScrollyCards() {
         ],
         "text-size": 20,
         "text-anchor": "right",
-        "text-justify": "left",
+        "text-justify": "right",
         "text-offset": [-0.4, 0.6],
         "text-allow-overlap": true,
         visibility: "none",
@@ -462,10 +485,10 @@ export default function ScrollyCards() {
     const map = mapRef.current.getMap();
     const v = visible ? "visible" : "none";
     for (const id of [
-      "highlight-area-fill",
-      "highlight-area-line",
-      "centro-line-layer",
-      "centro-label-layer",
+      "av-paulista-outline",
+      "av-paulista-solid",
+      "av-paulista-leader-layer",
+      "av-paulista-label-layer",
     ]) {
       if (map.getLayer(id)) {
         map.setLayoutProperty(id, "visibility", v);

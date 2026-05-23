@@ -5,11 +5,11 @@ export default function Footer() {
     <StoryFooter
       studyDetail={{
         description:
-          '"Para o bem ou para o mal: Análise da capacidade que o governo tem de controlar a densidade habitacional"',
+          'Para o bem ou para o mal: Análise da capacidade que o governo tem de controlar a densidade habitacional',
         descriptionHref:
           "https://repositorio.insper.edu.br/entities/publication/66419ce4-82d4-4625-9391-20adbddd1709",
-        organization: "Gustavo Theil",
-        documentType: "Relatório",
+        // organization: "Gustavo Theil",
+        documentType: "Relatório de Iniciação Científica",
         institution: "Insper Instituto de Ensino e Pesquisa",
         extraLines: ["Ciências Econômicas"],
         year: 2024,

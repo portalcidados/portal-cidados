@@ -10,7 +10,7 @@ export default function Footer() {
         descriptionHref:
           "https://www.redesdamare.org.br/media/downloads/arquivos/RespiraMareRelatorio.pdf",
         organization: "Redes da Maré",
-        documentType: "Relatório",
+        documentType: "Relatório Técnico de Pesquisa",
         year: 2024,
       }}
       realizacao={[

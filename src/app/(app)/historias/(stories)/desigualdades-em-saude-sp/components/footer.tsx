@@ -5,14 +5,12 @@ export default function Footer() {
     <StoryFooter
       studyDetail={{
         description:
-          '"Síntese de evidências sobre saúde no município de São Paulo"',
+          'Síntese de evidências sobre saúde no município de São Paulo',
         descriptionHref:
           "https://observatoriosaudepublica.com.br/static/frontend/pesquisa/executivo-saude-sp.pdf",
-        organization:
-          "Paulo H. Nascimento Saldiva, Lígia Vizeu Barrozo, Catia Martinez Minto, Sara Lopes de Moraes e Paulo Afonso de André",
-        documentType: "Relatório",
-        institution: "Instituto de Ensino e Pesquisa",
-        extraLines: ["Ciências Econômicas"],
+        documentType: "Relatório Técnico de Pesquisa",
+        institution: "Centro de Estudos das Cidades – Laboratório Arq.Futuro",
+        extraLines: ["Iniciativa de Saúde Urbana"],
         year: 2024,
       }}
       databases={[
@@ -44,12 +42,7 @@ export default function Footer() {
             {
               role: "Autores",
               names: "Paulo H. Nascimento Saldiva, Lígia Vizeu Barrozo, Catia Martinez Minto, Sara Lopes de Moraes e Paulo Afonso de André",
-            },
-            {
-              role: "Colaboradores",
-              names: "Tomas Alvim, Paulina A. Achurra Burgos, Ana Carolina Velasco, Gabriela Vasconcelos e Marcia M. da Silva",
-            },
-            { role: "Colaborador", names: "Adriano Borges Costa" },
+            }
           ],
         },
         {
