@@ -372,11 +372,17 @@ export default function SupermercadoSection() {
       top: 450,
       text: (
         <>
-          Os resultados do estudo sobre mortalidade prematura por doenças
-          cerebrovasculares em mulheres ao longo de todo o período analisado
-          apontam um risco relativo significativamente elevado nos distritos do
-          extremo leste e sul da cidade, assim como em Brasilândia e
-          Cachoeirinha.
+          Para a{" "}
+          <strong>
+            mortalidade prematura por doenças cerebrovasculares em mulheres
+          </strong>
+          , o estudo aponta um{" "}
+          <strong>
+            risco relativo significativamente elevado nos distritos do extremo
+            leste e sul
+          </strong>{" "}
+          da cidade, assim como em Brasilândia e Cachoeirinha, conforme mostra
+          este mapa.
         </>
       ),
     },
@@ -384,14 +390,29 @@ export default function SupermercadoSection() {
       top: 600,
       text: (
         <>
-          Enquanto Maria passa o dia trabalhando no mercado, Alice
-          aproveita sua manhã para caminhar em um parque próximo de sua casa.
+          Enquanto Maria passa o dia trabalhando no mercado,{" "}
+          <strong>
+            Alice consegue ainda, antes de ir trabalhar, fazer uma caminhada em
+            um parque
+          </strong>{" "}
+          próximo de sua casa.
+          <br />
+          <br />
           Uma pesquisa realizada nas cidades australianas de Sydney, Wollongong
           e Newcastle demonstrou que{" "}
           <strong>
             indivíduos com maior exposição a áreas verdes apresentaram menores
-            prevalências de diabetes e hipertensão arterial.
+            prevalências de diabetes e hipertensão arterial
           </strong>
+          .
+          <br />
+          <br />
+          No Jardim Helena,{" "}
+          <strong>
+            Maria não tem esse privilégio, pois o bairro carece de espaços
+            verdes
+          </strong>{" "}
+          adequados, o que também impacta sua saúde.
         </>
       ),
     },
@@ -399,10 +420,7 @@ export default function SupermercadoSection() {
       top: 750,
       text: (
         <>
-          No Jardim Helena, Maria não tem esse privilégio — o bairro carece de
-          espaços verdes adequados, o que também impacta sua saúde. O dia de
-          trabalho de Maria termina e ela volta para sua casa, mais uma jornada
-          de duas horas no transporte público.
+          O dia de trabalho de Maria termina e ela volta para sua casa com <strong>mais uma jornada de duas horas no transporte público</strong>.
         </>
       ),
     },
@@ -410,10 +428,7 @@ export default function SupermercadoSection() {
       top: 900,
       text: (
         <>
-          Depois de um dia intenso ela precisa buscar seus medicamentos na
-          Farmácia Popular, um recurso essencial, mas que muitas vezes, devido à
-          falta de tempo, ela não consegue. Ao chegar na Farmácia mais próxima a
-          sua casa ela já se encontra fechada.
+          Depois de um dia intenso, Maria algumas vezes ainda precisa <strong>buscar os medicamentos para a diabetes</strong> na Farmácia Popular. Mas muitas vezes, devido ao trânsito e à longa distância, quando ela consegue chegar, <strong>a farmácia mais próxima de sua casa já se encontra fechada</strong>.
         </>
       ),
     },
@@ -421,9 +436,9 @@ export default function SupermercadoSection() {
       top: 1050,
       text: (
         <>
-          Aos sábados o dia é de descanso. Mas não para Maria. Ela tem que ir na
-          Unidade Básica de Saúde (UBS) mais próxima para realizar exames com um
-          endocrinologista. Depois de uma longa fila de espera ela consegue ser
+          <strong>Aos sábados o dia é de descanso. Mas não para Maria</strong>. Ela tem que ir na
+          Unidade Básica de Saúde (UBS) mais próxima para realizar <strong>exames com um
+          endocrinologista</strong>. Depois de uma <strong>longa fila de espera</strong> ela consegue ser
           atendida e volta para sua casa.
         </>
       ),

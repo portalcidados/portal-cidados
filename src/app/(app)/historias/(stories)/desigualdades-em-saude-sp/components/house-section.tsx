@@ -202,7 +202,8 @@ export default function HouseSection() {
           Os alimentos ultraprocessados, como achocolatados e biscoitos
           recheados dão lugar às frutas, aos ovos e ao suco caseiro.
           <br />
-          <strong className="mt-4 block">
+          <br />
+          <strong className="block">
             {" "}
             Maria tem <strong>Diabetes Mellitus</strong> e precisa medir sua
             glicose diariamente, mas sua rotina é tão corrida que nem sempre ela
