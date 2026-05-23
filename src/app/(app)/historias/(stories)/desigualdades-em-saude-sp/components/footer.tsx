@@ -1,4 +1,5 @@
 import StoryFooter from "@/app/(app)/historias/components/StoryFooter";
+import umaneLogo from "../assets/logo-umane.svg";
 
 export default function Footer() {
   return (
@@ -35,6 +36,14 @@ export default function Footer() {
           href: "/",
         },
       ]}
+      parceiros={[
+        {
+          src: umaneLogo.src,
+          alt: "Umane",
+          href: "https://umane.org.br/",
+          className: "h-5 lg:h-7 w-auto brightness-0 invert",
+        },
+      ]}
       teams={[
         {
           title: "Equipe do estudo",
@@ -48,7 +57,7 @@ export default function Footer() {
         {
           title: "Equipe do dataviz",
           members: [
-            { role: "Coordenador Executivo", names: "Maurício Bouskela" },
+            { role: "Coordenador Executivo", names: "Maurício Bouskela e Adriano Borges Costa" },
             { role: "Roteirista", names: "Caio Jacintho" },
             { role: "Designer", names: "Pedro Meneghel" },
             { role: "Desenvolvimento", names: "Lucas Tavares" },
