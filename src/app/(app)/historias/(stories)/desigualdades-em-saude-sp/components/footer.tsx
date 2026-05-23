@@ -7,7 +7,7 @@ export default function Footer() {
         description:
           'Síntese de evidências sobre saúde no município de São Paulo',
         descriptionHref:
-          "https://observatoriosaudepublica.com.br/static/frontend/pesquisa/executivo-saude-sp.pdf",
+          "https://repositorio.insper.edu.br/entities/publication/ea858305-5977-4b80-891a-814308784504",
         documentType: "Relatório Técnico de Pesquisa",
         institution: "Centro de Estudos das Cidades – Laboratório Arq.Futuro",
         extraLines: ["Iniciativa de Saúde Urbana"],
