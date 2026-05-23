@@ -31,9 +31,6 @@ import icon4 from "./assets/icon4.png";
 const Conclusion = lazy(() => import("./components/conclusion"));
 const Cover = lazy(() => import("./components/cover"));
 const DiabetesMellitus = lazy(() => import("./components/diabetes-mellitus"));
-const DiseasesIntroduction = lazy(
-  () => import("./components/diseases-introduction"),
-);
 const DoencasCerebrovasculares = lazy(
   () => import("./components/doencas-cerebro-vasculares"),
 );
@@ -125,18 +122,6 @@ export default function DesigualdadesEmSaudeSp() {
         <ScrollyCards />
         <HouseSection />
         <SupermercadoSection />
-        <DiseasesIntroduction />
-        <DiabetesMellitus />
-        <div className="px-8 max-w-4xl mx-auto py-10">
-        <hr className="max-w-2xl mx-auto border-t border-dashed border-gray-300" />
-        </div>
-        <DoencasCerebrovasculares />
-<div className="px-8 max-w-4xl mx-auto py-10">
-        <hr className="max-w-2xl mx-auto border-t border-dashed border-gray-300" />
-        </div>        <DoencasIsquemicasDoCoracao />
-<div className="px-8 max-w-4xl mx-auto py-10">
-        <hr className="max-w-2xl mx-auto border-t border-dashed border-gray-300" />
-        </div>        <MortalidadeMaterna />
         <Conclusion />
         <Footer />
         <ScrollToTopIcon />

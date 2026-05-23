@@ -19,7 +19,7 @@ export default function Conclusion() {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
 
-  const bonusTrackSrc = "/historias/desigualdades-em-saude-sp/sample.mp3";
+  const bonusTrackSrc = "/historias/desigualdades-em-saude-sp/saude.wav";
   const captionsSrc =
     "/historias/desigualdades-em-saude-sp/bonus-placeholder.vtt";
 
@@ -140,28 +140,64 @@ export default function Conclusion() {
     >
       <div className="max-w-xl rounded-2xl px-4 md:px-8 ">
         <div className="space-y-6 text-black leading-relaxed">
+          <h2 className="text-2xl font-bold">Conclusão</h2>
+
           <p>
-            O estudo detalhado da distribuição espacial de algumas doenças e
-            problemas de saúde em São Paulo traz importantes contribuições para
-            o manejo e a prevenção das condições investigadas.{" "}
+            A história fictícia da Maria reflete a realidade de muitos
+            brasileiros: acordar cedo, enfrentar ônibus lotados, perder horas no
+            deslocamento até o trabalho, não praticar exercícios e ter pouco ou
+            nenhum tempo para o lazer. Uma{" "}
             <span className="font-semibold">
-              Com base nos dados levantados, através de novos estudos, é
-              possível:
+              rotina exaustiva e repetitiva que impacta diretamente a saúde e a
+              qualidade de vida
+            </span>{" "}
+            das pessoas.
+          </p>
+
+          <p>
+            Neste contexto, são necessárias{" "}
+            <span className="font-semibold">
+              novas abordagens sobre campo da saúde
             </span>
+            . Não se trata apenas de tratar problemas de saúde das pessoas que
+            vivem nas cidades, mas de expandir o olhar para as condições urbanas
+            de vida dessas populações; bem como reconhecer que o planejamento
+            urbano pode promover uma vida mais saudável para os moradores.
+          </p>
+
+          <p>
+            Nessa perspectiva, consolida-se a ideia de que{" "}
+            <span className="font-semibold">
+              a saúde humana está intrinsecamente ligada à qualidade do meio
+              urbano em que se vive
+            </span>
+            , considerando fatores como o acesso a áreas verdes, disponibilidade
+            de infraestrutura básica e a localização estratégica em relação a
+            serviços essenciais.
+          </p>
+
+          <p>
+            Este estudo explorou a distribuição regional em São Paulo e
+            identificou as áreas de risco relacionadas a{" "}
+            <span className="font-semibold">mortalidade materna</span>{" "}
+            (incluindo mortalidade fetal),{" "}
+            <span className="font-semibold">
+              mortalidade prematura cardiovascular
+            </span>{" "}
+            (subdividida em doenças cerebrovasculares e isquêmicas do coração) e{" "}
+            <span className="font-semibold">
+              mortalidade prematura por Diabetes Mellitus
+            </span>
+            . Com base nos dados levantados, através de novos estudos, é
+            possível:
           </p>
 
           <ul className="space-y-2 ml-3">
             <li className="flex items-start">
               <span className="text-lg mr-2">•</span>
               <span>
-                <span className="font-semibold">
-                  Identificar as áreas onde as ações
-                </span>{" "}
-                do sistema de
-                <span className="font-semibold">
-                  {" "}
-                  saúde devem ser priorizadas.
-                </span>
+                Identificar as áreas onde as ações do sistema de saúde devem
+                ser priorizadas.
               </span>
             </li>
             <li className="flex items-start">
@@ -174,10 +210,8 @@ export default function Conclusion() {
             <li className="flex items-start">
               <span className="text-lg mr-2">•</span>
               <span>
-                <span className="font-semibold">
-                  Mapear políticas locais que trouxeram melhorias na saúde
-                </span>{" "}
-                e qualidade de vida, mesmo em cenários adversos.
+                Mapear políticas locais que trouxeram melhorias na saúde e
+                qualidade de vida, mesmo em cenários adversos.
               </span>
             </li>
             <li className="flex items-start">
@@ -191,18 +225,12 @@ export default function Conclusion() {
 
           <p className="pb-10">
             Além de abrir novas possibilidades para estudar e entender questões
-            de saúde no contexto urbano, o estudo apresenta propostas práticas
-            para enfrentar as desigualdades no acesso aos cuidados médicos.
-          </p>
-
-          <p className="pb-10">
-            Apesar do panorama desafiador, o setor de saúde brasileiro tem
-            alcançado avanços significativos através do Sistema Único de Saúde
-            (SUS), que tem desempenhado um papel decisivo na melhoria de
-            indicadores, como a redução expressiva da mortalidade infantil e o
-            aumento da expectativa de vida nas últimas décadas. Esses resultados
-            evidenciam a importância do SUS como o principal meio de acesso
-            cuidados integrais de saúde para grande parte da população.
+            de saúde no contexto urbano, o estudo apresenta{" "}
+            <span className="font-semibold">
+              propostas práticas para enfrentar as desigualdades no acesso aos
+              cuidados médicos
+            </span>
+            .
           </p>
 
           <p>
