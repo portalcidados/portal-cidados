@@ -61,7 +61,7 @@ export default function Footer() {
             { role: "Roteirista", names: "Caio Jacintho" },
             { role: "Designer", names: "Pedro Meneghel" },
             { role: "Desenvolvimento", names: "Lucas Tavares" },
-            { role: "Voz/Composição", names: "Rafael Gomes da Silva" },
+            { role: "Voz/Composição da faixa Bônus", names: "Rafael Gomes da Silva" },
           ],
         },
       ]}
