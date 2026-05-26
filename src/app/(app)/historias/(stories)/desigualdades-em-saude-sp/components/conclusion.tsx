@@ -233,9 +233,9 @@ export default function Conclusion() {
             .
           </p>
 
-          <p>
-            <span className="font-semibold">Propostas</span>
-          </p>
+       
+          <h2 className="text-2xl font-bold">Propostas</h2>
+       
 
           <div className="space-y-4 pb-16">
             <div
@@ -297,13 +297,11 @@ export default function Conclusion() {
             </div>
           </div>
 
-          <p>
-            <span className="font-semibold">Bônus</span>
-          </p>
+      
+          <h2 className="text-2xl font-bold">Bônus</h2>
+         
           <p className="mb-16">
-            Ouça uma canção inspirada na história, composta por um dos
-            colaboradores do Insper, que transforma os dados e relatos da
-            reportagem em versos e rimas.
+          Ouça a canção composta por um dos colaboradores do Insper Cidades que <span className="font-bold">transformou os dados</span> e achados deste estudo <span className="font-bold">em versos e rimas.</span>
           </p>
 
           <audio

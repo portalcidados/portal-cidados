@@ -54,6 +54,39 @@ const AV_PAULISTA_GEOJSON = {
   ],
 };
 
+const AV_PAULISTA_ENVELOPE_GEOJSON = {
+  type: "Feature",
+  properties: {},
+  geometry: {
+    type: "LineString",
+    coordinates: [
+      [-46.6655826, -23.5532485],
+      [-46.6663238, -23.5543162],
+      [-46.6668003, -23.5555295],
+      [-46.6665356, -23.5574222],
+      [-46.6655297, -23.5590237],
+      [-46.6639943, -23.5604311],
+      [-46.6604679, -23.5630646],
+      [-46.6579008, -23.5651353],
+      [-46.6539987, -23.5681471],
+      [-46.6510208, -23.5707825],
+      [-46.6481644, -23.572757],
+      [-46.6435054, -23.573679],
+      [-46.6414711, -23.5724766],
+      [-46.6417791, -23.5703119],
+      [-46.642806,  -23.5684295],
+      [-46.6448597, -23.5667353],
+      [-46.6480429, -23.5640999],
+      [-46.6512262, -23.5611821],
+      [-46.6544117, -23.5585384],
+      [-46.6583629, -23.5549784],
+      [-46.6617707, -23.5523264],
+      [-46.6633431, -23.5522399],
+      [-46.6655771, -23.553243],
+    ],
+  },
+};
+
 const JARDIM_HELENA_GEOJSON = {
   type: "Feature",
   geometry: {
@@ -308,35 +341,76 @@ export default function ScrollyCards() {
       data: AV_PAULISTA_GEOJSON as unknown as GeoJSON.FeatureCollection,
     });
 
-    // Asfalto — base larga escura
+    // Asfalto — camadas empilhadas (borda → faixa branca → asfalto → tracejado)
     map.addLayer({
-      id: "av-paulista-outline",
+      id: "av-paulista-curb",
       type: "line",
       source: "av-paulista",
       paint: {
-        "line-color": "#2c2c2c",
-        "line-width": 14,
-        "line-opacity": 0.95,
+        "line-color": "#7a7a7a",
+        "line-width": 18,
+        "line-opacity": 1,
       },
       layout: { visibility: "none" },
     });
 
-    // Faixa central tracejada branca
     map.addLayer({
-      id: "av-paulista-solid",
+      id: "av-paulista-shoulder",
+      type: "line",
+      source: "av-paulista",
+      paint: {
+        "line-color": "#ffffff",
+        "line-width": 15,
+        "line-opacity": 1,
+      },
+      layout: { visibility: "none" },
+    });
+
+    map.addLayer({
+      id: "av-paulista-asphalt",
+      type: "line",
+      source: "av-paulista",
+      paint: {
+        "line-color": "#808080",
+        "line-width": 12,
+        "line-opacity": 1,
+      },
+      layout: { visibility: "none" },
+    });
+
+    map.addLayer({
+      id: "av-paulista-centerline",
       type: "line",
       source: "av-paulista",
       paint: {
         "line-color": "#ffffff",
         "line-width": 2,
-        "line-dasharray": [6, 5],
-        "line-opacity": 0.9,
+        "line-dasharray": [4, 6],
+        "line-opacity": 1,
       },
       layout: { visibility: "none" },
     });
 
     const avPaulistaLabelStart: [number, number] = [-46.6640713, -23.5545146];
     const avPaulistaLabelEnd: [number, number] = [-46.685, -23.5545146];
+
+    map.addSource("av-paulista-envelope", {
+      type: "geojson",
+      data: AV_PAULISTA_ENVELOPE_GEOJSON as GeoJSON.Feature,
+    });
+
+    map.addLayer({
+      id: "av-paulista-envelope-layer",
+      type: "line",
+      source: "av-paulista-envelope",
+      paint: {
+        "line-color": "#2c2c2c",
+        "line-width": 2,
+        "line-dasharray": [4, 4],
+        "line-opacity": 0.85,
+      },
+      layout: { visibility: "none" },
+    });
 
     map.addSource("av-paulista-leader", {
       type: "geojson",
@@ -383,7 +457,7 @@ export default function ScrollyCards() {
           },
           "\n",
           {},
-          "Avenida",
+          "Entorno",
           {
             "font-scale": 0.9,
             "text-color": "rgba(0, 0, 0, 0.5)",
@@ -485,8 +559,11 @@ export default function ScrollyCards() {
     const map = mapRef.current.getMap();
     const v = visible ? "visible" : "none";
     for (const id of [
-      "av-paulista-outline",
-      "av-paulista-solid",
+      "av-paulista-envelope-layer",
+      "av-paulista-curb",
+      "av-paulista-shoulder",
+      "av-paulista-asphalt",
+      "av-paulista-centerline",
       "av-paulista-leader-layer",
       "av-paulista-label-layer",
     ]) {
