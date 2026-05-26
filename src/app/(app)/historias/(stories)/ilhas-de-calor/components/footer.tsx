@@ -66,21 +66,18 @@ export default function Footer() {
               role: "Identidade visual",
               names: "Robert dos Santos da Silva",
             },
-            {
-              role: "Coordenador executivo",
-              names: "Maurício Bouskela e Adriano Borges Costa",
-            },
-            {
-              role: "Tratamento de dados",
-              names: "Vinicius Oike",
-            },
           ],
         },
         {
           title: "Equipe do dataviz",
           members: [
             // { role: "Design", names: "Pictomonster" },
-            { role: "Roteirista", names: "Caio Jacintho" },
+            {
+            role: "Coordenador executivo",
+            names: "Maurício Bouskela e Adriano Borges Costa",
+          },
+          { role: "Roteirista", names: "Caio Jacintho" },
+          { role: "Tratamento de dados", names: "Vinicius Oike" },
             { role: "Designer", names: "Pedro Meneghel" },
             { role: "Desenvolvimento", names: "Lucas Tavares" },
           ],
