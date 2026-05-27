@@ -29,12 +29,14 @@ const AV_PAULISTA_GEOJSON = {
       geometry: {
         type: "LineString",
         coordinates: [
-          [-46.6640713, -23.5545146],
-          [-46.6581239, -23.5599362],
-          [-46.6559479, -23.5617991],
-          [-46.6546584, -23.5628434],
-          [-46.6507785, -23.5660968],
-          [-46.6470213, -23.5691157],
+          [
+            -46.6628278,
+            -23.5559773
+          ],
+          [
+            -46.6449727,
+            -23.5707779
+          ]
         ],
       },
     },
@@ -123,6 +125,33 @@ const JARDIM_HELENA_GEOJSON = {
 // Register ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
 
+const MOBILE_BREAKPOINT = 768;
+
+type StoryMapLocation = {
+  longitude: number;
+  latitude: number;
+  zoom: number;
+  pitch: number;
+  bearing: number;
+  top: number;
+  text: React.ReactNode;
+  mobile?: Partial<Pick<StoryMapLocation, "longitude" | "latitude" | "zoom">>;
+};
+
+const isMobileViewport = () =>
+  typeof window !== "undefined" && window.innerWidth < MOBILE_BREAKPOINT;
+
+const getFlyToView = (location: StoryMapLocation) => {
+  const mobile = isMobileViewport() ? location.mobile : undefined;
+  return {
+    longitude: mobile?.longitude ?? location.longitude,
+    latitude: mobile?.latitude ?? location.latitude,
+    zoom: mobile?.zoom ?? location.zoom,
+    pitch: location.pitch,
+    bearing: location.bearing,
+  };
+};
+
 export default function ScrollyCards() {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const mapRef = useRef<any>(null);
@@ -130,8 +159,7 @@ export default function ScrollyCards() {
 
   // Map state - initialize with correct values based on device type
   const [viewState, setViewState] = useState(() => {
-    const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
-    if (isMobile) {
+    if (isMobileViewport()) {
       return {
         longitude: -46.610198,
         latitude: -23.680764,
@@ -152,8 +180,22 @@ export default function ScrollyCards() {
   const [legendVisible, setLegendVisible] = useState(true);
   const [legendCollapsed, setLegendCollapsed] = useState(false);
 
+  const flyToLocation = (location: StoryMapLocation) => {
+    if (!mapRef.current) return;
+    const view = getFlyToView(location);
+    const map = mapRef.current.getMap();
+    map.flyTo({
+      center: [view.longitude, view.latitude],
+      zoom: view.zoom,
+      pitch: view.pitch,
+      bearing: view.bearing,
+      duration: 2000,
+      essential: true,
+    });
+  };
+
   // Define your travel locations
-  const locations = [
+  const locations: StoryMapLocation[] = [
     {
       longitude: -46.657198,
       latitude: -23.680764,
@@ -178,6 +220,10 @@ export default function ScrollyCards() {
       longitude: -46.6583,
       latitude: -23.5655,
       zoom: 12,
+      mobile: {
+        longitude: -46.6705,
+        zoom: 11.7,
+      },
       pitch: 0,
       bearing: 0,
       top: 150,
@@ -223,66 +269,24 @@ export default function ScrollyCards() {
           start: "center center",
 
           onEnter: () => {
-            if (mapRef.current) {
-              const map = mapRef.current.getMap();
-              map.flyTo({
-                center: [location.longitude, location.latitude],
-                zoom: location.zoom,
-                pitch: location.pitch,
-                bearing: location.bearing,
-                duration: 2000,
-                essential: true,
-              });
-            }
+            flyToLocation(location);
             toggleHighlightLayer(index === 1);
             if (index < locations.length - 1) {
               toggleJardimHelenaLayer(index === 2);
             }
           },
           onEnterBack: () => {
-            if (mapRef.current) {
-              const map = mapRef.current.getMap();
-              map.flyTo({
-                center: [location.longitude, location.latitude],
-                zoom: location.zoom,
-                pitch: location.pitch,
-                bearing: location.bearing,
-                duration: 2000,
-                essential: true,
-              });
-            }
+            flyToLocation(location);
             toggleHighlightLayer(index === 1);
             if (index < locations.length - 1) {
               toggleJardimHelenaLayer(index === 2);
             }
           },
           onLeave: index === 0 ? () => {
-            const card1Location = locations[1];
-            if (mapRef.current) {
-              const map = mapRef.current.getMap();
-              map.flyTo({
-                center: [card1Location.longitude, card1Location.latitude],
-                zoom: card1Location.zoom,
-                pitch: card1Location.pitch,
-                bearing: card1Location.bearing,
-                duration: 2000,
-                essential: true,
-              });
-            }
+            flyToLocation(locations[1]);
             toggleHighlightLayer(true);
           } : index === 1 ? () => {
-            const jhLocation = locations[locations.length - 1];
-            if (mapRef.current) {
-              const map = mapRef.current.getMap();
-              map.flyTo({
-                center: [jhLocation.longitude, jhLocation.latitude],
-                zoom: jhLocation.zoom,
-                pitch: jhLocation.pitch,
-                bearing: jhLocation.bearing,
-                duration: 2000,
-                essential: true,
-              });
-            }
+            flyToLocation(locations[locations.length - 1]);
             toggleHighlightLayer(false);
             toggleJardimHelenaLayer(true);
           } : undefined,
@@ -347,8 +351,8 @@ export default function ScrollyCards() {
       type: "line",
       source: "av-paulista",
       paint: {
-        "line-color": "#7a7a7a",
-        "line-width": 18,
+        "line-color": "#4A4A4A",
+        "line-width": 19,
         "line-opacity": 1,
       },
       layout: { visibility: "none" },
@@ -371,7 +375,7 @@ export default function ScrollyCards() {
       type: "line",
       source: "av-paulista",
       paint: {
-        "line-color": "#808080",
+        "line-color": "#4A4A4A",
         "line-width": 12,
         "line-opacity": 1,
       },
@@ -384,15 +388,15 @@ export default function ScrollyCards() {
       source: "av-paulista",
       paint: {
         "line-color": "#ffffff",
-        "line-width": 2,
-        "line-dasharray": [4, 6],
+        "line-width": 2.1,
+        "line-dasharray": [5, 3.5],
         "line-opacity": 1,
       },
       layout: { visibility: "none" },
     });
 
-    const avPaulistaLabelStart: [number, number] = [-46.6640713, -23.5545146];
-    const avPaulistaLabelEnd: [number, number] = [-46.685, -23.5545146];
+    const avPaulistaLabelStart: [number, number] = [-46.6675, -23.5545146];
+    const avPaulistaLabelEnd: [number, number] = [-46.682, -23.5545146];
 
     map.addSource("av-paulista-envelope", {
       type: "geojson",
@@ -404,7 +408,7 @@ export default function ScrollyCards() {
       type: "line",
       source: "av-paulista-envelope",
       paint: {
-        "line-color": "#2c2c2c",
+        "line-color": "black",
         "line-width": 2,
         "line-dasharray": [4, 4],
         "line-opacity": 0.85,
