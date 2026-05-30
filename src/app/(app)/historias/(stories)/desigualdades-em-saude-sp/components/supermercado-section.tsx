@@ -4,18 +4,31 @@ import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef, useState, useEffect } from "react";
+import { ChevronDown } from "lucide-react";
 import supermercado from "../assets/supermercado.png";
 import supermercadoTwo from "../assets/supermercadoTwo.png";
 import condominioOne from "../assets/condominio1.png";
 import condominioOneMobile from "../assets/condominio1Mobile.png";
 import condominioTwo from "../assets/condominio2.png";
 import condominioTwoMobile from "../assets/condominio2Mobile.png";
-import taxaPadronizadaOne from "../assets/taxaPadronizadaOne.png";
-import taxaPadronizadaTwo from "../assets/taxaPadronizadaTwo.png";
 import pontoDeOnibus from "../assets/pontoDeOnibus.png";
 
 import hospitalReception from "../assets/hospitalReception.png";
 import Image from "next/image";
+import "mapbox-gl/dist/mapbox-gl.css";
+import MapboxMap from "react-map-gl/mapbox";
+
+const GEOSES_LEGEND = [
+  { label: "-1", color: "#b2182b" },
+  { label: "-0.75", color: "#d6604d" },
+  { label: "-0.5", color: "#f4a582" },
+  { label: "-0.25", color: "#fddbc7" },
+  { label: "0", color: "#f7f7f7" },
+  { label: "0.25", color: "#d1e5f0" },
+  { label: "0.5", color: "#92c5de" },
+  { label: "0.75", color: "#4393c3" },
+  { label: "1", color: "#2166ac" },
+];
 
 // Register ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
@@ -30,11 +43,12 @@ export default function SupermercadoSection() {
   const [showDrawerOne, setShowDrawerOne] = useState(false);
   const [showDrawerTwo, setShowDrawerTwo] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [legendCollapsed, setLegendCollapsed] = useState(true);
 
   // Detect mobile device
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
+      setIsMobile(window.innerWidth < 1200);
     };
 
     checkMobile();
@@ -546,7 +560,7 @@ export default function SupermercadoSection() {
 
       {/* Drawer One */}
       <div
-        className={`fixed right-0 top-0 h-screen bg-white border-l border-[#000000]/20 shadow-2xl transition-transform duration-700 ease-in-out z-50 w-[90vw] md:w-[400px] lg:w-[480px] ${
+        className={`fixed right-0 top-0 h-screen bg-white border-l border-[#000000]/20 shadow-2xl transition-transform duration-700 ease-in-out z-50 w-full md:w-[630px] ${
           showDrawerOne ? "translate-x-0" : "translate-x-full"
         }`}
       >
@@ -556,14 +570,52 @@ export default function SupermercadoSection() {
             a 2019: probabilidades de excedência de que o risco em 2019 fosse
             superior a 1
           </h3>
-          <div className="flex-1 min-h-0 flex items-center justify-center pb-2">
-            <div className="w-full h-full flex items-center justify-center">
-              <Image
-                src={taxaPadronizadaOne}
-                alt="Taxa padronizada 1"
-                className="w-full h-full object-contain"
-                style={{ maxHeight: "100%" }}
-              />
+          <div className="flex-1 min-h-0 overflow-hidden pb-2">
+            <MapboxMap
+              key={`drawer-one-${isMobile}`}
+              initialViewState={{
+                longitude: -46.657198,
+                latitude: -23.680764,
+                zoom: isMobile ? 8.4 : 9.3,
+              }}
+              mapStyle="mapbox://styles/observatorio-nacional/cmj069yd2009i01qi0jh88i3h"
+              mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_TOKEN}
+              style={{ width: "100%", height: "100%" }}
+              dragPan={false}
+              dragRotate={false}
+              scrollZoom={false}
+              keyboard={false}
+              doubleClickZoom={false}
+            />
+          </div>
+        </div>
+        <div className="absolute bottom-6 md:bottom-20 left-5 md:left-auto md:right-5 z-20 rounded-lg bg-white/90 shadow-lg backdrop-blur-sm w-[220px] text-sm">
+          <button
+            type="button"
+            onClick={() => setLegendCollapsed((c) => !c)}
+            className="flex w-full items-start justify-between gap-2 p-4 cursor-pointer"
+          >
+            <div className="text-left">
+              <h3 className="font-semibold text-base leading-tight">Índice GeoSES</h3>
+              <p className={`text-sm italic text-gray-500 leading-tight mt-0.5 ${isMobile && legendCollapsed ? "hidden" : ""}`}>
+                Pondera dados censitários de renda, educação, qualidade de vida e similares.
+              </p>
+            </div>
+            <ChevronDown
+              className={`mt-0.5 w-4 h-4 shrink-0 text-gray-500 transition-transform duration-300 ${legendCollapsed ? "-rotate-90" : ""}`}
+            />
+          </button>
+          <div className={`grid transition-all duration-300 ease-in-out ${legendCollapsed ? "grid-rows-[0fr]" : "grid-rows-[1fr]"}`}>
+            <div className="overflow-hidden">
+              <ul className="space-y-1 px-4 pb-3">
+                {GEOSES_LEGEND.map((item) => (
+                  <li key={item.label} className="flex items-center gap-2">
+                    <span className="w-5 h-5 rounded-sm shrink-0" style={{ backgroundColor: item.color }} />
+                    <span className="text-sm leading-tight">{item.label}</span>
+                  </li>
+                ))}
+              </ul>
+              <p className="px-4 pb-4 text-xs italic text-gray-500 leading-tight">Fonte: Barrozo, L. V. et al. (2020).</p>
             </div>
           </div>
         </div>
@@ -571,7 +623,7 @@ export default function SupermercadoSection() {
 
       {/* Drawer Two */}
       <div
-        className={`fixed right-0 top-0 h-screen bg-white border-l border-[#000000]/20 shadow-2xl transition-transform duration-700 ease-in-out z-50 w-[72vw] md:w-[400px] lg:w-[480px] ${
+        className={`fixed right-0 top-0 h-screen bg-white border-l border-[#000000]/20 shadow-2xl transition-transform duration-700 ease-in-out z-50 w-full md:w-[630px] ${
           showDrawerTwo ? "translate-x-0" : "translate-x-full"
         }`}
       >
@@ -581,14 +633,52 @@ export default function SupermercadoSection() {
             a 2019: probabilidades de excedência de que o risco em 2019 fosse
             superior a 1
           </h3>
-          <div className="flex-1 min-h-0 flex items-center justify-center pb-2">
-            <div className="w-full h-full flex items-center justify-center">
-              <Image
-                src={taxaPadronizadaTwo}
-                alt="Taxa padronizada 2"
-                className="w-full h-full object-contain"
-                style={{ maxHeight: "100%" }}
-              />
+          <div className="flex-1 min-h-0 overflow-hidden pb-2">
+            <MapboxMap
+              key={`drawer-two-${isMobile}`}
+              initialViewState={{
+                longitude: -46.657198,
+                latitude: -23.680764,
+                zoom: isMobile ? 8.4 : 9.3,
+              }}
+              mapStyle="mapbox://styles/observatorio-nacional/cmj069yd2009i01qi0jh88i3h"
+              mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_TOKEN}
+              style={{ width: "100%", height: "100%" }}
+              dragPan={false}
+              dragRotate={false}
+              scrollZoom={false}
+              keyboard={false}
+              doubleClickZoom={false}
+            />
+          </div>
+        </div>
+        <div className="absolute bottom-6 md:bottom-20 left-5 md:left-auto md:right-5 z-20 rounded-lg bg-white/90 shadow-lg backdrop-blur-sm w-[220px] text-sm">
+          <button
+            type="button"
+            onClick={() => setLegendCollapsed((c) => !c)}
+            className="flex w-full items-start justify-between gap-2 p-4 cursor-pointer"
+          >
+            <div className="text-left">
+              <h3 className="font-semibold text-base leading-tight">Índice GeoSES</h3>
+              <p className={`text-sm italic text-gray-500 leading-tight mt-0.5 ${isMobile && legendCollapsed ? "hidden" : ""}`}>
+                Pondera dados censitários de renda, educação, qualidade de vida e similares.
+              </p>
+            </div>
+            <ChevronDown
+              className={`mt-0.5 w-4 h-4 shrink-0 text-gray-500 transition-transform duration-300 ${legendCollapsed ? "-rotate-90" : ""}`}
+            />
+          </button>
+          <div className={`grid transition-all duration-300 ease-in-out ${legendCollapsed ? "grid-rows-[0fr]" : "grid-rows-[1fr]"}`}>
+            <div className="overflow-hidden">
+              <ul className="space-y-1 px-4 pb-3">
+                {GEOSES_LEGEND.map((item) => (
+                  <li key={item.label} className="flex items-center gap-2">
+                    <span className="w-5 h-5 rounded-sm shrink-0" style={{ backgroundColor: item.color }} />
+                    <span className="text-sm leading-tight">{item.label}</span>
+                  </li>
+                ))}
+              </ul>
+              <p className="px-4 pb-4 text-xs italic text-gray-500 leading-tight">Fonte: Barrozo, L. V. et al. (2020).</p>
             </div>
           </div>
         </div>
