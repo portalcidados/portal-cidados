@@ -83,7 +83,7 @@ export default function StoryFooter({
 }: StoryFooterProps) {
   const hasRealiz = realizacao && realizacao.length > 0;
   const hasParceiros = parceiros && parceiros.length > 0;
-  const hasRightColumn = hasRealiz || hasParceiros;
+  const hasLogos = hasRealiz || hasParceiros;
 
   const hasStudyMeta =
     studyDetail &&
@@ -93,142 +93,138 @@ export default function StoryFooter({
       studyDetail.year ||
       studyDetail.partnership);
 
-  const showHeader = studyDetail || hasRightColumn;
-
   return (
     <footer
       className="bg-[#0E171D] text-white py-24 px-6 lg:px-12"
       style={{ fontFamily: '"Libre Baskerville", serif' }}
     >
       <div className="max-w-7xl mx-auto space-y-12">
-        {/* Header Section */}
-        {showHeader && (
-          <div
-            className={`grid grid-cols-1 gap-4 md:gap-12 ${hasRightColumn ? "lg:grid-cols-3" : ""}`}
-          >
-            {/* Left top: Detalhes do estudo */}
-            {studyDetail && (
-              <section
-                className={`order-1 lg:col-start-1 lg:row-start-1 ${hasRightColumn ? "lg:col-span-2" : ""}`}
-              >
-                <h2 className="text-2xl font-bold mb-6 underline decoration-2 underline-offset-4">
-                  Detalhes do estudo
-                </h2>
-                <div className="space-y-2 text-md lg:text-lg font-bold">
-                  {studyDetail.descriptionHref ? (
+        {/* Detalhes do estudo — full width */}
+        {studyDetail && (
+          <div className="space-y-4">
+            <section>
+              <h2 className="text-2xl font-bold mb-6 underline decoration-2 underline-offset-4">
+                Detalhes do estudo
+              </h2>
+              <div className="space-y-2 text-md lg:text-lg font-bold">
+                {studyDetail.descriptionHref ? (
+                  <a
+                    href={studyDetail.descriptionHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-white leading-relaxed underline block"
+                  >
+                    {studyDetail.description}
+                  </a>
+                ) : (
+                  <p className="text-white leading-relaxed">
+                    {studyDetail.description}
+                  </p>
+                )}
+              </div>
+            </section>
+            {hasStudyMeta && (
+              <div className="space-y-1 text-md lg:text-lg">
+                {studyDetail.organization && (
+                  <p className="text-white opacity-40">
+                    {studyDetail.organization}
+                  </p>
+                )}
+                {studyDetail.documentType && (
+                  <p className="text-white opacity-40">
+                    {studyDetail.documentType}
+                  </p>
+                )}
+                {studyDetail.institution && (
+                  <p className="text-white opacity-40">
+                    {studyDetail.institution}
+                  </p>
+                )}
+                {studyDetail.extraLines?.map((line) => (
+                  <p key={line} className="text-white opacity-40">
+                    {line}
+                  </p>
+                ))}
+                {studyDetail.year && (
+                  <p className="text-white opacity-40">{studyDetail.year}</p>
+                )}
+                {studyDetail.partnership && (
+                  <p>
+                    <span className="text-white opacity-40">
+                      {studyDetail.partnership.prefix ?? "Parceria com o"}{" "}
+                    </span>
                     <a
-                      href={studyDetail.descriptionHref}
+                      href={studyDetail.partnership.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-white leading-relaxed underline block"
+                      className="text-white! opacity-100! underline"
                     >
-                      {studyDetail.description}
+                      {studyDetail.partnership.label}
                     </a>
-                  ) : (
-                    <p className="text-white leading-relaxed">
-                      {studyDetail.description}
-                    </p>
-                  )}
-                </div>
-              </section>
-            )}
-
-            {/* Right top: Realização */}
-            {hasRealiz && realizacao && (
-              <div className="order-2 lg:col-start-3 lg:row-start-1 flex flex-col items-start">
-                <div className="flex flex-col items-start">
-                  <h2 className="text-xl mb-6">Realização</h2>
-                  <IconGroup icons={realizacao} />
-                </div>
-              </div>
-            )}
-
-            {/* Left bottom: study metadata */}
-            {hasStudyMeta && studyDetail && (
-              <section
-                className={`order-3 lg:col-start-1 lg:row-start-2 ${hasRightColumn ? "lg:col-span-2" : ""}`}
-              >
-                <div className="space-y-1 text-md lg:text-lg">
-                  {studyDetail.organization && (
-                    <p className="text-white opacity-40">
-                      {studyDetail.organization}
-                    </p>
-                  )}
-                  {studyDetail.documentType && (
-                    <p className="text-white opacity-40">
-                      {studyDetail.documentType}
-                    </p>
-                  )}
-                  {studyDetail.institution && (
-                    <p className="text-white opacity-40">
-                      {studyDetail.institution}
-                    </p>
-                  )}
-                  {studyDetail.extraLines?.map((line) => (
-                    <p key={line} className="text-white opacity-40">
-                      {line}
-                    </p>
-                  ))}
-                  {studyDetail.year && (
-                    <p className="text-white opacity-40">{studyDetail.year}</p>
-                  )}
-                  {studyDetail.partnership && (
-                    <p>
-                      <span className="text-white opacity-40">
-                        {studyDetail.partnership.prefix ?? "Parceria com o"}{" "}
-                      </span>
-                      <a
-                        href={studyDetail.partnership.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-white! opacity-100! underline"
-                      >
-                        {studyDetail.partnership.label}
-                      </a>
-                    </p>
-                  )}
-                </div>
-              </section>
-            )}
-
-            {/* Right bottom: Parceiros */}
-            {hasParceiros && parceiros && (
-              <div className="order-4 lg:col-start-3 lg:row-start-2 flex flex-col items-start">
-                <div className="flex flex-col items-start">
-                  <h2 className="text-xl mb-6">Parceiros</h2>
-                  <IconGroup icons={parceiros} />
-                </div>
+                  </p>
+                )}
               </div>
             )}
           </div>
         )}
 
-        {/* Team Sections */}
+        {/* Team Sections — logos sit alongside the last team */}
         {teams && teams.length > 0 && (
           <div className="space-y-12">
-            {teams.map((team) => (
-              <section key={team.title}>
-                <h2 className="text-2xl font-bold mb-6 underline decoration-2 underline-offset-4">
-                  {team.title}
-                </h2>
-                <div className="space-y-3 text-md lg:text-lg">
-                  {team.members.map((member) =>
-                    member.role ? (
-                      <div key={member.role}>
-                        <span className="font-semibold">{member.role}:</span>
-                        <span className="text-[#FFFFFF] opacity-40 ml-2">
-                          {member.names}
-                        </span>
-                      </div>
-                    ) : (
-                      <p key={member.names} className="text-[#FFFFFF] opacity-40">
-                        {member.names}
-                      </p>
-                    ),
+            {teams.map((team, index) => {
+              const isLast = index === teams.length - 1;
+              const showLogos = isLast && hasLogos;
+
+              return (
+                <div
+                  key={team.title}
+                  className={
+                    showLogos
+                      ? "grid grid-cols-1 gap-8 lg:grid-cols-3 lg:gap-12"
+                      : undefined
+                  }
+                >
+                  <section className={showLogos ? "lg:col-span-2" : undefined}>
+                    <h2 className="text-2xl font-bold mb-6 underline decoration-2 underline-offset-4">
+                      {team.title}
+                    </h2>
+                    <div className="space-y-3 text-md lg:text-lg">
+                      {team.members.map((member) =>
+                        member.role ? (
+                          <div key={member.role}>
+                            <span className="font-semibold">{member.role}:</span>
+                            <span className="text-[#FFFFFF] opacity-40 ml-2">
+                              {member.names}
+                            </span>
+                          </div>
+                        ) : (
+                          <p key={member.names} className="text-[#FFFFFF] opacity-40">
+                            {member.names}
+                          </p>
+                        ),
+                      )}
+                    </div>
+                  </section>
+
+                  {showLogos && (
+                    <div className="flex flex-col gap-8">
+                      {hasRealiz && realizacao && (
+                        <div className="flex flex-col items-start">
+                          <h2 className="text-md lg:text-lg font-semibold mb-6">Realização</h2>
+                          <IconGroup icons={realizacao} />
+                        </div>
+                      )}
+                      {hasParceiros && parceiros && (
+                        <div className="flex flex-col items-start">
+                          <h2 className="text-md lg:text-lg font-semibold mb-6">Parceiros</h2>
+                          <IconGroup icons={parceiros} />
+                        </div>
+                      )}
+                    </div>
                   )}
                 </div>
-              </section>
-            ))}
+              );
+            })}
           </div>
         )}
 
