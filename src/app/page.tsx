@@ -74,11 +74,21 @@ export default function Home() {
           </p>
 
           <div className="flex flex-row gap-4">
+            <Link href="/historias">
+              <Button
+                variant="default"
+                size="lg"
+                className="text-foreground cursor-pointer bg-secondary hover:bg-secondary/80 justify-between group"
+              >
+                Histórias
+                <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </Link>
             <Link href="/geoportal">
               <Button
                 variant="default"
                 size="lg"
-                className="text-foreground bg-secondary hover:bg-secondary/80 justify-between group"
+                className="text-foreground cursor-pointer bg-secondary hover:bg-secondary/80 justify-between group"
               >
                 Mapas
                 <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
@@ -88,7 +98,7 @@ export default function Home() {
               <Button
                 variant="default"
                 size="lg"
-                className="text-foreground bg-secondary hover:bg-secondary/80 justify-between group"
+                className="text-foreground cursor-pointer bg-secondary hover:bg-secondary/80 justify-between group"
               >
                 Catálogo de dados
                 <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
