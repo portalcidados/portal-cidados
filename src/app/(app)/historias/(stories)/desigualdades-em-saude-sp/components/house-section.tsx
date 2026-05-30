@@ -14,20 +14,19 @@ import Image from "next/image";
 gsap.registerPlugin(ScrollTrigger);
 
 // Desktop: pixel position of houseOne's top-left corner within houseBackground.png
-const HOUSE_ONE_OFFSET = { x: 531, y: 164 };
-const BG_NATURAL_W = 4711;
-const BG_NATURAL_H = 1067;
+const HOUSE_ONE_OFFSET = { x: 410, y: 150 };
+const BG_NATURAL_W = 4600;
+const BG_NATURAL_H = 900;
 
-// Mobile: houseBackgroundMobile.png has different dimensions (2631x711)
-// Mobile pode ter crop diferente - ajuste fino manual: casa deve ficar na área visível (esquerda)
-const BG_NATURAL_W_MOBILE = 2631;
-const BG_NATURAL_H_MOBILE = 711;
+// Mobile: houseBackgroundMobile.png (2399x643)
+const BG_NATURAL_W_MOBILE = 2450;
+const BG_NATURAL_H_MOBILE = 590;
 const HOUSE_ONE_OFFSET_MOBILE = {
-  x: -151,   // Casa na esquerda do mobile (0% center) - ajuste se precisar
+  x: -138,
   y: 3,
 };
 
-const HOUSE_ONE_NATURAL_W = 633;
+const HOUSE_ONE_NATURAL_W = 551;
 const HOUSE_ONE_DISPLAY_W = 600; // width/height prop on <Image>
 
 function computeMorphDeltasDesktop() {
