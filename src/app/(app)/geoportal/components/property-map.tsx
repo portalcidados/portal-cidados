@@ -979,30 +979,40 @@ export default function PropertyMap() {
   };
 
   const handleLayer1Change = (layerId: string | null) => {
-    // Remove previous layer first if exists
     if (selectedLayer1 && beforeMap.current && afterMap.current && mapLoaded) {
       removeComparisonLayer(selectedLayer1);
     }
 
     setSelectedLayer1(layerId);
 
-    // Add new layer if provided
     if (layerId) {
       handleComparisonLayerChange(layerId, true);
+    } else if (!selectedLayer2 && selectedCity) {
+      const center = cityCoordinates[selectedCity];
+      const zoom = cityZoomLevels[selectedCity];
+      if (center && zoom !== undefined) {
+        if (beforeMap.current) safeFlyToWithReset(beforeMap.current, center, zoom);
+        if (afterMap.current) safeFlyToWithReset(afterMap.current, center, zoom);
+      }
     }
   };
 
   const handleLayer2Change = (layerId: string | null) => {
-    // Remove previous layer first if exists
     if (selectedLayer2 && beforeMap.current && afterMap.current && mapLoaded) {
       removeComparisonLayer(selectedLayer2);
     }
 
     setSelectedLayer2(layerId);
 
-    // Add new layer if provided
     if (layerId) {
       handleComparisonLayerChange(layerId, false);
+    } else if (!selectedLayer1 && selectedCity) {
+      const center = cityCoordinates[selectedCity];
+      const zoom = cityZoomLevels[selectedCity];
+      if (center && zoom !== undefined) {
+        if (beforeMap.current) safeFlyToWithReset(beforeMap.current, center, zoom);
+        if (afterMap.current) safeFlyToWithReset(afterMap.current, center, zoom);
+      }
     }
   };
 
@@ -1268,6 +1278,14 @@ export default function PropertyMap() {
     });
 
     setSelectedLayers(layers);
+
+    if (layers.length === 0 && selectedCity) {
+      const center = cityCoordinates[selectedCity];
+      const zoom = cityZoomLevels[selectedCity];
+      if (center && zoom !== undefined) {
+        safeFlyToWithReset(mapInstance, center, zoom);
+      }
+    }
   };
 
   return (
@@ -1382,7 +1400,7 @@ export default function PropertyMap() {
             <button
               type="button"
               onClick={toggleComparisonMode}
-              className={`p-3 rounded-full outline-none transition-colors ${
+              className={`p-3 cursor-pointer rounded-full outline-none transition-colors ${
                 isComparisonMode
                   ? "bg-[#171717]  hover:bg-[#171717]/90 border-[#171717] text-white"
                   : "bg-white hover:bg-gray-50 cursor-pointer"
