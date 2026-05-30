@@ -45,8 +45,7 @@ export function CityLayers({
     if (selectedCity && selectedCity !== "Brasil" && cityLayers.length > 0) {
       setAccordionValue("layers");
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedCity]);
+  }, [selectedCity, cityLayers.length]);
 
   const handleLayerToggle = (layerId: string, checked: boolean) => {
     if (checked) {
@@ -90,11 +89,7 @@ export function CityLayers({
   }
 
   return (
-    <div className="space-y-0 pb-10">
-      <h2 className="px-4 text-xl font-bold text-gray-900">
-        Selecione as camadas
-      </h2>
-
+    <div className="space-y-0">
       <Accordion
         type="single"
         collapsible
@@ -103,8 +98,8 @@ export function CityLayers({
         onValueChange={setAccordionValue}
       >
         <AccordionItem value="layers" className="border-b">
-          <AccordionTrigger className="text-left text-gray-900 cursor-pointer px-4 font-semibold py-3 hover:no-underline text-base">
-            Camadas
+          <AccordionTrigger className="text-left text-gray-900 cursor-pointer px-4 pt-4 font-bold py-3 hover:no-underline text-xl">
+            Selecione as camadas
           </AccordionTrigger>
           {/* <div className="h-[0.5px] w-full bg-gray-300"/> */}
           <AccordionContent className="pb-0">

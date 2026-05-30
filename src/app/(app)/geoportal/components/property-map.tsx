@@ -1303,54 +1303,43 @@ export default function PropertyMap() {
       </Button>
 
       <div
-        className={`absolute bg-white top-6 left-6 z-20 overflow-y-auto! w-85 lg:min-h-[calc(100vh-48px)] max-h-[calc(100vh-48px)] shadow-lg transition-transform duration-300 ease-in-out
+        className={`absolute top-6 left-6 z-20 overflow-y-auto! w-85 max-h-[calc(100vh-48px)] flex flex-col gap-8 transition-transform duration-300 ease-in-out
           max-md:top-20 max-md:left-4 max-md:right-4 max-md:w-auto max-md:max-h-[calc(100vh-100px)]
           ${isMenuOpen ? "max-md:translate-x-0" : "max-md:-translate-x-full max-md:opacity-0"}
           md:translate-x-0 md:opacity-100
         `}
       >
-        <div className="p-4 border-b md:hidden">
-          <h2 className="text-lg font-semibold text-gray-900">
-            Selecione a cidade
-          </h2>
+        {/* Card: Selecione a cidade */}
+        <div className="bg-white shadow-lg">
+          <CityAccordion
+            selectedCity={selectedCity}
+            onCityChange={handleCityChange}
+          />
         </div>
 
-        <div className="flex flex-col h-full">
-          <div className="md:px-4 md:pt-4">
-            <h2 className="text-xl font-bold text-gray-900 hidden md:block">
-              Selecione a cidade
-            </h2>
-          </div>
-
-          <div className="flex-1 overflow-y-auto!">
-            <div className="mb-4">
-              <CityAccordion
-                selectedCity={selectedCity}
-                onCityChange={handleCityChange}
-              />
-            </div>
-            {isComparisonMode ? (
-              <CityLayersComparison
-                selectedCity={selectedCity || "Brasil"}
-                selectedLayer1={selectedLayer1}
-                selectedLayer2={selectedLayer2}
-                onLayer1Change={handleLayer1Change}
-                onLayer2Change={handleLayer2Change}
-                layerLoadingStates={layerLoadingStates}
-                layerOpacities={layerOpacities}
-                onOpacityChange={handleOpacityChange}
-              />
-            ) : (
-              <CityLayers
-                selectedCity={selectedCity || "Brasil"}
-                selectedLayers={selectedLayers}
-                onLayersChange={handleLayersChange}
-                layerLoadingStates={layerLoadingStates}
-                layerOpacities={layerOpacities}
-                onOpacityChange={handleOpacityChange}
-              />
-            )}
-          </div>
+        {/* Card: Selecione as camadas */}
+        <div className="bg-white shadow-lg">
+          {isComparisonMode ? (
+            <CityLayersComparison
+              selectedCity={selectedCity || "Brasil"}
+              selectedLayer1={selectedLayer1}
+              selectedLayer2={selectedLayer2}
+              onLayer1Change={handleLayer1Change}
+              onLayer2Change={handleLayer2Change}
+              layerLoadingStates={layerLoadingStates}
+              layerOpacities={layerOpacities}
+              onOpacityChange={handleOpacityChange}
+            />
+          ) : (
+            <CityLayers
+              selectedCity={selectedCity || "Brasil"}
+              selectedLayers={selectedLayers}
+              onLayersChange={handleLayersChange}
+              layerLoadingStates={layerLoadingStates}
+              layerOpacities={layerOpacities}
+              onOpacityChange={handleOpacityChange}
+            />
+          )}
         </div>
       </div>
 

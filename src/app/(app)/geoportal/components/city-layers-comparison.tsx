@@ -205,18 +205,17 @@ export function CityLayersComparison({
         }
       `}</style>
       <div className="space-y-0">
+        <h2 className="px-4 pt-4 text-xl font-bold text-gray-900">
+          Selecione as camadas
+        </h2>
         <Accordion
           type="multiple"
           value={accordionValue}
           onValueChange={setAccordionValue}
           className="w-full pb-10"
         >
-          <h2 className="px-4 text-xl font-bold text-gray-900 block md:block">
-            Selecione as camadas
-          </h2>
-
           <AccordionItem value="layer1" className="border-b">
-            <AccordionTrigger className="text-left text-gray-900 cursor-pointer px-4 font-semibold py-3 hover:no-underline text-base">
+            <AccordionTrigger className="text-left text-gray-900 cursor-pointer px-4 font-bold py-3 hover:no-underline text-base">
               <span className="truncate">
                 {selectedLayer1
                   ? cityLayers.find((l) => l.id === selectedLayer1)?.name ||
@@ -329,7 +328,7 @@ export function CityLayersComparison({
           </AccordionItem>
 
           <AccordionItem value="layer2" className="border-b">
-            <AccordionTrigger className="text-left text-gray-900 cursor-pointer px-4 font-semibold py-3 hover:no-underline text-base">
+            <AccordionTrigger className="text-left text-gray-900 cursor-pointer px-4 font-bold py-3 hover:no-underline text-base">
               <span className="truncate">
                 {selectedLayer2
                   ? cityLayers.find((l) => l.id === selectedLayer2)?.name ||
