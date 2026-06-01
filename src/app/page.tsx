@@ -73,7 +73,7 @@ export default function Home() {
             políticas públicas baseadas em evidências.
           </p>
 
-          <div className="flex flex-row gap-4">
+          <div className="flex flex-row flex-wrap gap-4">
             <Link href="/historias">
               <Button
                 variant="default"
