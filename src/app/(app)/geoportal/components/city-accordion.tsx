@@ -20,7 +20,7 @@ interface CityAccordionProps {
 }
 
 export function CityAccordion({ selectedCity, onCityChange }: CityAccordionProps) {
-  const [accordionValue, setAccordionValue] = useState<string>(selectedCity ? "" : "city")
+  const [accordionValue, setAccordionValue] = useState<string>("city")
 
   const handleCityToggle = (cityValue: string, checked: boolean) => {
     if (checked) {

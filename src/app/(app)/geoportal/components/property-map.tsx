@@ -9,8 +9,8 @@ import {
 } from "@/components/ui/tooltip";
 import "mapbox-gl/dist/mapbox-gl.css";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { cityLayersConfig } from "../lib/city-layers";
 import { createStyledLayer } from "../lib/layer-styles";
@@ -111,8 +111,62 @@ const cityZoomLevels: Record<string, number> = {
   "Rio de Janeiro": 10.5,
 };
 
+function parseOpacityParam(raw: string | null): Record<string, number> {
+  if (!raw) return {};
+  return Object.fromEntries(
+    raw
+      .split(",")
+      .filter((pair) => pair.includes(":"))
+      .map((pair) => {
+        const colonIdx = pair.indexOf(":");
+        return [pair.slice(0, colonIdx), Number(pair.slice(colonIdx + 1))];
+      }),
+  );
+}
+
+function buildOpacityParam(opacities: Record<string, number>): string {
+  return Object.entries(opacities)
+    .map(([id, val]) => `${id}:${val}`)
+    .join(",");
+}
+
 export default function PropertyMap() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const initialParamsRef = useRef({
+    city: searchParams.get("city") ?? "",
+    layers: searchParams.get("layers")?.split(",").filter(Boolean) ?? [],
+    opacity: parseOpacityParam(searchParams.get("opacity")),
+    compare: searchParams.get("compare") === "1",
+    layer1: searchParams.get("layer1") ?? null,
+    layer2: searchParams.get("layer2") ?? null,
+    zoom: searchParams.get("zoom") ? Number(searchParams.get("zoom")) : null,
+    bearing: searchParams.get("bearing")
+      ? Number(searchParams.get("bearing"))
+      : null,
+    pitch: searchParams.get("pitch")
+      ? Number(searchParams.get("pitch"))
+      : null,
+    lat: searchParams.get("lat") ? Number(searchParams.get("lat")) : null,
+    lng: searchParams.get("lng") ? Number(searchParams.get("lng")) : null,
+    theme: (searchParams.get("theme") as "dark" | "light" | null) ?? "dark",
+  });
+
+  const mapViewportRef = useRef<{
+    zoom: number | null;
+    bearing: number | null;
+    pitch: number | null;
+    lat: number | null;
+    lng: number | null;
+  }>({
+    zoom: initialParamsRef.current.zoom,
+    bearing: initialParamsRef.current.bearing,
+    pitch: initialParamsRef.current.pitch,
+    lat: initialParamsRef.current.lat,
+    lng: initialParamsRef.current.lng,
+  });
+
   const mapContainer = useRef<HTMLDivElement>(null);
   const beforeMapContainer = useRef<HTMLDivElement>(null);
   const afterMapContainer = useRef<HTMLDivElement>(null);
@@ -121,19 +175,31 @@ export default function PropertyMap() {
   const beforeMap = useRef<mapboxgl.Map | null>(null);
   const afterMap = useRef<mapboxgl.Map | null>(null);
   const compare = useRef<MapboxCompareInstance | null>(null);
-  const [selectedCity, setSelectedCity] = useState("");
+  const [selectedCity, setSelectedCity] = useState(
+    initialParamsRef.current.city,
+  );
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [selectedLayers, setSelectedLayers] = useState<string[]>([]);
-  const [isComparisonMode, setIsComparisonMode] = useState(false);
-  const [selectedLayer1, setSelectedLayer1] = useState<string | null>(null);
-  const [selectedLayer2, setSelectedLayer2] = useState<string | null>(null);
+  const [selectedLayers, setSelectedLayers] = useState<string[]>(
+    initialParamsRef.current.layers,
+  );
+  const [isComparisonMode, setIsComparisonMode] = useState(
+    initialParamsRef.current.compare,
+  );
+  const [selectedLayer1, setSelectedLayer1] = useState<string | null>(
+    initialParamsRef.current.layer1,
+  );
+  const [selectedLayer2, setSelectedLayer2] = useState<string | null>(
+    initialParamsRef.current.layer2,
+  );
   const [mapLoaded, setMapLoaded] = useState(false);
   const [layerLoadingStates, setLayerLoadingStates] = useState<
     Record<string, "loading" | "loaded" | "error">
   >({});
-  const [mapTheme, setMapTheme] = useState<"dark" | "light">("dark");
+  const [mapTheme, setMapTheme] = useState<"dark" | "light">(
+    initialParamsRef.current.theme,
+  );
   const [layerOpacities, setLayerOpacities] = useState<Record<string, number>>(
-    {},
+    initialParamsRef.current.opacity,
   );
   const [, setHoveredFeature] = useState<{
     feature: mapboxgl.MapboxGeoJSONFeature;
@@ -151,6 +217,66 @@ export default function PropertyMap() {
       }
     >
   >(new Map());
+
+  // Keep a ref in sync with current URL-relevant state so the updateURL callback is never stale
+  const urlStateRef = useRef({
+    city: selectedCity,
+    layers: selectedLayers,
+    opacities: layerOpacities,
+    compare: isComparisonMode,
+    layer1: selectedLayer1,
+    layer2: selectedLayer2,
+    theme: mapTheme,
+  });
+  urlStateRef.current = {
+    city: selectedCity,
+    layers: selectedLayers,
+    opacities: layerOpacities,
+    compare: isComparisonMode,
+    layer1: selectedLayer1,
+    layer2: selectedLayer2,
+    theme: mapTheme,
+  };
+
+  const updateURL = useCallback(() => {
+    const { city, layers, opacities, compare, layer1, layer2, theme } =
+      urlStateRef.current;
+    const vp = mapViewportRef.current;
+
+    const params = new URLSearchParams();
+    if (city) params.set("city", city);
+    if (compare) {
+      params.set("compare", "1");
+      if (layer1) params.set("layer1", layer1);
+      if (layer2) params.set("layer2", layer2);
+    } else {
+      if (layers.length) params.set("layers", layers.join(","));
+    }
+    const opStr = buildOpacityParam(opacities);
+    if (opStr) params.set("opacity", opStr);
+    if (theme !== "dark") params.set("theme", theme);
+    if (vp.zoom !== null) params.set("zoom", vp.zoom.toFixed(4));
+    if (vp.bearing !== null) params.set("bearing", vp.bearing.toFixed(2));
+    if (vp.pitch !== null) params.set("pitch", vp.pitch.toFixed(2));
+    if (vp.lat !== null) params.set("lat", vp.lat.toFixed(5));
+    if (vp.lng !== null) params.set("lng", vp.lng.toFixed(5));
+
+    router.replace(`/geoportal?${params.toString()}`, { scroll: false });
+  }, [router]);
+
+  // Sync URL when URL-relevant state changes
+  useEffect(() => {
+    updateURL();
+  }, [
+    selectedCity,
+    selectedLayers,
+    layerOpacities,
+    isComparisonMode,
+    selectedLayer1,
+    selectedLayer2,
+    mapTheme,
+    updateURL,
+  ]);
 
   // Function to add hover handlers for a layer
   const addHoverHandlers = (
@@ -542,9 +668,15 @@ export default function PropertyMap() {
   useEffect(() => {
     if (!mapContainer.current || isComparisonMode) return;
 
+    const p = initialParamsRef.current;
     const initialCity = selectedCity || "Brasil";
-    const initialCenter = cityCoordinates[initialCity];
-    const initialZoom = cityZoomLevels[initialCity];
+    const initialCenter: [number, number] =
+      p.lat !== null && p.lng !== null
+        ? [p.lng, p.lat]
+        : cityCoordinates[initialCity];
+    const initialZoom = p.zoom ?? cityZoomLevels[initialCity];
+    const initialBearing = p.bearing ?? 0;
+    const initialPitch = p.pitch ?? 0;
 
     const mapStyle =
       mapTheme === "dark"
@@ -556,9 +688,24 @@ export default function PropertyMap() {
       style: mapStyle,
       center: initialCenter,
       zoom: initialZoom,
+      bearing: initialBearing,
+      pitch: initialPitch,
     });
     map.current.on("load", () => {
       setMapLoaded(true);
+    });
+
+    map.current.on("moveend", () => {
+      if (!map.current) return;
+      const center = map.current.getCenter();
+      mapViewportRef.current = {
+        zoom: map.current.getZoom(),
+        bearing: map.current.getBearing(),
+        pitch: map.current.getPitch(),
+        lat: center.lat,
+        lng: center.lng,
+      };
+      updateURL();
     });
 
     return () => {
@@ -567,7 +714,7 @@ export default function PropertyMap() {
         map.current = null;
       }
     };
-  }, [isComparisonMode]);
+  }, [isComparisonMode, updateURL]);
 
   // Initialize comparison maps
   // biome-ignore lint/correctness/useExhaustiveDependencies: Mount when entering comparison mode; theme and city updates use setStyle/flyTo
@@ -585,9 +732,15 @@ export default function PropertyMap() {
     if (afterMap.current) afterMap.current.remove();
     if (compare.current) compare.current.remove();
 
+    const p = initialParamsRef.current;
     const initialCity = selectedCity || "Brasil";
-    const initialCenter = cityCoordinates[initialCity];
-    const initialZoom = cityZoomLevels[initialCity];
+    const initialCenter: [number, number] =
+      p.lat !== null && p.lng !== null
+        ? [p.lng, p.lat]
+        : cityCoordinates[initialCity];
+    const initialZoom = p.zoom ?? cityZoomLevels[initialCity];
+    const initialBearing = p.bearing ?? 0;
+    const initialPitch = p.pitch ?? 0;
 
     const mapStyle =
       mapTheme === "dark"
@@ -599,6 +752,8 @@ export default function PropertyMap() {
       style: mapStyle,
       center: initialCenter,
       zoom: initialZoom,
+      bearing: initialBearing,
+      pitch: initialPitch,
     });
 
     afterMap.current = new mapboxgl.Map({
@@ -606,6 +761,8 @@ export default function PropertyMap() {
       style: mapStyle,
       center: initialCenter,
       zoom: initialZoom,
+      bearing: initialBearing,
+      pitch: initialPitch,
     });
 
     // Initialize comparison with dynamic import
@@ -641,6 +798,20 @@ export default function PropertyMap() {
 
     beforeMap.current.on("load", onMapLoad);
     afterMap.current.on("load", onMapLoad);
+
+    // Track viewport via beforeMap (both maps move in sync via compare)
+    beforeMap.current.on("moveend", () => {
+      if (!beforeMap.current) return;
+      const center = beforeMap.current.getCenter();
+      mapViewportRef.current = {
+        zoom: beforeMap.current.getZoom(),
+        bearing: beforeMap.current.getBearing(),
+        pitch: beforeMap.current.getPitch(),
+        lat: center.lat,
+        lng: center.lng,
+      };
+      updateURL();
+    });
 
     // Handle window resize to update orientation
     const isMobile = window.innerWidth < 768; // md breakpoint
@@ -690,7 +861,7 @@ export default function PropertyMap() {
         afterMap.current = null;
       }
     };
-  }, [isComparisonMode]);
+  }, [isComparisonMode, updateURL]);
 
   // Add layers when comparison maps are loaded and layers are selected
   // biome-ignore lint/correctness/useExhaustiveDependencies: handleComparisonLayerChange is recreated each render; effect only syncs selected layers when maps become ready
