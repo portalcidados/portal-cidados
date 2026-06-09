@@ -1,9 +1,10 @@
 "use client";
 
+import { useSearchParams } from "next/navigation";
+import { useCallback, useEffect, useRef, useState } from "react";
 import type { CatalogFilters as FiltersType } from "@/app/api/catalog/route";
 import { useDebounce } from "@/hooks/useDebounce";
 import type { DataCatalogItem } from "@/lib/data/catalog";
-import { useCallback, useEffect, useRef, useState } from "react";
 import { CardSkeleton } from "./CardSkeleton";
 import { CatalogFilters } from "./CatalogFilters";
 import { DataCard } from "./DataCard";
@@ -22,6 +23,9 @@ interface CatalogResponse {
 }
 
 export function CatalogPage() {
+  const searchParams = useSearchParams();
+  const openItemId = searchParams.get("item") ?? undefined;
+
   const [data, setData] = useState<DataCatalogItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [initialLoading, setInitialLoading] = useState(true);
@@ -215,7 +219,13 @@ export function CatalogPage() {
               {loading
                 ? // Show skeleton cards when loading
                   [1, 2, 3, 4, 5, 6].map((i) => <CardSkeleton key={i} />)
-                : data.map((item) => <DataCard key={item.id} item={item} />)}
+                : data.map((item) => (
+                    <DataCard
+                      key={item.id}
+                      item={item}
+                      initialOpen={openItemId === item.id}
+                    />
+                  ))}
             </div>
 
             {/* No Results */}

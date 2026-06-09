@@ -13,7 +13,8 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { Eye, Info } from "lucide-react";
+import { BookOpen, Eye, Info } from "lucide-react";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { cityLayersConfig } from "../lib/city-layers";
 
@@ -168,6 +169,15 @@ export function CityLayers({
                               <span>Transparente</span>
                               <span>Opaco</span>
                             </div>
+                            {layer.catalogItemId && (
+                              <Link
+                                href={`/catalogo-de-dados?item=${layer.catalogItemId}`}
+                                className="inline-flex items-center gap-1 text-xs text-blue-600 hover:underline mt-1"
+                              >
+                                <BookOpen className="w-3 h-3" />
+                                Ver no catálogo de dados
+                              </Link>
+                            )}
                           </div>
                         )}
                       </div>

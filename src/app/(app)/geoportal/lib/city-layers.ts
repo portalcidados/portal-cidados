@@ -15,6 +15,7 @@ export interface CityLayer {
   layerType?: "fill" | "line" | "circle" | "symbol";
   hasCustomStyle?: boolean; // Indicates if this layer has a custom style defined in layer-styles.ts
   mapView?: LayerMapView; // optional flyTo config when layer is selected
+  catalogItemId?: string; // ID of the corresponding catalog data item, if any
 }
 
 export interface CityLayersConfig {
@@ -44,6 +45,7 @@ export const cityLayersConfig: CityLayersConfig = {
       sourceLayer: "ic_areas-3ii8xj",
       layerType: "fill",
       hasCustomStyle: true,
+      catalogItemId: "9",
       mapView: {
         center: [-43.269054, -22.84302],
         zoom: 12.29,
@@ -60,6 +62,7 @@ export const cityLayersConfig: CityLayersConfig = {
       sourceLayer: "ic_pontos-90vwh4",
       layerType: "circle",
       hasCustomStyle: true,
+      catalogItemId: "9",
       mapView: {
         center: [-43.259054, -22.86302],
         zoom: 12.36,
@@ -76,6 +79,7 @@ export const cityLayersConfig: CityLayersConfig = {
       sourceLayer: "quali_area-1ci0wo",
       layerType: "fill",
       hasCustomStyle: true,
+      catalogItemId: "10",
       mapView: {
         center: [-43.269054, -22.84302],
         zoom: 12.29,
@@ -92,6 +96,7 @@ export const cityLayersConfig: CityLayersConfig = {
       sourceLayer: "quali_pontos-b424eh",
       layerType: "circle",
       hasCustomStyle: true,
+      catalogItemId: "10",
       mapView: {
         center: [-43.259054, -22.86302],
         zoom: 12.36,
@@ -110,6 +115,7 @@ export const cityLayersConfig: CityLayersConfig = {
       sourceLayer: "faixa-azul-trechos-spo",
       layerType: "line",
       hasCustomStyle: true,
+      catalogItemId: "16",
     },
     {
       id: "sinistros-por-distrito-spo",
@@ -120,6 +126,7 @@ export const cityLayersConfig: CityLayersConfig = {
       sourceLayer: "sinistros-por-distrito-spo",
       layerType: "fill",
       hasCustomStyle: true,
+      catalogItemId: "15",
     },
     {
       id: "sinistros-por-trecho-spo",
@@ -130,6 +137,7 @@ export const cityLayersConfig: CityLayersConfig = {
       sourceLayer: "sinistros-por-trecho-spo",
       layerType: "line",
       hasCustomStyle: true,
+      catalogItemId: "15",
     },
     {
       id: "densidade-hab-setor",
@@ -140,6 +148,7 @@ export const cityLayersConfig: CityLayersConfig = {
       sourceLayer: "densidade_hab_setor",
       layerType: "fill",
       hasCustomStyle: true,
+      catalogItemId: "3",
     },
     {
       id: "densidade-hab-distrito-spo",
@@ -150,6 +159,7 @@ export const cityLayersConfig: CityLayersConfig = {
       sourceLayer: "densidade-hab-distrito-spo",
       layerType: "fill",
       hasCustomStyle: true,
+      catalogItemId: "3",
     },
     {
       id: "densidade-pop-setor-spo",
@@ -160,6 +170,7 @@ export const cityLayersConfig: CityLayersConfig = {
       sourceLayer: "densidade_pop_setor_spo",
       layerType: "fill",
       hasCustomStyle: true,
+      catalogItemId: "3",
     },
     {
       id: "densidade-pop-distrito-spo",
@@ -170,6 +181,7 @@ export const cityLayersConfig: CityLayersConfig = {
       sourceLayer: "densidade-pop-distrito-spo",
       layerType: "fill",
       hasCustomStyle: true,
+      catalogItemId: "3",
     },
     {
       id: "verticalizacao-setor",
@@ -180,6 +192,7 @@ export const cityLayersConfig: CityLayersConfig = {
       sourceLayer: "verticalizacao_setor",
       layerType: "fill",
       hasCustomStyle: true,
+      catalogItemId: "3",
     },
     {
       id: "verticalizacao-distrito-spo",
@@ -190,6 +203,7 @@ export const cityLayersConfig: CityLayersConfig = {
       sourceLayer: "verticalizacao-distrito-spo",
       layerType: "fill",
       hasCustomStyle: true,
+      catalogItemId: "3",
     },
     {
       id: "raster-dbiubd",
@@ -200,6 +214,7 @@ export const cityLayersConfig: CityLayersConfig = {
       sourceLayer: "raster-dbiubd",
       layerType: "fill",
       hasCustomStyle: true,
+      catalogItemId: "3",
     },
     {
       id: "populacao-por-distrito-spo",
@@ -209,6 +224,7 @@ export const cityLayersConfig: CityLayersConfig = {
       sourceLayer: "populacao-por-distrito-spo",
       layerType: "fill",
       hasCustomStyle: true,
+      catalogItemId: "3",
     },
     {
       id: "geoses-spo",
@@ -219,6 +235,7 @@ export const cityLayersConfig: CityLayersConfig = {
       sourceLayer: "geoses-spo",
       layerType: "fill",
       hasCustomStyle: true,
+      catalogItemId: "17",
     },
     {
       id: "gastos_ubs_distritos-c6rpx4",
@@ -229,6 +246,7 @@ export const cityLayersConfig: CityLayersConfig = {
       sourceLayer: "gastos_ubs_distritos-c6rpx4",
       layerType: "fill",
       hasCustomStyle: true,
+      catalogItemId: "6",
     },
     {
       id: "obitos-47q8aj",
@@ -239,6 +257,20 @@ export const cityLayersConfig: CityLayersConfig = {
       sourceLayer: "obitos-47q8aj",
       layerType: "fill",
       hasCustomStyle: true,
+      catalogItemId: "11",
     },
   ],
 };
+
+export function getLayersForCatalogItem(
+  catalogId: string,
+): { city: string; layerIds: string[] }[] {
+  const result: { city: string; layerIds: string[] }[] = [];
+  for (const [city, layers] of Object.entries(cityLayersConfig)) {
+    const ids = layers
+      .filter((l) => l.catalogItemId === catalogId)
+      .map((l) => l.id);
+    if (ids.length) result.push({ city, layerIds: ids });
+  }
+  return result;
+}

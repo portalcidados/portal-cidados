@@ -1,6 +1,9 @@
 "use client";
 
-import type { DataCatalogItem } from "@/lib/data/catalog";
+import Link from "next/link";
+import { useState } from "react";
+import { ExternalLink, MapIcon } from "lucide-react";
+import { getLayersForCatalogItem } from "@/app/(app)/geoportal/lib/city-layers";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -9,15 +12,16 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { useState } from "react";
-import { ExternalLink } from "lucide-react";
+import type { DataCatalogItem } from "@/lib/data/catalog";
 
 interface DataCardProps {
   item: DataCatalogItem;
+  initialOpen?: boolean;
 }
 
-export function DataCard({ item }: DataCardProps) {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+export function DataCard({ item, initialOpen = false }: DataCardProps) {
+  const [isModalOpen, setIsModalOpen] = useState(initialOpen);
+  const geoportalLinks = getLayersForCatalogItem(item.id);
 
   const formatTags = (tags: string[]) => {
     return tags.map((tag) => {
@@ -224,6 +228,34 @@ export function DataCard({ item }: DataCardProps) {
                       </p>
                     </div>
                   ))}
+                </div>
+              </div>
+            )}
+
+            {/* Ver no Geoportal */}
+            {geoportalLinks.length > 0 && (
+              <div>
+                <h4 className="text-sm font-medium text-foreground mb-3">
+                  Ver no Geoportal
+                </h4>
+                <div className="flex flex-col gap-2">
+                  {geoportalLinks.map(({ city, layerIds }) => {
+                    const params = new URLSearchParams({
+                      city,
+                      layers: layerIds.join(","),
+                    });
+                    return (
+                      <Link
+                        key={city}
+                        href={`/geoportal?${params}`}
+                        className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium bg-foreground text-background hover:bg-foreground/90 transition-colors w-fit"
+                      >
+                        <MapIcon className="w-4 h-4" />
+                        Ver camada{layerIds.length > 1 ? "s" : ""} no Geoportal
+                        ({city})
+                      </Link>
+                    );
+                  })}
                 </div>
               </div>
             )}
