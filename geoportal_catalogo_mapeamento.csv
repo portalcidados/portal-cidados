@@ -1,0 +1,20 @@
+Cidade,Layer ID,Nome da Camada no Geoportal,Catalog ID,Título no Catálogo de Dados,Status
+Rio de Janeiro,ic_areas-3ii8xj,Ilhas de Calor,9,Medições de temperatura e umidade do ar - Favela da Maré-RJ [2023],Mapeado
+Rio de Janeiro,ic_pontos-90vwh4,Ilhas de Calor (pontos de captura),9,Medições de temperatura e umidade do ar - Favela da Maré-RJ [2023],Mapeado
+Rio de Janeiro,quali_area-1ci0wo,Qualidade do Ar,10,Medições e qualidade do ar - Favela da Maré-RJ [2023],Mapeado
+Rio de Janeiro,quali_pontos-b424eh,Qualidade do Ar (pontos de captura),10,Medições e qualidade do ar - Favela da Maré-RJ [2023],Mapeado
+São Paulo,faixa-azul-trechos-spo,Faixa Azul,16,Trechos com Faixas Dedicadas a Motociclistas (Faixa Azul) [2022-2025],Mapeado
+São Paulo,sinistros-por-distrito-spo,Sinistros por Distrito,15,Sinistros de Trânsito [2022-2025],Mapeado
+São Paulo,sinistros-por-trecho-spo,Sinistros em Trechos de Vias,15,Sinistros de Trânsito [2022-2025],Mapeado
+São Paulo,densidade-hab-setor,Densidade Hab. (setor censitário),3,Densidade Populacional e Verticalização [2022-2024],Mapeado
+São Paulo,densidade-hab-distrito-spo,Densidade Hab. (distrito),3,Densidade Populacional e Verticalização [2022-2024],Mapeado
+São Paulo,densidade-pop-setor-spo,Densidade Pop. (setor censitário),3,Densidade Populacional e Verticalização [2022-2024],Mapeado
+São Paulo,densidade-pop-distrito-spo,Densidade Pop. (distrito),3,Densidade Populacional e Verticalização [2022-2024],Mapeado
+São Paulo,verticalizacao-setor,Verticalização (setor censitário),3,Densidade Populacional e Verticalização [2022-2024],Mapeado
+São Paulo,verticalizacao-distrito-spo,Verticalização (distrito),3,Densidade Populacional e Verticalização [2022-2024],Mapeado
+São Paulo,raster-dbiubd,Verticalização (grid),3,Densidade Populacional e Verticalização [2022-2024],Mapeado
+São Paulo,populacao-por-distrito-spo,População Feminina (distrito),3,Densidade Populacional e Verticalização [2022-2024],Mapeado
+São Paulo,geoses-spo,GeoSES,17,Índice GeoSES [2010],Mapeado
+São Paulo,gastos_ubs_distritos-c6rpx4,Gastos UBS (distrito),6,Gastos com UBS por distrito [2019],Mapeado
+São Paulo,obitos-47q8aj,Óbitos por Doenças Cerebrovasculares (femi.),11,Mortalidade prematura por distrito [2019],Mapeado
+Brasil,tarifa_zero,Tarifa Zero,-,-,Sem correspondência no catálogo
