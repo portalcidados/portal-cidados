@@ -12,12 +12,12 @@ Os datasets publicados no Catálogo de Dados são as mesmas fontes que alimentam
 graph LR
     subgraph Catálogo
         C1["Card do dataset\n(modal aberto)"]
-        C2["Botão 'Ver no Geoportal'"]
+        C2["Botão 'Ver dados no mapa'"]
     end
 
     subgraph Geoportal
         G1["Camada ativa\n(slider de opacidade)"]
-        G2["Link 'Ver no catálogo'"]
+        G2["Link 'Acessar base de dados'"]
     end
 
     G2 -->|"?item=9"| C1
@@ -33,7 +33,7 @@ graph LR
 **Cenário:** o usuário está explorando camadas no mapa e quer saber mais sobre a origem dos dados.
 
 1. O usuário seleciona uma camada (ex: **Ilhas de Calor**)
-2. Abaixo do slider de opacidade, aparece o link **"Ver no catálogo de dados"**
+2. Abaixo do slider de opacidade, aparece o link **"Acessar base de dados"**
 3. O clique navega para `/catalogo-de-dados?item=9`
 4. O Catálogo de Dados abre com o modal do registro **"Medições de temperatura e umidade do ar, Favela da Maré-RJ [2023]"** já expandido
 
@@ -42,7 +42,7 @@ graph LR
 **Cenário:** o usuário está pesquisando datasets e quer visualizá-los no mapa.
 
 1. O usuário abre o modal de um dataset que tem camadas correspondentes (ex: **Sinistros de Trânsito**)
-2. No modal, aparece o botão **"Ver camadas no Geoportal (São Paulo)"**
+2. No modal, aparece o botão **"Ver dados no mapa"**
 3. O clique navega para `/geoportal?city=São+Paulo&layers=sinistros-por-distrito-spo,sinistros-por-trecho-spo`
 4. O Geoportal abre com São Paulo selecionado e as duas camadas de sinistros já ativas
 
@@ -94,7 +94,7 @@ A tabela abaixo documenta todas as relações entre camadas do Geoportal e regis
 | São Paulo | `obitos-47q8aj` | Óbitos por Doenças Cerebrovasculares | **11** | Mortalidade prematura por distrito [2019] |
 | Brasil | `tarifa_zero` | Tarifa Zero | — | *(sem correspondência no catálogo)* |
 
-> **Nota:** quando múltiplas camadas apontam para o mesmo `catalogItemId` (ex: catálogo 3 com 7 layers de SP), o botão "Ver no Geoportal" ativa **todas** essas camadas simultaneamente.
+> **Nota:** quando múltiplas camadas apontam para o mesmo `catalogItemId` (ex: catálogo 3 com 7 layers de SP), o botão "Ver dados no mapa" ativa **todas** essas camadas simultaneamente.
 
 ---
 
@@ -147,7 +147,7 @@ sequenceDiagram
     Note over User,CP: Fluxo 1 — Geoportal → Catálogo
     User->>CL: Ativa camada "Ilhas de Calor"
     CL->>CLT: layer.catalogItemId === "9"
-    CL->>User: Exibe link "Ver no catálogo" → /catalogo-de-dados?item=9
+    CL->>User: Exibe link "Acessar base de dados" → /catalogo-de-dados?item=9
     User->>CP: Navega para a URL
     CP->>CP: useSearchParams() → openItemId = "9"
     CP->>DP: initialOpen={item.id === "9"}
@@ -170,9 +170,9 @@ sequenceDiagram
 | Arquivo | Papel na integração |
 |---|---|
 | `src/app/(app)/geoportal/lib/city-layers.ts` | Define `catalogItemId` por camada e exporta `getLayersForCatalogItem()` |
-| `src/app/(app)/geoportal/components/city-layers.tsx` | Exibe link "Ver no catálogo" para camadas selecionadas |
+| `src/app/(app)/geoportal/components/city-layers.tsx` | Exibe link "Acessar base de dados" para camadas selecionadas |
 | `src/app/(app)/geoportal/components/city-layers-comparison.tsx` | Idem para o modo comparação |
-| `src/components/DataCard.tsx` | Aceita `initialOpen`, exibe botão "Ver no Geoportal" |
+| `src/components/DataCard.tsx` | Aceita `initialOpen`, exibe botão "Ver dados no mapa" |
 | `src/components/CatalogPage.tsx` | Lê `?item` da URL e passa `initialOpen` para cada `DataCard` |
 | `src/app/(app)/catalogo-de-dados/page.tsx` | Envolve `CatalogPage` em `<Suspense>` (necessário para `useSearchParams`) |
 

@@ -308,7 +308,7 @@ export function CityLayersComparison({
                                   className="inline-flex items-center gap-1 text-xs text-blue-600 hover:underline mt-1"
                                 >
                                   <BookOpen className="w-3 h-3" />
-                                  Ver no catálogo de dados
+                                  Acessar base de dados
                                 </Link>
                               )}
                             </div>
@@ -430,7 +430,7 @@ export function CityLayersComparison({
                                   className="inline-flex items-center gap-1 text-xs text-blue-600 hover:underline mt-1"
                                 >
                                   <BookOpen className="w-3 h-3" />
-                                  Ver no catálogo de dados
+                                  Acessar base de dados
                                 </Link>
                               )}
                             </div>

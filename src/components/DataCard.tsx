@@ -232,31 +232,24 @@ export function DataCard({ item, initialOpen = false }: DataCardProps) {
               </div>
             )}
 
-            {/* Ver no Geoportal */}
             {geoportalLinks.length > 0 && (
-              <div>
-                <h4 className="text-sm font-medium text-foreground mb-3">
-                  Ver no Geoportal
-                </h4>
-                <div className="flex flex-col gap-2">
-                  {geoportalLinks.map(({ city, layerIds }) => {
-                    const params = new URLSearchParams({
-                      city,
-                      layers: layerIds.join(","),
-                    });
-                    return (
-                      <Link
-                        key={city}
-                        href={`/geoportal?${params}`}
-                        className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium bg-foreground text-background hover:bg-foreground/90 transition-colors w-fit"
-                      >
-                        <MapIcon className="w-4 h-4" />
-                        Ver camada{layerIds.length > 1 ? "s" : ""} no Geoportal
-                        ({city})
-                      </Link>
-                    );
-                  })}
-                </div>
+              <div className="flex flex-col gap-2">
+                {geoportalLinks.map(({ city, layerIds }) => {
+                  const params = new URLSearchParams({
+                    city,
+                    layers: layerIds.join(","),
+                  });
+                  return (
+                    <Link
+                      key={city}
+                      href={`/geoportal?${params}`}
+                      className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium bg-foreground text-background hover:bg-foreground/90 transition-colors w-fit"
+                    >
+                      <MapIcon className="w-4 h-4" />
+                      Ver dados no mapa
+                    </Link>
+                  );
+                })}
               </div>
             )}
           </div>

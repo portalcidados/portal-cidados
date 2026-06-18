@@ -77,12 +77,12 @@ src/app/(app)/geoportal/lib/layer-styles.ts                — estilos visuais M
 graph LR
     subgraph "Catálogo de Dados"
         C["DataCard\nmodal aberto via ?item=ID"]
-        CB["Botão 'Ver no Geoportal'"]
+        CB["Botão 'Ver dados no mapa'"]
     end
 
     subgraph "Geoportal"
         G["Camada ativa\n+ slider de opacidade"]
-        GL["Link 'Ver no catálogo'"]
+        GL["Link 'Acessar base de dados'"]
     end
 
     GL -->|"/catalogo-de-dados?item=9"| C
