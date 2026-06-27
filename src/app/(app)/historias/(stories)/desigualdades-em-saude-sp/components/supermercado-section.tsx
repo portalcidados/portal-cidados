@@ -305,19 +305,51 @@ export default function SupermercadoSection() {
       );
 
       if (lastCardElement) {
-        // Animate background-position horizontally until the end of the image
-        // Animation starts after the last card passes (when card bottom reaches top of viewport)
-        gsap.to(pontoDeOnibusSliderRef.current, {
-          scrollTrigger: {
-            trigger: lastCardElement,
-            start: "bottom top",
-            end: "+=100vh", // Continue animation for 100vh after card passes
-            scrub: 1,
-            invalidateOnRefresh: true,
-          },
-          backgroundPosition: "100% center",
-          ease: "none",
-        });
+        if (isMobile) {
+          // Mobile: pan horizontal simples (comportamento original)
+          gsap.to(pontoDeOnibusSliderRef.current, {
+            scrollTrigger: {
+              trigger: lastCardElement,
+              start: "bottom top",
+              end: "+=100vh",
+              scrub: 1,
+              invalidateOnRefresh: true,
+            },
+            backgroundPosition: "100% center",
+            ease: "none",
+          });
+        } else {
+          // Desktop: animação em duas fases
+          // Garante o estado inicial correto ao (re)entrar na seção
+          gsap.set(pontoDeOnibusSliderRef.current, {
+            backgroundSize: "200%",
+            backgroundPosition: "0% center",
+          });
+
+          const tl = gsap.timeline({
+            scrollTrigger: {
+              trigger: lastCardElement,
+              start: "bottom top",
+              end: "+=100vh",
+              scrub: 1,
+              invalidateOnRefresh: true,
+            },
+          });
+
+          tl
+            // Fase 1 (0%–50% do scroll): zoom de 200% → 160%, mantendo foco na cena 1
+            .to(pontoDeOnibusSliderRef.current, {
+              backgroundSize: "160%",
+              ease: "none",
+              duration: 0.5,
+            })
+            // Fase 2 (50%–100% do scroll): pan para a cena 2 com zoom fixo em 160%
+            .to(pontoDeOnibusSliderRef.current, {
+              backgroundPosition: "100% center",
+              ease: "none",
+              duration: 0.5,
+            });
+        }
       }
     }
 
@@ -326,7 +358,7 @@ export default function SupermercadoSection() {
         trigger.kill();
       });
     };
-  }, [showPontoDeOnibusScroll]);
+  }, [showPontoDeOnibusScroll, isMobile]);
 
   // Trigger the scroll animation when pontoDeOnibus is shown
   useGSAP(() => {
@@ -512,11 +544,16 @@ export default function SupermercadoSection() {
           />
 
           {/* Fifth image - pontoDeOnibus with horizontal scroll animation */}
+          {/* Desktop: backgroundSize "200% auto" garante que apenas uma cena */}
+          {/* (metade da imagem) aparece por vez. O pan 0%→100% transita da   */}
+          {/* cena 1 (ponto de ônibus, esquerda) para a cena 2 (farmácia,    */}
+          {/* direita) sem exibir as duas cenas simultaneamente.              */}
           <div
             ref={pontoDeOnibusSliderRef}
-            className="absolute inset-0 bg-cover bg-center overflow-hidden transition-opacity"
+            className="absolute inset-0 bg-center overflow-hidden transition-opacity"
             style={{
               backgroundImage: `url(${pontoDeOnibus.src})`,
+              backgroundSize: isMobile ? "cover" : "200%",
               backgroundPosition: "0% center",
               opacity: currentImage === 4 ? 1 : 0,
             }}
