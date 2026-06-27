@@ -12,7 +12,7 @@ import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
-import { cityLayersConfig } from "../lib/city-layers";
+import { cityLayersConfig, resolveLayerMapView } from "../lib/city-layers";
 import { createStyledLayer } from "../lib/layer-styles";
 import { CityAccordion } from "./city-accordion";
 import { CityLayers } from "./city-layers";
@@ -218,43 +218,21 @@ export default function PropertyMap() {
     >
   >(new Map());
 
-  // Keep a ref in sync with current URL-relevant state so the updateURL callback is never stale
-  const urlStateRef = useRef({
-    city: selectedCity,
-    layers: selectedLayers,
-    opacities: layerOpacities,
-    compare: isComparisonMode,
-    layer1: selectedLayer1,
-    layer2: selectedLayer2,
-    theme: mapTheme,
-  });
-  urlStateRef.current = {
-    city: selectedCity,
-    layers: selectedLayers,
-    opacities: layerOpacities,
-    compare: isComparisonMode,
-    layer1: selectedLayer1,
-    layer2: selectedLayer2,
-    theme: mapTheme,
-  };
-
   const updateURL = useCallback(() => {
-    const { city, layers, opacities, compare, layer1, layer2, theme } =
-      urlStateRef.current;
     const vp = mapViewportRef.current;
 
     const params = new URLSearchParams();
-    if (city) params.set("city", city);
-    if (compare) {
+    if (selectedCity) params.set("city", selectedCity);
+    if (isComparisonMode) {
       params.set("compare", "1");
-      if (layer1) params.set("layer1", layer1);
-      if (layer2) params.set("layer2", layer2);
+      if (selectedLayer1) params.set("layer1", selectedLayer1);
+      if (selectedLayer2) params.set("layer2", selectedLayer2);
     } else {
-      if (layers.length) params.set("layers", layers.join(","));
+      if (selectedLayers.length) params.set("layers", selectedLayers.join(","));
     }
-    const opStr = buildOpacityParam(opacities);
+    const opStr = buildOpacityParam(layerOpacities);
     if (opStr) params.set("opacity", opStr);
-    if (theme !== "dark") params.set("theme", theme);
+    if (mapTheme !== "dark") params.set("theme", mapTheme);
     if (vp.zoom !== null) params.set("zoom", vp.zoom.toFixed(4));
     if (vp.bearing !== null) params.set("bearing", vp.bearing.toFixed(2));
     if (vp.pitch !== null) params.set("pitch", vp.pitch.toFixed(2));
@@ -262,12 +240,8 @@ export default function PropertyMap() {
     if (vp.lng !== null) params.set("lng", vp.lng.toFixed(5));
 
     router.replace(`/geoportal?${params.toString()}`, { scroll: false });
-  }, [router]);
-
-  // Sync URL when URL-relevant state changes
-  useEffect(() => {
-    updateURL();
   }, [
+    router,
     selectedCity,
     selectedLayers,
     layerOpacities,
@@ -275,8 +249,15 @@ export default function PropertyMap() {
     selectedLayer1,
     selectedLayer2,
     mapTheme,
-    updateURL,
   ]);
+
+  const updateURLRef = useRef(updateURL);
+  updateURLRef.current = updateURL;
+
+  // Sync URL when URL-relevant state changes
+  useEffect(() => {
+    updateURL();
+  }, [updateURL]);
 
   // Function to add hover handlers for a layer
   const addHoverHandlers = (
@@ -705,7 +686,7 @@ export default function PropertyMap() {
         lat: center.lat,
         lng: center.lng,
       };
-      updateURL();
+      updateURLRef.current();
     });
 
     return () => {
@@ -714,7 +695,7 @@ export default function PropertyMap() {
         map.current = null;
       }
     };
-  }, [isComparisonMode, updateURL]);
+  }, [isComparisonMode]);
 
   // Initialize comparison maps
   // biome-ignore lint/correctness/useExhaustiveDependencies: Mount when entering comparison mode; theme and city updates use setStyle/flyTo
@@ -810,7 +791,7 @@ export default function PropertyMap() {
         lat: center.lat,
         lng: center.lng,
       };
-      updateURL();
+      updateURLRef.current();
     });
 
     // Handle window resize to update orientation
@@ -861,7 +842,7 @@ export default function PropertyMap() {
         afterMap.current = null;
       }
     };
-  }, [isComparisonMode, updateURL]);
+  }, [isComparisonMode]);
 
   // Add layers when comparison maps are loaded and layers are selected
   // biome-ignore lint/correctness/useExhaustiveDependencies: handleComparisonLayerChange is recreated each render; effect only syncs selected layers when maps become ready
@@ -989,38 +970,6 @@ export default function PropertyMap() {
     }
   }, [isComparisonMode, mapLoaded]);
 
-  // Helper function to safely execute flyTo when map is ready
-  const safeFlyTo = (
-    mapInstance: mapboxgl.Map,
-    center: [number, number],
-    zoom: number,
-  ) => {
-    const executeFly = () => {
-      mapInstance.flyTo({
-        center,
-        zoom,
-        duration: 2000,
-        essential: true,
-      });
-    };
-
-    // Check if map is loaded and style is loaded
-    if (mapInstance.loaded() && mapInstance.isStyleLoaded()) {
-      executeFly();
-    } else {
-      // Wait for the map to be ready
-      const onLoad = () => {
-        executeFly();
-        mapInstance.off("load", onLoad);
-        mapInstance.off("idle", onLoad);
-      };
-
-      // Listen to both load and idle events
-      mapInstance.once("load", onLoad);
-      mapInstance.once("idle", onLoad);
-    }
-  };
-
   const handleCityChange = (city: string) => {
     // Reset selected layers when changing city
     setSelectedLayers([]);
@@ -1037,17 +986,17 @@ export default function PropertyMap() {
     const targetCenter = cityCoordinates[targetCity];
     const targetZoom = cityZoomLevels[targetCity];
 
-    // Fly to new location on the appropriate map(s)
+    // Fly to new location on the appropriate map(s), resetting bearing/pitch
     if (isComparisonMode) {
       if (beforeMap.current) {
-        safeFlyTo(beforeMap.current, targetCenter, targetZoom);
+        safeFlyToWithReset(beforeMap.current, targetCenter, targetZoom);
       }
       if (afterMap.current) {
-        safeFlyTo(afterMap.current, targetCenter, targetZoom);
+        safeFlyToWithReset(afterMap.current, targetCenter, targetZoom);
       }
     } else {
       if (map.current) {
-        safeFlyTo(map.current, targetCenter, targetZoom);
+        safeFlyToWithReset(map.current, targetCenter, targetZoom);
       }
     }
 
@@ -1420,15 +1369,12 @@ export default function PropertyMap() {
             // Fly to layer view if configured
             if (layerConfig.mapView) {
               const isMobile = window.innerWidth < 768;
-              const targetZoom = isMobile
-                ? (layerConfig.mapView.zoomMobile ??
-                  layerConfig.mapView.zoom - 0.8)
-                : layerConfig.mapView.zoom;
+              const view = resolveLayerMapView(layerConfig.mapView, isMobile);
               mapInstance.flyTo({
-                center: layerConfig.mapView.center,
-                zoom: targetZoom,
-                bearing: layerConfig.mapView.bearing,
-                pitch: layerConfig.mapView.pitch,
+                center: view.center,
+                zoom: view.zoom,
+                bearing: view.bearing,
+                pitch: view.pitch,
                 duration: 2000,
                 essential: true,
               });

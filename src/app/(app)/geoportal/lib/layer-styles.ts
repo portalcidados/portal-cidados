@@ -16,6 +16,7 @@ export const layerStyles: Record<string, LayerStyle> = {
     id: "faixa-azul-trechos-spo",
     paint: {
       "line-width": 3,
+      "line-color": "hsl(196, 100%, 47%)",
     },
     slot: "",
     "source-layer": "faixa-azul-trechos-spo",
