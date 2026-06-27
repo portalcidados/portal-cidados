@@ -198,7 +198,7 @@ export const catalogData: DataCatalogItem[] = [
       "Ganhos e horas trabalhadas dos entregadores parceiros do iFood [2022-2024]",
     description:
       "Informações sobre hora trabalhada e ganhos dos entregadores parceiros do iFood.\nConjunto de dados disponibilizados a partir da parceria do CDIA com o iFood.",
-    theme: "Trabalho e renda",
+    theme: "Trabalho e Renda",
     region: "São Paulo",
     accessMethod: "Sala segura do Insper",
     keywords: [
@@ -208,7 +208,7 @@ export const catalogData: DataCatalogItem[] = [
       "Ganhos financeiros",
     ],
     createdAt: "2025-12-08",
-    tags: ["Trabalho e renda", "São Paulo", "Sala segura do Insper"],
+    tags: ["Trabalho e Renda", "São Paulo", "Sala segura do Insper"],
     dataset_info: [
       {
         dataset_title:
@@ -537,7 +537,7 @@ export const catalogData: DataCatalogItem[] = [
     title: "Índice GeoSES [2010]",
     description:
       "Índice socioeconômico espacial GeoSES calculado por área de ponderação no município de São Paulo. Índice pondera dimensões de educação, renda, saúde, habitação e mobilidade, usando dados da Amostra do Censo Demográfico de 2010.",
-    theme: "Multidisciplinar e transversal",
+    theme: "Multidisciplinar e Transversal",
     region: "São Paulo",
     accessMethod: "Disponível para download",
     keywords: [
@@ -548,7 +548,7 @@ export const catalogData: DataCatalogItem[] = [
     ],
     createdAt: "2025-12-08",
     tags: [
-      "Multidisciplinar e transversal",
+      "Multidisciplinar e Transversal",
       "São Paulo",
       "Disponível para download",
     ],

@@ -26,9 +26,9 @@ function searchItems(items: DataCatalogItem[], searchTerm: string): DataCatalogI
 
 function filterItems(items: DataCatalogItem[], filters: CatalogFilters): DataCatalogItem[] {
   return items.filter(item => {
-    if (filters.theme && item.theme !== filters.theme) return false;
-    if (filters.region && item.region !== filters.region) return false;
-    if (filters.accessMethod && item.accessMethod !== filters.accessMethod) return false;
+    if (filters.theme && item.theme.toLowerCase() !== filters.theme.toLowerCase()) return false;
+    if (filters.region && item.region.toLowerCase() !== filters.region.toLowerCase()) return false;
+    if (filters.accessMethod && item.accessMethod.toLowerCase() !== filters.accessMethod.toLowerCase()) return false;
     return true;
   });
 }
