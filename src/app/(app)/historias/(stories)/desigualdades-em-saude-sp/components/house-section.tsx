@@ -133,6 +133,10 @@ export default function HouseSection() {
         trigger: secondCard,
         start: "top bottom",
         onEnter: () => {
+          // Força o morphTl ao estado final antes de qualquer animação direta.
+          // Isso garante que o tween interno do houseBackground seja "completado"
+          // (não morto por overwrite), preservando a capacidade de reversão do timeline.
+          morphTl.progress(1, true);
           gsap.to(houseBackgroundRef.current, {
             opacity: 0,
             duration: 0.5,
