@@ -9,14 +9,18 @@ function applySecurityHeaders(
 		"'self'",
 		`'nonce-${nonce}'`,
 		"https://www.googletagmanager.com",
+		"https://www.clarity.ms",
+		"https://scripts.clarity.ms",
+		// Hash do inline script criado internamente pelo clarity.js.
+		"'sha256-J9cZHZf5nVZbsm7Pqxc8RsURv1AIXkMgbhfrZvoOs/A='",
 	];
 
 	const cspHeader = `
     default-src 'self' https://*.mapbox.com;
     script-src ${scriptSrcDirectives.join(" ")};
-    connect-src 'self' https://*.mapbox.com https://api.mapbox.com https://events.mapbox.com https://www.google-analytics.com https://analytics.google.com;
+    connect-src 'self' https://*.mapbox.com https://api.mapbox.com https://events.mapbox.com https://www.google-analytics.com https://analytics.google.com https://c.clarity.ms https://m.clarity.ms;
     style-src 'self' 'unsafe-inline';
-    img-src 'self' blob: data: https://*.mapbox.com https://www.google-analytics.com;
+    img-src 'self' blob: data: https://*.mapbox.com https://www.google-analytics.com https://c.clarity.ms;
     font-src 'self' data: https://fonts.gstatic.com;
     media-src 'self' data: blob:;
     worker-src 'self' blob:;

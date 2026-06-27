@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Inter } from "next/font/google";
 import localFont from "next/font/local";
 import { headers } from "next/headers";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import ClarityInit from "@/components/clarity-init";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "sonner";
 import "./globals.css";
@@ -155,6 +156,7 @@ export default async function RootLayout({
           nonce={nonce}
           debugMode={process.env.NODE_ENV === "development"}
         />
+        <ClarityInit />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${gtUltra.variable} ${gtUltraFine.variable} ${inter.variable} antialiased`}

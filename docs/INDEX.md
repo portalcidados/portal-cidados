@@ -10,6 +10,7 @@ Documentação técnica completa do Portal Cidadãos para desenvolvedores, arqui
 |---|---|---|
 | **[README](./README.md)** | Visão geral, tecnologias e configuração | Todos |
 | **[Arquitetura](./ARCHITECTURE.md)** | Arquitetura do sistema e padrões de design | Desenvolvedores / Arquitetos |
+| **[Analytics](./ANALYTICS.md)** | Google Analytics 4 + Microsoft Clarity: integração, CSP e ambientes | Desenvolvedores / Produto |
 | **[API Documentation](./API_DOCUMENTATION.md)** | Especificação completa da API REST | Desenvolvedores Backend/Frontend |
 | **[Frontend Integration](./FRONTEND_INTEGRATION.md)** | Como o frontend se integra com a API | Desenvolvedores Frontend |
 | **[API Examples](./API_EXAMPLES.md)** | Exemplos práticos de uso da API | Desenvolvedores |
@@ -143,3 +144,5 @@ npm run build
 | Legenda automática | ✅ |
 | Integração bidirecional Catálogo ↔ Geoportal | ✅ |
 | Abertura de modal do catálogo via URL | ✅ |
+| Google Analytics 4 | ✅ |
+| Microsoft Clarity (heatmaps + gravações) | ✅ |
