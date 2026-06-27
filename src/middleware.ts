@@ -8,14 +8,15 @@ function applySecurityHeaders(
 	const scriptSrcDirectives = [
 		"'self'",
 		`'nonce-${nonce}'`,
+		"https://www.googletagmanager.com",
 	];
 
 	const cspHeader = `
     default-src 'self' https://*.mapbox.com;
     script-src ${scriptSrcDirectives.join(" ")};
-    connect-src 'self' https://*.mapbox.com https://api.mapbox.com https://events.mapbox.com;
+    connect-src 'self' https://*.mapbox.com https://api.mapbox.com https://events.mapbox.com https://www.google-analytics.com https://analytics.google.com;
     style-src 'self' 'unsafe-inline';
-    img-src 'self' blob: data: https://*.mapbox.com;
+    img-src 'self' blob: data: https://*.mapbox.com https://www.google-analytics.com;
     font-src 'self' data: https://fonts.gstatic.com;
     media-src 'self' data: blob:;
     worker-src 'self' blob:;

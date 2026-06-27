@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Inter } from "next/font/google";
 import localFont from "next/font/local";
 import { headers } from "next/headers";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "sonner";
 import "./globals.css";
@@ -148,6 +149,13 @@ export default async function RootLayout({
   const nonce = (await headers()).get("x-nonce") ?? "";
   return (
     <html lang="pt-BR" nonce={nonce} suppressHydrationWarning>
+      <head>
+        <GoogleAnalytics
+          gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID || ""}
+          nonce={nonce}
+          debugMode={process.env.NODE_ENV === "development"}
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${gtUltra.variable} ${gtUltraFine.variable} ${inter.variable} antialiased`}
       >
