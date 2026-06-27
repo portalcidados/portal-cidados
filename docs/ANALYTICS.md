@@ -99,11 +99,11 @@ export default async function RootLayout({ children }) {
 
 O projeto usa uma CSP estrita com nonce em `src/middleware.ts`. O Clarity injeta dinamicamente um script externo e envia dados para seus servidores, portanto os seguintes domínios são necessários:
 
-| Diretiva | Domínio adicionado | Motivo |
-|---|---|---|
-| `script-src` | `https://www.clarity.ms` | Script de tracking injetado pelo `Clarity.init()` |
-| `connect-src` | `https://c.clarity.ms` | Envio de eventos e dados de sessão |
-| `img-src` | `https://c.clarity.ms` | Pixel de sincronização de cookies |
+| Diretiva        | Domínio adicionado        | Motivo                                             |
+| --------------- | -------------------------- | -------------------------------------------------- |
+| `script-src`  | `https://www.clarity.ms` | Script de tracking injetado pelo`Clarity.init()` |
+| `connect-src` | `https://c.clarity.ms`   | Envio de eventos e dados de sessão                |
+| `img-src`     | `https://c.clarity.ms`   | Pixel de sincronização de cookies                |
 
 ---
 
@@ -111,19 +111,19 @@ O projeto usa uma CSP estrita com nonce em `src/middleware.ts`. O Clarity injeta
 
 O prefixo `NEXT_PUBLIC_` é obrigatório para que o Next.js exponha a variável ao bundle do cliente.
 
-| Variável | Descrição |
-|---|---|
-| `NEXT_PUBLIC_CLARITY_ID` | Project ID do Microsoft Clarity |
+| Variável                           | Descrição                          |
+| ----------------------------------- | ------------------------------------ |
+| `NEXT_PUBLIC_CLARITY_ID`          | Project ID do Microsoft Clarity      |
 | `NEXT_PUBLIC_GOOGLE_ANALYTICS_ID` | Measurement ID do Google Analytics 4 |
 
 ### Configuração por ambiente
 
 Cada ambiente tem seu próprio Project ID no painel do Clarity. Configure a variável na plataforma de deploy para cada ambiente:
 
-| Ambiente | Como configurar |
-|---|---|
-| Local / Homologação | `.env` na raiz do projeto |
-| Produção | Variável de ambiente na plataforma de deploy (Vercel, Docker, etc.) |
+| Ambiente              | Como configurar                                                      |
+| --------------------- | -------------------------------------------------------------------- |
+| Local / Homologação | `.env` na raiz do projeto                                          |
+| Produção            | Variável de ambiente na plataforma de deploy (Vercel, Docker, etc.) |
 
 ```env
 # .env (homologação)
@@ -163,3 +163,4 @@ Sessões aparecem no dashboard em até **2 horas** após o primeiro acesso. Em h
 - [Microsoft Clarity — Documentação oficial](https://learn.microsoft.com/en-us/clarity/)
 - [Pacote npm @microsoft/clarity](https://www.npmjs.com/package/@microsoft/clarity)
 - [Next.js — Client Components](https://nextjs.org/docs/app/building-your-application/rendering/client-components)
+- [Tutorial](https://dev.to/chamupathi_mendis_cdd19da/integrate-ms-clarity-to-nextjs-app-app-router--241o)
