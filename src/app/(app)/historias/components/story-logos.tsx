@@ -8,17 +8,20 @@ import portalLogo from "../assets/portal_cidados_logo.png";
 interface StoryLogosProps {
   inverted?: boolean;
   hoverable?: boolean;
+  imageClassName?: string;
 }
 
 export function StoryLogos({
   inverted = false,
   hoverable = true,
+  imageClassName,
 }: StoryLogosProps) {
   const [hoveredLogo, setHoveredLogo] = useState<"insper" | "portal" | null>(
     null,
   );
 
   const invertClass = inverted ? "brightness-0 invert" : "";
+  const filterClass = imageClassName ?? invertClass;
 
   const insperScale = hoverable
     ? hoveredLogo === "insper"
@@ -53,7 +56,7 @@ export function StoryLogos({
           alt="Insper Logo"
           width={384}
           height={128}
-          className={`h-auto w-40 sm:w-48 max-w-none transition-transform duration-300 ${invertClass} ${insperScale}`}
+          className={`h-auto w-40 sm:w-48 max-w-none transition-transform duration-300 ${filterClass} ${insperScale}`}
           priority
         />
       </Link>
@@ -70,7 +73,7 @@ export function StoryLogos({
           alt="Portal Cidadãos Logo"
           width={272}
           height={90}
-          className={`h-auto w-26 sm:w-34 max-w-none transition-transform duration-300 ${invertClass} ${portalScale}`}
+          className={`h-auto w-26 sm:w-34 max-w-none transition-transform duration-300 ${filterClass} ${portalScale}`}
           priority
         />
       </Link>
