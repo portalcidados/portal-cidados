@@ -13,6 +13,10 @@ import {
 
 gsap.registerPlugin(ScrollTrigger);
 
+const MEDIA_MARGIN = 24;
+const MEDIA_BORDER_RADIUS = 12;
+const EXPAND_SCROLL_DISTANCE = 300;
+
 function CardBox({ children }: { children: React.ReactNode }) {
   return (
     <div
@@ -83,9 +87,26 @@ const FINAL_CARDS = [
   },
 ] as const;
 
+function applyMediaFrame(
+  mediaInner: HTMLDivElement,
+  expandedRatio: number,
+) {
+  const ratio = gsap.utils.clamp(0, 1, expandedRatio);
+
+  gsap.set(mediaInner, {
+    top: gsap.utils.interpolate(MEDIA_MARGIN, 0, ratio),
+    left: gsap.utils.interpolate(MEDIA_MARGIN, 0, ratio),
+    right: gsap.utils.interpolate(MEDIA_MARGIN, 0, ratio),
+    bottom: gsap.utils.interpolate(MEDIA_MARGIN, 0, ratio),
+    borderRadius: gsap.utils.interpolate(MEDIA_BORDER_RADIUS, 0, ratio),
+  });
+}
+
 export default function FinalSection() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const sectionRef = useRef<HTMLElement>(null);
   const scopeRef = useRef<HTMLDivElement>(null);
+  const mediaInnerRef = useRef<HTMLDivElement>(null);
 
   const card0Ref = useRef<HTMLDivElement>(null);
   const card1Ref = useRef<HTMLDivElement>(null);
@@ -95,12 +116,52 @@ export default function FinalSection() {
 
   useLayoutEffect(() => {
     const cards = [card0Ref, card1Ref, card2Ref];
+    const mediaInner = mediaInnerRef.current;
+    const scope = scopeRef.current;
+    const lastCard = card2Ref.current;
+
+    if (!mediaInner || !scope || !lastCard) return;
+
+    let expandST: ScrollTrigger | undefined;
+    let collapseST: ScrollTrigger | undefined;
     let triggers: ScrollTrigger[] = [];
 
+    const updateMediaFrame = () => {
+      const expandProgress = expandST?.progress ?? 0;
+
+      if (collapseST && collapseST.scroll() >= collapseST.start) {
+        applyMediaFrame(mediaInner, 1 - collapseST.progress);
+        return;
+      }
+
+      applyMediaFrame(mediaInner, expandProgress);
+    };
+
     const create = () => {
-      if (!cards.every((ref) => ref.current)) return;
       for (const t of triggers) t.kill();
       triggers = [];
+
+      applyMediaFrame(mediaInner, 0);
+
+      expandST = ScrollTrigger.create({
+        trigger: scope,
+        start: "top top",
+        end: `+=${EXPAND_SCROLL_DISTANCE}`,
+        scrub: 0.5,
+        onUpdate: updateMediaFrame,
+      });
+      triggers.push(expandST);
+
+      if (!cards.every((ref) => ref.current)) return;
+
+      collapseST = ScrollTrigger.create({
+        trigger: lastCard,
+        start: "bottom center",
+        end: `+=${EXPAND_SCROLL_DISTANCE}`,
+        scrub: 0.5,
+        onUpdate: updateMediaFrame,
+      });
+      triggers.push(collapseST);
 
       cards.forEach((ref, i) => {
         triggers.push(
@@ -115,6 +176,7 @@ export default function FinalSection() {
         );
       });
 
+      updateMediaFrame();
       requestAnimationFrame(() => ScrollTrigger.refresh());
     };
 
@@ -165,28 +227,40 @@ export default function FinalSection() {
   const cardRefs = [card0Ref, card1Ref, card2Ref];
 
   return (
-    <section className="w-full py-20 pb-60 bg-white">
+    <section ref={sectionRef} className="w-full py-20 pb-60 bg-white">
       <div
         ref={scopeRef}
-        className="relative h-screen w-full overflow-hidden"
+        className="relative h-screen w-full"
         style={{ position: "sticky", top: 0, zIndex: 0 }}
       >
-        {FINAL_LAYERS.map((media, i) => (
-          <div
-            key={media.src}
-            ref={(el) => {
-              layerRefs.current[i] = el;
-            }}
-            className="absolute inset-0"
-            style={{ opacity: i === 0 ? 1 : 0 }}
-          >
-            <img
-              src={media.src}
-              alt={media.alt}
-              className="h-full w-full object-cover"
-            />
-          </div>
-        ))}
+        <div
+          ref={mediaInnerRef}
+          className="absolute overflow-hidden"
+          style={{
+            top: MEDIA_MARGIN,
+            left: MEDIA_MARGIN,
+            right: MEDIA_MARGIN,
+            bottom: MEDIA_MARGIN,
+            borderRadius: MEDIA_BORDER_RADIUS,
+          }}
+        >
+          {FINAL_LAYERS.map((media, i) => (
+            <div
+              key={media.src}
+              ref={(el) => {
+                layerRefs.current[i] = el;
+              }}
+              className="absolute inset-0"
+              style={{ opacity: i === 0 ? 1 : 0 }}
+            >
+              <img
+                src={media.src}
+                alt={media.alt}
+                className="h-full w-full object-cover"
+              />
+            </div>
+          ))}
+        </div>
       </div>
 
       <div>
