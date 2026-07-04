@@ -24,8 +24,8 @@ function ScrollCard({ children, cardRef, minHeight = "130vh" }: ScrollCardProps)
       style={{ minHeight, position: "relative", zIndex: 1 }}
     >
       <div
-        className="w-full max-w-xl rounded-xl bg-white/80 p-6 text-sm leading-relaxed shadow-lg backdrop-blur-sm md:p-8 md:text-base"
-        style={{ color: brandColor }}
+        className="w-full max-w-xl rounded-xl p-6 lg:p-9 text-sm leading-normal shadow-lg backdrop-blur-sm md:p-8 md:text-base"
+        style={{ color: brandColor, backgroundColor: "#F0F0F0" }}
       >
         {children}
       </div>
@@ -139,36 +139,43 @@ export default function PictogramSection() {
       <div>
         <ScrollCard cardRef={card0Ref}>
           <p>
-            Embora as motocicletas representem apenas cerca de{" "}
-            <strong>5% dos deslocamentos diários</strong> na Região Metropolitana
-            de São Paulo, os motociclistas estão envolvidos em cerca de{" "}
-            <strong>70% dos sinistros</strong> da cidade.
+            <strong>
+              Embora as motocicletas representem apenas cerca de 5% dos
+              deslocamentos diários na Região Metropolitana de São Paulo
+            </strong>
+            , os motociclistas estão envolvidos em cerca de 70% dos sinistros da
+            cidade.
           </p>
         </ScrollCard>
 
         <ScrollCard cardRef={card1Ref}>
           <p>
             O aumento no número de acidentes e mortes envolvendo motociclistas
-            acompanha o crescimento acelerado do uso de motos nos últimos anos,
-            especialmente durante a pandemia. A expansão dos aplicativos de
-            entrega ampliou significativamente a demanda por entregadores e
-            intensificou a circulação de motocicletas nas grandes cidades. No
-            próximo gráfico é possível ver que os motociclistas concentram{" "}
-            <strong>aproximadamente metade das mortes no trânsito</strong>.
+            acompanha o crescimento acelerado do uso de motos nos últimos anos,{" "}
+            <strong>especialmente durante a pandemia</strong>. A expansão dos
+            aplicativos de entrega ampliou significativamente a demanda por
+            entregadores e intensificou a circulação de motocicletas nas grandes
+            cidades. No próximo gráfico é possível ver que{" "}
+            <strong>
+              os motociclistas concentram aproximadamente metade das mortes no
+              trânsito.
+            </strong>
           </p>
         </ScrollCard>
 
         <ScrollCard cardRef={card2Ref} minHeight="150vh">
           <p>
             Nesse cenário de aumento do uso da moto e das mortes de
-            motociclistas, a <strong>Faixa Azul</strong> ganhou força como
-            resposta da Prefeitura a este problema de grande relevância. A
-            intervenção busca reorganizar o espaço viário, reduzir conflitos
-            entre motos e carros e tornar a circulação mais previsível em alguns
-            dos corredores mais movimentados da cidade. Com o avanço da política
-            e após algum tempo de sua implementação, um questionamento se fez
-            necessário: a Faixa Azul contribuiu para a redução dos sinistros de
-            trânsito envolvendo motociclistas?
+            motociclistas, a Faixa Azul ganhou força como resposta da Prefeitura
+            a este problema de grande relevância.{" "}
+            <strong>
+              A intervenção busca reorganizar o espaço viário, reduzir conflitos
+              entre motos e carros e tornar a circulação mais previsível em
+              alguns dos corredores mais movimentados da cidade.
+            </strong>{" "}
+            Com o avanço da política e após algum tempo de sua implementação, um
+            questionamento se fez necessário: a Faixa Azul contribuiu para a
+            redução dos sinistros de trânsito envolvendo motociclistas?
           </p>
         </ScrollCard>
 
