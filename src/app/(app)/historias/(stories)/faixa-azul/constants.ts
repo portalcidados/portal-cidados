@@ -2,6 +2,20 @@ export const coverVideo = "/historias/faixa-azul/video-capa.mp4";
 
 export const accidentVideo = "/historias/faixa-azul/acidente.mp4";
 
+export const faixaChartImage = "/historias/faixa-azul/grafico-faixas.png";
+
+export const chuvaImage = "/historias/faixa-azul/chuva.png";
+
+export const horarioImage = "/historias/faixa-azul/horario.png";
+
+export const trafegoImage = "/historias/faixa-azul/trafego.png";
+
+export const cruzamentoImage = "/historias/faixa-azul/cruzamento.png";
+
+export const fechadaFaixaVideo = "/historias/faixa-azul/fechada-faixa.mp4";
+
+export const velocidadeVideo = "/historias/faixa-azul/velocidade.mp4";
+
 export const g1ArticleUrl =
   "https://g1.globo.com/sp/sao-paulo/noticia/2024/05/02/prefeitura-de-sp-confirma-quatro-mortes-de-motociclistas-em-duas-avenidas-apos-implementacao-da-faixa-azul.ghtml";
 

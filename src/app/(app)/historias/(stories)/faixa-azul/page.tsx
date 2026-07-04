@@ -8,6 +8,8 @@ import Intro from "./components/intro";
 import { PreloadWrapper } from "./components/preload-wrapper";
 import { brandColor, coverVideo } from "./constants";
 import Context from "./components/context";
+import FactorsSection from "./components/factors-section";
+import MediaSection from "./components/media-section";
 import PictogramSection from "./components/pictogram-section";
 
 export const metadata: Metadata = {
@@ -26,6 +28,8 @@ export default function FaixaAzulPage() {
         <Intro />
         <Context />
         <PictogramSection />
+        <MediaSection />
+        <FactorsSection />
         <Footer />
         <ScrollToTopIcon />
         <ContinueScrollingHint />
