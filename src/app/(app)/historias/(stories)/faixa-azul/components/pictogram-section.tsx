@@ -171,6 +171,9 @@ export default function PictogramSection() {
             trânsito envolvendo motociclistas?
           </p>
         </ScrollCard>
+
+        {/* Spacer para manter o sticky ativo até card2 sair da tela */}
+        <div style={{ minHeight: "50vh" }} aria-hidden="true" />
       </div>
     </section>
   );
