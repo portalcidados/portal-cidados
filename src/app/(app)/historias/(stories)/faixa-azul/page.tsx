@@ -8,6 +8,7 @@ import Intro from "./components/intro";
 import { PreloadWrapper } from "./components/preload-wrapper";
 import { brandColor, coverVideo } from "./constants";
 import Context from "./components/context";
+import PictogramSection from "./components/pictogram-section";
 
 export const metadata: Metadata = {
   title: "A Faixa Azul tornou o trânsito mais seguro? | Portal Cidadãos",
@@ -24,6 +25,7 @@ export default function FaixaAzulPage() {
         <ScrollProgressBar barColor={brandColor} />
         <Intro />
         <Context />
+        <PictogramSection />
         <Footer />
         <ScrollToTopIcon />
         <ContinueScrollingHint />
