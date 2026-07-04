@@ -54,9 +54,9 @@ export default function Intro() {
       </div>
 
       {/* Conteúdo centralizado sobre a capa */}
-      <div className="relative z-10 flex flex-col items-center justify-center px-6 md:px-8 lg:px-12 text-center max-w-4xl">
+      <div className="relative z-10 flex flex-col items-center justify-center px-6 md:px-8 lg:px-12 text-center max-w-4xl 2xl:max-w-6xl ">
         <h1
-          className="text-center font-inter text-2xl md:text-4xl pt-20 font-bold leading-tight mb-4"
+          className="text-center font-inter text-2xl md:text-4xl 2xl:text-5xl pt-20 font-bold leading-tight mb-4"
           style={{ color: brandColor }}
         >
           {introTitle}

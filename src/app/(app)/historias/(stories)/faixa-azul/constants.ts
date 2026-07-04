@@ -1,5 +1,10 @@
 export const coverVideo = "/historias/faixa-azul/video-capa.mp4";
 
+export const accidentVideo = "/historias/faixa-azul/acidente.mp4";
+
+export const g1ArticleUrl =
+  "https://g1.globo.com/sp/sao-paulo/noticia/2024/05/02/prefeitura-de-sp-confirma-quatro-mortes-de-motociclistas-em-duas-avenidas-apos-implementacao-da-faixa-azul.ghtml";
+
 export const brandColor = "#23254E";
 
 export const logoTintClass =
