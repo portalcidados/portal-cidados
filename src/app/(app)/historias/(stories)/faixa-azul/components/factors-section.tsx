@@ -87,7 +87,7 @@ export default function FactorsSection() {
   );
 
   return (
-    <section className="mt-10 w-full bg-white">
+    <section className="my-50 w-full bg-white">
       <div className="p-6">
         <div
           ref={scopeRef}
