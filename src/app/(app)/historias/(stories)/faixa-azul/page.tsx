@@ -11,6 +11,11 @@ import Context from "./components/context";
 import FactorsSection from "./components/factors-section";
 import MediaSection from "./components/media-section";
 import PictogramSection from "./components/pictogram-section";
+import MapSection from "./components/map-section";
+import OsmText from "./components/osm-text";
+import ChartTwo from "./components/chart-two";
+import AfterChartTwoText from "./components/after-chart-two-text";
+import FinalSection from "./components/final-section";
 
 export const metadata: Metadata = {
   title: "A Faixa Azul tornou o trânsito mais seguro? | Portal Cidadãos",
@@ -30,6 +35,11 @@ export default function FaixaAzulPage() {
         <PictogramSection />
         <MediaSection />
         <FactorsSection />
+        <MapSection />
+        <OsmText />
+        <ChartTwo />
+        <AfterChartTwoText />
+        <FinalSection />
         <Footer />
         <ScrollToTopIcon />
         <ContinueScrollingHint />
