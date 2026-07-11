@@ -38,7 +38,7 @@ function FactorButton({
     <button
       type="button"
       onClick={onClick}
-      className="flex h-[104px] w-full cursor-pointer items-center justify-center self-stretch rounded-[11px] px-6 text-center text-sm font-bold leading-snug backdrop-blur-[8px] transition-[border-color] duration-200 md:text-base"
+      className="flex h-11 w-full cursor-pointer items-center justify-center self-stretch rounded-lg px-2 text-center text-xs font-bold leading-snug backdrop-blur-[8px] transition-[border-color] duration-200 sm:h-14 sm:rounded-[11px] sm:px-3 sm:text-sm md:h-[104px] md:px-6 md:text-base"
       style={{
         background: "rgba(255, 255, 255, 0.50)",
         border: isSelected ? "2px solid #FFF" : "2px solid transparent",
@@ -111,7 +111,7 @@ export default function FactorsSection() {
           ))}
 
           <nav
-            className="absolute top-6 right-6 z-10 flex w-[min(100%,220px)] flex-col gap-3"
+            className="absolute inset-x-3 bottom-3 z-10 grid grid-cols-2 gap-2 sm:inset-x-4 sm:bottom-4 sm:gap-2.5 md:inset-x-auto md:top-6 md:right-6 md:bottom-auto md:flex md:w-[min(100%,220px)] md:flex-col md:gap-3"
             aria-label="Fatores que influenciam sinistros"
           >
             {FACTORS.map((factor, i) => (
