@@ -5,6 +5,14 @@ import type { ChartData } from "../components/pictogram-chart";
 // - mock: valor inventado (placeholder) — NÃO extraído de fonte. Trocar por dado real.
 // - config: parâmetro de renderização do gráfico (não é dado de pesquisa).
 
+// Ordem fixa do eixo X em todos os gráficos.
+export const TRANSPORT_CATEGORY_ORDER = [
+  "Automóvel",
+  "Motocicleta",
+  "Transporte público",
+  "Pedestre",
+] as const;
+
 export const charts: ChartData[] = [
   {
     id: "viagens", // config
@@ -14,16 +22,13 @@ export const charts: ChartData[] = [
       "Distribuição dos deslocamentos diários, por meio de transporte, na Região Metropolitana de São Paulo em 2023.", // fornecido
     source:
       'Pesquisa Origem-Destino do Metrô de São Paulo; estudo "Avaliação do impacto da Faixa Azul nos sinistros de trânsito em São Paulo" — Centro de Estudos das Cidades / Insper, 2025.', // fornecido
-    yMax: 50, // config
-    step: 2.5, // config
+    yMax: 80, // config
+    step: 4, // config
     categories: [
-      { label: "Automóvel", icon: "car", value: 41.6 }, // fornecido
-      { label: "Ônibus", icon: "bus", value: 22.5 }, // fornecido
-      { label: "Metrô", icon: "tram", value: 11 }, // fornecido
-      { label: "Transporte Escolar", icon: "van", value: 9.7 }, // fornecido
-      { label: "Motocicleta", icon: "motorbike", value: 4.9 }, // fornecido
-      { label: "Trem", icon: "train", value: 4.4 }, // fornecido
-      { label: "Táxi", icon: "taxi", value: 4.4 }, // fornecido
+      { label: "Automóvel", icon: "car", value: 41.6 }, // mock
+      { label: "Motocicleta", icon: "motorbike", value: 4.9 }, // mock
+      { label: "Transporte público", icon: "bus", value: 37.9 }, // mock (ônibus+metrô+trem)
+      { label: "Pedestre", icon: "pedestrian", value: 15.6 }, // mock
     ],
   },
   {
@@ -37,11 +42,9 @@ export const charts: ChartData[] = [
     yMax: 80, // config
     step: 4, // config
     categories: [
-      { label: "Motocicleta", icon: "motorbike", value: 70 }, // fornecido (aprox. "~70%")
       { label: "Automóvel", icon: "car", value: 15 }, // mock
-      { label: "Ônibus", icon: "bus", value: 6 }, // mock
-      { label: "Caminhão", icon: "truck", value: 5 }, // mock
-      { label: "Bicicleta", icon: "bike", value: 2 }, // mock
+      { label: "Motocicleta", icon: "motorbike", value: 70 }, // fornecido (aprox. "~70%")
+      { label: "Transporte público", icon: "bus", value: 8 }, // mock
       { label: "Pedestre", icon: "pedestrian", value: 2 }, // mock
     ],
   },
@@ -53,14 +56,13 @@ export const charts: ChartData[] = [
       "Distribuição das vítimas fatais no trânsito, por tipo de usuário da via, no município de São Paulo em 2023.", // fornecido
     source:
       'Infosiga-SP; estudo "Avaliação do impacto da Faixa Azul nos sinistros de trânsito em São Paulo" — Centro de Estudos das Cidades / Insper, 2025.', // fornecido
-    yMax: 60, // config
-    step: 3, // config
+    yMax: 80, // config
+    step: 4, // config
     categories: [
-      { label: "Motociclista", icon: "motorbike", value: 50 }, // fornecido (aprox. "metade")
-      { label: "Pedestre", icon: "pedestrian", value: 26 }, // mock
-      { label: "Automóvel", icon: "car", value: 15 }, // mock
-      { label: "Ciclista", icon: "bike", value: 6 }, // mock
-      { label: "Outros", icon: "van", value: 4 }, // mock
+      { label: "Automóvel", icon: "car", value: 20 }, // mock
+      { label: "Motocicleta", icon: "motorbike", value: 50 }, // fornecido (aprox. "metade")
+      { label: "Transporte público", icon: "bus", value: 9 }, // mock
+      { label: "Pedestre", icon: "pedestrian", value: 31 }, // mock
     ],
   },
 ];

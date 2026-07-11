@@ -1,9 +1,8 @@
 "use client";
 
 import { useLayoutEffect, useRef, useState } from "react";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import gsap from "gsap";
 import { charts } from "../data/transport-charts";
 import { brandColor } from "../constants";
 import { PictogramChart } from "./pictogram-chart";
@@ -35,7 +34,6 @@ function ScrollCard({ children, cardRef, minHeight = "130vh" }: ScrollCardProps)
 
 export default function PictogramSection() {
   const [activeIndex, setActiveIndex] = useState(0);
-  const scopeRef = useRef<HTMLDivElement>(null);
 
   const card0Ref = useRef<HTMLDivElement>(null);
   const card1Ref = useRef<HTMLDivElement>(null);
@@ -78,45 +76,6 @@ export default function PictogramSection() {
     };
   }, []);
 
-  // Refaz o gráfico de forma animada a cada troca de gráfico ativo.
-  useGSAP(
-    () => {
-      const scope = scopeRef.current;
-      if (!scope) return;
-
-      const header = scope.querySelector("[data-pico-header]");
-      const icons = scope.querySelectorAll<HTMLElement>(".pico-icon");
-
-      const tl = gsap.timeline();
-
-      if (header) {
-        tl.fromTo(
-          header,
-          { opacity: 0, y: 10 },
-          { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" },
-          0,
-        );
-      }
-
-      if (icons.length > 0) {
-        tl.fromTo(
-          icons,
-          { opacity: 0, scale: 0.4, y: 8 },
-          {
-            opacity: 1,
-            scale: 1,
-            y: 0,
-            duration: 0.5,
-            ease: "back.out(1.7)",
-            stagger: { each: 0.008, from: "end" },
-          },
-          0.05,
-        );
-      }
-    },
-    { scope: scopeRef, dependencies: [activeIndex] },
-  );
-
   const activeChart = charts[activeIndex];
 
   return (
@@ -127,7 +86,6 @@ export default function PictogramSection() {
         style={{ position: "sticky", top: 0, zIndex: 0 }}
       >
         <div
-          ref={scopeRef}
           className="mx-auto flex max-h-[86vh] pb-6 w-full max-w-2xl flex-col px-6 2xl:max-w-3xl"
           style={{ height: "86vh" }}
         >
