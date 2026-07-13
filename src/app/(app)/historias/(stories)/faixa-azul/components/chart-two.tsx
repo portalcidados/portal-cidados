@@ -1,7 +1,6 @@
 "use client";
 
 import { useLayoutEffect, useRef, useState } from "react";
-import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { brandColor } from "../constants";
@@ -47,9 +46,7 @@ function ScrollCard({
 
 export default function ChartTwo() {
   const [activeIndex, setActiveIndex] = useState(0);
-  const scopeRef = useRef<HTMLDivElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
-  const layerRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useLayoutEffect(() => {
     let trigger: ScrollTrigger | null = null;
@@ -81,46 +78,13 @@ export default function ChartTwo() {
     };
   }, []);
 
-  useGSAP(
-    () => {
-      layerRefs.current.forEach((layer, i) => {
-        if (!layer) return;
-        const isActive = i === activeIndex;
-
-        gsap.to(layer, {
-          opacity: isActive ? 1 : 0,
-          duration: 0.4,
-          ease: "power2.inOut",
-          overwrite: "auto",
-        });
-
-        if (isActive) {
-          gsap.fromTo(
-            layer,
-            { scale: 1.02 },
-            {
-              scale: 1,
-              duration: 0.45,
-              ease: "power2.out",
-              overwrite: "auto",
-            },
-          );
-        }
-      });
-    },
-    { scope: scopeRef, dependencies: [activeIndex] },
-  );
-
   return (
     <section className="w-full bg-white">
       <div
         className="flex h-screen w-full items-center justify-center"
         style={{ position: "sticky", top: 0, zIndex: 0 }}
       >
-        <div
-          ref={scopeRef}
-          className="flex h-[86vh] max-h-[86vh] w-full flex-col px-6 pb-6 md:h-[92vh] md:max-h-[92vh]"
-        >
+        <div className="flex h-[86vh] max-h-[86vh] w-full flex-col px-6 pb-6 md:h-[92vh] md:max-h-[92vh]">
           <div
             className="mx-auto w-full max-w-xl shrink-0 pb-4 font-inter md:h-36 md:max-w-2xl md:overflow-hidden md:pb-2 2xl:max-w-3xl"
             style={{ color: brandColor }}
@@ -137,32 +101,7 @@ export default function ChartTwo() {
           </div>
 
           <div className="relative min-h-0 flex-1 overflow-visible">
-            <div
-              ref={(el) => {
-                layerRefs.current[0] = el;
-              }}
-              className="absolute inset-0 overflow-visible"
-              style={{
-                opacity: 1,
-                pointerEvents: activeIndex === 0 ? "auto" : "none",
-              }}
-              aria-hidden={activeIndex !== 0}
-            >
-              <TimelineChart />
-            </div>
-            <div
-              ref={(el) => {
-                layerRefs.current[1] = el;
-              }}
-              className="absolute inset-0 flex justify-center overflow-hidden"
-              style={{
-                opacity: 0,
-                pointerEvents: activeIndex === 1 ? "auto" : "none",
-              }}
-              aria-hidden={activeIndex !== 1}
-            >
-              <div className="h-full w-full max-w-xl bg-neutral-600 md:max-w-2xl 2xl:max-w-3xl" />
-            </div>
+            <TimelineChart active={activeIndex === 1} />
           </div>
         </div>
       </div>

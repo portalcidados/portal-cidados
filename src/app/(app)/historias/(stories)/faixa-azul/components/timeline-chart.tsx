@@ -1,5 +1,8 @@
 "use client";
 
+import { useRef } from "react";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 import { brandColor } from "../constants";
 import {
   acidentesData,
@@ -21,6 +24,20 @@ const COLOR_AFTER = "#666666";
 const COLOR_MOTORCYCLE = "#BF2242";
 const COLOR_OTHER = "#C9AF80";
 const COLOR_GRID = "#E5E5E5";
+const COLOR_GUIDE = "#DC2626";
+
+/**
+ * Estado alinhado (--t = 1): implementacao (V0) no centro; janela de comparacao
+ * de 1 ano antes (-1) e 1 ano depois (+1) ocupando o miolo do plot.
+ */
+const WINDOW_MONTHS = 12;
+const V0_PCT = 50;
+const HALF_WINDOW_PCT = 25;
+const MINUS1_PCT = V0_PCT - HALF_WINDOW_PCT; // 25%
+const PLUS1_PCT = V0_PCT + HALF_WINDOW_PCT; // 75%
+
+/** Cor de fundo da secao (usada pelas mascaras que recortam a janela). */
+const COLOR_BG = "#FFFFFF";
 
 function monthToIndex(ym: string): number {
   const [y, m] = ym.split("-").map(Number);
@@ -60,6 +77,17 @@ function toPercentMonthEnd(ym: string): number {
 
 function yearToPercent(year: number): number {
   return toPercent(`${year}-01`);
+}
+
+/**
+ * Expressao CSS que interpola de `from`% para `to`% conforme a var `--t` (0->1).
+ * Retorna o conteudo interno de um calc() (sem o wrapper), p.ex.:
+ *   `(0 + 50 * var(--t)) * 1%`.
+ */
+function lerpExpr(from: number, to: number): string {
+  const delta = to - from;
+  const op = delta >= 0 ? "+" : "-";
+  return `(${from} ${op} ${Math.abs(delta)} * var(--t)) * 1%`;
 }
 
 function buildSemesterMarks(): string[] {
@@ -128,23 +156,35 @@ function EventMarker({
   event,
   avenue,
   offsetX = 0,
+  implIdx,
 }: {
   event: AccidentEvent;
   avenue: string;
   offsetX?: number;
+  implIdx: number;
 }) {
-  const left = toPercentMonthCenter(event.date);
   const isMotorcycle = event.type === "motorcycle";
+
+  // Origem: posicao no tempo absoluto (estado inicial do grafico).
+  const originLeft = toPercentMonthCenter(event.date);
+  // Alvo: posicao relativa a implementacao dentro da janela [-1, +1].
+  const eventIdx = monthToIndex(event.date);
+  const rel = eventIdx - implIdx;
+  const inWindow = rel >= -WINDOW_MONTHS && rel <= WINDOW_MONTHS;
+  const targetLeft =
+    V0_PCT + ((eventIdx + 0.5 - implIdx) / WINDOW_MONTHS) * HALF_WINDOW_PCT;
 
   return (
     <span
       role="img"
       className="pointer-events-none absolute top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 leading-none"
       style={{
-        left: `calc(${left}% + ${offsetX}px)`,
+        left: `calc(${lerpExpr(originLeft, targetLeft)} + ${offsetX}px)`,
         width: MARKER_SIZE,
         height: MARKER_SIZE,
         overflow: "visible",
+        // Marcadores fora da janela de comparacao somem conforme alinha.
+        ...(inWindow ? {} : { opacity: "calc(1 - var(--t))" }),
       }}
       aria-label={`${avenue}: ${eventLabel(event.type)}, ${formatMonthLabel(event.date)}`}
     >
@@ -154,26 +194,37 @@ function EventMarker({
 }
 
 function AvenueBar({ row }: { row: AvenidaData }) {
-  const split = toPercentMonthEnd(row.implementation.after.start);
+  const implIdx = monthToIndex(row.implementation.after.start);
+  const splitOrigin = toPercentMonthEnd(row.implementation.after.start);
+
+  // Alvo: 1 ano antes (claro) e 1 ano depois (escuro) em torno de V0 (centro).
+  // Barras sem 12 meses completos de "depois" nao alcancam a linha +1.
+  const beforeAvail = Math.min(implIdx - DOMAIN_START_IDX, WINDOW_MONTHS);
+  const afterAvail = Math.min(DOMAIN_END_IDX - implIdx, WINDOW_MONTHS);
+  const lightLeftTarget =
+    V0_PCT - (beforeAvail / WINDOW_MONTHS) * HALF_WINDOW_PCT;
+  const darkRightTarget =
+    V0_PCT + (afterAvail / WINDOW_MONTHS) * HALF_WINDOW_PCT;
+
+  const lightLeft = `calc(${lerpExpr(0, lightLeftTarget)})`;
+  const lightWidth = `calc(${lerpExpr(splitOrigin, V0_PCT - lightLeftTarget)})`;
+  const darkLeft = `calc(${lerpExpr(splitOrigin, V0_PCT)})`;
+  const darkWidth = `calc(${lerpExpr(100 - splitOrigin, darkRightTarget - V0_PCT)})`;
+
   const overlapOffsets = getOverlapOffsets(row.events);
 
   return (
     <div className="relative min-h-0 flex-1 overflow-visible">
       {/* Barra: altura reduzida; marcadores ficam na linha inteira para não clipar */}
       <div className="pointer-events-none absolute inset-y-[14%] left-0 right-0 md:inset-y-[8%]">
-        <div className="absolute inset-0 flex overflow-hidden rounded-[1px]">
-          <div
-            className="h-full"
-            style={{ width: `${split}%`, backgroundColor: COLOR_BEFORE }}
-          />
-          <div
-            className="h-full"
-            style={{
-              width: `${100 - split}%`,
-              backgroundColor: COLOR_AFTER,
-            }}
-          />
-        </div>
+        <div
+          className="absolute inset-y-0 rounded-[1px]"
+          style={{ left: lightLeft, width: lightWidth, backgroundColor: COLOR_BEFORE }}
+        />
+        <div
+          className="absolute inset-y-0 rounded-[1px]"
+          style={{ left: darkLeft, width: darkWidth, backgroundColor: COLOR_AFTER }}
+        />
       </div>
       {row.events.map((event, index) => (
         <EventMarker
@@ -181,6 +232,7 @@ function AvenueBar({ row }: { row: AvenidaData }) {
           event={event}
           avenue={row.bairro}
           offsetX={overlapOffsets[index]}
+          implIdx={implIdx}
         />
       ))}
     </div>
@@ -309,11 +361,30 @@ function MobileChartLegend() {
   );
 }
 
-export function TimelineChart() {
+export function TimelineChart({ active = false }: { active?: boolean }) {
+  const rootRef = useRef<HTMLDivElement>(null);
+  const progress = useRef({ t: 0 });
+
+  useGSAP(
+    () => {
+      gsap.to(progress.current, {
+        t: active ? 1 : 0,
+        duration: 0.8,
+        ease: "power2.inOut",
+        overwrite: true,
+        onUpdate: () => {
+          rootRef.current?.style.setProperty("--t", String(progress.current.t));
+        },
+      });
+    },
+    { dependencies: [active] },
+  );
+
   return (
     <div
+      ref={rootRef}
       className="flex h-full w-full font-inter"
-      style={{ color: brandColor }}
+      style={{ color: brandColor, ["--t" as string]: 0 } as React.CSSProperties}
     >
       {/* Colunas flex-1 espelham o gráfico no centro; a legenda vive só na margem direita. */}
       <div className="hidden min-w-0 flex-1 md:block" aria-hidden="true" />
@@ -333,8 +404,10 @@ export function TimelineChart() {
           </div>
 
           <div className="relative flex min-h-0 min-w-0 flex-1 flex-col">
+            {/* Grade de semestres: some conforme o grafico alinha. */}
             <div
               className="pointer-events-none absolute -top-1.5 -bottom-1.5 right-0 left-0 z-0 md:-top-2 md:-bottom-2"
+              style={{ opacity: "calc(1 - var(--t))" }}
               aria-hidden="true"
             >
               {SEMESTER_MARKS.map((ym) => (
@@ -354,21 +427,70 @@ export function TimelineChart() {
                 <AvenueBar key={row.bairro} row={row} />
               ))}
             </div>
+
+            {/* Mascaras: recortam tudo fora da janela [-1, +1] conforme alinha. */}
+            <div
+              className="pointer-events-none absolute inset-y-0 left-0 right-0 z-2"
+              style={{ opacity: "var(--t)" }}
+              aria-hidden="true"
+            >
+              <div
+                className="absolute inset-y-0 left-0"
+                style={{ width: `${MINUS1_PCT}%`, backgroundColor: COLOR_BG }}
+              />
+              <div
+                className="absolute inset-y-0 right-0"
+                style={{ width: `${100 - PLUS1_PCT}%`, backgroundColor: COLOR_BG }}
+              />
+            </div>
+
+            {/* Linhas pontilhadas vermelhas em -1 e +1. */}
+            <div
+              className="pointer-events-none absolute -top-1.5 -bottom-1.5 left-0 right-0 z-3 md:-top-2 md:-bottom-2"
+              style={{ opacity: "var(--t)" }}
+              aria-hidden="true"
+            >
+              <div
+                className="absolute inset-y-0"
+                style={{
+                  left: `${MINUS1_PCT}%`,
+                  borderLeft: `1.5px dashed ${COLOR_GUIDE}`,
+                }}
+              />
+              <div
+                className="absolute inset-y-0"
+                style={{
+                  left: `${PLUS1_PCT}%`,
+                  borderLeft: `1.5px dashed ${COLOR_GUIDE}`,
+                }}
+              />
+            </div>
           </div>
         </div>
 
         <div className="mt-1 flex shrink-0 gap-1 md:gap-2.5">
           <div className="w-19 shrink-0 md:w-44" aria-hidden="true" />
           <div className="relative h-3.5 min-w-0 flex-1 md:h-5">
+            {/* Anos: somem conforme alinha. */}
             {YEAR_TICKS.map((year) => (
               <span
                 key={year}
-                className="absolute top-0 -translate-x-1/2 text-[8px] tabular-nums opacity-70 md:text-[10px]"
-                style={{ left: `${yearToPercent(year)}%` }}
+                className="absolute top-0 -translate-x-1/2 text-[8px] tabular-nums md:text-[10px]"
+                style={{
+                  left: `${yearToPercent(year)}%`,
+                  opacity: "calc((1 - var(--t)) * 0.7)",
+                }}
               >
                 {year}
               </span>
             ))}
+            {/* Rotulo da janela de comparacao: aparece conforme alinha. */}
+            <span
+              className="absolute top-0 left-1/2 -translate-x-1/2 whitespace-nowrap text-[8px] font-medium md:text-[10px]"
+              style={{ opacity: "var(--t)" }}
+            >
+              Período analisado = 1 ano
+            </span>
           </div>
         </div>
 
