@@ -27,8 +27,11 @@ export const acidentesData: AvenidaData[] = [
       "after": { "start": "2022-00", "end": "2025-06" }
     },
     "events": [
-      { "date": "2022-08", "type": "motorcycle" },
-      { "date": "2024-02", "type": "other" }
+      { "date": "2022-09", "type": "motorcycle" },
+      { "date": "2023-01", "type": "motorcycle" },
+      { "date": "2023-02", "type": "other" },
+      { "date": "2024-03", "type": "motorcycle" },
+      { "date": "2025-05", "type": "other" }
     ]
   },
   {
@@ -38,19 +41,31 @@ export const acidentesData: AvenidaData[] = [
       "after": { "start": "2022-09", "end": "2025-06" }
     },
     "events": [
-      { "date": "2022-05", "type": "motorcycle" },
-      { "date": "2023-09", "type": "other" }
+      { "date": "2021-09", "type": "motorcycle" },
+      { "date": "2022-02", "type": "motorcycle" },
+      { "date": "2022-02", "type": "other" },
+      { "date": "2022-03", "type": "motorcycle" },
+      { "date": "2022-07", "type": "other" },
+      { "date": "2022-08", "type": "motorcycle" },
+      { "date": "2023-01", "type": "other" },
+      { "date": "2023-07", "type": "other" },
+      { "date": "2023-11", "type": "motorcycle" },
+      { "date": "2024-01", "type": "motorcycle" },
+      { "date": "2024-04", "type": "motorcycle" },
+      { "date": "2024-05", "type": "motorcycle" },
+      { "date": "2024-07", "type": "motorcycle" }
     ]
   },
   {
-    "bairro": "AFONSO D ESCRAGNOLTE TAUNAY",
+    "bairro": "AFONSO D ESCRAGNOLLE TAUNAY",
     "implementation": {
       "before": { "start": "2022-01", "end": "2022-09" },
       "after": { "start": "2022-09", "end": "2025-06" }
     },
     "events": [
-      { "date": "2022-10", "type": "motorcycle" },
-      { "date": "2024-01", "type": "other" }
+      { "date": "2023-07", "type": "other" },
+      { "date": "2024-11", "type": "motorcycle" },
+      { "date": "2025-05", "type": "other" }
     ]
   },
   {
@@ -60,19 +75,21 @@ export const acidentesData: AvenidaData[] = [
       "after": { "start": "2023-09", "end": "2025-06" }
     },
     "events": [
-      { "date": "2023-03", "type": "motorcycle" },
-      { "date": "2023-11", "type": "other" }
+      { "date": "2023-07", "type": "motorcycle" },
+      { "date": "2023-07", "type": "motorcycle" },
+      { "date": "2024-06", "type": "other" },
+      { "date": "2024-11", "type": "other" }
     ]
   },
   {
-    "bairro": "RUBEM BERTA",
+    "bairro": "RUBEM BRAGA",
     "implementation": {
       "before": { "start": "2022-01", "end": "2023-09" },
       "after": { "start": "2023-09", "end": "2025-06" }
     },
     "events": [
-      { "date": "2022-12", "type": "motorcycle" },
-      { "date": "2024-04", "type": "other" }
+      { "date": "2023-04", "type": "motorcycle" },
+      { "date": "2023-08", "type": "motorcycle" }
     ]
   },
   {
@@ -82,8 +99,13 @@ export const acidentesData: AvenidaData[] = [
       "after": { "start": "2023-09", "end": "2025-06" }
     },
     "events": [
-      { "date": "2023-01", "type": "motorcycle" },
-      { "date": "2023-08", "type": "other" }
+      { "date": "2021-08", "type": "other" },
+      { "date": "2021-08", "type": "other" },
+      { "date": "2022-05", "type": "other" },
+      { "date": "2022-09", "type": "other" },
+      { "date": "2023-08", "type": "motorcycle" },
+      { "date": "2024-05", "type": "other" },
+      { "date": "2024-10", "type": "other" }
     ]
   },
   {
@@ -93,8 +115,7 @@ export const acidentesData: AvenidaData[] = [
       "after": { "start": "2023-09", "end": "2025-06" }
     },
     "events": [
-      { "date": "2022-07", "type": "motorcycle" },
-      { "date": "2024-03", "type": "other" }
+      { "date": "2024-03", "type": "motorcycle" }
     ]
   },
   {
@@ -104,8 +125,7 @@ export const acidentesData: AvenidaData[] = [
       "after": { "start": "2023-10", "end": "2025-06" }
     },
     "events": [
-      { "date": "2022-09", "type": "motorcycle" },
-      { "date": "2023-12", "type": "other" }
+      { "date": "2022-07", "type": "other" }
     ]
   },
   {
@@ -114,10 +134,7 @@ export const acidentesData: AvenidaData[] = [
       "before": { "start": "2022-01", "end": "2023-10" },
       "after": { "start": "2023-10", "end": "2025-06" }
     },
-    "events": [
-      { "date": "2023-02", "type": "motorcycle" },
-      { "date": "2024-05", "type": "other" }
-    ]
+    "events": []
   },
   {
     "bairro": "NACOES UNIDAS",
@@ -126,8 +143,40 @@ export const acidentesData: AvenidaData[] = [
       "after": { "start": "2023-10", "end": "2025-06" }
     },
     "events": [
-      { "date": "2022-04", "type": "motorcycle" },
-      { "date": "2023-10", "type": "other" }
+      { "date": "2021-05", "type": "motorcycle" },
+      { "date": "2021-05", "type": "motorcycle" },
+      { "date": "2021-09", "type": "motorcycle" },
+      { "date": "2021-10", "type": "other" },
+      { "date": "2021-11", "type": "motorcycle" },
+      { "date": "2022-02", "type": "motorcycle" },
+      { "date": "2022-03", "type": "motorcycle" },
+      { "date": "2022-03", "type": "motorcycle" },
+      { "date": "2022-05", "type": "motorcycle" },
+      { "date": "2022-05", "type": "motorcycle" },
+      { "date": "2022-07", "type": "motorcycle" },
+      { "date": "2022-08", "type": "motorcycle" },
+      { "date": "2022-09", "type": "other" },
+      { "date": "2022-10", "type": "other" },
+      { "date": "2023-02", "type": "other" },
+      { "date": "2023-04", "type": "motorcycle" },
+      { "date": "2023-05", "type": "motorcycle" },
+      { "date": "2023-08", "type": "other" },
+      { "date": "2023-10", "type": "motorcycle" },
+      { "date": "2024-00", "type": "motorcycle" },
+      { "date": "2024-00", "type": "motorcycle" },
+      { "date": "2024-03", "type": "motorcycle" },
+      { "date": "2024-03", "type": "other" },
+      { "date": "2024-06", "type": "other" },
+      { "date": "2024-07", "type": "motorcycle" },
+      { "date": "2024-08", "type": "motorcycle" },
+      { "date": "2024-10", "type": "motorcycle" },
+      { "date": "2025-00", "type": "motorcycle" },
+      { "date": "2025-01", "type": "motorcycle" },
+      { "date": "2025-03", "type": "motorcycle" },
+      { "date": "2025-04", "type": "other" },
+      { "date": "2025-04", "type": "motorcycle" },
+      { "date": "2025-05", "type": "motorcycle" },
+      { "date": "2025-05", "type": "other" }
     ]
   },
   {
@@ -137,8 +186,10 @@ export const acidentesData: AvenidaData[] = [
       "after": { "start": "2023-10", "end": "2025-06" }
     },
     "events": [
-      { "date": "2023-05", "type": "motorcycle" },
-      { "date": "2024-06", "type": "other" }
+      { "date": "2023-05", "type": "other" },
+      { "date": "2023-09", "type": "motorcycle" },
+      { "date": "2023-10", "type": "motorcycle" },
+      { "date": "2024-00", "type": "other" }
     ]
   },
   {
@@ -148,8 +199,7 @@ export const acidentesData: AvenidaData[] = [
       "after": { "start": "2023-11", "end": "2025-06" }
     },
     "events": [
-      { "date": "2022-11", "type": "motorcycle" },
-      { "date": "2023-07", "type": "other" }
+      { "date": "2024-06", "type": "motorcycle" }
     ]
   },
   {
@@ -159,8 +209,8 @@ export const acidentesData: AvenidaData[] = [
       "after": { "start": "2023-11", "end": "2025-06" }
     },
     "events": [
-      { "date": "2023-04", "type": "motorcycle" },
-      { "date": "2024-08", "type": "other" }
+      { "date": "2023-07", "type": "motorcycle" },
+      { "date": "2023-11", "type": "motorcycle" }
     ]
   },
   {
@@ -170,8 +220,35 @@ export const acidentesData: AvenidaData[] = [
       "after": { "start": "2023-11", "end": "2025-06" }
     },
     "events": [
-      { "date": "2022-06", "type": "motorcycle" },
-      { "date": "2023-09", "type": "other" }
+      { "date": "2021-05", "type": "other" },
+      { "date": "2021-06", "type": "motorcycle" },
+      { "date": "2021-09", "type": "motorcycle" },
+      { "date": "2022-00", "type": "other" },
+      { "date": "2022-00", "type": "other" },
+      { "date": "2022-02", "type": "other" },
+      { "date": "2022-03", "type": "motorcycle" },
+      { "date": "2022-08", "type": "motorcycle" },
+      { "date": "2022-08", "type": "motorcycle" },
+      { "date": "2022-08", "type": "motorcycle" },
+      { "date": "2022-09", "type": "motorcycle" },
+      { "date": "2022-09", "type": "motorcycle" },
+      { "date": "2022-10", "type": "motorcycle" },
+      { "date": "2022-10", "type": "other" },
+      { "date": "2023-00", "type": "other" },
+      { "date": "2023-05", "type": "motorcycle" },
+      { "date": "2023-06", "type": "motorcycle" },
+      { "date": "2023-09", "type": "motorcycle" },
+      { "date": "2023-10", "type": "other" },
+      { "date": "2023-11", "type": "motorcycle" },
+      { "date": "2024-03", "type": "motorcycle" },
+      { "date": "2024-05", "type": "motorcycle" },
+      { "date": "2024-07", "type": "other" },
+      { "date": "2024-07", "type": "motorcycle" },
+      { "date": "2024-08", "type": "motorcycle" },
+      { "date": "2024-08", "type": "other" },
+      { "date": "2024-09", "type": "other" },
+      { "date": "2024-09", "type": "motorcycle" },
+      { "date": "2024-10", "type": "other" }
     ]
   },
   {
@@ -181,8 +258,9 @@ export const acidentesData: AvenidaData[] = [
       "after": { "start": "2023-11", "end": "2025-06" }
     },
     "events": [
-      { "date": "2023-01", "type": "motorcycle" },
-      { "date": "2024-02", "type": "other" }
+      { "date": "2022-09", "type": "motorcycle" },
+      { "date": "2024-03", "type": "other" },
+      { "date": "2024-08", "type": "motorcycle" }
     ]
   },
   {
@@ -192,8 +270,27 @@ export const acidentesData: AvenidaData[] = [
       "after": { "start": "2023-11", "end": "2025-06" }
     },
     "events": [
+      { "date": "2021-07", "type": "other" },
+      { "date": "2021-09", "type": "motorcycle" },
+      { "date": "2021-10", "type": "other" },
+      { "date": "2021-11", "type": "other" },
+      { "date": "2022-02", "type": "other" },
+      { "date": "2022-07", "type": "other" },
       { "date": "2022-08", "type": "motorcycle" },
-      { "date": "2023-11", "type": "other" }
+      { "date": "2022-11", "type": "other" },
+      { "date": "2023-03", "type": "motorcycle" },
+      { "date": "2023-03", "type": "other" },
+      { "date": "2023-04", "type": "motorcycle" },
+      { "date": "2023-06", "type": "motorcycle" },
+      { "date": "2023-10", "type": "motorcycle" },
+      { "date": "2024-03", "type": "motorcycle" },
+      { "date": "2024-04", "type": "other" },
+      { "date": "2024-05", "type": "other" },
+      { "date": "2024-10", "type": "motorcycle" },
+      { "date": "2024-11", "type": "other" },
+      { "date": "2025-03", "type": "motorcycle" },
+      { "date": "2025-04", "type": "motorcycle" },
+      { "date": "2025-05", "type": "other" }
     ]
   },
   {
@@ -202,10 +299,7 @@ export const acidentesData: AvenidaData[] = [
       "before": { "start": "2022-01", "end": "2024-02" },
       "after": { "start": "2024-02", "end": "2025-06" }
     },
-    "events": [
-      { "date": "2023-03", "type": "motorcycle" },
-      { "date": "2024-01", "type": "other" }
-    ]
+    "events": []
   },
   {
     "bairro": "WASHINGTON LUIS",
@@ -214,8 +308,17 @@ export const acidentesData: AvenidaData[] = [
       "after": { "start": "2024-03", "end": "2025-06" }
     },
     "events": [
-      { "date": "2022-12", "type": "motorcycle" },
-      { "date": "2023-10", "type": "other" }
+      { "date": "2021-10", "type": "motorcycle" },
+      { "date": "2022-07", "type": "other" },
+      { "date": "2023-01", "type": "other" },
+      { "date": "2023-07", "type": "other" },
+      { "date": "2023-09", "type": "other" },
+      { "date": "2023-11", "type": "motorcycle" },
+      { "date": "2024-04", "type": "other" },
+      { "date": "2024-05", "type": "motorcycle" },
+      { "date": "2024-05", "type": "motorcycle" },
+      { "date": "2024-08", "type": "motorcycle" },
+      { "date": "2024-08", "type": "motorcycle" }
     ]
   },
   {
@@ -224,10 +327,7 @@ export const acidentesData: AvenidaData[] = [
       "before": { "start": "2022-01", "end": "2024-03" },
       "after": { "start": "2024-03", "end": "2025-06" }
     },
-    "events": [
-      { "date": "2024-03", "type": "motorcycle" },
-      { "date": "2024-03", "type": "other" }
-    ]
+    "events": []
   },
   {
     "bairro": "AYRTON SENNA",
@@ -235,10 +335,7 @@ export const acidentesData: AvenidaData[] = [
       "before": { "start": "2022-01", "end": "2024-03" },
       "after": { "start": "2024-03", "end": "2025-06" }
     },
-    "events": [
-      { "date": "2022-09", "type": "motorcycle" },
-      { "date": "2023-12", "type": "other" }
-    ]
+    "events": []
   },
   {
     "bairro": "GASTAO VIDIGAL",
@@ -247,8 +344,7 @@ export const acidentesData: AvenidaData[] = [
       "after": { "start": "2024-04", "end": "2025-06" }
     },
     "events": [
-      { "date": "2023-02", "type": "motorcycle" },
-      { "date": "2024-05", "type": "other" }
+      { "date": "2025-01", "type": "other" }
     ]
   },
   {
@@ -258,8 +354,11 @@ export const acidentesData: AvenidaData[] = [
       "after": { "start": "2024-04", "end": "2025-06" }
     },
     "events": [
-      { "date": "2022-05", "type": "motorcycle" },
-      { "date": "2023-08", "type": "other" }
+      { "date": "2022-08", "type": "motorcycle" },
+      { "date": "2023-02", "type": "motorcycle" },
+      { "date": "2023-06", "type": "motorcycle" },
+      { "date": "2023-02", "type": "other" },
+      { "date": "2024-09", "type": "motorcycle" }
     ]
   },
   {
@@ -269,8 +368,14 @@ export const acidentesData: AvenidaData[] = [
       "after": { "start": "2024-04", "end": "2025-06" }
     },
     "events": [
-      { "date": "2023-04", "type": "motorcycle" },
-      { "date": "2024-06", "type": "other" }
+      { "date": "2021-06", "type": "motorcycle" },
+      { "date": "2022-07", "type": "other" },
+      { "date": "2023-05", "type": "other" },
+      { "date": "2023-07", "type": "motorcycle" },
+      { "date": "2024-05", "type": "other" },
+      { "date": "2024-05", "type": "other" },
+      { "date": "2024-08", "type": "other" },
+      { "date": "2024-09", "type": "motorcycle" }
     ]
   },
   {
@@ -280,8 +385,11 @@ export const acidentesData: AvenidaData[] = [
       "after": { "start": "2024-05", "end": "2025-06" }
     },
     "events": [
-      { "date": "2022-10", "type": "motorcycle" },
-      { "date": "2023-07", "type": "other" }
+      { "date": "2022-05", "type": "other" },
+      { "date": "2023-07", "type": "other" },
+      { "date": "2023-11", "type": "motorcycle" },
+      { "date": "2024-09", "type": "motorcycle" },
+      { "date": "2025-04", "type": "motorcycle" }
     ]
   },
   {
@@ -291,8 +399,7 @@ export const acidentesData: AvenidaData[] = [
       "after": { "start": "2024-05", "end": "2025-06" }
     },
     "events": [
-      { "date": "2023-05", "type": "motorcycle" },
-      { "date": "2024-08", "type": "other" }
+      { "date": "2024-01", "type": "motorcycle" }
     ]
   },
   {
@@ -302,8 +409,23 @@ export const acidentesData: AvenidaData[] = [
       "after": { "start": "2024-05", "end": "2025-06" }
     },
     "events": [
+      { "date": "2022-03", "type": "motorcycle" },
+      { "date": "2022-03", "type": "motorcycle" },
+      { "date": "2022-04", "type": "motorcycle" },
+      { "date": "2022-04", "type": "other" },
+      { "date": "2022-06", "type": "other" },
+      { "date": "2022-07", "type": "other" },
+      { "date": "2022-09", "type": "other" },
+      { "date": "2022-10", "type": "motorcycle" },
+      { "date": "2022-10", "type": "motorcycle" },
       { "date": "2022-11", "type": "motorcycle" },
-      { "date": "2023-09", "type": "other" }
+      { "date": "2023-02", "type": "motorcycle" },
+      { "date": "2023-07", "type": "motorcycle" },
+      { "date": "2024-01", "type": "other" },
+      { "date": "2024-05", "type": "other" },
+      { "date": "2024-07", "type": "motorcycle" },
+      { "date": "2024-09", "type": "other" },
+      { "date": "2025-02", "type": "motorcycle" }
     ]
   },
   {
@@ -313,8 +435,7 @@ export const acidentesData: AvenidaData[] = [
       "after": { "start": "2024-05", "end": "2025-06" }
     },
     "events": [
-      { "date": "2023-01", "type": "motorcycle" },
-      { "date": "2024-04", "type": "other" }
+      { "date": "2023-03", "type": "motorcycle" }
     ]
   },
   {
@@ -324,19 +445,21 @@ export const acidentesData: AvenidaData[] = [
       "after": { "start": "2024-05", "end": "2025-06" }
     },
     "events": [
-      { "date": "2022-06", "type": "motorcycle" },
-      { "date": "2023-11", "type": "other" }
+      { "date": "2022-05", "type": "motorcycle" },
+      { "date": "2023-08", "type": "motorcycle" },
+      { "date": "2023-10", "type": "other" },
+      { "date": "2024-01", "type": "motorcycle" },
+      { "date": "2024-08", "type": "other" }
     ]
   },
   {
-    "bairro": "ALIOMAR BALEIRO",
+    "bairro": "ALIOMAR BALEEIRO",
     "implementation": {
       "before": { "start": "2022-01", "end": "2024-05" },
       "after": { "start": "2024-05", "end": "2025-06" }
     },
     "events": [
-      { "date": "2023-03", "type": "motorcycle" },
-      { "date": "2024-02", "type": "other" }
+      { "date": "2022-08", "type": "other" }
     ]
   },
   {
@@ -346,8 +469,8 @@ export const acidentesData: AvenidaData[] = [
       "after": { "start": "2024-06", "end": "2025-06" }
     },
     "events": [
-      { "date": "2022-08", "type": "motorcycle" },
-      { "date": "2023-10", "type": "other" }
+      { "date": "2023-05", "type": "other" },
+      { "date": "2023-09", "type": "other" }
     ]
   },
   {
@@ -356,20 +479,35 @@ export const acidentesData: AvenidaData[] = [
       "before": { "start": "2022-01", "end": "2024-06" },
       "after": { "start": "2024-06", "end": "2025-06" }
     },
-    "events": [
-      { "date": "2024-06", "type": "motorcycle" },
-      { "date": "2024-07", "type": "other" }
-    ]
+    "events": []
   },
   {
-    "bairro": "SALIM FARA MALUF",
+    "bairro": "SALIM FARAH MALUF",
     "implementation": {
       "before": { "start": "2022-01", "end": "2024-06" },
       "after": { "start": "2024-06", "end": "2025-06" }
     },
     "events": [
+      { "date": "2021-06", "type": "motorcycle" },
+      { "date": "2021-10", "type": "motorcycle" },
+      { "date": "2021-11", "type": "other" },
+      { "date": "2022-03", "type": "motorcycle" },
       { "date": "2022-04", "type": "motorcycle" },
-      { "date": "2023-12", "type": "other" }
+      { "date": "2022-05", "type": "motorcycle" },
+      { "date": "2022-05", "type": "motorcycle" },
+      { "date": "2022-09", "type": "motorcycle" },
+      { "date": "2022-09", "type": "motorcycle" },
+      { "date": "2022-10", "type": "other" },
+      { "date": "2023-00", "type": "motorcycle" },
+      { "date": "2023-02", "type": "other" },
+      { "date": "2023-05", "type": "other" },
+      { "date": "2023-07", "type": "motorcycle" },
+      { "date": "2023-08", "type": "motorcycle" },
+      { "date": "2023-11", "type": "motorcycle" },
+      { "date": "2024-01", "type": "other" },
+      { "date": "2024-03", "type": "other" },
+      { "date": "2024-06", "type": "other" },
+      { "date": "2025-05", "type": "motorcycle" }
     ]
   },
   {
@@ -378,10 +516,7 @@ export const acidentesData: AvenidaData[] = [
       "before": { "start": "2022-01", "end": "2024-06" },
       "after": { "start": "2024-06", "end": "2025-06" }
     },
-    "events": [
-      { "date": "2023-02", "type": "motorcycle" },
-      { "date": "2024-01", "type": "other" }
-    ]
+    "events": []
   },
   {
     "bairro": "INAJAR SOUZA",
@@ -390,8 +525,22 @@ export const acidentesData: AvenidaData[] = [
       "after": { "start": "2024-06", "end": "2025-06" }
     },
     "events": [
-      { "date": "2022-09", "type": "motorcycle" },
-      { "date": "2023-08", "type": "other" }
+      { "date": "2021-05", "type": "motorcycle" },
+      { "date": "2022-03", "type": "other" },
+      { "date": "2022-04", "type": "other" },
+      { "date": "2022-06", "type": "motorcycle" },
+      { "date": "2023-02", "type": "motorcycle" },
+      { "date": "2023-07", "type": "other" },
+      { "date": "2023-11", "type": "motorcycle" },
+      { "date": "2024-00", "type": "motorcycle" },
+      { "date": "2024-04", "type": "motorcycle" },
+      { "date": "2024-05", "type": "other" },
+      { "date": "2024-07", "type": "other" },
+      { "date": "2024-09", "type": "motorcycle" },
+      { "date": "2025-00", "type": "other" },
+      { "date": "2025-01", "type": "other" },
+      { "date": "2025-01", "type": "motorcycle" },
+      { "date": "2025-03", "type": "other" }
     ]
   },
   {
@@ -401,8 +550,8 @@ export const acidentesData: AvenidaData[] = [
       "after": { "start": "2024-06", "end": "2025-06" }
     },
     "events": [
-      { "date": "2023-04", "type": "motorcycle" },
-      { "date": "2024-03", "type": "other" }
+      { "date": "2021-08", "type": "other" },
+      { "date": "2022-07", "type": "other" }
     ]
   },
   {
@@ -412,8 +561,8 @@ export const acidentesData: AvenidaData[] = [
       "after": { "start": "2024-06", "end": "2025-06" }
     },
     "events": [
-      { "date": "2022-12", "type": "motorcycle" },
-      { "date": "2023-07", "type": "other" }
+      { "date": "2022-05", "type": "other" },
+      { "date": "2024-11", "type": "other" }
     ]
   },
   {
@@ -423,8 +572,11 @@ export const acidentesData: AvenidaData[] = [
       "after": { "start": "2024-06", "end": "2025-06" }
     },
     "events": [
-      { "date": "2023-01", "type": "motorcycle" },
-      { "date": "2024-05", "type": "other" }
+      { "date": "2022-03", "type": "other" },
+      { "date": "2022-06", "type": "motorcycle" },
+      { "date": "2022-06", "type": "motorcycle" },
+      { "date": "2023-01", "type": "other" },
+      { "date": "2024-06", "type": "other" }
     ]
   },
   {
@@ -433,10 +585,7 @@ export const acidentesData: AvenidaData[] = [
       "before": { "start": "2022-01", "end": "2024-06" },
       "after": { "start": "2024-06", "end": "2025-06" }
     },
-    "events": [
-      { "date": "2022-07", "type": "motorcycle" },
-      { "date": "2023-09", "type": "other" }
-    ]
+    "events": []
   },
   {
     "bairro": "ARICANDUVA",
@@ -445,8 +594,19 @@ export const acidentesData: AvenidaData[] = [
       "after": { "start": "2024-06", "end": "2025-06" }
     },
     "events": [
-      { "date": "2023-05", "type": "motorcycle" },
-      { "date": "2024-06", "type": "other" }
+      { "date": "2021-08", "type": "motorcycle" },
+      { "date": "2022-02", "type": "other" },
+      { "date": "2022-06", "type": "motorcycle" },
+      { "date": "2023-00", "type": "other" },
+      { "date": "2023-02", "type": "motorcycle" },
+      { "date": "2023-03", "type": "other" },
+      { "date": "2023-04", "type": "other" },
+      { "date": "2023-08", "type": "other" },
+      { "date": "2024-00", "type": "motorcycle" },
+      { "date": "2024-09", "type": "motorcycle" },
+      { "date": "2024-09", "type": "motorcycle" },
+      { "date": "2024-10", "type": "other" },
+      { "date": "2025-02", "type": "motorcycle" }
     ]
   },
   {
@@ -456,8 +616,10 @@ export const acidentesData: AvenidaData[] = [
       "after": { "start": "2024-08", "end": "2025-06" }
     },
     "events": [
-      { "date": "2022-10", "type": "motorcycle" },
-      { "date": "2023-11", "type": "other" }
+      { "date": "2023-05", "type": "other" },
+      { "date": "2023-07", "type": "other" },
+      { "date": "2024-08", "type": "motorcycle" },
+      { "date": "2025-05", "type": "motorcycle" }
     ]
   },
   {
@@ -467,8 +629,41 @@ export const acidentesData: AvenidaData[] = [
       "after": { "start": "2024-08", "end": "2025-06" }
     },
     "events": [
-      { "date": "2023-03", "type": "motorcycle" },
-      { "date": "2024-02", "type": "other" }
+      { "date": "2021-05", "type": "motorcycle" },
+      { "date": "2021-06", "type": "other" },
+      { "date": "2021-07", "type": "motorcycle" },
+      { "date": "2021-09", "type": "motorcycle" },
+      { "date": "2021-10", "type": "other" },
+      { "date": "2021-10", "type": "motorcycle" },
+      { "date": "2021-11", "type": "other" },
+      { "date": "2022-03", "type": "motorcycle" },
+      { "date": "2022-03", "type": "motorcycle" },
+      { "date": "2022-08", "type": "motorcycle" },
+      { "date": "2022-10", "type": "other" },
+      { "date": "2023-01", "type": "motorcycle" },
+      { "date": "2023-01", "type": "motorcycle" },
+      { "date": "2023-02", "type": "other" },
+      { "date": "2023-05", "type": "other" },
+      { "date": "2023-06", "type": "other" },
+      { "date": "2023-07", "type": "motorcycle" },
+      { "date": "2023-07", "type": "motorcycle" },
+      { "date": "2023-08", "type": "motorcycle" },
+      { "date": "2023-09", "type": "motorcycle" },
+      { "date": "2023-09", "type": "motorcycle" },
+      { "date": "2023-09", "type": "other" },
+      { "date": "2023-10", "type": "other" },
+      { "date": "2023-11", "type": "motorcycle" },
+      { "date": "2023-12", "type": "other" },
+      { "date": "2024-07", "type": "motorcycle" },
+      { "date": "2024-07", "type": "other" },
+      { "date": "2024-08", "type": "motorcycle" },
+      { "date": "2024-09", "type": "motorcycle" },
+      { "date": "2024-09", "type": "motorcycle" },
+      { "date": "2024-10", "type": "other" },
+      { "date": "2025-01", "type": "other" },
+      { "date": "2025-02", "type": "motorcycle" },
+      { "date": "2025-03", "type": "motorcycle" },
+      { "date": "2025-04", "type": "motorcycle" }
     ]
   },
   {
@@ -478,8 +673,20 @@ export const acidentesData: AvenidaData[] = [
       "after": { "start": "2024-08", "end": "2025-06" }
     },
     "events": [
+      { "date": "2021-06", "type": "motorcycle" },
+      { "date": "2021-07", "type": "other" },
+      { "date": "2022-02", "type": "other" },
       { "date": "2022-05", "type": "motorcycle" },
-      { "date": "2023-10", "type": "other" }
+      { "date": "2023-02", "type": "other" },
+      { "date": "2023-04", "type": "other" },
+      { "date": "2023-06", "type": "motorcycle" },
+      { "date": "2023-06", "type": "other" },
+      { "date": "2023-08", "type": "motorcycle" },
+      { "date": "2023-09", "type": "other" },
+      { "date": "2024-04", "type": "motorcycle" },
+      { "date": "2024-05", "type": "motorcycle" },
+      { "date": "2024-05", "type": "other" },
+      { "date": "2025-05", "type": "motorcycle" }
     ]
   },
   {
@@ -488,10 +695,7 @@ export const acidentesData: AvenidaData[] = [
       "before": { "start": "2022-01", "end": "2024-08" },
       "after": { "start": "2024-08", "end": "2025-06" }
     },
-    "events": [
-      { "date": "2023-06", "type": "motorcycle" },
-      { "date": "2024-04", "type": "other" }
-    ]
+    "events": []
   },
   {
     "bairro": "SAPETUBA",
@@ -499,10 +703,7 @@ export const acidentesData: AvenidaData[] = [
       "before": { "start": "2022-01", "end": "2024-09" },
       "after": { "start": "2024-09", "end": "2025-06" }
     },
-    "events": [
-      { "date": "2022-11", "type": "motorcycle" },
-      { "date": "2023-12", "type": "other" }
-    ]
+    "events": []
   },
   {
     "bairro": "RICARDO JAFET",
@@ -511,8 +712,8 @@ export const acidentesData: AvenidaData[] = [
       "after": { "start": "2024-09", "end": "2025-06" }
     },
     "events": [
-      { "date": "2023-02", "type": "motorcycle" },
-      { "date": "2024-07", "type": "other" }
+      { "date": "2021-07", "type": "motorcycle" },
+      { "date": "2021-07", "type": "motorcycle" }
     ]
   },
   {
@@ -522,8 +723,12 @@ export const acidentesData: AvenidaData[] = [
       "after": { "start": "2024-09", "end": "2025-06" }
     },
     "events": [
-      { "date": "2022-09", "type": "motorcycle" },
-      { "date": "2023-08", "type": "other" }
+      { "date": "2021-09", "type": "motorcycle" },
+      { "date": "2022-02", "type": "other" },
+      { "date": "2022-05", "type": "other" },
+      { "date": "2023-07", "type": "other" },
+      { "date": "2023-10", "type": "motorcycle" },
+      { "date": "2024-05", "type": "other" }
     ]
   }
 ]

@@ -7,9 +7,12 @@ import {
   type AvenidaData,
 } from "../data/acidentes-faixa-azul-data";
 
-/** Domínio temporal alinhado ao subtítulo (jan/2021 – abr/2025). */
+/** Domínio temporal: jan/2021 – jun/2025 (fim exclusivo em jul/2025 para o último semestre ter 6 meses). */
 const DOMAIN_START = "2021-01";
-const DOMAIN_END = "2025-04";
+const DOMAIN_END = "2025-07";
+/** 1º semestre/2021 sem dados: ocupa metade da largura visual de um semestre. */
+const COMPRESS_UNTIL = "2021-07";
+const EARLY_2021_SCALE = 0.5;
 /** Referência: 2021 entra no domínio das barras, mas não no eixo. */
 const YEAR_TICKS = [2022, 2023, 2024, 2025] as const;
 
@@ -26,19 +29,33 @@ function monthToIndex(ym: string): number {
 
 const DOMAIN_START_IDX = monthToIndex(DOMAIN_START);
 const DOMAIN_END_IDX = monthToIndex(DOMAIN_END);
-const DOMAIN_SPAN = DOMAIN_END_IDX - DOMAIN_START_IDX;
+const COMPRESS_UNTIL_IDX = monthToIndex(COMPRESS_UNTIL);
+const COMPRESSED_VISUAL =
+  (COMPRESS_UNTIL_IDX - DOMAIN_START_IDX) * EARLY_2021_SCALE;
+
+/** Posição visual (meses “efetivos”) — comprime jan–jun/2021. */
+function toVisual(idx: number): number {
+  const clamped = Math.min(Math.max(idx, DOMAIN_START_IDX), DOMAIN_END_IDX);
+  if (clamped < COMPRESS_UNTIL_IDX) {
+    return (clamped - DOMAIN_START_IDX) * EARLY_2021_SCALE;
+  }
+  return COMPRESSED_VISUAL + (clamped - COMPRESS_UNTIL_IDX);
+}
+
+const DOMAIN_VISUAL_SPAN = toVisual(DOMAIN_END_IDX);
 
 function toPercent(ym: string): number {
-  const idx = monthToIndex(ym);
-  const clamped = Math.min(Math.max(idx, DOMAIN_START_IDX), DOMAIN_END_IDX);
-  return ((clamped - DOMAIN_START_IDX) / DOMAIN_SPAN) * 100;
+  return (toVisual(monthToIndex(ym)) / DOMAIN_VISUAL_SPAN) * 100;
+}
+
+/** Centro do mês YYYY-MM — evita pontos colados na linha de grade do início do mês. */
+function toPercentMonthCenter(ym: string): number {
+  return (toVisual(monthToIndex(ym) + 0.5) / DOMAIN_VISUAL_SPAN) * 100;
 }
 
 /** Fim do mês YYYY-MM (= início do mês seguinte), p.ex. 2023-06 → linha 2023-07. */
 function toPercentMonthEnd(ym: string): number {
-  const idx = monthToIndex(ym) + 1;
-  const clamped = Math.min(Math.max(idx, DOMAIN_START_IDX), DOMAIN_END_IDX);
-  return ((clamped - DOMAIN_START_IDX) / DOMAIN_SPAN) * 100;
+  return (toVisual(monthToIndex(ym) + 1) / DOMAIN_VISUAL_SPAN) * 100;
 }
 
 function yearToPercent(year: number): number {
@@ -52,8 +69,8 @@ function buildSemesterMarks(): string[] {
     const year = Math.floor(idx / 12);
     const month = (idx % 12) + 1;
     const ym = `${year}-${String(month).padStart(2, "0")}`;
-    // Sem linha no início do domínio (2021-01); mantém o semestre 2021-07.
-    if (ym !== DOMAIN_START) {
+    // Sem linha no início nem no fim do domínio; mantém o semestre 2021-07.
+    if (ym !== DOMAIN_START && ym !== DOMAIN_END) {
       marks.push(ym);
     }
     idx += 6;
@@ -87,15 +104,36 @@ function eventLabel(type: AccidentEvent["type"]): string {
 }
 
 const MARKER_SIZE = 8;
+/** Deslocamento horizontal (px) entre pontos na mesma data. */
+const OVERLAP_OFFSET_PX = 4;
+
+/** Offsets em px para espalhar eventos com a mesma data na linha. */
+function getOverlapOffsets(events: AccidentEvent[]): number[] {
+  const totals = new Map<string, number>();
+  for (const event of events) {
+    totals.set(event.date, (totals.get(event.date) ?? 0) + 1);
+  }
+
+  const seen = new Map<string, number>();
+  return events.map((event) => {
+    const total = totals.get(event.date) ?? 1;
+    const i = seen.get(event.date) ?? 0;
+    seen.set(event.date, i + 1);
+    if (total === 1) return 0;
+    return (i - (total - 1) / 2) * OVERLAP_OFFSET_PX;
+  });
+}
 
 function EventMarker({
   event,
   avenue,
+  offsetX = 0,
 }: {
   event: AccidentEvent;
   avenue: string;
+  offsetX?: number;
 }) {
-  const left = toPercent(event.date);
+  const left = toPercentMonthCenter(event.date);
   const isMotorcycle = event.type === "motorcycle";
 
   return (
@@ -103,7 +141,7 @@ function EventMarker({
       role="img"
       className="pointer-events-none absolute top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 leading-none"
       style={{
-        left: `${left}%`,
+        left: `calc(${left}% + ${offsetX}px)`,
         width: MARKER_SIZE,
         height: MARKER_SIZE,
         overflow: "visible",
@@ -117,6 +155,7 @@ function EventMarker({
 
 function AvenueBar({ row }: { row: AvenidaData }) {
   const split = toPercentMonthEnd(row.implementation.after.start);
+  const overlapOffsets = getOverlapOffsets(row.events);
 
   return (
     <div className="relative min-h-0 flex-1 overflow-visible">
@@ -136,11 +175,12 @@ function AvenueBar({ row }: { row: AvenidaData }) {
           />
         </div>
       </div>
-      {row.events.map((event) => (
+      {row.events.map((event, index) => (
         <EventMarker
-          key={`${row.bairro}-${event.date}-${event.type}`}
+          key={`${row.bairro}-${event.date}-${event.type}-${index}`}
           event={event}
           avenue={row.bairro}
+          offsetX={overlapOffsets[index]}
         />
       ))}
     </div>
