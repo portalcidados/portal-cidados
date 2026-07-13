@@ -318,7 +318,7 @@ export function TimelineChart() {
       {/* Colunas flex-1 espelham o gráfico no centro; a legenda vive só na margem direita. */}
       <div className="hidden min-w-0 flex-1 md:block" aria-hidden="true" />
 
-      <div className="mx-auto flex h-full w-full max-w-2xl min-w-0 flex-col md:mx-0 md:max-w-3xl 2xl:max-w-4xl">
+      <div className="mx-auto flex h-full w-full max-w-xl min-w-0 flex-col md:mx-0 md:max-w-2xl 2xl:max-w-3xl">
         <div className="flex min-h-0 flex-1 gap-1 overflow-visible md:gap-2.5">
           <div className="flex w-19 shrink-0 flex-col gap-1.5 overflow-visible md:w-44 md:gap-1.5">
             {acidentesData.map((row) => (

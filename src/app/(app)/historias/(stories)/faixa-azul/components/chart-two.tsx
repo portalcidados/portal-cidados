@@ -122,7 +122,7 @@ export default function ChartTwo() {
           className="flex h-[86vh] max-h-[86vh] w-full flex-col px-6 pb-6 md:h-[92vh] md:max-h-[92vh]"
         >
           <div
-            className="mx-auto w-full max-w-2xl shrink-0 pb-4 font-inter md:h-36 md:max-w-3xl md:overflow-hidden md:pb-2 2xl:max-w-4xl"
+            className="mx-auto w-full max-w-xl shrink-0 pb-4 font-inter md:h-36 md:max-w-2xl md:overflow-hidden md:pb-2 2xl:max-w-3xl"
             style={{ color: brandColor }}
           >
             <h2 className="text-base font-bold leading-snug md:text-lg">
@@ -161,7 +161,7 @@ export default function ChartTwo() {
               }}
               aria-hidden={activeIndex !== 1}
             >
-              <div className="h-full w-full max-w-2xl bg-neutral-600 md:max-w-3xl 2xl:max-w-4xl" />
+              <div className="h-full w-full max-w-xl bg-neutral-600 md:max-w-2xl 2xl:max-w-3xl" />
             </div>
           </div>
         </div>

@@ -221,7 +221,7 @@ export const acidentesData: AvenidaData[] = [
     },
     "events": [
       { "date": "2021-05", "type": "other" },
-      { "date": "2021-06", "type": "motorcycle" },
+      { "date": "2021-07", "type": "motorcycle" },
       { "date": "2021-09", "type": "motorcycle" },
       { "date": "2022-00", "type": "other" },
       { "date": "2022-00", "type": "other" },
@@ -713,7 +713,8 @@ export const acidentesData: AvenidaData[] = [
     },
     "events": [
       { "date": "2021-07", "type": "motorcycle" },
-      { "date": "2021-07", "type": "motorcycle" }
+      { "date": "2021-07", "type": "motorcycle" },
+      { "date": "2025-02", "type": "other" }
     ]
   },
   {
