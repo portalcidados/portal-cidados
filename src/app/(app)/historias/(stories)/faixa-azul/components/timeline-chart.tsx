@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { brandColor } from "../constants";
@@ -10,12 +10,9 @@ import {
   type AvenidaData,
 } from "../data/acidentes-faixa-azul-data";
 
-/** Domínio temporal: jan/2021 – jun/2025 (fim exclusivo em jul/2025 para o último semestre ter 6 meses). */
-const DOMAIN_START = "2021-01";
-const DOMAIN_END = "2025-07";
-/** 1º semestre/2021 sem dados: ocupa metade da largura visual de um semestre. */
-const COMPRESS_UNTIL = "2021-07";
-const EARLY_2021_SCALE = 0.5;
+/** Domínio temporal: 2021-01-01 – 2025-06-30 (fim exclusivo em 2025-07-01). */
+const DOMAIN_START = "2021-01-01";
+const DOMAIN_END = "2025-07-01";
 /** Referência: 2021 entra no domínio das barras, mas não no eixo. */
 const YEAR_TICKS = [2022, 2023, 2024, 2025] as const;
 
@@ -30,7 +27,7 @@ const COLOR_GUIDE = "#DC2626";
  * Estado alinhado (--t = 1): implementacao (V0) no centro; janela de comparacao
  * de 1 ano antes (-1) e 1 ano depois (+1) ocupando o miolo do plot.
  */
-const WINDOW_MONTHS = 12;
+const WINDOW_DAYS = 365;
 const V0_PCT = 50;
 const HALF_WINDOW_PCT = 25;
 const MINUS1_PCT = V0_PCT - HALF_WINDOW_PCT; // 25%
@@ -39,44 +36,30 @@ const PLUS1_PCT = V0_PCT + HALF_WINDOW_PCT; // 75%
 /** Cor de fundo da secao (usada pelas mascaras que recortam a janela). */
 const COLOR_BG = "#FFFFFF";
 
-function monthToIndex(ym: string): number {
-  const [y, m] = ym.split("-").map(Number);
-  return y * 12 + (m - 1);
+const MS_PER_DAY = 86_400_000;
+
+function parseISO(iso: string): number {
+  const [y, m, d] = iso.split("-").map(Number);
+  return Date.UTC(y, m - 1, d);
 }
 
-const DOMAIN_START_IDX = monthToIndex(DOMAIN_START);
-const DOMAIN_END_IDX = monthToIndex(DOMAIN_END);
-const COMPRESS_UNTIL_IDX = monthToIndex(COMPRESS_UNTIL);
-const COMPRESSED_VISUAL =
-  (COMPRESS_UNTIL_IDX - DOMAIN_START_IDX) * EARLY_2021_SCALE;
+const DOMAIN_START_MS = parseISO(DOMAIN_START);
+const DOMAIN_END_MS = parseISO(DOMAIN_END);
+const DOMAIN_SPAN_MS = DOMAIN_END_MS - DOMAIN_START_MS;
 
-/** Posição visual (meses “efetivos”) — comprime jan–jun/2021. */
-function toVisual(idx: number): number {
-  const clamped = Math.min(Math.max(idx, DOMAIN_START_IDX), DOMAIN_END_IDX);
-  if (clamped < COMPRESS_UNTIL_IDX) {
-    return (clamped - DOMAIN_START_IDX) * EARLY_2021_SCALE;
-  }
-  return COMPRESSED_VISUAL + (clamped - COMPRESS_UNTIL_IDX);
+/** Posição % no eixo temporal linear (dia a dia). */
+function dayToPercent(iso: string): number {
+  const ms = parseISO(iso);
+  const clamped = Math.min(Math.max(ms, DOMAIN_START_MS), DOMAIN_END_MS);
+  return ((clamped - DOMAIN_START_MS) / DOMAIN_SPAN_MS) * 100;
 }
 
-const DOMAIN_VISUAL_SPAN = toVisual(DOMAIN_END_IDX);
-
-function toPercent(ym: string): number {
-  return (toVisual(monthToIndex(ym)) / DOMAIN_VISUAL_SPAN) * 100;
-}
-
-/** Centro do mês YYYY-MM — evita pontos colados na linha de grade do início do mês. */
-function toPercentMonthCenter(ym: string): number {
-  return (toVisual(monthToIndex(ym) + 0.5) / DOMAIN_VISUAL_SPAN) * 100;
-}
-
-/** Fim do mês YYYY-MM (= início do mês seguinte), p.ex. 2023-06 → linha 2023-07. */
-function toPercentMonthEnd(ym: string): number {
-  return (toVisual(monthToIndex(ym) + 1) / DOMAIN_VISUAL_SPAN) * 100;
+function daysBetween(fromIso: string, toIso: string): number {
+  return (parseISO(toIso) - parseISO(fromIso)) / MS_PER_DAY;
 }
 
 function yearToPercent(year: number): number {
-  return toPercent(`${year}-01`);
+  return dayToPercent(`${year}-01-01`);
 }
 
 /**
@@ -92,50 +75,92 @@ function lerpExpr(from: number, to: number): string {
 
 function buildSemesterMarks(): string[] {
   const marks: string[] = [];
-  let idx = DOMAIN_START_IDX;
-  while (idx <= DOMAIN_END_IDX) {
-    const year = Math.floor(idx / 12);
-    const month = (idx % 12) + 1;
-    const ym = `${year}-${String(month).padStart(2, "0")}`;
-    // Sem linha no início nem no fim do domínio; mantém o semestre 2021-07.
-    if (ym !== DOMAIN_START && ym !== DOMAIN_END) {
-      marks.push(ym);
+  let cursor = Date.UTC(2021, 0, 1); // 2021-01-01
+  while (cursor <= DOMAIN_END_MS) {
+    const iso = new Date(cursor).toISOString().slice(0, 10);
+    if (iso !== DOMAIN_START && iso !== DOMAIN_END) {
+      marks.push(iso);
     }
-    idx += 6;
+    const dt = new Date(cursor);
+    cursor = Date.UTC(dt.getUTCFullYear(), dt.getUTCMonth() + 6, 1);
   }
   return marks;
 }
 
 const SEMESTER_MARKS = buildSemesterMarks();
 
-function formatMonthLabel(ym: string): string {
-  const [y, m] = ym.split("-");
-  const months = [
-    "jan",
-    "fev",
-    "mar",
-    "abr",
-    "mai",
-    "jun",
-    "jul",
-    "ago",
-    "set",
-    "out",
-    "nov",
-    "dez",
-  ];
-  return `${months[Number(m) - 1]}/${y}`;
+const MONTH_LABELS = [
+  "jan",
+  "fev",
+  "mar",
+  "abr",
+  "mai",
+  "jun",
+  "jul",
+  "ago",
+  "set",
+  "out",
+  "nov",
+  "dez",
+] as const;
+
+function formatDateLabel(iso: string): string {
+  const [y, m, d] = iso.split("-");
+  return `${Number(d)} ${MONTH_LABELS[Number(m) - 1]}/${y}`;
 }
 
 function eventLabel(type: AccidentEvent["type"]): string {
   return type === "motorcycle" ? "Motocicleta" : "Outro modo";
 }
 
+function formatMonthYear(iso: string): string {
+  const [y, m] = iso.split("-");
+  return `${MONTH_LABELS[Number(m) - 1]}/${y}`;
+}
+
+interface PeriodStats {
+  total: number;
+  moto: number;
+}
+
+interface RowStats {
+  before: PeriodStats;
+  after: PeriodStats;
+  /** Dias de período "depois" disponíveis até o fim do domínio. */
+  afterAvailDays: number;
+}
+
+/**
+ * Contagem de óbitos antes/depois da implementação.
+ * - `full`: período completo do domínio (2021 – jun/2025).
+ * - `window`: apenas a janela de comparação de ±1 ano em torno da implementação.
+ */
+function getRowStats(row: AvenidaData, mode: "full" | "window"): RowStats {
+  const implDate = row.implementation.after.start;
+  const before: PeriodStats = { total: 0, moto: 0 };
+  const after: PeriodStats = { total: 0, moto: 0 };
+
+  for (const event of row.events) {
+    const relDays = daysBetween(implDate, event.date);
+    if (mode === "window" && Math.abs(relDays) > WINDOW_DAYS) continue;
+    // Eventos no dia da implementação contam como "depois" (mesmo corte das barras).
+    const bucket = relDays < 0 ? before : after;
+    bucket.total += 1;
+    if (event.type === "motorcycle") bucket.moto += 1;
+  }
+
+  return {
+    before,
+    after,
+    afterAvailDays: daysBetween(implDate, DOMAIN_END),
+  };
+}
+
 const MARKER_SIZE = 8;
-/** Deslocamento horizontal (px) entre pontos na mesma data. */
+/** Deslocamento horizontal (px) entre pontos no mesmo dia (colisão real). */
 const OVERLAP_OFFSET_PX = 4;
 
-/** Offsets em px para espalhar eventos com a mesma data na linha. */
+/** Offsets em px para espalhar eventos com a mesma data (YYYY-MM-DD) na linha. */
 function getOverlapOffsets(events: AccidentEvent[]): number[] {
   const totals = new Map<string, number>();
   for (const event of events) {
@@ -156,23 +181,21 @@ function EventMarker({
   event,
   avenue,
   offsetX = 0,
-  implIdx,
+  implDate,
 }: {
   event: AccidentEvent;
   avenue: string;
   offsetX?: number;
-  implIdx: number;
+  implDate: string;
 }) {
   const isMotorcycle = event.type === "motorcycle";
 
-  // Origem: posicao no tempo absoluto (estado inicial do grafico).
-  const originLeft = toPercentMonthCenter(event.date);
-  // Alvo: posicao relativa a implementacao dentro da janela [-1, +1].
-  const eventIdx = monthToIndex(event.date);
-  const rel = eventIdx - implIdx;
-  const inWindow = rel >= -WINDOW_MONTHS && rel <= WINDOW_MONTHS;
-  const targetLeft =
-    V0_PCT + ((eventIdx + 0.5 - implIdx) / WINDOW_MONTHS) * HALF_WINDOW_PCT;
+  // Origem: posição no tempo absoluto (estado inicial do gráfico).
+  const originLeft = dayToPercent(event.date);
+  // Alvo: posição relativa à implementação dentro da janela [-1 ano, +1 ano].
+  const relDays = daysBetween(implDate, event.date);
+  const inWindow = relDays >= -WINDOW_DAYS && relDays <= WINDOW_DAYS;
+  const targetLeft = V0_PCT + (relDays / WINDOW_DAYS) * HALF_WINDOW_PCT;
 
   return (
     <span
@@ -186,25 +209,38 @@ function EventMarker({
         // Marcadores fora da janela de comparacao somem conforme alinha.
         ...(inWindow ? {} : { opacity: "calc(1 - var(--t))" }),
       }}
-      aria-label={`${avenue}: ${eventLabel(event.type)}, ${formatMonthLabel(event.date)}`}
+      aria-label={`${avenue}: ${eventLabel(event.type)}, ${formatDateLabel(event.date)}`}
     >
       {isMotorcycle ? <MotorcycleIcon /> : <OtherIcon />}
     </span>
   );
 }
 
-function AvenueBar({ row }: { row: AvenidaData }) {
-  const implIdx = monthToIndex(row.implementation.after.start);
-  const splitOrigin = toPercentMonthEnd(row.implementation.after.start);
+function AvenueBar({
+  row,
+  hovered,
+  onHover,
+  onLeave,
+}: {
+  row: AvenidaData;
+  hovered: boolean;
+  onHover: (row: AvenidaData, e: React.MouseEvent) => void;
+  onLeave: () => void;
+}) {
+  const implDate = row.implementation.after.start;
+  const splitOrigin = dayToPercent(implDate);
 
   // Alvo: 1 ano antes (claro) e 1 ano depois (escuro) em torno de V0 (centro).
-  // Barras sem 12 meses completos de "depois" nao alcancam a linha +1.
-  const beforeAvail = Math.min(implIdx - DOMAIN_START_IDX, WINDOW_MONTHS);
-  const afterAvail = Math.min(DOMAIN_END_IDX - implIdx, WINDOW_MONTHS);
+  // Barras sem 365 dias completos de "depois" nao alcancam a linha +1.
+  const beforeAvail = Math.min(
+    daysBetween(DOMAIN_START, implDate),
+    WINDOW_DAYS,
+  );
+  const afterAvail = Math.min(daysBetween(implDate, DOMAIN_END), WINDOW_DAYS);
   const lightLeftTarget =
-    V0_PCT - (beforeAvail / WINDOW_MONTHS) * HALF_WINDOW_PCT;
+    V0_PCT - (beforeAvail / WINDOW_DAYS) * HALF_WINDOW_PCT;
   const darkRightTarget =
-    V0_PCT + (afterAvail / WINDOW_MONTHS) * HALF_WINDOW_PCT;
+    V0_PCT + (afterAvail / WINDOW_DAYS) * HALF_WINDOW_PCT;
 
   const lightLeft = `calc(${lerpExpr(0, lightLeftTarget)})`;
   const lightWidth = `calc(${lerpExpr(splitOrigin, V0_PCT - lightLeftTarget)})`;
@@ -214,7 +250,17 @@ function AvenueBar({ row }: { row: AvenidaData }) {
   const overlapOffsets = getOverlapOffsets(row.events);
 
   return (
-    <div className="relative min-h-0 flex-1 overflow-visible">
+    <div
+      role="img"
+      aria-label={`${row.bairro}: linha do tempo de óbitos, Faixa Azul desde ${formatMonthYear(implDate)}`}
+      className="relative min-h-0 flex-1 overflow-visible rounded-[2px]"
+      style={
+        hovered ? { backgroundColor: "rgba(35, 37, 78, 0.08)" } : undefined
+      }
+      onMouseEnter={(e) => onHover(row, e)}
+      onMouseMove={(e) => onHover(row, e)}
+      onMouseLeave={onLeave}
+    >
       {/* Barra: altura reduzida; marcadores ficam na linha inteira para não clipar */}
       <div className="pointer-events-none absolute inset-y-[14%] left-0 right-0 md:inset-y-[8%]">
         <div
@@ -232,7 +278,7 @@ function AvenueBar({ row }: { row: AvenidaData }) {
           event={event}
           avenue={row.bairro}
           offsetX={overlapOffsets[index]}
-          implIdx={implIdx}
+          implDate={implDate}
         />
       ))}
     </div>
@@ -361,9 +407,128 @@ function MobileChartLegend() {
   );
 }
 
+const TOOLTIP_WIDTH = 240;
+const TOOLTIP_OFFSET = 14;
+
+function obitosLabel(n: number): string {
+  return n === 1 ? "1 óbito" : `${n} óbitos`;
+}
+
+function TooltipStatRow({
+  label,
+  swatchColor,
+  stats,
+}: {
+  label: string;
+  swatchColor: string;
+  stats: PeriodStats;
+}) {
+  return (
+    <div className="flex items-baseline gap-1.5">
+      <span
+        className="size-2 shrink-0 self-center rounded-[1px]"
+        style={{ backgroundColor: swatchColor }}
+        aria-hidden="true"
+      />
+      <span className="w-11 shrink-0 opacity-80">{label}</span>
+      <span className="font-semibold tabular-nums">
+        {obitosLabel(stats.total)}
+      </span>
+      {stats.moto > 0 && (
+        <span className="opacity-70">
+          ({stats.moto} de moto)
+        </span>
+      )}
+    </div>
+  );
+}
+
+function ChartTooltip({
+  row,
+  x,
+  y,
+  active,
+}: {
+  row: AvenidaData;
+  x: number;
+  y: number;
+  active: boolean;
+}) {
+  const stats = getRowStats(row, active ? "window" : "full");
+  const implDate = row.implementation.after.start;
+  const noEvents = stats.before.total === 0 && stats.after.total === 0;
+
+  const afterIncomplete = active && stats.afterAvailDays < WINDOW_DAYS;
+  const afterMonths = Math.max(1, Math.floor(stats.afterAvailDays / 30.44));
+
+  // Vira para o outro lado do cursor perto das bordas do viewport.
+  const flipX = x + TOOLTIP_OFFSET + TOOLTIP_WIDTH > window.innerWidth - 8;
+  const flipY = y + TOOLTIP_OFFSET + 170 > window.innerHeight - 8;
+
+  return (
+    <div
+      className="pointer-events-none fixed z-50 hidden rounded-md border border-neutral-200 bg-white p-3 font-inter text-[11px] leading-snug shadow-lg md:block"
+      style={{
+        left: flipX ? x - TOOLTIP_OFFSET : x + TOOLTIP_OFFSET,
+        top: flipY ? y - TOOLTIP_OFFSET : y + TOOLTIP_OFFSET,
+        transform: `translate(${flipX ? "-100%" : "0"}, ${flipY ? "-100%" : "0"})`,
+        width: TOOLTIP_WIDTH,
+        color: brandColor,
+      }}
+      aria-hidden="true"
+    >
+      <p className="font-bold">{row.bairro}</p>
+      <p className="mt-0.5 opacity-80">
+        Faixa Azul desde {formatMonthYear(implDate)}
+      </p>
+      <p className="mt-0.5 text-[10px] opacity-60">
+        {active
+          ? "Janela de comparação: 1 ano antes e 1 ano depois"
+          : "Período completo: jan/2021 – jun/2025"}
+      </p>
+
+      {noEvents ? (
+        <p className="mt-2 opacity-80">
+          Nenhum óbito registrado{active ? " na janela" : " no período"}.
+        </p>
+      ) : (
+        <div className="mt-2 flex flex-col gap-1">
+          <TooltipStatRow
+            label="Antes"
+            swatchColor={COLOR_BEFORE}
+            stats={stats.before}
+          />
+          <TooltipStatRow
+            label="Depois"
+            swatchColor={COLOR_AFTER}
+            stats={stats.after}
+          />
+        </div>
+      )}
+
+      {afterIncomplete && (
+        <p className="mt-2 text-[10px] italic opacity-60">
+          Período &ldquo;depois&rdquo; ainda incompleto: ~{afterMonths}{" "}
+          {afterMonths === 1 ? "mês" : "meses"} de dados.
+        </p>
+      )}
+    </div>
+  );
+}
+
 export function TimelineChart({ active = false }: { active?: boolean }) {
   const rootRef = useRef<HTMLDivElement>(null);
   const progress = useRef({ t: 0 });
+  const [hover, setHover] = useState<{
+    row: AvenidaData;
+    x: number;
+    y: number;
+  } | null>(null);
+
+  const handleHover = (row: AvenidaData, e: React.MouseEvent) => {
+    setHover({ row, x: e.clientX, y: e.clientY });
+  };
+  const handleLeave = () => setHover(null);
 
   useGSAP(
     () => {
@@ -395,7 +560,9 @@ export function TimelineChart({ active = false }: { active?: boolean }) {
             {acidentesData.map((row) => (
               <div
                 key={row.bairro}
-                className="flex min-h-0 flex-1 items-center justify-end overflow-visible whitespace-nowrap text-right text-[7.5px] leading-none md:text-[11px]"
+                className={`flex min-h-0 flex-1 items-center justify-end overflow-visible whitespace-nowrap text-right text-[7.5px] leading-none md:text-[11px] ${
+                  hover?.row.bairro === row.bairro ? "font-semibold" : ""
+                }`}
                 title={row.bairro}
               >
                 {row.bairro}
@@ -415,7 +582,7 @@ export function TimelineChart({ active = false }: { active?: boolean }) {
                   key={ym}
                   className="absolute inset-y-0 w-px"
                   style={{
-                    left: `${toPercent(ym)}%`,
+                    left: `${dayToPercent(ym)}%`,
                     backgroundColor: COLOR_GRID,
                   }}
                 />
@@ -424,7 +591,13 @@ export function TimelineChart({ active = false }: { active?: boolean }) {
 
             <div className="relative z-1 flex min-h-0 flex-1 flex-col gap-1.5 overflow-visible md:gap-1.5">
               {acidentesData.map((row) => (
-                <AvenueBar key={row.bairro} row={row} />
+                <AvenueBar
+                  key={row.bairro}
+                  row={row}
+                  hovered={hover?.row.bairro === row.bairro}
+                  onHover={handleHover}
+                  onLeave={handleLeave}
+                />
               ))}
             </div>
 
@@ -500,6 +673,10 @@ export function TimelineChart({ active = false }: { active?: boolean }) {
       <div className="hidden min-w-0 flex-1 items-center justify-start pl-4 md:flex lg:pl-6">
         <ChartLegend className="w-max max-w-44 lg:max-w-48" />
       </div>
+
+      {hover && (
+        <ChartTooltip row={hover.row} x={hover.x} y={hover.y} active={active} />
+      )}
     </div>
   );
 }

@@ -12,9 +12,9 @@ const CHART_META = {
   title:
     "Antes e depois da Faixa Azul: nenhum padrão claro de mudança nas mortes por via",
   subtitle:
-    "Linha do Tempo dos Óbitos por Via, antes e depois da Faixa Azul, janeiro de 2021 – abril de 2025.",
+    "Linha do Tempo dos Óbitos por Via, antes e depois da Faixa Azul, janeiro de 2021 – março de 2025.",
   source:
-    'Pesquisa Origem-Destino do Metrô de São Paulo; estudo "Avaliação do impacto da Faixa Azul nos sinistros de trânsito em São Paulo" — Centro de Estudos das Cidades / Insper, 2025.',
+    'Infosiga-SP; estudo "Avaliação do impacto da Faixa Azul nos sinistros de trânsito em São Paulo" — Centro de Estudos das Cidades / Insper, 2025.',
 };
 
 interface ScrollCardProps {
@@ -31,11 +31,13 @@ function ScrollCard({
   return (
     <div
       ref={cardRef}
-      className="flex items-center justify-center px-6 md:px-8"
+      // pointer-events: none — a área transparente ao redor do card não deve
+      // bloquear o hover no gráfico sticky que fica por baixo.
+      className="pointer-events-none flex items-center justify-center px-6 md:px-8"
       style={{ minHeight, position: "relative", zIndex: 1 }}
     >
       <div
-        className="w-full max-w-xl rounded-xl p-6 text-sm leading-normal shadow-lg backdrop-blur-sm md:p-8 md:text-base lg:p-9"
+        className="pointer-events-auto w-full max-w-xl rounded-xl p-6 text-sm leading-normal shadow-lg backdrop-blur-sm md:p-8 md:text-base lg:p-9"
         style={{ color: brandColor, backgroundColor: "#F0F0F0" }}
       >
         {children}
@@ -129,7 +131,11 @@ export default function ChartTwo() {
           </div>
         </ScrollCard>
 
-        <div style={{ minHeight: "50vh" }} aria-hidden="true" />
+        <div
+          className="pointer-events-none"
+          style={{ minHeight: "50vh" }}
+          aria-hidden="true"
+        />
       </div>
     </section>
   );
