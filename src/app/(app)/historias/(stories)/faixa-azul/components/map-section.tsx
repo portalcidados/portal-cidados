@@ -70,24 +70,18 @@ function ScrollCard({
 function PrimeiraImplantacaoLabel({ visible }: { visible: boolean }) {
   return (
     <div
-      className="font-inter pointer-events-none flex w-fit max-w-[min(360px,calc(100vw-2rem))] items-center gap-[10px] rounded-xl bg-[#F0F0F0] p-6"
+      className="font-inter pointer-events-none flex w-fit max-w-[180px] items-center gap-[10px] rounded-xl bg-[#F0F0F0] p-3 md:max-w-[min(360px,calc(100vw-2rem))] md:p-6"
       style={{
         opacity: visible ? 1 : 0,
         transition: "opacity 600ms ease-in-out",
       }}
     >
       <div
-        className="shrink-0"
-        style={{
-          width: 45,
-          height: 13,
-          backgroundColor: "#1A2672",
-          borderRadius: 6,
-        }}
+        className="h-2.5 w-7 shrink-0 rounded-md bg-[#1A2672] md:h-[13px] md:w-[45px]"
         aria-hidden="true"
       />
       <p
-        className="text-sm leading-snug whitespace-nowrap"
+        className="text-xs leading-snug whitespace-normal md:text-sm md:whitespace-nowrap"
         style={{ color: brandColor }}
       >
         {PRIMEIRA_IMPLANTACAO_LABEL_TEXT}

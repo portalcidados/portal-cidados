@@ -2,7 +2,7 @@
 
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { getLayerLegend, LegendItem } from "../lib/layer-styles";
+import { getLayerLegend, type LegendItem } from "../lib/layer-styles";
 
 interface LayerLegendProps {
   layerId: string;
