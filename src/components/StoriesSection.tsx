@@ -98,7 +98,7 @@ export function StoriesSection() {
       </span>
       <div className="mx-auto px-4 md:px-8 lg:px-12">
         {/* Stories Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 md:gap-4">
           {stories.map((story) => (
             <article
               key={story.id}

@@ -52,5 +52,20 @@ export function getStoriesForHome(): Story[] {
       ],
       href: "/historias/desigualdades-em-saude-sp",
     },
+    {
+      id: "4",
+      title:
+        "A Faixa Azul tornou o trânsito mais seguro? Avaliação do impacto das faixas dedicadas à motociclistas nos sinistros em São Paulo",
+      description:
+        "Avaliação do impacto das faixas exclusivas para motociclistas nos sinistros de trânsito em São Paulo",
+      image: "/assets/viz4/viz4.1.png",
+      images: [
+        "/assets/viz4/viz4.1.png",
+        "/assets/viz4/viz4.2.png",
+        "/assets/viz4/viz4.3.png",
+        "/assets/viz4/viz4.4.png",
+      ],
+      href: "/historias/faixa-azul",
+    },
   ];
 }
