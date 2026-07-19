@@ -24,16 +24,21 @@ import "mapbox-gl/dist/mapbox-gl.css";
 gsap.registerPlugin(ScrollTrigger);
 
 // ⚠️  Replace with your Mapbox Studio style URL for the Maré map
-const MAPBOX_STYLE = "mapbox://styles/observatorio-nacional/cmmhtm8qk007201rybwdsa26f";
+const MAPBOX_STYLE =
+  "mapbox://styles/observatorio-nacional/cmmhtm8qk007201rybwdsa26f";
 const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN ?? "";
 
 // Map positions
 const ORIGINAL_DESKTOP = { lng: -43.240951, lat: -22.856215, zoom: 12.84 };
-const ORIGINAL_MOBILE = { lng: -43.243551, lat: -22.854215, zoom: 12.80 };
+const ORIGINAL_MOBILE = { lng: -43.243551, lat: -22.854215, zoom: 12.8 };
 const MORRO_TIMBAU_DESKTOP = { lng: -43.241521, lat: -22.862468, zoom: 15.25 };
-const MORRO_TIMBAU_MOBILE = { lng: -43.241000, lat: -22.862645, zoom: 15.20 };
-const VILA_PINHEIROS_DESKTOP = { lng: -43.238435, lat: -22.869024, zoom: 14.52 };
-const VILA_PINHEIROS_MOBILE = { lng: -43.238435, lat: -22.868024, zoom: 14.40 };
+const MORRO_TIMBAU_MOBILE = { lng: -43.241, lat: -22.862645, zoom: 15.2 };
+const VILA_PINHEIROS_DESKTOP = {
+  lng: -43.238435,
+  lat: -22.869024,
+  zoom: 14.52,
+};
+const VILA_PINHEIROS_MOBILE = { lng: -43.238435, lat: -22.868024, zoom: 14.4 };
 
 type LayerConfig = { id: string; prop: string; value: number };
 
@@ -201,7 +206,11 @@ interface ScrollCardProps {
   minHeight?: string;
 }
 
-function ScrollCard({ children, cardRef, minHeight = "200vh" }: ScrollCardProps) {
+function ScrollCard({
+  children,
+  cardRef,
+  minHeight = "200vh",
+}: ScrollCardProps) {
   return (
     <div
       ref={cardRef}
@@ -512,14 +521,11 @@ export function IntroMare() {
     };
 
     window.addEventListener("resize", handleResize);
-    window.addEventListener(
-      "orientationchange",
-      () => {
-        setTimeout(() => {
-          createTriggers();
-        }, 300);
-      },
-    );
+    window.addEventListener("orientationchange", () => {
+      setTimeout(() => {
+        createTriggers();
+      }, 300);
+    });
 
     return () => {
       clearTimeout(timeoutId);
@@ -666,7 +672,7 @@ export function IntroMare() {
       </ScrollCard>
 
       {/* Card 1: Invisible — triggers map1 layers */}
-      <ScrollCard cardRef={card1Ref} minHeight="10vh"/>
+      <ScrollCard cardRef={card1Ref} minHeight="10vh" />
 
       {/* Card 2: Text with map1 layers visible */}
       <ScrollCard cardRef={card2Ref}>
@@ -708,7 +714,7 @@ export function IntroMare() {
       </ScrollCard>
 
       {/* Card 8: Invisible — flies to Morro do Timbau */}
-      <ScrollCard cardRef={card8Ref} minHeight="100vh"/>
+      <ScrollCard cardRef={card8Ref} minHeight="100vh" />
 
       {/* Card 4: Flies back to original */}
       <ScrollCard cardRef={card4Ref}>
@@ -750,10 +756,10 @@ export function IntroMare() {
       </ScrollCard>
 
       {/* Card 6: Invisible — flies to Vila dos Pinheiros */}
-      <ScrollCard cardRef={card6Ref} minHeight="80vh"/>
+      <ScrollCard cardRef={card6Ref} minHeight="80vh" />
 
       {/* Card 9: Invisible — hides Vila dos Pinheiros layers, flies back */}
-      <ScrollCard cardRef={card9Ref} minHeight="100vh"/>
+      <ScrollCard cardRef={card9Ref} minHeight="100vh" />
 
       {/* Card 10: Consolidação e Expansão */}
       <ScrollCard cardRef={card10Ref}>

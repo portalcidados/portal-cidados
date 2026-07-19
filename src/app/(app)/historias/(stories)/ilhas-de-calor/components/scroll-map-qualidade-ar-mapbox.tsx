@@ -61,16 +61,58 @@ const CARD_HEIGHTS = ["100vh", "100vh", "110vh"];
 
 const OVERLAYS = [
   {
-    desktop: { src: piscinao2Svg.src, width: 560, offsetX: 0, offsetY: 0, lng: -43.243499, lat: -22.8418554 },
-    mobile: { src: piscinao2MobileSvg.src, width: 300, offsetX: 0, offsetY: 0, lng: -43.249499, lat: -22.8428554 },
+    desktop: {
+      src: piscinao2Svg.src,
+      width: 560,
+      offsetX: 0,
+      offsetY: 0,
+      lng: -43.243499,
+      lat: -22.8418554,
+    },
+    mobile: {
+      src: piscinao2MobileSvg.src,
+      width: 300,
+      offsetX: 0,
+      offsetY: 0,
+      lng: -43.249499,
+      lat: -22.8428554,
+    },
   },
   {
-    desktop: { src: novaHolandaSvg.src, width: 450, offsetX: 0, offsetY: 0, lng: -43.253577, lat: -22.858809 },
-    mobile: { src: novaHolandaMobileSvg.src, width: 300, offsetX: 0, offsetY: 0, lng: -43.243577, lat: -22.860809 },
+    desktop: {
+      src: novaHolandaSvg.src,
+      width: 450,
+      offsetX: 0,
+      offsetY: 0,
+      lng: -43.253577,
+      lat: -22.858809,
+    },
+    mobile: {
+      src: novaHolandaMobileSvg.src,
+      width: 300,
+      offsetX: 0,
+      offsetY: 0,
+      lng: -43.243577,
+      lat: -22.860809,
+    },
   },
   {
-    desktop: { src: parqueEcologicoSvg.src, width: 500, offsetX: 0, offsetY: 0, lng: -43.2406556, lat: -22.864524 },
-    mobile: { src: parqueEcologicoMobileSvg.src, width: 300, offsetX: 0, offsetY: 0, lng: -43.236156, lat: -22.869024 },
+    desktop: {
+      src: parqueEcologicoSvg.src,
+      width: 500,
+      offsetX: 0,
+      offsetY: 0,
+      lng: -43.2406556,
+      lat: -22.864524,
+    },
+    mobile: {
+      src: parqueEcologicoMobileSvg.src,
+      width: 300,
+      offsetX: 0,
+      offsetY: 0,
+      lng: -43.236156,
+      lat: -22.869024,
+    },
   },
 ];
 
@@ -95,10 +137,7 @@ function MapSelector() {
         {currentMapSrc && (
           <Zoom>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={currentMapSrc.src}
-              alt="Mapa de Qualidade do Ar"
-            />
+            <img src={currentMapSrc.src} alt="Mapa de Qualidade do Ar" />
           </Zoom>
         )}
         <p className="text-md font-bold mt-2.5">Mapa de temperatura da Maré</p>

@@ -15,7 +15,11 @@ interface ScrollCardProps {
   minHeight?: string;
 }
 
-function ScrollCard({ children, cardRef, minHeight = "130vh" }: ScrollCardProps) {
+function ScrollCard({
+  children,
+  cardRef,
+  minHeight = "130vh",
+}: ScrollCardProps) {
   return (
     <div
       ref={cardRef}

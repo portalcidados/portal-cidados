@@ -29,14 +29,8 @@ const AV_PAULISTA_GEOJSON = {
       geometry: {
         type: "LineString",
         coordinates: [
-          [
-            -46.6628278,
-            -23.5559773
-          ],
-          [
-            -46.6449727,
-            -23.5707779
-          ]
+          [-46.6628278, -23.5559773],
+          [-46.6449727, -23.5707779],
         ],
       },
     },
@@ -47,7 +41,7 @@ const AV_PAULISTA_GEOJSON = {
         type: "LineString",
         coordinates: [
           [-46.6470405, -23.5691045],
-          [-46.646032,  -23.5698428],
+          [-46.646032, -23.5698428],
           [-46.6450229, -23.5705971],
           [-46.6442632, -23.5712031],
         ],
@@ -76,7 +70,7 @@ const AV_PAULISTA_ENVELOPE_GEOJSON = {
       [-46.6435054, -23.573679],
       [-46.6414711, -23.5724766],
       [-46.6417791, -23.5703119],
-      [-46.642806,  -23.5684295],
+      [-46.642806, -23.5684295],
       [-46.6448597, -23.5667353],
       [-46.6480429, -23.5640999],
       [-46.6512262, -23.5611821],
@@ -207,12 +201,14 @@ export default function ScrollyCards() {
         <>
           <b>A desigualdade existente do município de São Paulo</b> pode ser
           visualizada de forma clara por meio do Índice GeoSES, que resume as{" "}
-          <b>condições socioeconômicas vividas nas diferentes regiões da cidade</b>
+          <b>
+            condições socioeconômicas vividas nas diferentes regiões da cidade
+          </b>
           . Este mapa, com dados de 2010, revela como fatores como renda,
-          educação e infraestrutura urbana estão distribuídos de maneira desigual
-          na cidade. As áreas em azul indicam regiões com melhores condições
-          socioeconômicas, enquanto as áreas em vermelho representam regiões com
-          maior vulnerabilidade.
+          educação e infraestrutura urbana estão distribuídos de maneira
+          desigual na cidade. As áreas em azul indicam regiões com melhores
+          condições socioeconômicas, enquanto as áreas em vermelho representam
+          regiões com maior vulnerabilidade.
         </>
       ),
     },
@@ -230,11 +226,9 @@ export default function ScrollyCards() {
       text: (
         <>
           Notamos a <b>desigualdade entre os bairros</b> à medida que nos
-          afastamos progressivamente das{" "}
-          <b>regiões centrais da cidade</b>, como a{" "}
-          <b>Avenida Paulista</b>, e nos aproximamos da{" "}
-          <b>periferia</b>, como o bairro do{" "}
-          <b>Jardim Helena</b>, na Zona Leste de São Paulo.
+          afastamos progressivamente das <b>regiões centrais da cidade</b>, como
+          a <b>Avenida Paulista</b>, e nos aproximamos da <b>periferia</b>, como
+          o bairro do <b>Jardim Helena</b>, na Zona Leste de São Paulo.
         </>
       ),
     },
@@ -247,10 +241,9 @@ export default function ScrollyCards() {
       top: 300,
       text: (
         <>
-          A seguir, contaremos a{" "}
-          <strong>história de Maria</strong>, que{" "}
-          <strong>mora no Jardim Helena</strong>. Este é um caso hipotético,
-          mas muito comum na realidade Palistana.
+          A seguir, contaremos a <strong>história de Maria</strong>, que{" "}
+          <strong>mora no Jardim Helena</strong>. Este é um caso hipotético, mas
+          muito comum na realidade Palistana.
         </>
       ),
     },
@@ -282,14 +275,19 @@ export default function ScrollyCards() {
               toggleJardimHelenaLayer(index === 2);
             }
           },
-          onLeave: index === 0 ? () => {
-            flyToLocation(locations[1]);
-            toggleHighlightLayer(true);
-          } : index === 1 ? () => {
-            flyToLocation(locations[locations.length - 1]);
-            toggleHighlightLayer(false);
-            toggleJardimHelenaLayer(true);
-          } : undefined,
+          onLeave:
+            index === 0
+              ? () => {
+                  flyToLocation(locations[1]);
+                  toggleHighlightLayer(true);
+                }
+              : index === 1
+                ? () => {
+                    flyToLocation(locations[locations.length - 1]);
+                    toggleHighlightLayer(false);
+                    toggleJardimHelenaLayer(true);
+                  }
+                : undefined,
         });
       }
     });
@@ -420,7 +418,10 @@ export default function ScrollyCards() {
       type: "geojson",
       data: {
         type: "Feature",
-        geometry: { type: "LineString", coordinates: [avPaulistaLabelStart, avPaulistaLabelEnd] },
+        geometry: {
+          type: "LineString",
+          coordinates: [avPaulistaLabelStart, avPaulistaLabelEnd],
+        },
         properties: {},
       } as GeoJSON.Feature,
     });
@@ -456,7 +457,10 @@ export default function ScrollyCards() {
           "Av. Paulista",
           {
             "font-scale": 1.0,
-            "text-font": ["literal", ["Open Sans Bold", "Arial Unicode MS Bold"]],
+            "text-font": [
+              "literal",
+              ["Open Sans Bold", "Arial Unicode MS Bold"],
+            ],
             "text-color": "#000000",
           },
           "\n",
@@ -496,7 +500,11 @@ export default function ScrollyCards() {
       id: "jardim-helena-line",
       type: "line",
       source: "jardim-helena-area",
-      paint: { "line-color": "#000000", "line-width": 1.5, "line-dasharray": [2, 2] },
+      paint: {
+        "line-color": "#000000",
+        "line-width": 1.5,
+        "line-dasharray": [2, 2],
+      },
       layout: { visibility: "none" },
     });
 
@@ -516,7 +524,11 @@ export default function ScrollyCards() {
       id: "jardim-helena-vline-layer",
       type: "line",
       source: "jardim-helena-vline",
-      paint: { "line-color": "#000000", "line-width": 1.5, "line-dasharray": [2, 2] },
+      paint: {
+        "line-color": "#000000",
+        "line-width": 1.5,
+        "line-dasharray": [2, 2],
+      },
       layout: { visibility: "none" },
     });
 
@@ -539,7 +551,10 @@ export default function ScrollyCards() {
           "Jardim Helena",
           {
             "font-scale": 1.0,
-            "text-font": ["literal", ["Open Sans Bold", "Arial Unicode MS Bold"]],
+            "text-font": [
+              "literal",
+              ["Open Sans Bold", "Arial Unicode MS Bold"],
+            ],
             "text-color": "#000000",
           },
           "\n",
@@ -610,7 +625,10 @@ export default function ScrollyCards() {
         alignItems: "center",
       }}
     >
-      <div style={{ position: "sticky", top: 0 }} className="h-screen w-full relative">
+      <div
+        style={{ position: "sticky", top: 0 }}
+        className="h-screen w-full relative"
+      >
         <MapboxMap
           ref={mapRef}
           initialViewState={viewState}
@@ -627,7 +645,9 @@ export default function ScrollyCards() {
           doubleClickZoom={false}
         ></MapboxMap>
 
-        <div className={`absolute top-4 right-4 z-20 rounded-lg bg-white/90 shadow-lg backdrop-blur-sm max-w-[220px] text-sm transition-opacity duration-300 ${legendVisible ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
+        <div
+          className={`absolute top-4 right-4 z-20 rounded-lg bg-white/90 shadow-lg backdrop-blur-sm max-w-[220px] text-sm transition-opacity duration-300 ${legendVisible ? "opacity-100" : "opacity-0 pointer-events-none"}`}
+        >
           <button
             type="button"
             onClick={() => setLegendCollapsed((c) => !c)}

@@ -115,7 +115,8 @@ export default function Intro() {
               No coração da Zona Norte do Rio de Janeiro, entre o vai e vem das
               vias expressas e o calor do asfalto, um estudo revelou um problema
               invisível a olho nu, mas sentido todos os dias pelos moradores da
-              Maré. O projeto Respira Maré, conduzido pela Redes da Maré, mapeou&nbsp;
+              Maré. O projeto Respira Maré, conduzido pela Redes da Maré,
+              mapeou&nbsp;
               <strong>
                 a qualidade do ar e o impacto das ilhas de calor em uma das
                 maiores favelas do Brasil
@@ -126,7 +127,9 @@ export default function Intro() {
             </p>
             <p className="text-[#3A3434] text-base md:text-lg leading-relaxed text-justify">
               As medições feitas ao longo de sete meses mostram que&nbsp;
-              <strong>a temperatura na Maré pode ser até 2°C mais quente</strong>{" "}
+              <strong>
+                a temperatura na Maré pode ser até 2°C mais quente
+              </strong>{" "}
               do que nas áreas vizinhas, um fenômeno chamado de ilha de calor
               urbana. O calor não se dissipa nem à noite: em algumas regiões, a
               temperatura cai menos de 2°C depois do pôr do sol, tornando o sono

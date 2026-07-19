@@ -303,10 +303,7 @@ export const ScrollMapQualidadeAr: React.FC<ScrollMapQualidadeArProps> = ({
           {currentMapSrc && (
             <Zoom>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={currentMapSrc.src}
-                alt="Mapa de Qualidade do Ar"
-              />
+              <img src={currentMapSrc.src} alt="Mapa de Qualidade do Ar" />
             </Zoom>
           )}
           <p className="text-md font-bold mt-2.5">

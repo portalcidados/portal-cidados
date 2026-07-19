@@ -94,9 +94,7 @@ export function StoriesSection() {
   return (
     <section className="py-8 pt-18 pb-16 mx-auto bg-background">
       <span className="text-sm block cursor-pointer pb-3 px-4 md:px-8 lg:px-12 text-foreground leading-relaxed font-gt-ultra-fine">
-       <Link href="/historias">
-        Veja nossas histórias
-        </Link>
+        <Link href="/historias">Veja nossas histórias</Link>
       </span>
       <div className="mx-auto px-4 md:px-8 lg:px-12">
         {/* Stories Grid */}

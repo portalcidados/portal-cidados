@@ -87,10 +87,7 @@ const FINAL_CARDS = [
   },
 ] as const;
 
-function applyMediaFrame(
-  mediaInner: HTMLDivElement,
-  expandedRatio: number,
-) {
+function applyMediaFrame(mediaInner: HTMLDivElement, expandedRatio: number) {
   const ratio = gsap.utils.clamp(0, 1, expandedRatio);
 
   gsap.set(mediaInner, {

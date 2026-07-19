@@ -59,7 +59,10 @@ const videosToPreload = [
 
 export default function FaixaAzulPage() {
   return (
-    <PreloadWrapper imageSources={assetsToPreload} videoSources={videosToPreload}>
+    <PreloadWrapper
+      imageSources={assetsToPreload}
+      videoSources={videosToPreload}
+    >
       <div className="bg-white!">
         <ScrollProgressBar barColor={brandColor} />
         <Intro />

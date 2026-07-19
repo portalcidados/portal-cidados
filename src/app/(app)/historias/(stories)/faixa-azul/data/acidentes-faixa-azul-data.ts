@@ -25,20 +25,20 @@ export const acidentesData: AvenidaData[] = [
     bairro: "VINTE E TRES MAIO",
     implementation: {
       before: { start: "2021-01-01", end: "2022-01-01" },
-      after: { start: "2022-01-01", end: "2025-06-30" }
+      after: { start: "2022-01-01", end: "2025-06-30" },
     },
     events: [
       { date: "2022-09-23", type: "motorcycle" },
       { date: "2023-02-08", type: "motorcycle" },
       { date: "2023-03-27", type: "motorcycle" },
       { date: "2024-03-25", type: "motorcycle" },
-    ]
+    ],
   },
   {
     bairro: "BANDEIRANTES",
     implementation: {
       before: { start: "2021-01-01", end: "2022-10-01" },
-      after: { start: "2022-10-01", end: "2025-06-30" }
+      after: { start: "2022-10-01", end: "2025-06-30" },
     },
     events: [
       { date: "2021-01-13", type: "other" },
@@ -58,24 +58,24 @@ export const acidentesData: AvenidaData[] = [
       { date: "2024-04-14", type: "motorcycle" },
       { date: "2024-05-17", type: "motorcycle" },
       { date: "2024-07-14", type: "motorcycle" },
-    ]
+    ],
   },
   {
     bairro: "AFONSO D ESCRAGNOLE TAUNAY",
     implementation: {
       before: { start: "2021-01-01", end: "2022-10-01" },
-      after: { start: "2022-10-01", end: "2025-06-30" }
+      after: { start: "2022-10-01", end: "2025-06-30" },
     },
     events: [
       { date: "2023-08-16", type: "other" },
       { date: "2024-12-08", type: "motorcycle" },
-    ]
+    ],
   },
   {
     bairro: "SANTOS DUMONT",
     implementation: {
       before: { start: "2021-01-01", end: "2023-10-01" },
-      after: { start: "2023-10-01", end: "2025-06-30" }
+      after: { start: "2023-10-01", end: "2025-06-30" },
     },
     events: [
       { date: "2021-02-09", type: "other" },
@@ -83,24 +83,24 @@ export const acidentesData: AvenidaData[] = [
       { date: "2023-07-20", type: "motorcycle" },
       { date: "2024-06-30", type: "other" },
       { date: "2024-12-06", type: "motorcycle" },
-    ]
+    ],
   },
   {
     bairro: "RUBEM BERTA",
     implementation: {
       before: { start: "2021-01-01", end: "2023-10-01" },
-      after: { start: "2023-10-01", end: "2025-06-30" }
+      after: { start: "2023-10-01", end: "2025-06-30" },
     },
     events: [
       { date: "2023-05-07", type: "motorcycle" },
       { date: "2023-09-03", type: "motorcycle" },
-    ]
+    ],
   },
   {
     bairro: "PRESTES MAIA",
     implementation: {
       before: { start: "2021-01-01", end: "2023-10-01" },
-      after: { start: "2023-10-01", end: "2025-06-30" }
+      after: { start: "2023-10-01", end: "2025-06-30" },
     },
     events: [
       { date: "2021-01-27", type: "other" },
@@ -112,43 +112,37 @@ export const acidentesData: AvenidaData[] = [
       { date: "2023-08-26", type: "motorcycle" },
       { date: "2024-05-12", type: "other" },
       { date: "2024-10-16", type: "motorcycle" },
-    ]
+    ],
   },
   {
     bairro: "MOREIRA GUIMARAES",
     implementation: {
       before: { start: "2021-01-01", end: "2023-10-01" },
-      after: { start: "2023-10-01", end: "2025-06-30" }
+      after: { start: "2023-10-01", end: "2025-06-30" },
     },
-    events: [
-      { date: "2024-03-27", type: "motorcycle" },
-    ]
+    events: [{ date: "2024-03-27", type: "motorcycle" }],
   },
   {
     bairro: "SUMARE",
     implementation: {
       before: { start: "2021-01-01", end: "2023-11-01" },
-      after: { start: "2023-11-01", end: "2025-06-30" }
+      after: { start: "2023-11-01", end: "2025-06-30" },
     },
-    events: [
-      { date: "2022-08-22", type: "other" },
-    ]
+    events: [{ date: "2022-08-22", type: "other" }],
   },
   {
     bairro: "PAULO VI",
     implementation: {
       before: { start: "2021-01-01", end: "2023-11-01" },
-      after: { start: "2023-11-01", end: "2025-06-30" }
+      after: { start: "2023-11-01", end: "2025-06-30" },
     },
-    events: [
-      { date: "2021-05-04", type: "other" },
-    ]
+    events: [{ date: "2021-05-04", type: "other" }],
   },
   {
     bairro: "NACOES UNIDAS",
     implementation: {
       before: { start: "2021-01-01", end: "2023-11-01" },
-      after: { start: "2023-11-01", end: "2025-06-30" }
+      after: { start: "2023-11-01", end: "2025-06-30" },
     },
     events: [
       { date: "2021-04-21", type: "motorcycle" },
@@ -175,13 +169,13 @@ export const acidentesData: AvenidaData[] = [
       { date: "2025-01-05", type: "motorcycle" },
       { date: "2025-01-21", type: "motorcycle" },
       { date: "2025-03-14", type: "motorcycle" },
-    ]
+    ],
   },
   {
     bairro: "MIGUEL YUNES",
     implementation: {
       before: { start: "2021-01-01", end: "2023-11-01" },
-      after: { start: "2023-11-01", end: "2025-06-30" }
+      after: { start: "2023-11-01", end: "2025-06-30" },
     },
     events: [
       { date: "2021-02-14", type: "motorcycle" },
@@ -189,35 +183,33 @@ export const acidentesData: AvenidaData[] = [
       { date: "2023-10-20", type: "motorcycle" },
       { date: "2023-12-04", type: "motorcycle" },
       { date: "2023-12-27", type: "other" },
-    ]
+    ],
   },
   {
     bairro: "ZAKI NARCHI",
     implementation: {
       before: { start: "2021-01-01", end: "2023-12-01" },
-      after: { start: "2023-12-01", end: "2025-06-30" }
+      after: { start: "2023-12-01", end: "2025-06-30" },
     },
-    events: [
-      { date: "2024-06-24", type: "motorcycle" },
-    ]
+    events: [{ date: "2024-06-24", type: "motorcycle" }],
   },
   {
     bairro: "LUIZ DUMONT VILLARES",
     implementation: {
       before: { start: "2021-01-01", end: "2023-12-01" },
-      after: { start: "2023-12-01", end: "2025-06-30" }
+      after: { start: "2023-12-01", end: "2025-06-30" },
     },
     events: [
       { date: "2023-07-13", type: "motorcycle" },
       { date: "2023-12-13", type: "motorcycle" },
       { date: "2023-12-15", type: "other" },
-    ]
+    ],
   },
   {
     bairro: "JACU PESSEGO",
     implementation: {
       before: { start: "2021-01-01", end: "2023-12-01" },
-      after: { start: "2023-12-01", end: "2025-06-30" }
+      after: { start: "2023-12-01", end: "2025-06-30" },
     },
     events: [
       { date: "2021-06-18", type: "other" },
@@ -249,25 +241,25 @@ export const acidentesData: AvenidaData[] = [
       { date: "2024-11-03", type: "other" },
       { date: "2024-11-22", type: "motorcycle" },
       { date: "2024-12-08", type: "other" },
-    ]
+    ],
   },
   {
     bairro: "FARIA LIMA",
     implementation: {
       before: { start: "2021-01-01", end: "2023-12-01" },
-      after: { start: "2023-12-01", end: "2025-06-30" }
+      after: { start: "2023-12-01", end: "2025-06-30" },
     },
     events: [
       { date: "2022-10-16", type: "motorcycle" },
       { date: "2024-04-03", type: "other" },
       { date: "2024-08-31", type: "motorcycle" },
-    ]
+    ],
   },
   {
     bairro: "ESTADO",
     implementation: {
       before: { start: "2021-01-01", end: "2023-12-01" },
-      after: { start: "2023-12-01", end: "2025-06-30" }
+      after: { start: "2023-12-01", end: "2025-06-30" },
     },
     events: [
       { date: "2021-01-20", type: "other" },
@@ -296,21 +288,21 @@ export const acidentesData: AvenidaData[] = [
       { date: "2024-10-18", type: "motorcycle" },
       { date: "2024-12-18", type: "other" },
       { date: "2025-03-16", type: "other" },
-    ]
+    ],
   },
   {
     bairro: "JOAO PAULO II",
     implementation: {
       before: { start: "2021-01-01", end: "2024-03-01" },
-      after: { start: "2024-03-01", end: "2025-06-30" }
+      after: { start: "2024-03-01", end: "2025-06-30" },
     },
-    events: []
+    events: [],
   },
   {
     bairro: "WASHINGTON LUIS",
     implementation: {
       before: { start: "2021-01-01", end: "2024-04-01" },
-      after: { start: "2024-04-01", end: "2025-06-30" }
+      after: { start: "2024-04-01", end: "2025-06-30" },
     },
     events: [
       { date: "2021-01-31", type: "motorcycle" },
@@ -326,39 +318,37 @@ export const acidentesData: AvenidaData[] = [
       { date: "2024-06-21", type: "motorcycle" },
       { date: "2024-09-14", type: "motorcycle" },
       { date: "2024-10-05", type: "motorcycle" },
-    ]
+    ],
   },
   {
     bairro: "EULALIA",
     implementation: {
       before: { start: "2021-01-01", end: "2024-04-01" },
-      after: { start: "2024-04-01", end: "2025-06-30" }
+      after: { start: "2024-04-01", end: "2025-06-30" },
     },
-    events: []
+    events: [],
   },
   {
     bairro: "AYRTON SENNA",
     implementation: {
       before: { start: "2021-01-01", end: "2024-04-01" },
-      after: { start: "2024-04-01", end: "2025-06-30" }
+      after: { start: "2024-04-01", end: "2025-06-30" },
     },
-    events: []
+    events: [],
   },
   {
     bairro: "GASTAO VIDIGAL",
     implementation: {
       before: { start: "2021-01-01", end: "2024-05-01" },
-      after: { start: "2024-05-01", end: "2025-06-30" }
+      after: { start: "2024-05-01", end: "2025-06-30" },
     },
-    events: [
-      { date: "2025-01-17", type: "other" },
-    ]
+    events: [{ date: "2025-01-17", type: "other" }],
   },
   {
     bairro: "ELISEU ALMEIDA",
     implementation: {
       before: { start: "2021-01-01", end: "2024-05-01" },
-      after: { start: "2024-05-01", end: "2025-06-30" }
+      after: { start: "2024-05-01", end: "2025-06-30" },
     },
     events: [
       { date: "2022-09-21", type: "motorcycle" },
@@ -366,13 +356,13 @@ export const acidentesData: AvenidaData[] = [
       { date: "2023-06-30", type: "motorcycle" },
       { date: "2023-08-09", type: "other" },
       { date: "2024-10-12", type: "motorcycle" },
-    ]
+    ],
   },
   {
     bairro: "BRAZ LEME",
     implementation: {
       before: { start: "2021-01-01", end: "2024-05-01" },
-      after: { start: "2024-05-01", end: "2025-06-30" }
+      after: { start: "2024-05-01", end: "2025-06-30" },
     },
     events: [
       { date: "2021-06-20", type: "motorcycle" },
@@ -383,36 +373,34 @@ export const acidentesData: AvenidaData[] = [
       { date: "2024-06-05", type: "other" },
       { date: "2024-08-22", type: "other" },
       { date: "2024-09-13", type: "motorcycle" },
-    ]
+    ],
   },
   {
     bairro: "TANCREDO NEVES",
     implementation: {
       before: { start: "2021-01-01", end: "2024-06-01" },
-      after: { start: "2024-06-01", end: "2025-06-30" }
+      after: { start: "2024-06-01", end: "2025-06-30" },
     },
     events: [
       { date: "2022-06-04", type: "other" },
       { date: "2023-08-18", type: "other" },
       { date: "2023-12-10", type: "motorcycle" },
       { date: "2024-09-27", type: "motorcycle" },
-    ]
+    ],
   },
   {
     bairro: "MARIA MALUF",
     implementation: {
       before: { start: "2021-01-01", end: "2024-06-01" },
-      after: { start: "2024-06-01", end: "2025-06-30" }
+      after: { start: "2024-06-01", end: "2025-06-30" },
     },
-    events: [
-      { date: "2024-01-23", type: "motorcycle" },
-    ]
+    events: [{ date: "2024-01-23", type: "motorcycle" }],
   },
   {
     bairro: "LUIZ IGNACIO ANHAIA MELLO",
     implementation: {
       before: { start: "2021-01-01", end: "2024-06-01" },
-      after: { start: "2024-06-01", end: "2025-06-30" }
+      after: { start: "2024-06-01", end: "2025-06-30" },
     },
     events: [
       { date: "2021-05-26", type: "motorcycle" },
@@ -432,23 +420,21 @@ export const acidentesData: AvenidaData[] = [
       { date: "2024-07-10", type: "motorcycle" },
       { date: "2024-09-25", type: "other" },
       { date: "2025-03-01", type: "motorcycle" },
-    ]
+    ],
   },
   {
     bairro: "ELEVADO JOAO GOULART",
     implementation: {
       before: { start: "2021-01-01", end: "2024-06-01" },
-      after: { start: "2024-06-01", end: "2025-06-30" }
+      after: { start: "2024-06-01", end: "2025-06-30" },
     },
-    events: [
-      { date: "2023-03-21", type: "motorcycle" },
-    ]
+    events: [{ date: "2023-03-21", type: "motorcycle" }],
   },
   {
     bairro: "CURSINO",
     implementation: {
       before: { start: "2021-01-01", end: "2024-06-01" },
-      after: { start: "2024-06-01", end: "2025-06-30" }
+      after: { start: "2024-06-01", end: "2025-06-30" },
     },
     events: [
       { date: "2022-06-22", type: "motorcycle" },
@@ -456,42 +442,40 @@ export const acidentesData: AvenidaData[] = [
       { date: "2023-11-02", type: "other" },
       { date: "2024-01-12", type: "motorcycle" },
       { date: "2024-09-14", type: "other" },
-    ]
+    ],
   },
   {
     bairro: "ALIOMAR BALEEIRO",
     implementation: {
       before: { start: "2021-01-01", end: "2024-06-01" },
-      after: { start: "2024-06-01", end: "2025-06-30" }
+      after: { start: "2024-06-01", end: "2025-06-30" },
     },
-    events: [
-      { date: "2022-09-09", type: "other" },
-    ]
+    events: [{ date: "2022-09-09", type: "other" }],
   },
   {
     bairro: "VERGUEIRO",
     implementation: {
       before: { start: "2021-01-01", end: "2024-07-01" },
-      after: { start: "2024-07-01", end: "2025-06-30" }
+      after: { start: "2024-07-01", end: "2025-06-30" },
     },
     events: [
       { date: "2023-06-10", type: "other" },
       { date: "2024-09-29", type: "motorcycle" },
-    ]
+    ],
   },
   {
     bairro: "SALIM FARAH MALUF EXPRESSA",
     implementation: {
       before: { start: "2021-01-01", end: "2024-07-01" },
-      after: { start: "2024-07-01", end: "2025-06-30" }
+      after: { start: "2024-07-01", end: "2025-06-30" },
     },
-    events: []
+    events: [],
   },
   {
     bairro: "SALIM FARAH MALUF",
     implementation: {
       before: { start: "2021-01-01", end: "2024-07-01" },
-      after: { start: "2024-07-01", end: "2025-06-30" }
+      after: { start: "2024-07-01", end: "2025-06-30" },
     },
     events: [
       { date: "2021-06-26", type: "motorcycle" },
@@ -513,21 +497,21 @@ export const acidentesData: AvenidaData[] = [
       { date: "2024-01-25", type: "other" },
       { date: "2024-03-31", type: "other" },
       { date: "2024-07-05", type: "other" },
-    ]
+    ],
   },
   {
     bairro: "MARTINELLI",
     implementation: {
       before: { start: "2021-01-01", end: "2024-07-01" },
-      after: { start: "2024-07-01", end: "2025-06-30" }
+      after: { start: "2024-07-01", end: "2025-06-30" },
     },
-    events: []
+    events: [],
   },
   {
     bairro: "INAJAR SOUZA",
     implementation: {
       before: { start: "2021-01-01", end: "2024-07-01" },
-      after: { start: "2024-07-01", end: "2025-06-30" }
+      after: { start: "2024-07-01", end: "2025-06-30" },
     },
     events: [
       { date: "2021-03-17", type: "motorcycle" },
@@ -548,36 +532,36 @@ export const acidentesData: AvenidaData[] = [
       { date: "2025-01-22", type: "motorcycle" },
       { date: "2025-03-26", type: "other" },
       { date: "2025-03-29", type: "other" },
-    ]
+    ],
   },
   {
     bairro: "HELDER CAMARA",
     implementation: {
       before: { start: "2021-01-01", end: "2024-07-01" },
-      after: { start: "2024-07-01", end: "2025-06-30" }
+      after: { start: "2024-07-01", end: "2025-06-30" },
     },
     events: [
       { date: "2021-03-14", type: "other" },
       { date: "2021-08-21", type: "other" },
       { date: "2022-08-09", type: "other" },
-    ]
+    ],
   },
   {
     bairro: "CARVALHO PINTO",
     implementation: {
       before: { start: "2021-01-01", end: "2024-07-01" },
-      after: { start: "2024-07-01", end: "2025-06-30" }
+      after: { start: "2024-07-01", end: "2025-06-30" },
     },
     events: [
       { date: "2022-05-15", type: "other" },
       { date: "2024-12-21", type: "other" },
-    ]
+    ],
   },
   {
     bairro: "CALIM EID",
     implementation: {
       before: { start: "2021-01-01", end: "2024-07-01" },
-      after: { start: "2024-07-01", end: "2025-06-30" }
+      after: { start: "2024-07-01", end: "2025-06-30" },
     },
     events: [
       { date: "2021-02-01", type: "motorcycle" },
@@ -587,21 +571,21 @@ export const acidentesData: AvenidaData[] = [
       { date: "2022-10-15", type: "motorcycle" },
       { date: "2023-02-02", type: "other" },
       { date: "2024-06-21", type: "other" },
-    ]
+    ],
   },
   {
     bairro: "ARICANDUVA EXPRESSA",
     implementation: {
       before: { start: "2021-01-01", end: "2024-07-01" },
-      after: { start: "2024-07-01", end: "2025-06-30" }
+      after: { start: "2024-07-01", end: "2025-06-30" },
     },
-    events: []
+    events: [],
   },
   {
     bairro: "ARICANDUVA",
     implementation: {
       before: { start: "2021-01-01", end: "2024-07-01" },
-      after: { start: "2024-07-01", end: "2025-06-30" }
+      after: { start: "2024-07-01", end: "2025-06-30" },
     },
     events: [
       { date: "2021-05-25", type: "motorcycle" },
@@ -622,26 +606,26 @@ export const acidentesData: AvenidaData[] = [
       { date: "2024-10-11", type: "motorcycle" },
       { date: "2024-11-09", type: "other" },
       { date: "2025-03-02", type: "motorcycle" },
-    ]
+    ],
   },
   {
     bairro: "TIRADENTES",
     implementation: {
       before: { start: "2021-01-01", end: "2024-09-01" },
-      after: { start: "2024-09-01", end: "2025-06-30" }
+      after: { start: "2024-09-01", end: "2025-06-30" },
     },
     events: [
       { date: "2021-02-01", type: "motorcycle" },
       { date: "2023-05-25", type: "other" },
       { date: "2023-08-04", type: "other" },
       { date: "2024-09-14", type: "motorcycle" },
-    ]
+    ],
   },
   {
     bairro: "TEOTONIO VILELA",
     implementation: {
       before: { start: "2021-01-01", end: "2024-09-01" },
-      after: { start: "2024-09-01", end: "2025-06-30" }
+      after: { start: "2024-09-01", end: "2025-06-30" },
     },
     events: [
       { date: "2021-03-02", type: "other" },
@@ -686,13 +670,13 @@ export const acidentesData: AvenidaData[] = [
       { date: "2025-01-31", type: "other" },
       { date: "2025-02-26", type: "motorcycle" },
       { date: "2025-03-23", type: "motorcycle" },
-    ]
+    ],
   },
   {
     bairro: "ESCOLA POLITECNICA",
     implementation: {
       before: { start: "2021-01-01", end: "2024-09-01" },
-      after: { start: "2024-09-01", end: "2025-06-30" }
+      after: { start: "2024-09-01", end: "2025-06-30" },
     },
     events: [
       { date: "2021-05-09", type: "motorcycle" },
@@ -709,41 +693,41 @@ export const acidentesData: AvenidaData[] = [
       { date: "2024-04-16", type: "motorcycle" },
       { date: "2024-05-31", type: "other" },
       { date: "2024-06-01", type: "motorcycle" },
-    ]
+    ],
   },
   {
     bairro: "BANDEIRAS",
     implementation: {
       before: { start: "2021-01-01", end: "2024-09-01" },
-      after: { start: "2024-09-01", end: "2025-06-30" }
+      after: { start: "2024-09-01", end: "2025-06-30" },
     },
-    events: []
+    events: [],
   },
   {
     bairro: "SAPETUBA",
     implementation: {
       before: { start: "2021-01-01", end: "2024-10-01" },
-      after: { start: "2024-10-01", end: "2025-06-30" }
+      after: { start: "2024-10-01", end: "2025-06-30" },
     },
-    events: []
+    events: [],
   },
   {
     bairro: "RICARDO JAFET",
     implementation: {
       before: { start: "2021-01-01", end: "2024-10-01" },
-      after: { start: "2024-10-01", end: "2025-06-30" }
+      after: { start: "2024-10-01", end: "2025-06-30" },
     },
     events: [
       { date: "2021-07-21", type: "motorcycle" },
       { date: "2021-08-03", type: "motorcycle" },
       { date: "2025-01-31", type: "other" },
-    ]
+    ],
   },
   {
     bairro: "ABRAAO MORAIS",
     implementation: {
       before: { start: "2021-01-01", end: "2024-10-01" },
-      after: { start: "2024-10-01", end: "2025-06-30" }
+      after: { start: "2024-10-01", end: "2025-06-30" },
     },
     events: [
       { date: "2021-09-26", type: "motorcycle" },
@@ -752,6 +736,6 @@ export const acidentesData: AvenidaData[] = [
       { date: "2023-07-31", type: "other" },
       { date: "2023-11-09", type: "motorcycle" },
       { date: "2024-06-12", type: "other" },
-    ]
-  }
+    ],
+  },
 ];

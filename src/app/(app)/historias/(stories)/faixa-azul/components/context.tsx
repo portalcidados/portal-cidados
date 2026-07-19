@@ -24,10 +24,10 @@ export default function Context() {
 
             <blockquote className="italic text-sm leading-normal">
               &ldquo;Corredor da Avenida 23 Maio - sentido aeroporto. Um
-              motociclista colidiu com a traseira de um caminhão, na Av.
-              Moreira Guimarães, na altura da Av. Jamaris, por volta das 2h da
-              manhã, quando as pistas estão livres. A vítima foi socorrida com
-              vida, mas morreu no hospital. A CET aguarda a conclusão do laudo
+              motociclista colidiu com a traseira de um caminhão, na Av. Moreira
+              Guimarães, na altura da Av. Jamaris, por volta das 2h da manhã,
+              quando as pistas estão livres. A vítima foi socorrida com vida,
+              mas morreu no hospital. A CET aguarda a conclusão do laudo
               pericial.&rdquo;
             </blockquote>
 
@@ -55,8 +55,8 @@ export default function Context() {
               Em São Paulo, esse tipo de episódio tem se tornado cada vez mais
               frequente:{" "}
               <strong>
-                apenas entre 2023 e 2024, o número de mortes de motociclistas
-                no trânsito aumentou cerca de 20%
+                apenas entre 2023 e 2024, o número de mortes de motociclistas no
+                trânsito aumentou cerca de 20%
               </strong>
               , passando de 403 para 483 óbitos — o equivalente a
               aproximadamente 1,3 morte por dia. Isso significa que, todos os
@@ -74,9 +74,9 @@ export default function Context() {
 
             <p>
               <strong>
-                É a partir desse cenário que surge a Faixa Azul, uma
-                sinalização viária criada para organizar a circulação de
-                motocicletas entre as faixas de veículos em grandes avenidas.
+                É a partir desse cenário que surge a Faixa Azul, uma sinalização
+                viária criada para organizar a circulação de motocicletas entre
+                as faixas de veículos em grandes avenidas.
               </strong>{" "}
               A proposta é tornar o deslocamento das motos mais previsível,
               reduzir conflitos com carros, ônibus e caminhões e, com isso,

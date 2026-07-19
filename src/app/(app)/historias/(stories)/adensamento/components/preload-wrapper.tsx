@@ -1,6 +1,12 @@
 "use client";
 
-import { createContext, useLayoutEffect, useRef, useState, type ReactNode } from "react";
+import {
+  createContext,
+  useLayoutEffect,
+  useRef,
+  useState,
+  type ReactNode,
+} from "react";
 import Image from "next/image";
 import { StoryLogos } from "../../../components/story-logos";
 import capa from "../images/capa.png";

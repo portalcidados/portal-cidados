@@ -196,8 +196,8 @@ export default function Conclusion() {
             <li className="flex items-start">
               <span className="text-lg mr-2">•</span>
               <span>
-                Identificar as áreas onde as ações do sistema de saúde devem
-                ser priorizadas.
+                Identificar as áreas onde as ações do sistema de saúde devem ser
+                priorizadas.
               </span>
             </li>
             <li className="flex items-start">
@@ -233,15 +233,10 @@ export default function Conclusion() {
             .
           </p>
 
-       
           <h2 className="text-2xl font-bold">Propostas</h2>
-       
 
           <div className="space-y-4 pb-16">
-            <div
-              ref={card1Ref}
-              className="bg-white p-8 backdrop-blur-sm"
-            >
+            <div ref={card1Ref} className="bg-white p-8 backdrop-blur-sm">
               <h3 className="font-semibold mb-3">
                 UBS no sistema de transporte
               </h3>
@@ -258,10 +253,7 @@ export default function Conclusion() {
               </p>
             </div>
 
-            <div
-              ref={card2Ref}
-              className="bg-white p-8 backdrop-blur-sm"
-            >
+            <div ref={card2Ref} className="bg-white p-8 backdrop-blur-sm">
               <h3 className="font-semibold mb-3">
                 Reeducação alimentar na infância
               </h3>
@@ -276,10 +268,7 @@ export default function Conclusion() {
               </p>
             </div>
 
-            <div
-              ref={card3Ref}
-              className="bg-white p-8 backdrop-blur-sm"
-            >
+            <div ref={card3Ref} className="bg-white p-8 backdrop-blur-sm">
               <h3 className="font-semibold mb-3">
                 Criação do Observatório de Saúde Urbana
               </h3>
@@ -297,11 +286,13 @@ export default function Conclusion() {
             </div>
           </div>
 
-      
           <h2 className="text-2xl font-bold">Bônus</h2>
-         
+
           <p className="mb-16">
-          Ouça a canção composta por um dos colaboradores do Insper Cidades que <span className="font-bold">transformou os dados</span> e achados deste estudo <span className="font-bold">em versos e rimas.</span>
+            Ouça a canção composta por um dos colaboradores do Insper Cidades
+            que <span className="font-bold">transformou os dados</span> e
+            achados deste estudo{" "}
+            <span className="font-bold">em versos e rimas.</span>
           </p>
 
           <audio

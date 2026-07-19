@@ -32,11 +32,11 @@ export default function AfterChartTwoText() {
 
           <p>
             Isso não significa que reorganizar o espaço viário seja irrelevante.
-            Significa que, diante de um problema tão complexo, a resposta
-            também precisa ser mais ampla. A própria pesquisa aponta que o
-            efeito da Faixa Azul depende de fatores como velocidade,
-            fiscalização, desenho da via, cruzamentos, volume de motos e
-            características do entorno urbano.
+            Significa que, diante de um problema tão complexo, a resposta também
+            precisa ser mais ampla. A própria pesquisa aponta que o efeito da
+            Faixa Azul depende de fatores como velocidade, fiscalização, desenho
+            da via, cruzamentos, volume de motos e características do entorno
+            urbano.
           </p>
 
           <p>

@@ -20,7 +20,9 @@ export function useAllImagesLoaded(enabled: boolean = true): boolean {
     // Função para verificar se todas as imagens estão carregadas
     const checkAllImagesLoaded = () => {
       // Busca todas as imagens no DOM (incluindo as do Next.js Image)
-      const images = Array.from(document.querySelectorAll("img")) as HTMLImageElement[];
+      const images = Array.from(
+        document.querySelectorAll("img"),
+      ) as HTMLImageElement[];
       const backgroundImages: HTMLImageElement[] = [];
 
       // Busca elementos com background-image no style inline
@@ -43,10 +45,7 @@ export function useAllImagesLoaded(enabled: boolean = true): boolean {
       });
 
       // Verifica se todas as imagens estão carregadas
-      const allImages: HTMLImageElement[] = [
-        ...images,
-        ...backgroundImages,
-      ];
+      const allImages: HTMLImageElement[] = [...images, ...backgroundImages];
 
       if (allImages.length === 0) {
         // Se não há imagens, considera como carregado
@@ -99,4 +98,3 @@ export function useAllImagesLoaded(enabled: boolean = true): boolean {
 
   return allImagesLoaded;
 }
-

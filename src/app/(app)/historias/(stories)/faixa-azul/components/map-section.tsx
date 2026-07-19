@@ -1,6 +1,12 @@
 "use client";
 
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "mapbox-gl/dist/mapbox-gl.css";
@@ -72,10 +78,18 @@ function PrimeiraImplantacaoLabel({ visible }: { visible: boolean }) {
     >
       <div
         className="shrink-0"
-        style={{ width: 45, height: 13, backgroundColor: "#1A2672", borderRadius: 6 }}
+        style={{
+          width: 45,
+          height: 13,
+          backgroundColor: "#1A2672",
+          borderRadius: 6,
+        }}
         aria-hidden="true"
       />
-      <p className="text-sm leading-snug whitespace-nowrap" style={{ color: brandColor }}>
+      <p
+        className="text-sm leading-snug whitespace-nowrap"
+        style={{ color: brandColor }}
+      >
         {PRIMEIRA_IMPLANTACAO_LABEL_TEXT}
       </p>
     </div>
@@ -346,8 +360,8 @@ export default function MapSection() {
       <div>
         <ScrollCard cardRef={card0Ref}>
           <p>
-            Esse tipo de sinalização para faixa dedicada a motociclistas ainda não
-            está prevista na regulamentação nacional de trânsito, então a
+            Esse tipo de sinalização para faixa dedicada a motociclistas ainda
+            não está prevista na regulamentação nacional de trânsito, então a
             Prefeitura de São Paulo recebeu autorização para implementar a Faixa
             Azul em caráter experimental.
           </p>
@@ -372,15 +386,15 @@ export default function MapSection() {
             <p>
               Pelo mapa do estudo, os trechos se concentram sobretudo em vias
               largas, rápidas e com papel metropolitano: corredores como 23 de
-              Maio, Bandeirantes, Nações Unidas, Faria Lima, Estado, Jacu-Pêssego,
-              Aricanduva, Salim Farah Maluf e Teotônio Vilela ajudam a desenhar
-              essa geografia.
+              Maio, Bandeirantes, Nações Unidas, Faria Lima, Estado,
+              Jacu-Pêssego, Aricanduva, Salim Farah Maluf e Teotônio Vilela
+              ajudam a desenhar essa geografia.
             </p>
             <p>
               Em outras palavras: a Faixa Azul foi implantada onde o trânsito é
-              mais veloz, mais intenso e mais complexo. É menos uma malha contínua
-              e mais um conjunto de trechos implantados em eixos de tráfego
-              pesado.
+              mais veloz, mais intenso e mais complexo. É menos uma malha
+              contínua e mais um conjunto de trechos implantados em eixos de
+              tráfego pesado.
             </p>
           </div>
         </ScrollCard>

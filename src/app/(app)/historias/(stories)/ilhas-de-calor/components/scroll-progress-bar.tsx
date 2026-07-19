@@ -8,7 +8,9 @@ interface ScrollProgressBarProps {
   barColor?: string;
 }
 
-export function ScrollProgressBar({ barColor = DEFAULT_BAR_COLOR }: ScrollProgressBarProps) {
+export function ScrollProgressBar({
+  barColor = DEFAULT_BAR_COLOR,
+}: ScrollProgressBarProps) {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isVisible, setIsVisible] = useState(true);
   const hideTimeoutRef = useRef<NodeJS.Timeout | null>(null);

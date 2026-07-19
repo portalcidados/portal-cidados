@@ -375,10 +375,9 @@ export default function SupermercadoSection() {
       top: 0,
       text: (
         <>
-          Lá,{" "}
-          <strong>Maria trabalha como caixa de supermercado</strong>. Todo dia,
-          pontualmente às 8h da manhã, ela atende a Alice, que vai comprar pão e
-          frutas para seu café da manhã.{" "}
+          Lá, <strong>Maria trabalha como caixa de supermercado</strong>. Todo
+          dia, pontualmente às 8h da manhã, ela atende a Alice, que vai comprar
+          pão e frutas para seu café da manhã.{" "}
           <strong>
             Alice mora no mesmo prédio onde fica a loja em que Maria trabalha
           </strong>
@@ -390,13 +389,11 @@ export default function SupermercadoSection() {
       top: 150,
       text: (
         <>
-          Recentemente,{" "}
-          <strong>Alice sofreu um AVC</strong> (acidente vascular cerebral ou
-          derrame), mas felizmente{" "}
+          Recentemente, <strong>Alice sofreu um AVC</strong> (acidente vascular
+          cerebral ou derrame), mas felizmente{" "}
           <strong>recebeu atendimento rápido</strong> em um hospital de
           excelência, localizado a poucos minutos de sua casa. Graças a isso,
-          ela{" "}
-          <strong>se recuperou sem maiores complicações</strong>.
+          ela <strong>se recuperou sem maiores complicações</strong>.
         </>
       ),
     },
@@ -404,8 +401,7 @@ export default function SupermercadoSection() {
       top: 300,
       text: (
         <>
-          Se Alice morasse no Jardim Helena, a história poderia ser
-          diferente.{" "}
+          Se Alice morasse no Jardim Helena, a história poderia ser diferente.{" "}
           <strong>
             Este estudo mostra que, em bairros periféricos como o de Maria, a
             chance de um AVC ser fatal é significativamente maior devido à
@@ -466,7 +462,8 @@ export default function SupermercadoSection() {
       top: 750,
       text: (
         <>
-          O dia de trabalho de Maria termina e ela volta para sua casa com <strong>mais uma jornada de duas horas no transporte público</strong>.
+          O dia de trabalho de Maria termina e ela volta para sua casa com{" "}
+          <strong>mais uma jornada de duas horas no transporte público</strong>.
         </>
       ),
     },
@@ -474,7 +471,14 @@ export default function SupermercadoSection() {
       top: 900,
       text: (
         <>
-          Depois de um dia intenso, Maria algumas vezes ainda precisa <strong>buscar os medicamentos para a diabetes</strong> na Farmácia Popular. Mas muitas vezes, devido ao trânsito e à longa distância, quando ela consegue chegar, <strong>a farmácia mais próxima de sua casa já se encontra fechada</strong>.
+          Depois de um dia intenso, Maria algumas vezes ainda precisa{" "}
+          <strong>buscar os medicamentos para a diabetes</strong> na Farmácia
+          Popular. Mas muitas vezes, devido ao trânsito e à longa distância,
+          quando ela consegue chegar,{" "}
+          <strong>
+            a farmácia mais próxima de sua casa já se encontra fechada
+          </strong>
+          .
         </>
       ),
     },
@@ -482,10 +486,11 @@ export default function SupermercadoSection() {
       top: 1050,
       text: (
         <>
-          <strong>Aos sábados o dia é de descanso. Mas não para Maria</strong>. Ela tem que ir na
-          Unidade Básica de Saúde (UBS) mais próxima para realizar <strong>exames com um
-          endocrinologista</strong>. Depois de uma <strong>longa fila de espera</strong> ela consegue ser
-          atendida e volta para sua casa.
+          <strong>Aos sábados o dia é de descanso. Mas não para Maria</strong>.
+          Ela tem que ir na Unidade Básica de Saúde (UBS) mais próxima para
+          realizar <strong>exames com um endocrinologista</strong>. Depois de
+          uma <strong>longa fila de espera</strong> ela consegue ser atendida e
+          volta para sua casa.
         </>
       ),
     },
@@ -592,7 +597,6 @@ export default function SupermercadoSection() {
             <div className="text-[#000000]">{card.text}</div>
           </div>
         ))}
-
       </div>
 
       {/* Drawer One */}
@@ -633,26 +637,38 @@ export default function SupermercadoSection() {
             className="flex w-full items-start justify-between gap-2 p-4 cursor-pointer"
           >
             <div className="text-left">
-              <h3 className="font-semibold text-base leading-tight">Índice GeoSES</h3>
-              <p className={`text-sm italic text-gray-500 leading-tight mt-0.5 ${isMobile && legendCollapsed ? "hidden" : ""}`}>
-                Pondera dados censitários de renda, educação, qualidade de vida e similares.
+              <h3 className="font-semibold text-base leading-tight">
+                Índice GeoSES
+              </h3>
+              <p
+                className={`text-sm italic text-gray-500 leading-tight mt-0.5 ${isMobile && legendCollapsed ? "hidden" : ""}`}
+              >
+                Pondera dados censitários de renda, educação, qualidade de vida
+                e similares.
               </p>
             </div>
             <ChevronDown
               className={`mt-0.5 w-4 h-4 shrink-0 text-gray-500 transition-transform duration-300 ${legendCollapsed ? "-rotate-90" : ""}`}
             />
           </button>
-          <div className={`grid transition-all duration-300 ease-in-out ${legendCollapsed ? "grid-rows-[0fr]" : "grid-rows-[1fr]"}`}>
+          <div
+            className={`grid transition-all duration-300 ease-in-out ${legendCollapsed ? "grid-rows-[0fr]" : "grid-rows-[1fr]"}`}
+          >
             <div className="overflow-hidden">
               <ul className="space-y-1 px-4 pb-3">
                 {GEOSES_LEGEND.map((item) => (
                   <li key={item.label} className="flex items-center gap-2">
-                    <span className="w-5 h-5 rounded-sm shrink-0" style={{ backgroundColor: item.color }} />
+                    <span
+                      className="w-5 h-5 rounded-sm shrink-0"
+                      style={{ backgroundColor: item.color }}
+                    />
                     <span className="text-sm leading-tight">{item.label}</span>
                   </li>
                 ))}
               </ul>
-              <p className="px-4 pb-4 text-xs italic text-gray-500 leading-tight">Fonte: Barrozo, L. V. et al. (2020).</p>
+              <p className="px-4 pb-4 text-xs italic text-gray-500 leading-tight">
+                Fonte: Barrozo, L. V. et al. (2020).
+              </p>
             </div>
           </div>
         </div>
@@ -696,26 +712,38 @@ export default function SupermercadoSection() {
             className="flex w-full items-start justify-between gap-2 p-4 cursor-pointer"
           >
             <div className="text-left">
-              <h3 className="font-semibold text-base leading-tight">Índice GeoSES</h3>
-              <p className={`text-sm italic text-gray-500 leading-tight mt-0.5 ${isMobile && legendCollapsed ? "hidden" : ""}`}>
-                Pondera dados censitários de renda, educação, qualidade de vida e similares.
+              <h3 className="font-semibold text-base leading-tight">
+                Índice GeoSES
+              </h3>
+              <p
+                className={`text-sm italic text-gray-500 leading-tight mt-0.5 ${isMobile && legendCollapsed ? "hidden" : ""}`}
+              >
+                Pondera dados censitários de renda, educação, qualidade de vida
+                e similares.
               </p>
             </div>
             <ChevronDown
               className={`mt-0.5 w-4 h-4 shrink-0 text-gray-500 transition-transform duration-300 ${legendCollapsed ? "-rotate-90" : ""}`}
             />
           </button>
-          <div className={`grid transition-all duration-300 ease-in-out ${legendCollapsed ? "grid-rows-[0fr]" : "grid-rows-[1fr]"}`}>
+          <div
+            className={`grid transition-all duration-300 ease-in-out ${legendCollapsed ? "grid-rows-[0fr]" : "grid-rows-[1fr]"}`}
+          >
             <div className="overflow-hidden">
               <ul className="space-y-1 px-4 pb-3">
                 {GEOSES_LEGEND.map((item) => (
                   <li key={item.label} className="flex items-center gap-2">
-                    <span className="w-5 h-5 rounded-sm shrink-0" style={{ backgroundColor: item.color }} />
+                    <span
+                      className="w-5 h-5 rounded-sm shrink-0"
+                      style={{ backgroundColor: item.color }}
+                    />
                     <span className="text-sm leading-tight">{item.label}</span>
                   </li>
                 ))}
               </ul>
-              <p className="px-4 pb-4 text-xs italic text-gray-500 leading-tight">Fonte: Barrozo, L. V. et al. (2020).</p>
+              <p className="px-4 pb-4 text-xs italic text-gray-500 leading-tight">
+                Fonte: Barrozo, L. V. et al. (2020).
+              </p>
             </div>
           </div>
         </div>

@@ -77,20 +77,11 @@ export const PRIMEIRA_IMPLANTACAO_LABEL_ANCHOR = getLinePointAtRatio(
   0.5,
 );
 
-export const PRIMEIRA_IMPLANTACAO_LABEL_TEXT =
-  "Primeira faixa azul implantada";
+export const PRIMEIRA_IMPLANTACAO_LABEL_TEXT = "Primeira faixa azul implantada";
 
 export const TRECHOS_LINE_PAINT = {
   "line-color": "hsl(232, 63%, 27%)",
-  "line-width": [
-    "interpolate",
-    ["exponential", 1.5],
-    ["zoom"],
-    0,
-    0.5,
-    16,
-    20,
-  ],
+  "line-width": ["interpolate", ["exponential", 1.5], ["zoom"], 0, 0.5, 16, 20],
 } as const;
 
 export const TRECHOS_LINE_LAYOUT = {

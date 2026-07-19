@@ -64,16 +64,58 @@ const CARD_HEIGHTS = ["100vh", "100vh", "100vh", "100vh", "100vh"];
 
 const OVERLAYS = [
   {
-    desktop: { src: piscinaoSvg.src, width: 500, offsetX: 114, offsetY: 44, lng: -43.250499, lat: -22.8393554 },
-    mobile: { src: piscinaoMobileSvg.src, width: 300, offsetX: 15, offsetY: 40, lng: -43.250499, lat: -22.8393554 },
+    desktop: {
+      src: piscinaoSvg.src,
+      width: 500,
+      offsetX: 114,
+      offsetY: 44,
+      lng: -43.250499,
+      lat: -22.8393554,
+    },
+    mobile: {
+      src: piscinaoMobileSvg.src,
+      width: 300,
+      offsetX: 15,
+      offsetY: 40,
+      lng: -43.250499,
+      lat: -22.8393554,
+    },
   },
   {
-    desktop: { src: ruaAriLeaoSvg.src, width: 540, offsetX: -119, offsetY: 56, lng: -43.2442508, lat: -22.8504434 },
-    mobile: { src: ruaAriLeaoMobileSvg.src, width: 340, offsetX: -23, offsetY: 0, lng: -43.2442508, lat: -22.8504434 },
+    desktop: {
+      src: ruaAriLeaoSvg.src,
+      width: 540,
+      offsetX: -119,
+      offsetY: 56,
+      lng: -43.2442508,
+      lat: -22.8504434,
+    },
+    mobile: {
+      src: ruaAriLeaoMobileSvg.src,
+      width: 340,
+      offsetX: -23,
+      offsetY: 0,
+      lng: -43.2442508,
+      lat: -22.8504434,
+    },
   },
   {
-    desktop: { src: novaMareSvg.src, width: 600, offsetX: -238, offsetY: 66, lng: -43.2401912, lat: -22.8595 },
-    mobile: { src: novaMareMobileSvg.src, width: 320, offsetX: 0, offsetY: 0, lng: -43.2411912, lat: -22.8555694 },
+    desktop: {
+      src: novaMareSvg.src,
+      width: 600,
+      offsetX: -238,
+      offsetY: 66,
+      lng: -43.2401912,
+      lat: -22.8595,
+    },
+    mobile: {
+      src: novaMareMobileSvg.src,
+      width: 320,
+      offsetX: 0,
+      offsetY: 0,
+      lng: -43.2411912,
+      lat: -22.8555694,
+    },
   },
 ];
 
@@ -106,7 +148,11 @@ function animateLayerOpacity(
     for (const id of layerIds) {
       const start = startValues.get(id) ?? 0;
       try {
-        map.setPaintProperty(id, "icon-opacity", start + (targetOpacity - start) * t);
+        map.setPaintProperty(
+          id,
+          "icon-opacity",
+          start + (targetOpacity - start) * t,
+        );
       } catch {
         // Layer not found in the current style — skip silently
       }
@@ -169,7 +215,8 @@ export function ScrollMapMapbox() {
         setActiveOverlay(idx);
         if (idx === 2) {
           const map = getMap();
-          if (map) animateLayerOpacity(map, ["conjunto-bento-ribeiro-19jhxj"], 1);
+          if (map)
+            animateLayerOpacity(map, ["conjunto-bento-ribeiro-19jhxj"], 1);
         }
         return;
       }
@@ -183,7 +230,8 @@ export function ScrollMapMapbox() {
         setActiveOverlay(null);
         if (idx === 2) {
           const map = getMap();
-          if (map) animateLayerOpacity(map, ["conjunto-bento-ribeiro-19jhxj"], 0);
+          if (map)
+            animateLayerOpacity(map, ["conjunto-bento-ribeiro-19jhxj"], 0);
         }
         return;
       }
@@ -425,12 +473,27 @@ export function ScrollMapMapbox() {
         <div
           ref={card5Ref}
           className="flex items-center justify-center p-6 md:p-8 lg:p-10"
-          style={{ minHeight: CARD_HEIGHTS[4], position: "relative", zIndex: 1 }}
+          style={{
+            minHeight: CARD_HEIGHTS[4],
+            position: "relative",
+            zIndex: 1,
+          }}
         >
           <div className="bg-white/70 backdrop-blur-sm text-black p-6 md:p-8 lg:p-10 max-w-2xl shadow-lg w-full">
             <p className="text-base md:text-lg leading-relaxed mb-6">
-              <strong className="font-bold">Durante o dia</strong>, materiais urbanos, como asfalto e concreto, absorvem calor da radiação solar, <strong className="font-bold">elevando a temperatura</strong>. <br/><br/>
-              <strong className="font-bold">À noite</strong>, esses materiais liberam gradualmente o calor armazenado, <strong className="font-bold">mantendo as temperaturas elevadas nas áreas urbanas</strong>.             </p>
+              <strong className="font-bold">Durante o dia</strong>, materiais
+              urbanos, como asfalto e concreto, absorvem calor da radiação
+              solar,{" "}
+              <strong className="font-bold">elevando a temperatura</strong>.{" "}
+              <br />
+              <br />
+              <strong className="font-bold">À noite</strong>, esses materiais
+              liberam gradualmente o calor armazenado,{" "}
+              <strong className="font-bold">
+                mantendo as temperaturas elevadas nas áreas urbanas
+              </strong>
+              .{" "}
+            </p>
             <div className="flex flex-wrap items-center gap-2 text-base md:text-lg">
               {[
                 "+ Calor",

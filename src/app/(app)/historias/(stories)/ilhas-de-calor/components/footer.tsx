@@ -39,7 +39,8 @@ export default function Footer() {
           members: [
             {
               role: "Coordenação geral",
-              names: "Carolina Dias, Luna Arouca, Rian de Queiroz e Shyrlei Rosendo",
+              names:
+                "Carolina Dias, Luna Arouca, Rian de Queiroz e Shyrlei Rosendo",
             },
             {
               role: "Pesquisador e coordenador de campo",
@@ -47,7 +48,8 @@ export default function Footer() {
             },
             {
               role: "Pesquisadores consultores",
-              names: "Otavio Ranzani, Carolina Hartmann Galeazzi e Fernando Bozza",
+              names:
+                "Otavio Ranzani, Carolina Hartmann Galeazzi e Fernando Bozza",
             },
             {
               role: "Sistematização do conteúdo e produção dos mapas",
@@ -56,7 +58,8 @@ export default function Footer() {
             { role: "Analista de dados", names: "Soraida Aguilar" },
             {
               role: "Agentes ambientais",
-              names: "Bianca de Lima Teixeira, Luis Carlos Soares da Costa, Marcela Santos de Melo, Maria Eduarda Souza Neves",
+              names:
+                "Bianca de Lima Teixeira, Luis Carlos Soares da Costa, Marcela Santos de Melo, Maria Eduarda Souza Neves",
             },
             {
               role: "Assistente de campo",
@@ -73,11 +76,11 @@ export default function Footer() {
           members: [
             // { role: "Design", names: "Pictomonster" },
             {
-            role: "Coordenador executivo",
-            names: "Maurício Bouskela e Adriano Borges Costa",
-          },
-          { role: "Roteirista", names: "Caio Jacintho" },
-          { role: "Tratamento de dados", names: "Vinicius Oike" },
+              role: "Coordenador executivo",
+              names: "Maurício Bouskela e Adriano Borges Costa",
+            },
+            { role: "Roteirista", names: "Caio Jacintho" },
+            { role: "Tratamento de dados", names: "Vinicius Oike" },
             { role: "Designer", names: "Pedro Meneghel" },
             { role: "Desenvolvimento", names: "Lucas Tavares" },
           ],

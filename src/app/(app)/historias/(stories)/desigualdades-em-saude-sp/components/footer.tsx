@@ -6,7 +6,7 @@ export default function Footer() {
     <StoryFooter
       studyDetail={{
         description:
-          'Síntese de evidências sobre saúde no município de São Paulo',
+          "Síntese de evidências sobre saúde no município de São Paulo",
         descriptionHref:
           "https://repositorio.insper.edu.br/entities/publication/ea858305-5977-4b80-891a-814308784504",
         documentType: "Relatório Técnico de Pesquisa",
@@ -50,18 +50,25 @@ export default function Footer() {
           members: [
             {
               role: "Autores",
-              names: "Paulo H. Nascimento Saldiva, Lígia Vizeu Barrozo, Catia Martinez Minto, Sara Lopes de Moraes e Paulo Afonso de André",
-            }
+              names:
+                "Paulo H. Nascimento Saldiva, Lígia Vizeu Barrozo, Catia Martinez Minto, Sara Lopes de Moraes e Paulo Afonso de André",
+            },
           ],
         },
         {
           title: "Equipe do dataviz",
           members: [
-            { role: "Coordenador Executivo", names: "Maurício Bouskela e Adriano Borges Costa" },
+            {
+              role: "Coordenador Executivo",
+              names: "Maurício Bouskela e Adriano Borges Costa",
+            },
             { role: "Roteirista", names: "Caio Jacintho" },
             { role: "Designer", names: "Pedro Meneghel" },
             { role: "Desenvolvimento", names: "Lucas Tavares" },
-            { role: "Voz/Composição da faixa Bônus", names: "Rafael Gomes da Silva" },
+            {
+              role: "Voz/Composição da faixa Bônus",
+              names: "Rafael Gomes da Silva",
+            },
           ],
         },
       ]}

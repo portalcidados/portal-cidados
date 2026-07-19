@@ -16,7 +16,7 @@ export default function DiseasesIntroduction() {
             A história da personagem fictícia que apresentamos reflete a
             realidade de muitos brasileiros: acordar cedo, enfrentar ônibus
             lotados, perder horas no deslocamento até o trabalho, não praticar
-            exercícios e ter pouco ou nenhum tempo para o lazer.{" "} 
+            exercícios e ter pouco ou nenhum tempo para o lazer.{" "}
             <span className="font-semibold">
               Uma rotina exaustiva e repetitiva que impacta diretamente a saúde
               e a qualidade de vida das pessoas.
@@ -38,8 +38,8 @@ export default function DiseasesIntroduction() {
               {" "}
               torna-se evidente que o equilíbrio sustentável do ambiente urbano
               é essencial para promover a saúde de seus habitantes.
-            </span>
-           {" "}Nessa perspectiva, consolida-se a ideia de que{" "}
+            </span>{" "}
+            Nessa perspectiva, consolida-se a ideia de que{" "}
             <span className="font-semibold">
               a saúde humana está intrinsecamente ligada à qualidade do meio em
               que se vive

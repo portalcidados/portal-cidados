@@ -31,16 +31,32 @@ export interface ManagedLayer {
 
 /** All Mapbox layers controlled by the scrollytelling (set to opacity 0 in Studio). */
 export const MANAGED_LAYERS: ManagedLayer[] = [
-  { id: "dens-demografica-spo", opacityProperty: "fill-opacity", activeOpacity: 1 },
+  {
+    id: "dens-demografica-spo",
+    opacityProperty: "fill-opacity",
+    activeOpacity: 1,
+  },
   { id: "highlight", opacityProperty: "fill-opacity", activeOpacity: 0.35 },
   { id: "favelas-spo", opacityProperty: "fill-opacity", activeOpacity: 1 },
-  { id: "lotes-irregulares", opacityProperty: "fill-opacity", activeOpacity: 1 },
-  { id: "pop-hab-nao-cadastrada", opacityProperty: "heatmap-opacity", activeOpacity: 0.85 },
+  {
+    id: "lotes-irregulares",
+    opacityProperty: "fill-opacity",
+    activeOpacity: 1,
+  },
+  {
+    id: "pop-hab-nao-cadastrada",
+    opacityProperty: "heatmap-opacity",
+    activeOpacity: 0.85,
+  },
   { id: "zoning-zeu-eetu", opacityProperty: "fill-opacity", activeOpacity: 1 },
   { id: "linha-trem", opacityProperty: "line-opacity", activeOpacity: 1 },
   { id: "linha-metro", opacityProperty: "line-opacity", activeOpacity: 1 },
   { id: "corredor-onibus", opacityProperty: "line-opacity", activeOpacity: 1 },
-  { id: "dens-construtiva-spo", opacityProperty: "fill-opacity", activeOpacity: 1 },
+  {
+    id: "dens-construtiva-spo",
+    opacityProperty: "fill-opacity",
+    activeOpacity: 1,
+  },
 ];
 
 /**
@@ -146,7 +162,12 @@ export const MAP_FLY_TRIGGERS: {
   // { id: "capa", legend: null, layers: [] },
   // { id: "mapa_capitulo", legend: null, layers: [] },
   // ── Chapter 1 – densidade populacional
-  { id: "mapa_zero", mapKey: "mapa_zero", legend: "density-pop", layers: ["dens-demografica-spo"] },
+  {
+    id: "mapa_zero",
+    mapKey: "mapa_zero",
+    legend: "density-pop",
+    layers: ["dens-demografica-spo"],
+  },
   {
     id: "mapa_um",
     mapKey: "mapa_um",

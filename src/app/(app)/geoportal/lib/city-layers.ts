@@ -19,9 +19,7 @@ export function resolveLayerMapView(
   return {
     center:
       isMobile && mapView.centerMobile ? mapView.centerMobile : mapView.center,
-    zoom: isMobile
-      ? (mapView.zoomMobile ?? mapView.zoom - 0.8)
-      : mapView.zoom,
+    zoom: isMobile ? (mapView.zoomMobile ?? mapView.zoom - 0.8) : mapView.zoom,
     bearing: mapView.bearing,
     pitch: mapView.pitch,
   };

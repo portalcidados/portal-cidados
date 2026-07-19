@@ -55,14 +55,14 @@ export function useImagePreloader(
       img.onload = handleImageLoad;
       img.onerror = handleImageError;
       img.src = src;
-      
+
       // Verifica se a imagem já está carregada (em cache do navegador)
       // Se já estiver carregada, o evento onload não dispara, então verificamos manualmente
       if (img.complete && img.naturalHeight !== 0) {
         // Imagem já está em cache, dispara o evento imediatamente
         setTimeout(() => handleImageLoad(), 0);
       }
-      
+
       images.push(img);
     });
 
@@ -78,4 +78,3 @@ export function useImagePreloader(
 
   return allImagesLoaded;
 }
-

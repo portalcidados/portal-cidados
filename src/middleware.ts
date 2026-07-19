@@ -2,20 +2,20 @@ import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
 function applySecurityHeaders(
-	response: NextResponse,
-	nonce: string,
+  response: NextResponse,
+  nonce: string,
 ): NextResponse {
-	const scriptSrcDirectives = [
-		"'self'",
-		`'nonce-${nonce}'`,
-		"https://www.googletagmanager.com",
-		"https://www.clarity.ms",
-		"https://scripts.clarity.ms",
-		// Hash do inline script criado internamente pelo clarity.js.
-		"'sha256-J9cZHZf5nVZbsm7Pqxc8RsURv1AIXkMgbhfrZvoOs/A='",
-	];
+  const scriptSrcDirectives = [
+    "'self'",
+    `'nonce-${nonce}'`,
+    "https://www.googletagmanager.com",
+    "https://www.clarity.ms",
+    "https://scripts.clarity.ms",
+    // Hash do inline script criado internamente pelo clarity.js.
+    "'sha256-J9cZHZf5nVZbsm7Pqxc8RsURv1AIXkMgbhfrZvoOs/A='",
+  ];
 
-	const cspHeader = `
+  const cspHeader = `
     default-src 'self' https://*.mapbox.com;
     script-src ${scriptSrcDirectives.join(" ")};
     connect-src 'self' https://*.mapbox.com https://api.mapbox.com https://events.mapbox.com https://www.google-analytics.com https://analytics.google.com https://c.clarity.ms https://m.clarity.ms;
@@ -32,33 +32,33 @@ function applySecurityHeaders(
     upgrade-insecure-requests;
   `;
 
-	const cspValue = cspHeader.replace(/\s{2,}/g, " ").trim();
+  const cspValue = cspHeader.replace(/\s{2,}/g, " ").trim();
 
-	response.headers.set("x-nonce", nonce);
-	response.headers.set("Content-Security-Policy", cspValue);
-	response.headers.set("X-Content-Type-Options", "nosniff");
-	response.headers.set("X-Frame-Options", "DENY");
-	response.headers.set("X-XSS-Protection", "1; mode=block");
-	response.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
-	response.headers.set(
-		"Permissions-Policy",
-		"camera=(), microphone=(), geolocation=(), payment=()",
-	);
+  response.headers.set("x-nonce", nonce);
+  response.headers.set("Content-Security-Policy", cspValue);
+  response.headers.set("X-Content-Type-Options", "nosniff");
+  response.headers.set("X-Frame-Options", "DENY");
+  response.headers.set("X-XSS-Protection", "1; mode=block");
+  response.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
+  response.headers.set(
+    "Permissions-Policy",
+    "camera=(), microphone=(), geolocation=(), payment=()",
+  );
 
-	return response;
+  return response;
 }
 
 export function middleware(request: NextRequest) {
-	const nonce = Buffer.from(crypto.randomUUID()).toString("base64");
-	const requestHeaders = new Headers(request.headers);
-	requestHeaders.set("x-nonce", nonce);
-	const response = NextResponse.next({ request: { headers: requestHeaders } });
-	return applySecurityHeaders(response, nonce);
+  const nonce = Buffer.from(crypto.randomUUID()).toString("base64");
+  const requestHeaders = new Headers(request.headers);
+  requestHeaders.set("x-nonce", nonce);
+  const response = NextResponse.next({ request: { headers: requestHeaders } });
+  return applySecurityHeaders(response, nonce);
 }
 
 export const config = {
-	matcher: [
-		"/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
-		"/(api|trpc)(.*)",
-	],
+  matcher: [
+    "/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
+    "/(api|trpc)(.*)",
+  ],
 };

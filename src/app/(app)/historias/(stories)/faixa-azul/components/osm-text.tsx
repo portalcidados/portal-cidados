@@ -22,14 +22,15 @@ export default function OsmText() {
 
           <p>
             <strong>
-              O primeiro desafio foi fazer essas bases &ldquo;conversarem&rdquo;.
+              O primeiro desafio foi fazer essas bases
+              &ldquo;conversarem&rdquo;.
             </strong>{" "}
             Um sinistro aparece como um ponto no mapa; uma avenida aparece como
             uma sequência de segmentos. Além disso, nomes de vias podem estar
             escritos de formas diferentes. A Avenida das Nações Unidas, por
             exemplo, também pode aparecer como Marginal Pinheiros ou SP-015.
-            Para resolver isso, o estudo fez um processo de pareamento: limpou
-            e padronizou nomes, comparou a semelhança dos textos e cruzou cada
+            Para resolver isso, o estudo fez um processo de pareamento: limpou e
+            padronizou nomes, comparou a semelhança dos textos e cruzou cada
             ocorrência com os trechos de via mais próximos.
           </p>
 

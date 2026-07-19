@@ -40,7 +40,9 @@ export function ScrollToTopIcon() {
   return (
     <div
       className={`fixed bottom-6 right-6 z-[9999] transition-opacity duration-300 ease-in-out ${
-        isVisible ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+        isVisible
+          ? "opacity-100 pointer-events-auto"
+          : "opacity-0 pointer-events-none"
       }`}
     >
       <ScrollToTopButton onClick={scrollToTop} />

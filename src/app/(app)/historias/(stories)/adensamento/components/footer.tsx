@@ -5,7 +5,7 @@ export default function Footer() {
     <StoryFooter
       studyDetail={{
         description:
-          'Para o bem ou para o mal: Análise da capacidade que o governo tem de controlar a densidade habitacional',
+          "Para o bem ou para o mal: Análise da capacidade que o governo tem de controlar a densidade habitacional",
         descriptionHref:
           "https://repositorio.insper.edu.br/entities/publication/66419ce4-82d4-4625-9391-20adbddd1709",
         // organization: "Gustavo Theil",
@@ -40,7 +40,10 @@ export default function Footer() {
             { role: "Coordenador Executivo", names: "Maurício Bouskela" },
             { role: "Roteirista", names: "Caio Jacintho" },
             { role: "Designer", names: "Pedro Meneghel" },
-            { role: "Desenvolvimento", names: "Renan Rodrigues, Lucas Tavares" },
+            {
+              role: "Desenvolvimento",
+              names: "Renan Rodrigues, Lucas Tavares",
+            },
           ],
         },
       ]}
@@ -54,7 +57,8 @@ export default function Footer() {
           href: "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/90SSHM",
         },
         {
-          title: "Densidade Populacional e Verticalização de Imóveis em São Paulo [2022]",
+          title:
+            "Densidade Populacional e Verticalização de Imóveis em São Paulo [2022]",
           href: "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/4QNTOT",
         },
         {

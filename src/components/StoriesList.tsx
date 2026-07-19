@@ -32,8 +32,7 @@ const storiesData = [
   },
   {
     id: 3,
-    title:
-      "Diagnóstico sobre ilhas de calor e qualidade do ar na Maré", // subtitle: "Branding, Identity",
+    title: "Diagnóstico sobre ilhas de calor e qualidade do ar na Maré", // subtitle: "Branding, Identity",
     images: [
       "/assets/viz3/viz3.1.png",
       "/assets/viz3/viz3.2.png",

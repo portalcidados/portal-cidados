@@ -7,8 +7,7 @@ export default function Footer() {
       studyDetail={{
         description:
           "Avaliação do impacto da Faixa Azul nos sinistros de trânsito em São Paulo",
-        descriptionHref:
-          "/",
+        descriptionHref: "/",
         organization: "Lorem ipsum",
         documentType: "Lorem ipsum dolor sit amet",
         year: 2024,
@@ -53,7 +52,7 @@ export default function Footer() {
               role: "Sistematização do conteúdo e produção dos mapas",
               names: "Lorem ipsum",
             },
-            { role: "Analista de dados", names: "Lorem ipsum" }
+            { role: "Analista de dados", names: "Lorem ipsum" },
           ],
         },
         {

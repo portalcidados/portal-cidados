@@ -239,8 +239,7 @@ function AvenueBar({
   const afterAvail = Math.min(daysBetween(implDate, DOMAIN_END), WINDOW_DAYS);
   const lightLeftTarget =
     V0_PCT - (beforeAvail / WINDOW_DAYS) * HALF_WINDOW_PCT;
-  const darkRightTarget =
-    V0_PCT + (afterAvail / WINDOW_DAYS) * HALF_WINDOW_PCT;
+  const darkRightTarget = V0_PCT + (afterAvail / WINDOW_DAYS) * HALF_WINDOW_PCT;
 
   const lightLeft = `calc(${lerpExpr(0, lightLeftTarget)})`;
   const lightWidth = `calc(${lerpExpr(splitOrigin, V0_PCT - lightLeftTarget)})`;
@@ -265,11 +264,19 @@ function AvenueBar({
       <div className="pointer-events-none absolute inset-y-[14%] left-0 right-0 md:inset-y-[8%]">
         <div
           className="absolute inset-y-0 rounded-[1px]"
-          style={{ left: lightLeft, width: lightWidth, backgroundColor: COLOR_BEFORE }}
+          style={{
+            left: lightLeft,
+            width: lightWidth,
+            backgroundColor: COLOR_BEFORE,
+          }}
         />
         <div
           className="absolute inset-y-0 rounded-[1px]"
-          style={{ left: darkLeft, width: darkWidth, backgroundColor: COLOR_AFTER }}
+          style={{
+            left: darkLeft,
+            width: darkWidth,
+            backgroundColor: COLOR_AFTER,
+          }}
         />
       </div>
       {row.events.map((event, index) => (
@@ -435,9 +442,7 @@ function TooltipStatRow({
         {obitosLabel(stats.total)}
       </span>
       {stats.moto > 0 && (
-        <span className="opacity-70">
-          ({stats.moto} de moto)
-        </span>
+        <span className="opacity-70">({stats.moto} de moto)</span>
       )}
     </div>
   );
@@ -613,7 +618,10 @@ export function TimelineChart({ active = false }: { active?: boolean }) {
               />
               <div
                 className="absolute inset-y-0 right-0"
-                style={{ width: `${100 - PLUS1_PCT}%`, backgroundColor: COLOR_BG }}
+                style={{
+                  width: `${100 - PLUS1_PCT}%`,
+                  backgroundColor: COLOR_BG,
+                }}
               />
             </div>
 

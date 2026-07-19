@@ -11,8 +11,7 @@ export function getStoriesForHome(): Story[] {
   return [
     {
       id: "3",
-      title:
-        "Diagnóstico sobre ilhas de calor e qualidade do ar na Maré",
+      title: "Diagnóstico sobre ilhas de calor e qualidade do ar na Maré",
       description:
         "Estudo mapeia ilhas de calor e poluição na Maré, revelando impactos diretos na saúde dos moradores",
       image: "/assets/viz3/viz3.1.png",

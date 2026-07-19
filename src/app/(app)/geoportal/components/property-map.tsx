@@ -145,9 +145,7 @@ export default function PropertyMap() {
     bearing: searchParams.get("bearing")
       ? Number(searchParams.get("bearing"))
       : null,
-    pitch: searchParams.get("pitch")
-      ? Number(searchParams.get("pitch"))
-      : null,
+    pitch: searchParams.get("pitch") ? Number(searchParams.get("pitch")) : null,
     lat: searchParams.get("lat") ? Number(searchParams.get("lat")) : null,
     lng: searchParams.get("lng") ? Number(searchParams.get("lng")) : null,
     theme: (searchParams.get("theme") as "dark" | "light" | null) ?? "dark",
@@ -1111,8 +1109,10 @@ export default function PropertyMap() {
       const center = cityCoordinates[selectedCity];
       const zoom = cityZoomLevels[selectedCity];
       if (center && zoom !== undefined) {
-        if (beforeMap.current) safeFlyToWithReset(beforeMap.current, center, zoom);
-        if (afterMap.current) safeFlyToWithReset(afterMap.current, center, zoom);
+        if (beforeMap.current)
+          safeFlyToWithReset(beforeMap.current, center, zoom);
+        if (afterMap.current)
+          safeFlyToWithReset(afterMap.current, center, zoom);
       }
     }
   };
@@ -1130,8 +1130,10 @@ export default function PropertyMap() {
       const center = cityCoordinates[selectedCity];
       const zoom = cityZoomLevels[selectedCity];
       if (center && zoom !== undefined) {
-        if (beforeMap.current) safeFlyToWithReset(beforeMap.current, center, zoom);
-        if (afterMap.current) safeFlyToWithReset(afterMap.current, center, zoom);
+        if (beforeMap.current)
+          safeFlyToWithReset(beforeMap.current, center, zoom);
+        if (afterMap.current)
+          safeFlyToWithReset(afterMap.current, center, zoom);
       }
     }
   };

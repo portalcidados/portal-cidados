@@ -50,14 +50,21 @@ function computeMorphDeltasDesktop() {
 function computeMorphDeltasMobile() {
   const viewW = window.innerWidth;
   const viewH = window.innerHeight;
-  const bgScale = Math.max(viewW / BG_NATURAL_W_MOBILE, viewH / BG_NATURAL_H_MOBILE);
+  const bgScale = Math.max(
+    viewW / BG_NATURAL_W_MOBILE,
+    viewH / BG_NATURAL_H_MOBILE,
+  );
   const displayedBgH = BG_NATURAL_H_MOBILE * bgScale;
   const clipX = 0;
   const clipY = Math.max(0, (displayedBgH - viewH) / 2);
   const targetCenterX =
-    HOUSE_ONE_OFFSET_MOBILE.x * bgScale - clipX + (HOUSE_ONE_NATURAL_W * bgScale) / 2;
+    HOUSE_ONE_OFFSET_MOBILE.x * bgScale -
+    clipX +
+    (HOUSE_ONE_NATURAL_W * bgScale) / 2;
   const targetCenterY =
-    HOUSE_ONE_OFFSET_MOBILE.y * bgScale - clipY + (HOUSE_ONE_NATURAL_W * bgScale) / 2;
+    HOUSE_ONE_OFFSET_MOBILE.y * bgScale -
+    clipY +
+    (HOUSE_ONE_NATURAL_W * bgScale) / 2;
   // No mobile, houseOne não deve crescer - manter scale 1
   return {
     deltaX: targetCenterX - viewW / 2,
@@ -67,7 +74,9 @@ function computeMorphDeltasMobile() {
 }
 
 function computeMorphDeltas() {
-  return window.innerWidth < 768 ? computeMorphDeltasMobile() : computeMorphDeltasDesktop();
+  return window.innerWidth < 768
+    ? computeMorphDeltasMobile()
+    : computeMorphDeltasDesktop();
 }
 
 export default function HouseSection() {
@@ -86,10 +95,15 @@ export default function HouseSection() {
 
   // Morph animation + panoramic visibility triggers
   useGSAP(() => {
-    const firstCard = containerRef.current?.querySelector(`[data-card-index="0"]`);
-    const secondCard = containerRef.current?.querySelector(`[data-card-index="2"]`);
+    const firstCard = containerRef.current?.querySelector(
+      `[data-card-index="0"]`,
+    );
+    const secondCard = containerRef.current?.querySelector(
+      `[data-card-index="2"]`,
+    );
 
-    if (!firstCard || !houseOneRef.current || !houseBackgroundRef.current) return;
+    if (!firstCard || !houseOneRef.current || !houseBackgroundRef.current)
+      return;
 
     // --- Morph: houseOne moves from center into its position in houseBackground ---
     const morphTl = gsap.timeline({
@@ -170,7 +184,9 @@ export default function HouseSection() {
 
   // Panoramic horizontal scroll animation
   useGSAP(() => {
-    const thirdCard = containerRef.current?.querySelector(`[data-card-index="3"]`);
+    const thirdCard = containerRef.current?.querySelector(
+      `[data-card-index="3"]`,
+    );
     if (!thirdCard || !panoramicSliderRef.current) return;
 
     gsap.to(panoramicSliderRef.current, {
@@ -230,18 +246,14 @@ export default function HouseSection() {
     },
     {
       top: 230,
-      text: (
-        <>
-        </>
-      ),
+      text: <></>,
     },
     {
       top: 300,
       text: (
         <>
-          Às 5hs,{" "}
-          <strong>Maria pega o ônibus em direção ao trabalho</strong>. São{" "}
-          <strong>duas horas de viagem</strong> até o Jardim Paulista, um
+          Às 5hs, <strong>Maria pega o ônibus em direção ao trabalho</strong>.
+          São <strong>duas horas de viagem</strong> até o Jardim Paulista, um
           bairro de classe média alta próximo à Avenida Paulista.
         </>
       ),

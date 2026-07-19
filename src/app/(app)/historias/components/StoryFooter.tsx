@@ -64,7 +64,9 @@ function IconGroup({ icons }: { icons: FooterIcon[] }) {
           <Image
             src={icon.src}
             alt={icon.alt}
-            className={icon.className ?? "h-10 lg:h-12 w-auto brightness-0 invert"}
+            className={
+              icon.className ?? "h-10 lg:h-12 w-auto brightness-0 invert"
+            }
             width={icon.width ?? 120}
             height={icon.height ?? 48}
           />
@@ -192,13 +194,18 @@ export default function StoryFooter({
                       {team.members.map((member) =>
                         member.role ? (
                           <div key={member.role}>
-                            <span className="font-semibold">{member.role}:</span>
+                            <span className="font-semibold">
+                              {member.role}:
+                            </span>
                             <span className="text-[#FFFFFF] opacity-40 ml-2">
                               {member.names}
                             </span>
                           </div>
                         ) : (
-                          <p key={member.names} className="text-[#FFFFFF] opacity-40">
+                          <p
+                            key={member.names}
+                            className="text-[#FFFFFF] opacity-40"
+                          >
                             {member.names}
                           </p>
                         ),
@@ -210,13 +217,17 @@ export default function StoryFooter({
                     <div className="flex flex-col gap-8">
                       {hasRealiz && realizacao && (
                         <div className="flex flex-col items-start">
-                          <h2 className="text-md lg:text-lg font-semibold mb-6">Realização</h2>
+                          <h2 className="text-md lg:text-lg font-semibold mb-6">
+                            Realização
+                          </h2>
                           <IconGroup icons={realizacao} />
                         </div>
                       )}
                       {hasParceiros && parceiros && (
                         <div className="flex flex-col items-start">
-                          <h2 className="text-md lg:text-lg font-semibold mb-6">Parceiros</h2>
+                          <h2 className="text-md lg:text-lg font-semibold mb-6">
+                            Parceiros
+                          </h2>
                           <IconGroup icons={parceiros} />
                         </div>
                       )}
@@ -237,7 +248,9 @@ export default function StoryFooter({
             <div className="space-y-5 text-md lg:text-lg">
               {databases.map((db) => (
                 <p key={db.href}>
-                  <span className="font-semibold text-white">{db.title}&nbsp;&nbsp;</span>
+                  <span className="font-semibold text-white">
+                    {db.title}&nbsp;&nbsp;
+                  </span>
                   <a
                     href={db.href}
                     target="_blank"
