@@ -1,6 +1,13 @@
 "use client";
 
-import { useLayoutEffect, useState, type ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useLayoutEffect,
+  useRef,
+  useState,
+  type ReactNode,
+} from "react";
 import { StoryLogos } from "../../../components/story-logos";
 import {
   brandColor,
@@ -12,10 +19,20 @@ import {
 
 const MAX_LOADING_MS = 15_000;
 
+/**
+ * Consumed by MapSection to signal that the Mapbox style, sources and tiles
+ * finished loading (map "idle"), so the cover loading can be released.
+ */
+const MapReadyContext = createContext<() => void>(() => {});
+
+export function useMapReady() {
+  return useContext(MapReadyContext);
+}
+
 interface PreloadWrapperProps {
   children: ReactNode;
   imageSources: string[];
-  videoSrc?: string;
+  videoSources?: string[];
 }
 
 const preloadImage = (src: string): Promise<void> =>
@@ -29,6 +46,9 @@ const preloadImage = (src: string): Promise<void> =>
 const preloadVideo = (src: string): Promise<void> =>
   new Promise((resolve) => {
     const video = document.createElement("video");
+    // Safari/iOS won't buffer enough for canplaythrough without these hints.
+    video.preload = "auto";
+    video.muted = true;
     video.oncanplaythrough = () => resolve();
     video.onerror = () => resolve();
     video.src = src;
@@ -50,12 +70,24 @@ const timeout = (ms: number): Promise<void> =>
 export function PreloadWrapper({
   children,
   imageSources,
-  videoSrc = coverVideo,
+  videoSources = [coverVideo],
 }: PreloadWrapperProps) {
   const [isReady, setIsReady] = useState(false);
   const [fadeOut, setFadeOut] = useState(false);
 
+  // External promise: resolves when MapSection signals its tiles are ready.
+  // The Promise constructor runs synchronously, so resolveMapReadyRef holds
+  // the real resolver before the first render.
+  const resolveMapReadyRef = useRef<() => void>(() => {});
+  const mapReadyPromiseRef = useRef<Promise<void>>(
+    new Promise<void>((resolve) => {
+      resolveMapReadyRef.current = resolve;
+    }),
+  );
+
   useLayoutEffect(() => {
+    const mapReadyPromise = mapReadyPromiseRef.current;
+
     document.body.style.overflow = "hidden";
     let mounted = true;
 
@@ -72,7 +104,9 @@ export function PreloadWrapper({
     Promise.race([
       Promise.all([
         ...imageSources.map(preloadImage),
-        preloadVideo(videoSrc),
+        ...videoSources.map(preloadVideo),
+        mapReadyPromise,
+        document.fonts.ready,
         waitForWindowLoad(),
       ]),
       timeout(MAX_LOADING_MS),
@@ -82,11 +116,15 @@ export function PreloadWrapper({
       mounted = false;
       document.body.style.overflow = "";
     };
-  }, [imageSources, videoSrc]);
+    // mapReadyPromise is stable (stored in a ref) — no need in deps array
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [imageSources, videoSources]);
 
   return (
-    <div className={isReady ? undefined : "h-screen overflow-hidden"}>
-      {children}
+    <MapReadyContext.Provider value={resolveMapReadyRef.current}>
+      <div className={isReady ? undefined : "h-screen overflow-hidden"}>
+        {children}
+      </div>
 
       {!isReady && (
         <div
@@ -100,7 +138,7 @@ export function PreloadWrapper({
             muted
             playsInline
             className="absolute inset-0 w-full h-full object-cover"
-            src={videoSrc}
+            src={coverVideo}
           />
 
           <div className="absolute inset-0 bg-[#FFFFFF]/70" />
@@ -148,6 +186,6 @@ export function PreloadWrapper({
           </div>
         </div>
       )}
-    </div>
+    </MapReadyContext.Provider>
   );
 }

@@ -1,4 +1,5 @@
 import { accidentVideo, brandColor, g1ArticleUrl } from "../constants";
+import ZoomableVideo from "./zoomable-video";
 
 export default function Context() {
   return (
@@ -44,13 +45,9 @@ export default function Context() {
             </p>
           </div>
 
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="w-full rounded-xl aspect-square object-cover"
+          <ZoomableVideo
             src={accidentVideo}
+            className="w-full rounded-xl aspect-square object-cover"
           />
 
           <div className="space-y-6 text-sm leading-normal">

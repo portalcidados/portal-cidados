@@ -1,11 +1,12 @@
 "use client";
 
-import { useCallback, useLayoutEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "mapbox-gl/dist/mapbox-gl.css";
 import MapboxMap, { Marker } from "react-map-gl/mapbox";
 import { brandColor } from "../constants";
+import { useMapReady } from "./preload-wrapper";
 import {
   FLY_TO_DURATION_MS,
   MAP_PHASE_A,
@@ -96,6 +97,7 @@ type MapboxMapInstance = {
   getLayer: (id: string) => unknown;
   setPaintProperty: (layer: string, name: string, value: unknown) => void;
   setLayoutProperty: (layer: string, name: string, value: unknown) => void;
+  once: (event: string, callback: () => void) => void;
 };
 
 type MapRef = { getMap: () => MapboxMapInstance };
@@ -171,6 +173,7 @@ export default function MapSection() {
   const currentPhaseRef = useRef<MapPhaseId | null>("A");
   const pendingPhaseRef = useRef<MapPhaseId>("A");
   const [mapPhase, setMapPhase] = useState<MapPhaseId>("A");
+  const signalMapReady = useMapReady();
 
   const setPhase = useCallback((phaseId: MapPhaseId) => {
     pendingPhaseRef.current = phaseId;
@@ -228,6 +231,10 @@ export default function MapSection() {
 
     currentPhaseRef.current = null;
     setPhase(pendingPhaseRef.current);
+
+    // Style, GeoJSON and tiles for the current view are done once the map
+    // goes idle — release the cover preloading then.
+    map.once("idle", signalMapReady);
 
     requestAnimationFrame(() => ScrollTrigger.refresh());
   };
@@ -293,6 +300,11 @@ export default function MapSection() {
     console.warn("NEXT_PUBLIC_MAPBOX_TOKEN is not set");
   }
 
+  // Failsafe: never hold the cover loading if the map can't load at all.
+  useEffect(() => {
+    if (!mapboxToken) signalMapReady();
+  }, [mapboxToken, signalMapReady]);
+
   return (
     <section className="w-full bg-white">
       <div
@@ -311,6 +323,7 @@ export default function MapSection() {
           mapStyle={MAPBOX_STYLE}
           mapboxAccessToken={mapboxToken}
           onLoad={handleMapLoad}
+          onError={signalMapReady}
           style={{ width: "100%", height: "100%" }}
           interactiveLayerIds={[]}
           dragPan={false}
