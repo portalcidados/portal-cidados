@@ -6,6 +6,7 @@ import gsap from "gsap";
 import {
   Bus,
   CarFront,
+  Ellipsis,
   Motorbike,
   PersonStanding,
   type LucideIcon,
@@ -33,9 +34,16 @@ const ICONS: Record<string, LucideIcon> = {
   bus: Bus,
   motorbike: Motorbike,
   pedestrian: PersonStanding,
+  other: Ellipsis,
 };
 
-const CATEGORY_ICONS = ["car", "motorbike", "bus", "pedestrian"] as const;
+const CATEGORY_ICONS = [
+  "car",
+  "motorbike",
+  "bus",
+  "pedestrian",
+  "other",
+] as const;
 
 const ANIM_DURATION = 0.7;
 const ANIM_EASE = "power2.inOut";
@@ -83,6 +91,7 @@ export function PictogramChart({ chart }: { chart: ChartData }) {
     motorbike: 0,
     bus: 0,
     pedestrian: 0,
+    other: 0,
   });
   const [plotHeight, setPlotHeight] = useState(0);
   // Mobile: 2 ícones/linha; desktop (md+): 3 ícones/linha — igual em todas as colunas.
