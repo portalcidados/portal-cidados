@@ -8,7 +8,6 @@ import {
   brandColor,
   faixaChartImage,
   fechadaFaixaVideo,
-  velocidadeVideo,
 } from "../constants";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -58,8 +57,10 @@ function ScrollCard({
 const MEDIA_LAYERS = [
   { type: "image" as const, src: faixaChartImage },
   { type: "video" as const, src: fechadaFaixaVideo },
-  { type: "video" as const, src: velocidadeVideo },
 ];
+
+/** Card index → media layer index. Card1 and card2 share fechada-faixa. */
+const CARD_MEDIA_INDEX = [0, 1, 1] as const;
 
 export default function MediaSection() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -87,9 +88,10 @@ export default function MediaSection() {
             trigger: ref.current,
             start: "top center",
             end: "bottom center",
-            onEnter: () => setActiveIndex(i),
-            onEnterBack: () => setActiveIndex(i),
-            onLeaveBack: () => setActiveIndex(Math.max(0, i - 1)),
+            onEnter: () => setActiveIndex(CARD_MEDIA_INDEX[i]),
+            onEnterBack: () => setActiveIndex(CARD_MEDIA_INDEX[i]),
+            onLeaveBack: () =>
+              setActiveIndex(CARD_MEDIA_INDEX[Math.max(0, i - 1)]),
           }),
         );
       });
@@ -205,9 +207,12 @@ export default function MediaSection() {
           <p>
             A Faixa Azul contribui para organizar o fluxo de motocicletas ao
             criar um espaço preferencial de circulação, reduzindo conflitos com
-            carros, ônibus e caminhões. Isso ajuda a diminuir o &ldquo;efeito de
-            esmagamento&rdquo; das motos entre veículos maiores, aumenta a
-            previsibilidade no trânsito e reduz disputas bruscas por espaço.
+            carros, ônibus e caminhões.{" "}
+            <strong>
+              Isso ajuda a diminuir o &ldquo;efeito de esmagamento&rdquo; das
+              motos entre veículos maiores, aumenta a previsibilidade no
+              trânsito e reduz disputas bruscas por espaço.
+            </strong>{" "}
             Além disso, é uma solução relativamente rápida e barata de
             implementar, funcionando melhor em corredores com tráfego intenso,
             poucas interseções e fluxo mais contínuo.
@@ -224,10 +229,13 @@ export default function MediaSection() {
             <CardBox>
               <div className="space-y-4">
                 <p>
-                  Por outro lado, a presença da faixa dedicada pode incentivar
-                  motociclistas a trafegarem em velocidades mais altas,
-                  aumentando o risco de sinistros e a gravidade das lesões. A
-                  sensação de maior segurança pode levar a comportamentos mais
+                  Por outro lado,{" "}
+                  <strong>
+                    a presença da faixa dedicada pode incentivar motociclistas a
+                    trafegarem em velocidades mais altas, aumentando o risco de
+                    sinistros e a gravidade das lesões.
+                  </strong>{" "}
+                  A sensação de maior segurança pode levar a comportamentos mais
                   arriscados.
                 </p>
                 <p>

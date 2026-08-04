@@ -385,10 +385,13 @@ export default function MapSection() {
               ajudam a desenhar essa geografia.
             </p>
             <p>
-              Em outras palavras: a Faixa Azul foi implantada onde o trânsito é
-              mais veloz, mais intenso e mais complexo. É menos uma malha
-              contínua e mais um conjunto de trechos implantados em eixos de
-              tráfego pesado.
+              Em outras palavras:{" "}
+              <strong>
+                a Faixa Azul foi implantada onde o trânsito é mais veloz, mais
+                intenso e mais complexo
+              </strong>
+              . É menos uma malha contínua e mais um conjunto de trechos
+              implantados em eixos de tráfego pesado.
             </p>
           </div>
         </ScrollCard>

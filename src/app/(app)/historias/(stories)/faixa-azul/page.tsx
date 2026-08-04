@@ -19,7 +19,6 @@ import {
   horarioImage,
   localMotoboysImage,
   trafegoImage,
-  velocidadeVideo,
 } from "./constants";
 import Context from "./components/context";
 import FactorsSection from "./components/factors-section";
@@ -54,7 +53,6 @@ const videosToPreload = [
   coverVideo,
   accidentVideo,
   fechadaFaixaVideo,
-  velocidadeVideo,
 ];
 
 export default function FaixaAzulPage() {
