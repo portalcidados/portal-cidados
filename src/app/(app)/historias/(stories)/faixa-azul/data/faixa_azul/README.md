@@ -1,7 +1,7 @@
 # Dados — Motos no trânsito de São Paulo
 
 Tabelas de apoio à narrativa "motos são ~3% das viagens, mas concentram
-~60% dos sinistros e ~40% das mortes no trânsito" (município de São Paulo).
+~39% dos sinistros e ~46% das mortes no trânsito" (município de São Paulo).
 As três primeiras são geradas por `historias/R/historia_4_export.R`; as
 duas últimas (Faixa Azul) por `historias/R/historia_4_faixa_azul_lookup.R`
 (rodar primeiro — gera os lookups intermediários) +
@@ -18,13 +18,14 @@ Fontes brutas:
 
 Divisão modal das viagens diárias, a partir da Pesquisa OD 2023, com pesos
 amostrais aplicados via `survey`/`srvyr` (`svydesign(weights = ~fe_via, strata = ~zona)`).
+Recorte: apenas deslocamentos que passam por São Paulo (capital) — exclui
+viagens que ocorrem só em outros municípios da RMSP (ex.: Mogi das Cruzes).
 
 | Coluna | Descrição |
 |---|---|
-| `geo_level` | Recorte geográfico: `RMSP` (Região Metropolitana de São Paulo, toda a amostra) ou `São Paulo (capital)` (filtrado para `muni_dom == 36`) |
 | `grouped_mode` | Modo de transporte agrupado (ver metodologia abaixo) |
 | `trips` | Total estimado de viagens/dia (expandido pelo peso amostral `fe_via`), soma ponderada, sem intervalo de confiança calculado |
-| `share` | Participação do modo no total de viagens daquele recorte geográfico (soma 1 dentro de cada `geo_level`) |
+| `share` | Participação do modo no total de viagens do recorte (soma 1) |
 
 **Metodologia — agrupamento de `modoprin` (modo principal declarado) em `grouped_mode`:**
 - **Transporte público**: Metrô, Monotrilho, Trem e ônibus/micro-ônibus/van (municipal, metropolitano ou de outros municípios)

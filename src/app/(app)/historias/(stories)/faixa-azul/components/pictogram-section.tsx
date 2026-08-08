@@ -102,8 +102,8 @@ export default function PictogramSection() {
         <ScrollCard cardRef={card0Ref}>
           <p>
             <strong>
-              Embora as motocicletas representem apenas cerca de 3,5% dos
-              deslocamentos diários na Região Metropolitana de São Paulo
+              Embora as motocicletas representem apenas cerca de 2,8% dos
+              deslocamentos diários que passam por São Paulo
             </strong>
             , elas aparecem em cerca de 39% dos veículos envolvidos em sinistros
             na cidade.
@@ -119,7 +119,7 @@ export default function PictogramSection() {
             entregadores e intensificou a circulação de motocicletas nas grandes
             cidades. No próximo gráfico é possível ver que{" "}
             <strong>
-              os motociclistas concentram cerca de 41% das mortes no trânsito.
+              os motociclistas concentram cerca de 46% das mortes no trânsito.
             </strong>
           </p>
         </ScrollCard>
