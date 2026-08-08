@@ -43,10 +43,11 @@ export default function PictogramSection() {
 
   const card0Ref = useRef<HTMLDivElement>(null);
   const card1Ref = useRef<HTMLDivElement>(null);
+  const cardGrowthRef = useRef<HTMLDivElement>(null);
   const card2Ref = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
-    const cards = [card0Ref, card1Ref, card2Ref];
+    const cards = [card0Ref, card1Ref, cardGrowthRef, card2Ref];
     let triggers: ScrollTrigger[] = [];
 
     const create = () => {
@@ -67,8 +68,8 @@ export default function PictogramSection() {
         }),
       );
 
-      // Card 1: gráfico 1 (39%) enquanto o card está ativo;
-      // na saída (scroll para baixo) troca para o gráfico 2 (46%).
+      // Card 1: mantém o gráfico 1 (39%).
+      // A troca para o gráfico 2 (46%) só ocorre após o card seguinte sair.
       triggers.push(
         ScrollTrigger.create({
           trigger: card1Ref.current,
@@ -76,13 +77,26 @@ export default function PictogramSection() {
           end: "bottom center",
           onEnter: () => setActiveIndex(1),
           onEnterBack: () => setActiveIndex(1),
-          onLeave: () => setActiveIndex(2),
-          // Entre card 0 e 1 o gráfico 1 deve permanecer (não voltar ao 0).
+          onLeave: () => setActiveIndex(1),
           onLeaveBack: () => setActiveIndex(1),
         }),
       );
 
-      // Card 2: mantém o gráfico 2 (já ativado na saída do card 1).
+      // Card intermediário (sem troca de gráfico): permanece no gráfico 1 (39%);
+      // na saída (scroll para baixo) troca para o gráfico 2 (46%).
+      triggers.push(
+        ScrollTrigger.create({
+          trigger: cardGrowthRef.current,
+          start: "top center",
+          end: "bottom center",
+          onEnter: () => setActiveIndex(1),
+          onEnterBack: () => setActiveIndex(1),
+          onLeave: () => setActiveIndex(2),
+          onLeaveBack: () => setActiveIndex(1),
+        }),
+      );
+
+      // Card 2: mantém o gráfico 2 (já ativado na saída do card intermediário).
       triggers.push(
         ScrollTrigger.create({
           trigger: card2Ref.current,
@@ -90,7 +104,6 @@ export default function PictogramSection() {
           end: "bottom center",
           onEnter: () => setActiveIndex(2),
           onEnterBack: () => setActiveIndex(2),
-          // Entre card 1 e 2 o gráfico 2 deve permanecer.
           onLeaveBack: () => setActiveIndex(2),
         }),
       );
@@ -131,38 +144,60 @@ export default function PictogramSection() {
       <div>
         <ScrollCard cardRef={card0Ref}>
           <p>
-            
-              Embora as <strong>motocicletas representem apenas cerca de 2,8% dos
-              deslocamentos diários</strong> que passam por São Paulo, elas aparecem em <strong>cerca de 39% dos veículos envolvidos em sinistros</strong> na cidade.
+            Embora as{" "}
+            <strong>
+              motocicletas representem apenas cerca de 2,8% dos deslocamentos
+              diários
+            </strong>{" "}
+            que passam por São Paulo, elas aparecem em{" "}
+            <strong>
+              cerca de 39% dos veículos envolvidos em sinistros
+            </strong>{" "}
+            na cidade.
           </p>
         </ScrollCard>
 
-        <ScrollCard cardRef={card1Ref} className="mt-[50vh]">          <p>
-            O aumento no número de acidentes e mortes envolvendo motociclistas
-            acompanha o crescimento acelerado do uso de motos nos últimos anos,{" "}
-            <strong>especialmente durante a pandemia</strong>. A expansão dos
-            aplicativos de entrega ampliou significativamente a demanda por
-            entregadores e intensificou a circulação de motocicletas nas grandes
-            cidades. No próximo gráfico é possível ver que{" "}
+        <ScrollCard cardRef={card1Ref} className="mt-[50vh]">
+          <p>
+            Ainda maior é{" "}
             <strong>
-              os motociclistas concentram cerca de 46% das mortes no trânsito.
+              participação das motos na letalidade do trânsito da cidade
             </strong>
+            : os motociclistas representam{" "}
+            <strong>mais de 46% das mortes no trânsito</strong>.
+          </p>
+        </ScrollCard>
+
+        <ScrollCard cardRef={cardGrowthRef}>
+          <p>
+            O aumento no número de acidentes e mortes envolvendo motociclistas
+            acompanha o{" "}
+            <strong>
+              crescimento acelerado do uso de motos nos últimos anos,
+              especialmente durante a pandemia
+            </strong>
+            . A expansão dos aplicativos de entrega ampliou significativamente a
+            demanda por entregadores e{" "}
+            <strong>
+              intensificou a circulação de motocicletas nas grandes cidades
+            </strong>
+            .
           </p>
         </ScrollCard>
 
         <ScrollCard cardRef={card2Ref} minHeight="150vh" className="mt-[50vh]">
           <p>
-            Nesse cenário de aumento do uso da moto e das mortes de
-            motociclistas, a Faixa Azul ganhou força como resposta da Prefeitura
-            a este problema de grande relevância.{" "}
+            Nesse cenário, a{" "}
+            <strong>Faixa Azul foi a resposta da Prefeitura</strong> a este
+            problema de grande relevância. A intervenção busca reorganizar o
+            espaço viário, reduzir conflitos entre motos e carros e tornar a
+            circulação mais previsível em alguns dos corredores mais
+            movimentados da cidade. Com o avanço da política e após algum tempo
+            de sua implementação, um questionamento se fez necessário:{" "}
             <strong>
-              A intervenção busca reorganizar o espaço viário, reduzir conflitos
-              entre motos e carros e tornar a circulação mais previsível em
-              alguns dos corredores mais movimentados da cidade.
-            </strong>{" "}
-            Com o avanço da política e após algum tempo de sua implementação, um
-            questionamento se fez necessário: a Faixa Azul contribuiu para a
-            redução dos sinistros de trânsito envolvendo motociclistas?
+              a Faixa Azul contribuiu para a redução dos sinistros de trânsito
+              envolvendo motociclistas?
+            </strong>
           </p>
         </ScrollCard>
 
