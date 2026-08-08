@@ -17,9 +17,9 @@ export const charts: ChartData[] = [
   {
     id: "viagens", // config
     title:
-      "As motos representam apenas cerca de 2,8% das viagens diárias que passam por São Paulo", // fornecido
+      "As motos representam apenas cerca de 2,8% das viagens diárias em São Paulo", // fornecido
     subtitle:
-      "Distribuição dos deslocamentos diários que passam pelo município de São Paulo, por meio de transporte, em 2023.", // fornecido
+      "Distribuição dos deslocamentos diários, por meio de transporte principal, em São Paulo, incluindo todos os deslocamentos na Região Metropolitana que passam pela capital.", // fornecido
     source:
       'Pesquisa Origem-Destino do Metrô de São Paulo; estudo "Avaliação do impacto da Faixa Azul nos sinistros de trânsito em São Paulo" — Centro de Estudos das Cidades / Insper, 2025.', // fornecido
     yMax: 50, // config
