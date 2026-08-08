@@ -1,14 +1,17 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import {
+  brandColor,
   chuvaImage,
   cruzamentoImage,
   horarioImage,
   trafegoImage,
 } from "../constants";
+
+const AUTO_ROTATE_MS = 5000;
 
 const FACTORS = [
   { label: "Chuva", src: chuvaImage, alt: "Cenário de chuva na via" },
@@ -24,6 +27,39 @@ const FACTORS = [
     alt: "Cenário com número de cruzamentos",
   },
 ] as const;
+
+function CardBox({ children }: { children: React.ReactNode }) {
+  return (
+    <div
+      className="w-full max-w-xl rounded-xl p-6 text-sm leading-normal shadow-lg backdrop-blur-sm md:p-8 md:text-base lg:p-9"
+      style={{ color: brandColor, backgroundColor: "#F0F0F0" }}
+    >
+      {children}
+    </div>
+  );
+}
+
+interface ScrollCardProps {
+  children: React.ReactNode;
+  cardRef: React.RefObject<HTMLDivElement | null>;
+  minHeight?: string;
+}
+
+function ScrollCard({
+  children,
+  cardRef,
+  minHeight = "130vh",
+}: ScrollCardProps) {
+  return (
+    <div
+      ref={cardRef}
+      className="flex items-center justify-center px-6 md:px-8"
+      style={{ minHeight, position: "relative", zIndex: 1 }}
+    >
+      <CardBox>{children}</CardBox>
+    </div>
+  );
+}
 
 function FactorButton({
   label,
@@ -52,7 +88,16 @@ function FactorButton({
 export default function FactorsSection() {
   const [activeIndex, setActiveIndex] = useState(0);
   const scopeRef = useRef<HTMLDivElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
   const layerRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  useEffect(() => {
+    const id = window.setInterval(() => {
+      setActiveIndex((i) => (i + 1) % FACTORS.length);
+    }, AUTO_ROTATE_MS);
+
+    return () => window.clearInterval(id);
+  }, [activeIndex]);
 
   useGSAP(
     () => {
@@ -87,12 +132,13 @@ export default function FactorsSection() {
   );
 
   return (
-    <section className="my-50 w-full bg-white">
-      <div className="p-6">
-        <div
-          ref={scopeRef}
-          className="relative h-[calc(100vh-5.5rem)] w-full overflow-hidden rounded-xl"
-        >
+    <section className="w-full bg-white">
+      <div
+        ref={scopeRef}
+        className="relative h-screen w-full overflow-hidden"
+        style={{ position: "sticky", top: 0, zIndex: 0 }}
+      >
+        <div className="absolute inset-6 overflow-hidden rounded-xl">
           {FACTORS.map((factor, i) => (
             <div
               key={factor.src}
@@ -124,6 +170,21 @@ export default function FactorsSection() {
             ))}
           </nav>
         </div>
+      </div>
+
+      <div>
+        <ScrollCard cardRef={cardRef}>
+          <p>
+            Em uma cidade como São Paulo, os sinistros variam por muitos
+            motivos: chuva, horário, volume de tráfego, fiscalização,
+            velocidade, mudanças no comportamento dos motoristas, crescimento
+            das entregas por aplicativo e até oscilações aleatórias de eventos
+            raros, como mortes no trânsito.
+          </p>
+        </ScrollCard>
+
+        {/* Espaço extra após o card para manter a imagem sticky um pouco mais */}
+        <div style={{ minHeight: "100vh" }} aria-hidden="true" />
       </div>
     </section>
   );

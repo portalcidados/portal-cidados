@@ -355,13 +355,19 @@ export default function MapSection() {
         <ScrollCard cardRef={card0Ref}>
           <p>
             Esse tipo de sinalização para faixa dedicada a motociclistas ainda
-            não está prevista na regulamentação nacional de trânsito, então a
-            Prefeitura de São Paulo recebeu autorização para implementar a Faixa
-            Azul em caráter experimental.
+            não está previsto na regulamentação nacional de trânsito, então a{" "}
+            <strong>
+              Prefeitura de São Paulo recebeu autorização para implementar a
+              Faixa Azul em caráter experimental
+            </strong>
+            .
           </p>
           <p className="mt-4">
-            A primeira implantação ocorreu em 25 de janeiro de 2022, na Avenida
-            23 de Maio.
+            <strong>
+              A primeira implantação ocorreu em 25 de janeiro de 2022, na
+              Avenida 23 de Maio
+            </strong>
+            .
           </p>
         </ScrollCard>
 
