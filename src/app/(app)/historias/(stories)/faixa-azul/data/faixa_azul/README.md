@@ -1,33 +1,40 @@
+
 # Dados — Motos no trânsito de São Paulo
 
 Tabelas de apoio à narrativa "motos são ~3% das viagens, mas concentram
-~39% dos sinistros e ~46% das mortes no trânsito" (município de São Paulo).
-As três primeiras são geradas por `historias/R/historia_4_export.R`; as
-duas últimas (Faixa Azul) por `historias/R/historia_4_faixa_azul_lookup.R`
+~60% dos sinistros e ~40% das mortes no trânsito" (município de São Paulo).
+As três primeiras ficam em `historia_4/` e são geradas por
+`historias/R/historia_4_export.R`; as duas últimas (Faixa Azul) ficam na raiz
+deste diretório e vêm de `historias/R/historia_4_faixa_azul_lookup.R`
 (rodar primeiro — gera os lookups intermediários) +
 `historias/R/historia_4_faixa_azul_export.R`.
 
 Fontes brutas:
+
 - **Pesquisa Origem e Destino 2023** (Metrô-SP), microdados `Banco2023_divulgacao_190225.sav`
-- **Infosiga-SP**: bases de sinistros (`sinistros_2015-2021.csv`, `sinistros_2022-2025.csv`) e de vítimas/pessoas (`pessoas_2015-2021.csv`, `pessoas_2022-2025.csv`)
+- **Infosiga-SP** via pacote `infosigasp` (`read_infosiga()`), que cuida do download e da limpeza das bases de sinistros e de pessoas. As tabelas da Faixa Azul ainda leem a base bruta de sinistros pela pipeline de matching.
 - **OpenStreetMap** (`dado_osm.gpkg`) e **Faixa Azul** (`faixa_azul.gpkg`, cronograma de implementação de faixas exclusivas de moto), via a pipeline de matching sinistro↔trecho já existente no repo (`pipelines/sao_paulo/faixa-azul/`)
 
 ---
 
-## `tab_modais_transporte.csv`
+## `historia_4/tab_modais_transporte.csv`
 
-Divisão modal das viagens diárias, a partir da Pesquisa OD 2023, com pesos
-amostrais aplicados via `survey`/`srvyr` (`svydesign(weights = ~fe_via, strata = ~zona)`).
-Recorte: apenas deslocamentos que passam por São Paulo (capital) — exclui
-viagens que ocorrem só em outros municípios da RMSP (ex.: Mogi das Cruzes).
+Divisão modal das viagens diárias **no município de São Paulo** (residentes,
+`muni_dom == 36`), a partir da Pesquisa OD 2023, com pesos amostrais aplicados
+via `survey`/`srvyr` (`svydesign(weights = ~fe_via, strata = ~zona)`).
 
-| Coluna | Descrição |
-|---|---|
-| `grouped_mode` | Modo de transporte agrupado (ver metodologia abaixo) |
-| `trips` | Total estimado de viagens/dia (expandido pelo peso amostral `fe_via`), soma ponderada, sem intervalo de confiança calculado |
-| `share` | Participação do modo no total de viagens do recorte (soma 1) |
+| Coluna           | Descrição                                                                                                                   |
+| ---------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| `grouped_mode` | Modo de transporte agrupado (ver metodologia abaixo)                                                                          |
+| `trips`        | Total estimado de viagens/dia (expandido pelo peso amostral`fe_via`), soma ponderada, sem intervalo de confiança calculado |
+| `share`        | Participação do modo no total de viagens (soma 1)                                                                           |
+
+O script também calcula o recorte RMSP (`tab_modais`, viagens com origem ou
+destino na capital), mas ele não é exportado — serve para conferir os totais
+contra os publicados pelo Metrô.
 
 **Metodologia — agrupamento de `modoprin` (modo principal declarado) em `grouped_mode`:**
+
 - **Transporte público**: Metrô, Monotrilho, Trem e ônibus/micro-ônibus/van (municipal, metropolitano ou de outros municípios)
 - **Automóvel**: dirigindo ou passageiro de automóvel, **táxi convencional e táxi por aplicativo** (agrupados junto com automóvel, não como transporte público)
 - **Moto**: dirigindo moto, passageiro de moto e **passageiro de mototáxi** (mototáxi tratado como moto, não como táxi)
@@ -39,50 +46,39 @@ Encoding dos rótulos do SPSS (`.sav`) é normalizado (`Encoding(x) <- "unknown"
 
 ---
 
-## `tab_sinistros_moto.csv`
+## `historia_4/tab_sinistros_tipo_veiculo.csv` e `historia_4/tab_mortes_tipo_veiculo.csv`
 
-Contagem anual de sinistros de trânsito com vítima, no município de São Paulo,
-segmentados por envolvimento ou não de motocicleta. Fonte: Infosiga-SP, base
-de sinistros.
+Par de tabelas nas categorias do design (Automóvel, Moto, Transporte público,
+A pé, Outros): a primeira mostra a participação de cada modo nas **partes
+envolvidas em sinistros**, a segunda nas **vítimas fatais**. Fonte: pacote
+`infosigasp`, que traz `qtd_pedestre` e permite incluir "A pé" nas duas
+tabelas. Ambas usam o mesmo recorte:
+município de São Paulo, **2021–2025** (2025 é o último ano completo).
 
-| Coluna | Descrição |
-|---|---|
-| `ano` | Ano do sinistro (2019–2025; 2025 é ano parcial, até o último mês disponível na extração) |
-| `sinistros_moto` | Nº de sinistros com pelo menos uma motocicleta envolvida |
-| `sinistros_sem_moto` | Nº de sinistros sem motocicleta envolvida |
-| `share_moto` | `sinistros_moto / (sinistros_moto + sinistros_sem_moto)` |
-| `share_sem_moto` | Complemento de `share_moto` |
+| Coluna                             | Descrição                                   |
+| ---------------------------------- | --------------------------------------------- |
+| `tipo_veiculo` / `tipo_vitima` | Categoria do modo                             |
+| `veiculos` / `mortes`          | Nº de partes envolvidas / de vítimas fatais |
+| `share`                          | Participação da categoria no total (soma 1) |
 
-**Metodologia:**
-- Filtrado para `municipio == "SAO PAULO"`.
-- Excluídos registros sem nenhuma informação de contexto da via (`tipo_via`, `administracao`, `conservacao`, `jurisdicao` todos "NAO DISPONIVEL" ou vazios) — provável baixa qualidade de registro.
-- **Série inicia em 2019**: antes disso o Infosiga só cobre sinistros fatais, o que tornaria a série anterior não comparável (subestimaria fortemente o total de sinistros).
-- Um sinistro é classificado como "moto" se `tp_veiculo_motocicleta >= 1` (pelo menos uma moto identificada entre os veículos do sinistro); sinistros sem nenhum tipo de veículo identificado (`tp_veiculo_*` todos `NA`) são descartados antes da contagem.
-- Contagem não pondera por gravidade — um sinistro com 1 óbito e um sinistro só com feridos leves contam igualmente.
+**Metodologia — sinistros:**
 
----
+- Mantidos só `tipo_registro %in% c("SINISTRO FATAL", "SINISTRO NAO FATAL")`; registros de `NOTIFICACAO` não trazem contagem de veículos.
+- Excluídos registros sem nenhuma informação de contexto da via (`tipo_via`, `administracao`, `conservacao`, `circunscricao` todos `NA` — no `infosigasp` esses campos vêm como `NA`, não como "NAO DISPONIVEL"). Excluídos também os registros sem nenhuma parte informada (`qtd_*` todos `NA`), o que ainda descarta ~8% dos `SINISTRO NAO FATAL`.
+- `NA` em `qtd_*` significa zero.
+- **A base é o total de partes envolvidas, não de sinistros** — um sinistro pode ter mais de uma parte do mesmo tipo, e por isso as shares somam 100%. `qtd_veic_nao_disponivel` fica fora do total (tipo desconhecido não é categoria).
 
-## `tab_mortes_moto.csv`
+**Metodologia — mortes:**
 
-Mortes de motociclistas no trânsito (município de São Paulo, 2015–2025),
-classificadas pelo outro veículo envolvido no mesmo sinistro. Fonte:
-Infosiga-SP, cruzando a base de vítimas (pessoas) com a base de sinistros pelo
-identificador `id_infosiga`.
+- Vítima fatal = `gravidade_lesao == "FATAL"`; óbitos em até 30 dias do sinistro.
+- Pedestres são identificados por `tipo_de_vitima == "PEDESTRE"` e têm `tipo_veiculo_vitima` sempre `NA` — por isso "A pé" é resolvido antes das demais categorias no `case_when()`.
+- Vítimas sem tipo identificável (ambos os campos `NA`) ficam fora do total: ~1,5% no recorte.
+- Bicicleta, caminhão e demais veículos entram em "Outros".
 
-| Coluna | Descrição |
-|---|---|
-| `veiculo_envolvido` | Categoria do outro veículo envolvido no sinistro fatal (ver hierarquia abaixo) |
-| `mortes` | Nº de vítimas fatais motociclistas naquela categoria |
-| `share` | Participação da categoria no total de mortes de motociclistas |
+**Ressalvas de leitura (valem para o par):**
 
-**Metodologia:**
-- Vítima fatal = `gravidade_lesao == "FATAL"` na base de pessoas; óbitos considerados são os ocorridos em até 30 dias do sinistro (definição do Infosiga-SP).
-- Filtrado para vítimas cujo `tipo_veiculo_vitima` (normalizado para maiúsculas) é "MOTOCICLETA".
-- A base de vítimas não traz os demais veículos do sinistro — cada vítima fatal é ligada ao seu sinistro (`id_infosiga`) para recuperar os veículos envolvidos (colunas `tp_veiculo_*`).
-- **Classificação hierárquica pelo veículo "mais pesado"** envolvido no sinistro, nesta ordem de prioridade: Caminhão > Ônibus > Automóvel > Outra motocicleta > Bicicleta > Outros veículos > Sem outro veículo. Ou seja, se um sinistro envolveu tanto um automóvel quanto uma bicicleta, é classificado como "Automóvel".
-- **"Outra motocicleta"** exige `tp_veiculo_motocicleta >= 2`, porque a moto da própria vítima já conta 1 em `tp_veiculo_motocicleta` — o critério isola sinistros entre duas motos.
-- **"Sem outro veículo"** cobre sinistros solo (queda, choque contra objeto fixo) e atropelamentos de pedestre (pedestre não entra como "veículo" nas colunas `tp_veiculo_*`).
-- **"Não disponível"** cobre tanto sinistros sem nenhum veículo identificado (`tp_veiculo_nao_disponivel >= 1`) quanto vítimas cujo sinistro não teve correspondência (`matched == FALSE`) na base de sinistros — por exemplo, por terem sido removidos no filtro de qualidade da base de sinistros (ver `tab_sinistros_moto.csv`) ou por estarem fora do recorte 2019+ usado nessa base.
+- **Unidades diferentes**: na tabela de sinistros um veículo conta 1 independente do número de ocupantes, enquanto pedestre conta por pessoa; na de mortes tudo conta por pessoa. O Infosiga não informa ocupantes, então essa é a melhor aproximação possível — mas a participação do automóvel nas duas tabelas não é diretamente comparável.
+- **"Transporte público" é só ônibus** aqui: metrô e trem não entram no Infosiga. Já em `tab_modais_transporte.csv` a categoria inclui os modos sobre trilhos, então comparar a participação nas viagens com a participação nos sinistros/mortes superestima a segurança do modo.
 
 ---
 
@@ -96,22 +92,22 @@ marcado por data e por envolvimento (ou não) de motocicleta.
 
 **`tab_avenidas_faixa_azul.csv`** (uma linha por avenida — as barras do gráfico):
 
-| Coluna | Descrição |
-|---|---|
-| `nome` | Nome "limpo"/tokenizado da avenida (maiúsculo, sem acento — ex. `"NACOES UNIDAS"`), usado como rótulo do eixo Y no gráfico original |
-| `logradouro_pretty` | Nome de exibição (ex. `"Avenida das Nações Unidas"`), recuperado do `faixa_azul.gpkg` |
-| `d0` | Data de implementação da faixa azul nessa avenida (a mais antiga entre todos os trechos que compõem a avenida) |
-| `id` | Posição da linha no eixo Y do gráfico (1 = avenida com implementação mais recente) |
+| Coluna                | Descrição                                                                                                                              |
+| --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| `nome`              | Nome "limpo"/tokenizado da avenida (maiúsculo, sem acento — ex.`"NACOES UNIDAS"`), usado como rótulo do eixo Y no gráfico original |
+| `logradouro_pretty` | Nome de exibição (ex.`"Avenida das Nações Unidas"`), recuperado do `faixa_azul.gpkg`                                             |
+| `d0`                | Data de implementação da faixa azul nessa avenida (a mais antiga entre todos os trechos que compõem a avenida)                        |
+| `id`                | Posição da linha no eixo Y do gráfico (1 = avenida com implementação mais recente)                                                  |
 
 **`tab_obitos_faixa_azul.csv`** (um ponto por sinistro fatal — os pontos do gráfico):
 
-| Coluna | Descrição |
-|---|---|
-| `id_sinistro` | Identificador do sinistro (base bruta Infosiga-SP) |
-| `data` | Data do sinistro |
-| `nome` | Avenida onde ocorreu (mesma chave `nome` de `tab_avenidas_faixa_azul.csv`) |
-| `id` | Posição no eixo Y (herdada de `tab_avenidas_faixa_azul.csv`, já pronta para plotar) |
-| `motocicleta` | `TRUE` se pelo menos uma motocicleta esteve envolvida no sinistro |
+| Coluna          | Descrição                                                                             |
+| --------------- | --------------------------------------------------------------------------------------- |
+| `id_sinistro` | Identificador do sinistro (base bruta Infosiga-SP)                                      |
+| `data`        | Data do sinistro                                                                        |
+| `nome`        | Avenida onde ocorreu (mesma chave`nome` de `tab_avenidas_faixa_azul.csv`)           |
+| `id`          | Posição no eixo Y (herdada de`tab_avenidas_faixa_azul.csv`, já pronta para plotar) |
+| `motocicleta` | `TRUE` se pelo menos uma motocicleta esteve envolvida no sinistro                     |
 
 **Metodologia — decisões que reproduzem (ou corrigem) o script original:**
 
@@ -136,8 +132,7 @@ marcado por data e por envolvimento (ou não) de motocicleta.
 - **`nome` (não o nome "bonito") é a chave de agrupamento.** O nome
   tokenizado (maiúsculo, sem acento, ex. `"VINTE E TRES MAIO"`) é o que o
   script original usa como identidade da avenida — isso importa porque
-  duas variantes de nome do mesmo logradouro no OSM (ex. `"Avenida 23 de
-  Maio"` e `"Avenida Vinte e Três de Maio"`) tokenizam para o mesmo nome e
+  duas variantes de nome do mesmo logradouro no OSM (ex. `"Avenida 23 de Maio"` e `"Avenida Vinte e Três de Maio"`) tokenizam para o mesmo nome e
   são fundidas em uma única linha, mesmo sendo componentes geometricamente
   desconexos no grafo. Sem essa fusão, a Figura 6 teria uma linha a mais
   (Avenida 23 de Maio apareceria separada de Avenida Vinte e Três de Maio).
@@ -157,11 +152,11 @@ marcado por data e por envolvimento (ou não) de motocicleta.
 
 **Comparação de abordagens (conforme pedido para revisão da equipe):**
 
-| | Rede completa da avenida | Só trechos pintados |
-|---|---|---|
-| Sinistros fatais matched | 327 | 184 (56% do total) |
-| dos quais com moto | 185 (56,6%) | — |
-| Avenidas resolvidas com data | 46 (após fundir nomes) / 58 (bruto) | 52 |
+|                              | Rede completa da avenida             | Só trechos pintados |
+| ---------------------------- | ------------------------------------ | -------------------- |
+| Sinistros fatais matched     | 327                                  | 184 (56% do total)   |
+| dos quais com moto           | 185 (56,6%)                          | —                   |
+| Avenidas resolvidas com data | 46 (após fundir nomes) / 58 (bruto) | 52                   |
 
 A restrição aos trechos pintados (mais simples, reaproveita só
 `match.csv` + `faixa_azul.gpkg`) sub-representa os sinistros em quase
@@ -174,6 +169,6 @@ necessária, não só um atalho.
 
 ## Observações gerais para revisão
 
-- As tabelas usam fontes e unidades de análise diferentes: `tab_modais_transporte` é uma estimativa amostral ponderada (viagens/dia declaradas), enquanto `tab_sinistros_moto`, `tab_mortes_moto` e as tabelas da Faixa Azul são contagens administrativas de registros (sinistros e óbitos). Não comparar `trips`/`share` de um com `mortes`/`sinistros` do outro sem essa ressalva. As tabelas da Faixa Azul também usam recorte diferente das outras duas de sinistros/mortes (só avenidas com faixa azul, 2021–2025, sinistro fatal por veículo envolvido — não por vítima), então totais não devem ser somados diretamente.
+- As tabelas usam fontes e unidades de análise diferentes: `tab_modais_transporte` é uma estimativa amostral ponderada (viagens/dia declaradas), enquanto o par `tab_*_tipo_veiculo` e as tabelas da Faixa Azul são contagens administrativas de registros (sinistros e óbitos). Não comparar `trips`/`share` de um com `mortes`/`veiculos` do outro sem essa ressalva. As tabelas da Faixa Azul também usam recorte diferente (só avenidas com faixa azul, sinistro fatal por veículo envolvido — não por vítima), então totais não devem ser somados diretamente.
 - Nenhuma das tabelas de sinistros/mortes pondera por exposição (ex.: km percorridos, frota) — são contagens absolutas e participações relativas dentro da própria base.
 - A decisão de tratar táxi/app como "Automóvel" e mototáxi como "Moto" é uma escolha de agrupamento por natureza do veículo, não por natureza do serviço (transporte remunerado vs. privado) — vale confirmar se essa é a leitura que a equipe quer para a narrativa.
