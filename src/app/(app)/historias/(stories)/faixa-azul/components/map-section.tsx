@@ -17,7 +17,6 @@ import {
   FLY_TO_DURATION_MS,
   MAP_PHASE_A,
   MAP_PHASE_B,
-  MAP_PHASE_C,
   MAPBOX_STYLE,
   PRIMEIRA_IMPLANTACAO_GEOJSON,
   PRIMEIRA_IMPLANTACAO_LABEL_ANCHOR,
@@ -90,7 +89,7 @@ function PrimeiraImplantacaoLabel({ visible }: { visible: boolean }) {
   );
 }
 
-type MapPhaseId = "A" | "B" | "C";
+type MapPhaseId = "A" | "B";
 
 type MapboxMapInstance = {
   isStyleLoaded: () => boolean;
@@ -160,14 +159,7 @@ function applyPhase(
     return;
   }
 
-  if (phaseId === "B") {
-    flyToPhase(map, MAP_PHASE_B);
-    togglePrimeiraImplantacao(map, false);
-    toggleTrechosLayer(map, true);
-    return;
-  }
-
-  flyToPhase(map, MAP_PHASE_C);
+  flyToPhase(map, MAP_PHASE_B);
   togglePrimeiraImplantacao(map, false);
   toggleTrechosLayer(map, true);
 }
@@ -271,9 +263,8 @@ export default function MapSection() {
           trigger: card1Ref.current,
           start: "center center",
           end: "bottom center",
-          onEnter: () => setPhase("C"),
-          onEnterBack: () => setPhase("C"),
-          onLeaveBack: () => setPhase("B"),
+          onEnter: () => setPhase("B"),
+          onEnterBack: () => setPhase("B"),
         }),
       );
 
@@ -282,8 +273,8 @@ export default function MapSection() {
           trigger: card2Ref.current,
           start: "center center",
           end: "bottom center",
-          onEnter: () => setPhase("C"),
-          onEnterBack: () => setPhase("C"),
+          onEnter: () => setPhase("B"),
+          onEnterBack: () => setPhase("B"),
         }),
       );
 

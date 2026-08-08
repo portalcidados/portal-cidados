@@ -109,13 +109,6 @@ export const MAP_PHASE_B: MapPhase = {
   zoom: 10.6,
 };
 
-/** Fase C — zoom na rede de trechos */
-export const MAP_PHASE_C: MapPhase = {
-  longitude: -46.63556,
-  latitude: -23.56262,
-  zoom: 13.56,
-};
-
 export const TRECHOS_LAYER_HIDDEN_OPACITY = 0;
 export const TRECHOS_LAYER_VISIBLE_OPACITY = 1;
 
