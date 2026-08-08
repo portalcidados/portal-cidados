@@ -13,17 +13,19 @@ interface ScrollCardProps {
   children: React.ReactNode;
   cardRef: React.RefObject<HTMLDivElement | null>;
   minHeight?: string;
+  className?: string;
 }
 
 function ScrollCard({
   children,
   cardRef,
   minHeight = "130vh",
+  className = "",
 }: ScrollCardProps) {
   return (
     <div
       ref={cardRef}
-      className="flex items-center justify-center px-6 md:px-8"
+      className={`flex items-center justify-center px-6 md:px-8 ${className}`}
       style={{ minHeight, position: "relative", zIndex: 1 }}
     >
       <div
@@ -52,18 +54,46 @@ export default function PictogramSection() {
       for (const t of triggers) t.kill();
       triggers = [];
 
-      cards.forEach((ref, i) => {
-        triggers.push(
-          ScrollTrigger.create({
-            trigger: ref.current,
-            start: "top center",
-            end: "bottom center",
-            onEnter: () => setActiveIndex(i),
-            onEnterBack: () => setActiveIndex(i),
-            onLeaveBack: () => setActiveIndex(Math.max(0, i - 1)),
-          }),
-        );
-      });
+      // Card 0: gráfico 0 (2,8%) enquanto o card está ativo;
+      // na saída (scroll para baixo) troca para o gráfico 1 (39%).
+      triggers.push(
+        ScrollTrigger.create({
+          trigger: card0Ref.current,
+          start: "top center",
+          end: "bottom center",
+          onEnter: () => setActiveIndex(0),
+          onEnterBack: () => setActiveIndex(0),
+          onLeave: () => setActiveIndex(1),
+        }),
+      );
+
+      // Card 1: gráfico 1 (39%) enquanto o card está ativo;
+      // na saída (scroll para baixo) troca para o gráfico 2 (46%).
+      triggers.push(
+        ScrollTrigger.create({
+          trigger: card1Ref.current,
+          start: "top center",
+          end: "bottom center",
+          onEnter: () => setActiveIndex(1),
+          onEnterBack: () => setActiveIndex(1),
+          onLeave: () => setActiveIndex(2),
+          // Entre card 0 e 1 o gráfico 1 deve permanecer (não voltar ao 0).
+          onLeaveBack: () => setActiveIndex(1),
+        }),
+      );
+
+      // Card 2: mantém o gráfico 2 (já ativado na saída do card 1).
+      triggers.push(
+        ScrollTrigger.create({
+          trigger: card2Ref.current,
+          start: "top center",
+          end: "bottom center",
+          onEnter: () => setActiveIndex(2),
+          onEnterBack: () => setActiveIndex(2),
+          // Entre card 1 e 2 o gráfico 2 deve permanecer.
+          onLeaveBack: () => setActiveIndex(2),
+        }),
+      );
 
       requestAnimationFrame(() => ScrollTrigger.refresh());
     };
@@ -101,17 +131,13 @@ export default function PictogramSection() {
       <div>
         <ScrollCard cardRef={card0Ref}>
           <p>
-            <strong>
-              Embora as motocicletas representem apenas cerca de 2,8% dos
-              deslocamentos diários que passam por São Paulo
-            </strong>
-            , elas aparecem em cerca de 39% dos veículos envolvidos em sinistros
-            na cidade.
+            
+              Embora as <strong>motocicletas representem apenas cerca de 2,8% dos
+              deslocamentos diários</strong> que passam por São Paulo, elas aparecem em <strong>cerca de 39% dos veículos envolvidos em sinistros</strong> na cidade.
           </p>
         </ScrollCard>
 
-        <ScrollCard cardRef={card1Ref}>
-          <p>
+        <ScrollCard cardRef={card1Ref} className="mt-[50vh]">          <p>
             O aumento no número de acidentes e mortes envolvendo motociclistas
             acompanha o crescimento acelerado do uso de motos nos últimos anos,{" "}
             <strong>especialmente durante a pandemia</strong>. A expansão dos
@@ -124,7 +150,7 @@ export default function PictogramSection() {
           </p>
         </ScrollCard>
 
-        <ScrollCard cardRef={card2Ref} minHeight="150vh">
+        <ScrollCard cardRef={card2Ref} minHeight="150vh" className="mt-[50vh]">
           <p>
             Nesse cenário de aumento do uso da moto e das mortes de
             motociclistas, a Faixa Azul ganhou força como resposta da Prefeitura
