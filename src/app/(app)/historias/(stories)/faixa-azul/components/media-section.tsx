@@ -227,8 +227,8 @@ export default function MediaSection() {
 
         <ScrollCard
           cardRef={card2Ref}
-          minHeight="280vh"
-          contentDelayVh={20}
+          minHeight="260vh"
+    
           wrapContent={false}
         >
           <div className="flex w-full max-w-xl flex-col gap-[60px]">
@@ -255,15 +255,6 @@ export default function MediaSection() {
                   faixa dedicada.
                 </p>
               </div>
-            </CardBox>
-            <CardBox>
-              <p>
-                Em uma cidade como São Paulo, os sinistros variam por muitos
-                motivos: chuva, horário, volume de tráfego, fiscalização,
-                velocidade, mudanças no comportamento dos motoristas,
-                crescimento das entregas por aplicativo e até oscilações
-                aleatórias de eventos raros, como mortes no trânsito.
-              </p>
             </CardBox>
           </div>
         </ScrollCard>
