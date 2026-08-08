@@ -195,27 +195,33 @@ export default function MediaSection() {
       <div>
         <ScrollCard cardRef={card0Ref}>
           <p>
-            A Faixa Azul demarca uma faixa preferencial, mas não exclusiva e de
-            uso facultativo, para motociclistas. Em São Paulo, ela costuma ser
-            implantada entre as duas faixas mais à esquerda da via. Sinalização
-            por meio de placas também acompanham a intervenção. Veja a seguir
-            alguns prós e contras dessa intervenção:
+            <strong>
+              A Faixa Azul demarca uma faixa preferencial, mas não exclusiva e
+              de uso facultativo, para motociclistas
+            </strong>
+            . Em São Paulo, ela costuma ser implantada entre as duas faixas mais
+            à esquerda da via. Sinalização por meio de placas também acompanham
+            a intervenção.
           </p>
         </ScrollCard>
 
         <ScrollCard cardRef={card1Ref} contentDelayVh={20}>
           <p>
-            A Faixa Azul contribui para organizar o fluxo de motocicletas ao
-            criar um espaço preferencial de circulação, reduzindo conflitos com
-            carros, ônibus e caminhões.{" "}
+            A vantagem da Faixa Azul seria que ela{" "}
             <strong>
-              Isso ajuda a diminuir o &ldquo;efeito de esmagamento&rdquo; das
-              motos entre veículos maiores, aumenta a previsibilidade no
-              trânsito e reduz disputas bruscas por espaço.
-            </strong>{" "}
-            Além disso, é uma solução relativamente rápida e barata de
-            implementar, funcionando melhor em corredores com tráfego intenso,
-            poucas interseções e fluxo mais contínuo.
+              contribui para organizar o fluxo de motocicletas ao criar um
+              espaço preferencial de circulação, reduzindo conflitos com carros,
+              ônibus e caminhões
+            </strong>
+            . Isso ajuda a diminuir o &ldquo;efeito de esmagamento&rdquo; das
+            motos entre veículos maiores, aumenta a previsibilidade no trânsito
+            e reduz disputas bruscas por espaço.
+          </p>
+          <p className="mt-4">
+            Além disso, é uma{" "}
+            <strong>solução relativamente rápida e barata de implementar</strong>
+            , funcionando melhor em corredores com tráfego intenso, poucas
+            interseções e fluxo mais contínuo.
           </p>
         </ScrollCard>
 
@@ -229,23 +235,24 @@ export default function MediaSection() {
             <CardBox>
               <div className="space-y-4">
                 <p>
-                  Por outro lado,{" "}
+                  O lado negativo é que{" "}
                   <strong>
-                    a presença da faixa dedicada pode incentivar motociclistas a
-                    trafegarem em velocidades mais altas, aumentando o risco de
-                    sinistros e a gravidade das lesões.
-                  </strong>{" "}
-                  A sensação de maior segurança pode levar a comportamentos mais
-                  arriscados.
+                    a faixa dedicada pode incentivar motociclistas a trafegarem
+                    em velocidades mais altas, aumentando o risco de sinistros e
+                    a gravidade das lesões
+                  </strong>
+                  . A sensação de maior segurança pode levar a comportamentos
+                  mais arriscados.
                 </p>
                 <p>
-                  A concentração de motocicletas em um mesmo espaço também pode
-                  aumentar o risco de colisões entre motociclistas,
-                  especialmente em horários de pico ou em áreas com cruzamentos.
-                  Além disso, quando motos circulam fora da faixa, elas ficam
-                  mais vulneráveis, sobretudo em vias com muitas entradas e
-                  saídas, já que outros motoristas tendem a presumir que elas
-                  estão restritas à faixa dedicada.
+                  Além disso,{" "}
+                  <strong>
+                    quando motos circulam fora da faixa, elas ficam mais
+                    vulneráveis
+                  </strong>
+                  , sobretudo em vias com muitas entradas e saídas, já que
+                  outros motoristas tendem a presumir que elas estão restritas à
+                  faixa dedicada.
                 </p>
               </div>
             </CardBox>
