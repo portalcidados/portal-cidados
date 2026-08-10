@@ -296,7 +296,6 @@ export const cityLayersConfig: CityLayersConfig = {
       sourceLayer: "gastos_ubs_distritos-c6rpx4",
       layerType: "fill",
       hasCustomStyle: true,
-      catalogItemId: "6",
       mapView: saoPauloMapView,
     },
     {

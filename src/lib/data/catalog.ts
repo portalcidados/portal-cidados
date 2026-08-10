@@ -208,31 +208,6 @@ export const catalogData: DataCatalogItem[] = [
     ],
   },
   {
-    id: "5",
-    title: "Gastos com UBS por distrito [2019]",
-    description:
-      'Gastos com Unidades Básicas de Saúde por Distrito Administrativo na cidade de São Paulo em 2019. Valores absolutos e per capita.\nConjunto de dados preparado para o relatório "Síntese de evidências sobre saúde no município de São Paulo" [2024].',
-    theme: "Saúde",
-    region: "São Paulo",
-    accessMethod: "Disponível para download",
-    keywords: [
-      "Saúde Pública",
-      "Investimento em Saúde Pública",
-      "Unidade Básica de Saúde",
-      "São Paulo",
-    ],
-    createdAt: "2026-08-07",
-    tags: ["Saúde", "São Paulo", "Disponível para download"],
-    dataset_info: [
-      {
-        dataset_title: "Gastos com UBS por distrito [2019]",
-        dataset_description:
-          "Gastos com Unidades Básicas de Saúde por Distrito Administrativo na cidade de São Paulo em 2019. Valores absolutos e per capita.",
-        dataset_link: "arquivado",
-      },
-    ],
-  },
-  {
     id: "6",
     title: "Imposto sobre Transmissão de Bens Imóveis (ITBI) [2006-2025]",
     description:

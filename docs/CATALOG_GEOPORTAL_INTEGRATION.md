@@ -90,7 +90,7 @@ A tabela abaixo documenta todas as relações entre camadas do Geoportal e regis
 | São Paulo | `raster-dbiubd` | Verticalização (grid) | **3** | Densidade Populacional e Verticalização [2022,2024] |
 | São Paulo | `populacao-por-distrito-spo` | População Feminina (distrito) | **3** | Densidade Populacional e Verticalização [2022,2024] |
 | São Paulo | `geoses-spo` | GeoSES | **17** | Índice GeoSES [2010] |
-| São Paulo | `gastos_ubs_distritos-c6rpx4` | Gastos UBS (distrito) | **6** | Gastos com UBS por distrito [2019] |
+| São Paulo | `gastos_ubs_distritos-c6rpx4` | Gastos UBS (distrito) | — | *(sem correspondência no catálogo)* |
 | São Paulo | `obitos-47q8aj` | Óbitos por Doenças Cerebrovasculares | **11** | Mortalidade prematura por distrito [2019] |
 | Brasil | `tarifa_zero` | Tarifa Zero | — | *(sem correspondência no catálogo)* |
 

@@ -15,6 +15,6 @@ São Paulo,verticalizacao-distrito-spo,Verticalização (distrito),3,Densidade P
 São Paulo,raster-dbiubd,Verticalização (grid),3,Densidade Populacional e Verticalização [2022-2024],Mapeado
 São Paulo,populacao-por-distrito-spo,População Feminina (distrito),3,Densidade Populacional e Verticalização [2022-2024],Mapeado
 São Paulo,geoses-spo,GeoSES,17,Índice GeoSES [2010],Mapeado
-São Paulo,gastos_ubs_distritos-c6rpx4,Gastos UBS (distrito),6,Gastos com UBS por distrito [2019],Mapeado
+São Paulo,gastos_ubs_distritos-c6rpx4,Gastos UBS (distrito),-,-,Sem correspondência no catálogo
 São Paulo,obitos-47q8aj,Óbitos por Doenças Cerebrovasculares (femi.),11,Mortalidade prematura por distrito [2019],Mapeado
 Brasil,tarifa_zero,Tarifa Zero,-,-,Sem correspondência no catálogo

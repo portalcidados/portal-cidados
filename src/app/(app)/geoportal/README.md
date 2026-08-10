@@ -137,7 +137,7 @@ sequenceDiagram
 | `raster-dbiubd` | Verticalização (grid) | [Item 3](/catalogo-de-dados?item=3) |
 | `populacao-por-distrito-spo` | População Feminina (distrito) | [Item 3](/catalogo-de-dados?item=3) |
 | `geoses-spo` | GeoSES | [Item 17](/catalogo-de-dados?item=17) |
-| `gastos_ubs_distritos-c6rpx4` | Gastos UBS (distrito) | [Item 6](/catalogo-de-dados?item=6) |
+| `gastos_ubs_distritos-c6rpx4` | Gastos UBS (distrito) | Sem correspondência no catálogo |
 | `obitos-47q8aj` | Óbitos por Doenças Cerebrovasculares | [Item 11](/catalogo-de-dados?item=11) |
 
 ---
