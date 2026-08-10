@@ -83,7 +83,7 @@ export const cityLayersConfig: CityLayersConfig = {
       sourceLayer: "ic_areas-3ii8xj",
       layerType: "fill",
       hasCustomStyle: true,
-      catalogItemId: "9",
+      catalogItemId: "8",
       mapView: {
         center: [-43.269054, -22.84302],
         zoom: 12.29,
@@ -100,7 +100,7 @@ export const cityLayersConfig: CityLayersConfig = {
       sourceLayer: "ic_pontos-90vwh4",
       layerType: "circle",
       hasCustomStyle: true,
-      catalogItemId: "9",
+      catalogItemId: "8",
       mapView: {
         center: [-43.259054, -22.86302],
         zoom: 12.36,
@@ -117,7 +117,7 @@ export const cityLayersConfig: CityLayersConfig = {
       sourceLayer: "quali_area-1ci0wo",
       layerType: "fill",
       hasCustomStyle: true,
-      catalogItemId: "10",
+      catalogItemId: "8",
       mapView: {
         center: [-43.269054, -22.84302],
         zoom: 12.29,
@@ -134,7 +134,7 @@ export const cityLayersConfig: CityLayersConfig = {
       sourceLayer: "quali_pontos-b424eh",
       layerType: "circle",
       hasCustomStyle: true,
-      catalogItemId: "10",
+      catalogItemId: "8",
       mapView: {
         center: [-43.259054, -22.86302],
         zoom: 12.36,
@@ -153,7 +153,7 @@ export const cityLayersConfig: CityLayersConfig = {
       sourceLayer: "faixa-azul-trechos-spo",
       layerType: "line",
       hasCustomStyle: true,
-      catalogItemId: "16",
+      catalogItemId: "15",
       mapView: saoPauloNorthMapView,
     },
     {
@@ -165,7 +165,7 @@ export const cityLayersConfig: CityLayersConfig = {
       sourceLayer: "sinistros-por-distrito-spo",
       layerType: "fill",
       hasCustomStyle: true,
-      catalogItemId: "15",
+      catalogItemId: "14",
       mapView: saoPauloMapView,
     },
     {
@@ -177,7 +177,7 @@ export const cityLayersConfig: CityLayersConfig = {
       sourceLayer: "sinistros-por-trecho-spo",
       layerType: "line",
       hasCustomStyle: true,
-      catalogItemId: "15",
+      catalogItemId: "14",
       mapView: saoPauloNorthMapView,
     },
     {
@@ -189,7 +189,7 @@ export const cityLayersConfig: CityLayersConfig = {
       sourceLayer: "densidade_hab_setor",
       layerType: "fill",
       hasCustomStyle: true,
-      catalogItemId: "3",
+      catalogItemId: "2",
       mapView: saoPauloMapView,
     },
     {
@@ -201,7 +201,7 @@ export const cityLayersConfig: CityLayersConfig = {
       sourceLayer: "densidade-hab-distrito-spo",
       layerType: "fill",
       hasCustomStyle: true,
-      catalogItemId: "3",
+      catalogItemId: "2",
       mapView: saoPauloMapView,
     },
     {
@@ -213,7 +213,7 @@ export const cityLayersConfig: CityLayersConfig = {
       sourceLayer: "densidade_pop_setor_spo",
       layerType: "fill",
       hasCustomStyle: true,
-      catalogItemId: "3",
+      catalogItemId: "2",
       mapView: saoPauloMapView,
     },
     {
@@ -225,7 +225,7 @@ export const cityLayersConfig: CityLayersConfig = {
       sourceLayer: "densidade-pop-distrito-spo",
       layerType: "fill",
       hasCustomStyle: true,
-      catalogItemId: "3",
+      catalogItemId: "2",
       mapView: saoPauloMapView,
     },
     {
@@ -237,7 +237,7 @@ export const cityLayersConfig: CityLayersConfig = {
       sourceLayer: "verticalizacao_setor",
       layerType: "fill",
       hasCustomStyle: true,
-      catalogItemId: "3",
+      catalogItemId: "2",
       mapView: saoPauloMapView,
     },
     {
@@ -249,7 +249,7 @@ export const cityLayersConfig: CityLayersConfig = {
       sourceLayer: "verticalizacao-distrito-spo",
       layerType: "fill",
       hasCustomStyle: true,
-      catalogItemId: "3",
+      catalogItemId: "2",
       mapView: saoPauloMapView,
     },
     {
@@ -261,7 +261,7 @@ export const cityLayersConfig: CityLayersConfig = {
       sourceLayer: "raster-dbiubd",
       layerType: "fill",
       hasCustomStyle: true,
-      catalogItemId: "3",
+      catalogItemId: "2",
       mapView: saoPauloNorthMapView,
     },
     {
@@ -272,7 +272,7 @@ export const cityLayersConfig: CityLayersConfig = {
       sourceLayer: "populacao-por-distrito-spo",
       layerType: "fill",
       hasCustomStyle: true,
-      catalogItemId: "3",
+      catalogItemId: "2",
       mapView: saoPauloMapView,
     },
     {
@@ -284,7 +284,7 @@ export const cityLayersConfig: CityLayersConfig = {
       sourceLayer: "geoses-spo",
       layerType: "fill",
       hasCustomStyle: true,
-      catalogItemId: "17",
+      catalogItemId: "16",
       mapView: saoPauloMapView,
     },
     {
@@ -307,7 +307,7 @@ export const cityLayersConfig: CityLayersConfig = {
       sourceLayer: "obitos-47q8aj",
       layerType: "fill",
       hasCustomStyle: true,
-      catalogItemId: "11",
+      catalogItemId: "9",
       mapView: saoPauloMapView,
     },
   ],

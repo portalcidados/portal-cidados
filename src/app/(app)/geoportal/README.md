@@ -116,29 +116,29 @@ sequenceDiagram
 
 | ID | Nome | Catálogo |
 |---|---|---|
-| `ic_areas-3ii8xj` | Ilhas de Calor | [Item 9](/catalogo-de-dados?item=9) |
-| `ic_pontos-90vwh4` | Ilhas de Calor (pontos de captura) | [Item 9](/catalogo-de-dados?item=9) |
-| `quali_area-1ci0wo` | Qualidade do Ar | [Item 10](/catalogo-de-dados?item=10) |
-| `quali_pontos-b424eh` | Qualidade do Ar (pontos de captura) | [Item 10](/catalogo-de-dados?item=10) |
+| `ic_areas-3ii8xj` | Ilhas de Calor | [Item 8](/catalogo-de-dados?item=8) |
+| `ic_pontos-90vwh4` | Ilhas de Calor (pontos de captura) | [Item 8](/catalogo-de-dados?item=8) |
+| `quali_area-1ci0wo` | Qualidade do Ar | [Item 8](/catalogo-de-dados?item=8) |
+| `quali_pontos-b424eh` | Qualidade do Ar (pontos de captura) | [Item 8](/catalogo-de-dados?item=8) |
 
 ### São Paulo
 
 | ID | Nome | Catálogo |
 |---|---|---|
-| `faixa-azul-trechos-spo` | Faixa Azul | [Item 16](/catalogo-de-dados?item=16) |
-| `sinistros-por-distrito-spo` | Sinistros por Distrito | [Item 15](/catalogo-de-dados?item=15) |
-| `sinistros-por-trecho-spo` | Sinistros em Trechos de Vias | [Item 15](/catalogo-de-dados?item=15) |
-| `densidade-hab-setor` | Densidade Hab. (setor censitário) | [Item 3](/catalogo-de-dados?item=3) |
-| `densidade-hab-distrito-spo` | Densidade Hab. (distrito) | [Item 3](/catalogo-de-dados?item=3) |
-| `densidade-pop-setor-spo` | Densidade Pop. (setor censitário) | [Item 3](/catalogo-de-dados?item=3) |
-| `densidade-pop-distrito-spo` | Densidade Pop. (distrito) | [Item 3](/catalogo-de-dados?item=3) |
-| `verticalizacao-setor` | Verticalização (setor censitário) | [Item 3](/catalogo-de-dados?item=3) |
-| `verticalizacao-distrito-spo` | Verticalização (distrito) | [Item 3](/catalogo-de-dados?item=3) |
-| `raster-dbiubd` | Verticalização (grid) | [Item 3](/catalogo-de-dados?item=3) |
-| `populacao-por-distrito-spo` | População Feminina (distrito) | [Item 3](/catalogo-de-dados?item=3) |
-| `geoses-spo` | GeoSES | [Item 17](/catalogo-de-dados?item=17) |
+| `faixa-azul-trechos-spo` | Faixa Azul | [Item 15](/catalogo-de-dados?item=15) |
+| `sinistros-por-distrito-spo` | Sinistros por Distrito | [Item 14](/catalogo-de-dados?item=14) |
+| `sinistros-por-trecho-spo` | Sinistros em Trechos de Vias | [Item 14](/catalogo-de-dados?item=14) |
+| `densidade-hab-setor` | Densidade Hab. (setor censitário) | [Item 2](/catalogo-de-dados?item=2) |
+| `densidade-hab-distrito-spo` | Densidade Hab. (distrito) | [Item 2](/catalogo-de-dados?item=2) |
+| `densidade-pop-setor-spo` | Densidade Pop. (setor censitário) | [Item 2](/catalogo-de-dados?item=2) |
+| `densidade-pop-distrito-spo` | Densidade Pop. (distrito) | [Item 2](/catalogo-de-dados?item=2) |
+| `verticalizacao-setor` | Verticalização (setor censitário) | [Item 2](/catalogo-de-dados?item=2) |
+| `verticalizacao-distrito-spo` | Verticalização (distrito) | [Item 2](/catalogo-de-dados?item=2) |
+| `raster-dbiubd` | Verticalização (grid) | [Item 2](/catalogo-de-dados?item=2) |
+| `populacao-por-distrito-spo` | População Feminina (distrito) | [Item 2](/catalogo-de-dados?item=2) |
+| `geoses-spo` | GeoSES | [Item 16](/catalogo-de-dados?item=16) |
 | `gastos_ubs_distritos-c6rpx4` | Gastos UBS (distrito) | Sem correspondência no catálogo |
-| `obitos-47q8aj` | Óbitos por Doenças Cerebrovasculares | [Item 11](/catalogo-de-dados?item=11) |
+| `obitos-47q8aj` | Óbitos por Doenças Cerebrovasculares | [Item 9](/catalogo-de-dados?item=9) |
 
 ---
 

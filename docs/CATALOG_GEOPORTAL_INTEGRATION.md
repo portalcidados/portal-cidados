@@ -20,7 +20,7 @@ graph LR
         G2["Link 'Acessar base de dados'"]
     end
 
-    G2 -->|"?item=9"| C1
+    G2 -->|"?item=8"| C1
     C2 -->|"?city=...&layers=..."| G1
 ```
 
@@ -34,8 +34,8 @@ graph LR
 
 1. O usuário seleciona uma camada (ex: **Ilhas de Calor**)
 2. Abaixo do slider de opacidade, aparece o link **"Acessar base de dados"**
-3. O clique navega para `/catalogo-de-dados?item=9`
-4. O Catálogo de Dados abre com o modal do registro **"Medições de temperatura e umidade do ar, Favela da Maré-RJ [2023]"** já expandido
+3. O clique navega para `/catalogo-de-dados?item=8`
+4. O Catálogo de Dados abre com o modal do registro **"Medições de ilhas de calor e qualidade do ar, Favela da Maré-RJ [2023]"** já expandido
 
 ### Caso 2 — Catálogo → Geoportal
 
@@ -74,27 +74,27 @@ A tabela abaixo documenta todas as relações entre camadas do Geoportal e regis
 
 | Cidade | Layer ID | Nome da Camada | Catalog ID | Título no Catálogo |
 |---|---|---|---|---|
-| Rio de Janeiro | `ic_areas-3ii8xj` | Ilhas de Calor | **9** | Medições de temperatura e umidade do ar, Favela da Maré-RJ [2023] |
-| Rio de Janeiro | `ic_pontos-90vwh4` | Ilhas de Calor (pontos de captura) | **9** | Medições de temperatura e umidade do ar, Favela da Maré-RJ [2023] |
-| Rio de Janeiro | `quali_area-1ci0wo` | Qualidade do Ar | **10** | Medições e qualidade do ar, Favela da Maré-RJ [2023] |
-| Rio de Janeiro | `quali_pontos-b424eh` | Qualidade do Ar (pontos de captura) | **10** | Medições e qualidade do ar, Favela da Maré-RJ [2023] |
-| São Paulo | `faixa-azul-trechos-spo` | Faixa Azul | **16** | Trechos com Faixas Dedicadas a Motociclistas (Faixa Azul) [2022-2025] |
-| São Paulo | `sinistros-por-distrito-spo` | Sinistros por Distrito | **15** | Sinistros de Trânsito [2022-2025] |
-| São Paulo | `sinistros-por-trecho-spo` | Sinistros em Trechos de Vias | **15** | Sinistros de Trânsito [2022-2025] |
-| São Paulo | `densidade-hab-setor` | Densidade Hab. (setor censitário) | **3** | Densidade Populacional e Verticalização [2022,2024] |
-| São Paulo | `densidade-hab-distrito-spo` | Densidade Hab. (distrito) | **3** | Densidade Populacional e Verticalização [2022,2024] |
-| São Paulo | `densidade-pop-setor-spo` | Densidade Pop. (setor censitário) | **3** | Densidade Populacional e Verticalização [2022,2024] |
-| São Paulo | `densidade-pop-distrito-spo` | Densidade Pop. (distrito) | **3** | Densidade Populacional e Verticalização [2022,2024] |
-| São Paulo | `verticalizacao-setor` | Verticalização (setor censitário) | **3** | Densidade Populacional e Verticalização [2022,2024] |
-| São Paulo | `verticalizacao-distrito-spo` | Verticalização (distrito) | **3** | Densidade Populacional e Verticalização [2022,2024] |
-| São Paulo | `raster-dbiubd` | Verticalização (grid) | **3** | Densidade Populacional e Verticalização [2022,2024] |
-| São Paulo | `populacao-por-distrito-spo` | População Feminina (distrito) | **3** | Densidade Populacional e Verticalização [2022,2024] |
-| São Paulo | `geoses-spo` | GeoSES | **17** | Índice GeoSES [2010] |
+| Rio de Janeiro | `ic_areas-3ii8xj` | Ilhas de Calor | **8** | Medições de ilhas de calor e qualidade do ar, Favela da Maré-RJ [2023] |
+| Rio de Janeiro | `ic_pontos-90vwh4` | Ilhas de Calor (pontos de captura) | **8** | Medições de ilhas de calor e qualidade do ar, Favela da Maré-RJ [2023] |
+| Rio de Janeiro | `quali_area-1ci0wo` | Qualidade do Ar | **8** | Medições de ilhas de calor e qualidade do ar, Favela da Maré-RJ [2023] |
+| Rio de Janeiro | `quali_pontos-b424eh` | Qualidade do Ar (pontos de captura) | **8** | Medições de ilhas de calor e qualidade do ar, Favela da Maré-RJ [2023] |
+| São Paulo | `faixa-azul-trechos-spo` | Faixa Azul | **15** | Trechos com Faixas Dedicadas a Mociclistas (Faixa Azul) [2022-2025] |
+| São Paulo | `sinistros-por-distrito-spo` | Sinistros por Distrito | **14** | Sinistros de Trânsito [2022-2025] |
+| São Paulo | `sinistros-por-trecho-spo` | Sinistros em Trechos de Vias | **14** | Sinistros de Trânsito [2022-2025] |
+| São Paulo | `densidade-hab-setor` | Densidade Hab. (setor censitário) | **2** | Densidade Populacional e Verticalização [2022,2024] |
+| São Paulo | `densidade-hab-distrito-spo` | Densidade Hab. (distrito) | **2** | Densidade Populacional e Verticalização [2022,2024] |
+| São Paulo | `densidade-pop-setor-spo` | Densidade Pop. (setor censitário) | **2** | Densidade Populacional e Verticalização [2022,2024] |
+| São Paulo | `densidade-pop-distrito-spo` | Densidade Pop. (distrito) | **2** | Densidade Populacional e Verticalização [2022,2024] |
+| São Paulo | `verticalizacao-setor` | Verticalização (setor censitário) | **2** | Densidade Populacional e Verticalização [2022,2024] |
+| São Paulo | `verticalizacao-distrito-spo` | Verticalização (distrito) | **2** | Densidade Populacional e Verticalização [2022,2024] |
+| São Paulo | `raster-dbiubd` | Verticalização (grid) | **2** | Densidade Populacional e Verticalização [2022,2024] |
+| São Paulo | `populacao-por-distrito-spo` | População Feminina (distrito) | **2** | Densidade Populacional e Verticalização [2022,2024] |
+| São Paulo | `geoses-spo` | GeoSES | **16** | Índice GeoSES [2010] |
 | São Paulo | `gastos_ubs_distritos-c6rpx4` | Gastos UBS (distrito) | — | *(sem correspondência no catálogo)* |
-| São Paulo | `obitos-47q8aj` | Óbitos por Doenças Cerebrovasculares | **11** | Mortalidade prematura por distrito [2019] |
+| São Paulo | `obitos-47q8aj` | Óbitos por Doenças Cerebrovasculares | **9** | Mortalidade prematura por distrito [2019] |
 | Brasil | `tarifa_zero` | Tarifa Zero | — | *(sem correspondência no catálogo)* |
 
-> **Nota:** quando múltiplas camadas apontam para o mesmo `catalogItemId` (ex: catálogo 3 com 7 layers de SP), o botão "Ver dados no mapa" ativa **todas** essas camadas simultaneamente.
+> **Nota:** quando múltiplas camadas apontam para o mesmo `catalogItemId` (ex: catálogo 2 com 8 layers de SP), o botão "Ver dados no mapa" ativa **todas** essas camadas simultaneamente.
 
 ---
 
@@ -146,18 +146,18 @@ sequenceDiagram
 
     Note over User,CP: Fluxo 1 — Geoportal → Catálogo
     User->>CL: Ativa camada "Ilhas de Calor"
-    CL->>CLT: layer.catalogItemId === "9"
-    CL->>User: Exibe link "Acessar base de dados" → /catalogo-de-dados?item=9
+    CL->>CLT: layer.catalogItemId === "8"
+    CL->>User: Exibe link "Acessar base de dados" → /catalogo-de-dados?item=8
     User->>CP: Navega para a URL
-    CP->>CP: useSearchParams() → openItemId = "9"
-    CP->>DP: initialOpen={item.id === "9"}
-    DP->>User: Modal do item 9 aberto automaticamente
+    CP->>CP: useSearchParams() → openItemId = "8"
+    CP->>DP: initialOpen={item.id === "8"}
+    DP->>User: Modal do item 8 aberto automaticamente
 
     Note over User,CP: Fluxo 2 — Catálogo → Geoportal
-    User->>DP: Abre modal do item 9
-    DP->>CLT: getLayersForCatalogItem("9")
-    CLT->>DP: [{city: "Rio de Janeiro", layerIds: ["ic_areas-3ii8xj", "ic_pontos-90vwh4"]}]
-    DP->>User: Exibe botão → /geoportal?city=Rio+de+Janeiro&layers=ic_areas-3ii8xj,ic_pontos-90vwh4
+    User->>DP: Abre modal do item 8
+    DP->>CLT: getLayersForCatalogItem("8")
+    CLT->>DP: [{city: "Rio de Janeiro", layerIds: ["ic_areas-3ii8xj", "ic_pontos-90vwh4", "quali_area-1ci0wo", "quali_pontos-b424eh"]}]
+    DP->>User: Exibe botão → /geoportal?city=Rio+de+Janeiro&layers=ic_areas-3ii8xj,ic_pontos-90vwh4,quali_area-1ci0wo,quali_pontos-b424eh
     User->>CL: Navega para o Geoportal
     CL->>CL: useSearchParams() → inicializa estado com city + layers
     CL->>User: Mapa com camadas já ativas
