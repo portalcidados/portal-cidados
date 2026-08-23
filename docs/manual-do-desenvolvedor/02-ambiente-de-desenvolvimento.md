@@ -33,7 +33,7 @@ npm install
 
 # 2. Crie o arquivo de variáveis de ambiente local
 #    (veja a seção "Variáveis de ambiente" abaixo)
-cp .env .env.local   # se existir um .env de exemplo; caso contrário crie do zero
+cp .env.example .env.local
 
 # 3. Suba o servidor de desenvolvimento
 npm run dev
@@ -53,14 +53,21 @@ Git). Nunca faça commit de tokens ou IDs.
 
 | Variável | Obrigatória | Usada em | Descrição |
 |---|---|---|---|
+| `NEXT_PUBLIC_SITE_URL` | Sim (produção) | [`src/lib/seo.ts`](../../src/lib/seo.ts), sitemap, robots, canonicals | URL canônica do ambiente, sem barra final. Produção: `https://cidados.insper.edu.br` (único host indexado). Preview: `https://portal-cidados.vercel.app`. Local: `http://localhost:3000`. Vercel/local saem com `noindex`. Fallback: domínio institucional. |
 | `NEXT_PUBLIC_MAPBOX_TOKEN` | Sim (para mapas) | Geoportal e histórias com Mapbox | Token público do Mapbox (`pk.eyJ1...`) |
 | `NEXT_PUBLIC_GOOGLE_ANALYTICS_ID` | Não | [`layout.tsx`](../../src/app/layout.tsx) | Measurement ID do GA4 (`G-XXXXXXXXXX`) |
 | `NEXT_PUBLIC_CLARITY_ID` | Não | [`clarity-init.tsx`](../../src/components/clarity-init.tsx) | Project ID do Microsoft Clarity |
+| `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` | Não | Metadata raiz (`verification.google`) | Código da meta tag do Google Search Console. Alias aceito: `NEXT_PUBLIC_GSC_VERIFICATION`. |
+| `NEXT_PUBLIC_BING_SITE_VERIFICATION` | Não | Metadata raiz (`verification.other`) | Código da meta tag do Bing Webmaster Tools (`msvalidate.01`). |
 | `NEXT_PUBLIC_MAPBOX_STYLE_ADENSAMENTO` | Não | História `adensamento` | Style URL customizado do Mapbox para essa história |
+
+Há um [`.env.example`](../../.env.example) na raiz com todas as chaves. Copie-o
+para `.env.local` e preencha os valores.
 
 Exemplo de `.env.local`:
 
 ```env
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
 NEXT_PUBLIC_MAPBOX_TOKEN=pk.eyJ1Ijoi...seu-token...
 NEXT_PUBLIC_GOOGLE_ANALYTICS_ID=G-XXXXXXXXXX
 NEXT_PUBLIC_CLARITY_ID=xxxxxxxxxx

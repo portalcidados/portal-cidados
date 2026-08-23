@@ -1,10 +1,10 @@
 "use client";
 
-import { getCollaborators } from "@/lib/data/collaborators";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { FreeMode } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { getCollaborators } from "@/lib/data/collaborators";
 
 // Import Swiper styles
 import "swiper/css";

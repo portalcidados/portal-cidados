@@ -1,23 +1,23 @@
 "use client";
 
-import { Fragment, useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Fragment, useLayoutEffect, useRef, useState } from "react";
 import { Map as MapboxMap, Marker } from "react-map-gl/mapbox";
 import "mapbox-gl/dist/mapbox-gl.css";
 import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
+import mapaDeCO2 from "../assets/mapa-de-co2.png";
+import mapaDeHCHO from "../assets/mapa-de-hcho.png";
+import mapaDePM10 from "../assets/mapa-de-pm10.png";
+import mapaDePM25 from "../assets/mapa-de-pm25.png";
+import mapaDeUmidade from "../assets/mapa-de-umidade.png";
 import novaHolandaSvg from "../assets/nova-holanda.svg";
 import novaHolandaMobileSvg from "../assets/nova-holanda-mobile.svg";
 import parqueEcologicoSvg from "../assets/parque-ecologico.svg";
 import parqueEcologicoMobileSvg from "../assets/parque-ecologico-mobile.svg";
 import piscinao2Svg from "../assets/piscinao2.svg";
 import piscinao2MobileSvg from "../assets/piscinao2-mobile.svg";
-import mapaDeCO2 from "../assets/mapa-de-co2.png";
-import mapaDeHCHO from "../assets/mapa-de-hcho.png";
-import mapaDePM10 from "../assets/mapa-de-pm10.png";
-import mapaDePM25 from "../assets/mapa-de-pm25.png";
-import mapaDeUmidade from "../assets/mapa-de-umidade.png";
 
 gsap.registerPlugin(ScrollTrigger);
 

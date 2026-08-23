@@ -1,14 +1,10 @@
 "use client";
 
-import { useLayoutEffect, useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import {
-  brandColor,
-  faixaChartImage,
-  fechadaFaixaVideo,
-} from "../constants";
+import { useLayoutEffect, useRef, useState } from "react";
+import { brandColor, faixaChartImage, fechadaFaixaVideo } from "../constants";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -219,18 +215,15 @@ export default function MediaSection() {
           </p>
           <p className="mt-4">
             Além disso, é uma{" "}
-            <strong>solução relativamente rápida e barata de implementar</strong>
+            <strong>
+              solução relativamente rápida e barata de implementar
+            </strong>
             , funcionando melhor em corredores com tráfego intenso, poucas
             interseções e fluxo mais contínuo.
           </p>
         </ScrollCard>
 
-        <ScrollCard
-          cardRef={card2Ref}
-          minHeight="260vh"
-    
-          wrapContent={false}
-        >
+        <ScrollCard cardRef={card2Ref} minHeight="260vh" wrapContent={false}>
           <div className="flex w-full max-w-xl flex-col gap-[60px]">
             <CardBox>
               <div className="space-y-4">

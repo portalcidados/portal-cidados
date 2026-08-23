@@ -109,31 +109,42 @@ A `page.tsx` declara os metadados e a ordem narrativa das seções. Exemplo real
 
 ```tsx
 // src/app/(app)/historias/(stories)/faixa-azul/page.tsx
-export const metadata: Metadata = {
-  title: "A Faixa Azul tornou o trânsito mais seguro? | Portal Cidados",
+export const metadata: Metadata = buildMetadata({
+  title: "A Faixa Azul tornou o trânsito mais seguro?",
   description: "Avaliação do impacto das faixas dedicadas à motociclistas ...",
-};
+  path: "/historias/faixa-azul",
+  image: "/assets/viz4/viz4.1.png",
+  type: "article",
+});
 
 export default function FaixaAzulPage() {
   return (
-    <PreloadWrapper imageSources={assetsToPreload} videoSources={videosToPreload}>
-      <div className="bg-white!">
-        <ScrollProgressBar barColor={brandColor} />
-        <Intro />            {/* capa */}
-        <Context />          {/* corpo */}
-        <PictogramSection /> {/* scrolly: gráfico */}
-        <MediaSection />     {/* scrolly: mídia */}
-        <FactorsSection />   {/* scrolly: fatores */}
-        <MapSection />       {/* scrolly: Mapbox */}
-        <OsmText />          {/* corpo */}
-        <ChartTwo />         {/* scrolly: timeline */}
-        <AfterChartTwoText />
-        <FinalSection />     {/* scrolly: recomendações */}
-        <Footer />
-        <ScrollToTopIcon />
-        <ContinueScrollingHint />
-      </div>
-    </PreloadWrapper>
+    <>
+      <StoryJsonLd
+        title="A Faixa Azul tornou o trânsito mais seguro?"
+        description="Avaliação do impacto das faixas dedicadas à motociclistas ..."
+        path="/historias/faixa-azul"
+        image="/assets/viz4/viz4.1.png"
+      />
+      <PreloadWrapper imageSources={assetsToPreload} videoSources={videosToPreload}>
+        <div className="bg-white!">
+          <ScrollProgressBar barColor={brandColor} />
+          <Intro />            {/* capa */}
+          <Context />          {/* corpo */}
+          <PictogramSection /> {/* scrolly: gráfico */}
+          <MediaSection />     {/* scrolly: mídia */}
+          <FactorsSection />   {/* scrolly: fatores */}
+          <MapSection />       {/* scrolly: Mapbox */}
+          <OsmText />          {/* corpo */}
+          <ChartTwo />         {/* scrolly: timeline */}
+          <AfterChartTwoText />
+          <FinalSection />     {/* scrolly: recomendações */}
+          <Footer />
+          <ScrollToTopIcon />
+          <ContinueScrollingHint />
+        </div>
+      </PreloadWrapper>
+    </>
   );
 }
 ```
@@ -502,8 +513,9 @@ A URL será `/historias/<slug-kebab>` (o grupo `(stories)` é invisível).
 
 **2. Defina `constants.ts`** — cor de marca, título, autores, caminhos de mídia.
 
-**3. Implemente a `page.tsx`** — `metadata` + `PreloadWrapper` + ordem das
-seções (capa → corpo → scrolly → footer + chrome de UX).
+**3. Implemente a `page.tsx`** — `buildMetadata()` + `StoryJsonLd` +
+`PreloadWrapper` + ordem das seções (capa → corpo → scrolly → footer + chrome
+de UX). Ver [capítulo 11](./11-seo-e-monitoramento.md) para o contrato de SEO.
 
 **4. Construa a capa** (`intro.tsx`) — `h-screen`, mídia de fundo, `StoryLogos`,
 título, autores, botão de compartilhar.

@@ -34,6 +34,7 @@ O objetivo é duplo:
 | [08 — Catálogo de Dados](./08-catalogo-de-dados.md) | Busca, filtros, API, integração bidirecional com o geoportal | Desenvolvedores |
 | [09 — Boas Práticas](./09-boas-praticas.md) | Convenções de código, Biome, performance, acessibilidade, segurança, commits/PRs | Desenvolvedores |
 | [10 — Deploy e Operação](./10-deploy-e-operacao.md) | Build de produção, Docker, variáveis, analytics, CI | Desenvolvedores / DevOps |
+| [11 — SEO e Monitoramento](./11-seo-e-monitoramento.md) | Metadados, Schema.org, sitemap, Core Web Vitals, Search Console / Bing | Desenvolvedores / Conteúdo |
 
 ---
 
@@ -71,11 +72,12 @@ repositório:
 - **Sou novo no projeto** → leia os capítulos [01](./01-visao-geral.md),
   [02](./02-ambiente-de-desenvolvimento.md) e
   [03](./03-arquitetura-e-convencoes.md) em ordem.
-- **Vou criar uma nova história (scrollytelling)** → vá direto para o
-  capítulo [06](./06-historias-scrollytelling.md).
+- **Vou publicar uma história nova** → capítulo [06](./06-historias-scrollytelling.md)
+  e o checklist de SEO no [11](./11-seo-e-monitoramento.md).
 - **Vou adicionar uma camada ao mapa** → capítulo [07](./07-geoportal.md).
 - **Vou mexer no catálogo ou na API** → capítulo [08](./08-catalogo-de-dados.md).
 - **Antes de abrir um PR** → revise o capítulo [09](./09-boas-praticas.md).
+- **Vou configurar SEO / Search Console** → capítulo [11](./11-seo-e-monitoramento.md).
 
 ---
 

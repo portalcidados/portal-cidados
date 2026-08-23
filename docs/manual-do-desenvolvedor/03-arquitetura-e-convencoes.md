@@ -10,6 +10,7 @@
 - [Layouts aninhados](#layouts-aninhados)
 - [Middleware, CSP e segurança](#middleware-csp-e-segurança)
 - [Analytics](#analytics)
+- [SEO, metadados e dados estruturados](#seo-metadados-e-dados-estruturados)
 - [Camada de dados](#camada-de-dados)
 - [Componentes, hooks e types compartilhados](#componentes-hooks-e-types-compartilhados)
 - [Client vs Server Components](#client-vs-server-components)
@@ -84,10 +85,13 @@ export default async function RootLayout({ children }) {
       <head>
         <GoogleAnalytics gaId={...} nonce={nonce} debugMode={...} />
         <ClarityInit />
+        <JsonLd data={organizationJsonLd()} nonce={nonce} />
+        <JsonLd data={websiteJsonLd()} nonce={nonce} />
       </head>
       <body className={`${geistSans.variable} ... ${inter.variable} antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
           <Toaster />
+          <WebVitals />
           {children}
         </ThemeProvider>
       </body>
@@ -170,6 +174,23 @@ Duas ferramentas rodam em paralelo, ambas integradas no layout raiz:
 
 Documentação completa: [`docs/ANALYTICS.md`](../ANALYTICS.md).
 
+## SEO, metadados e dados estruturados
+
+O SEO vive no App Router (Metadata API nativa), não em `react-helmet` nem
+`next/head`.
+
+- **Helper:** [`src/lib/seo.ts`](../../src/lib/seo.ts) (`siteConfig`,
+  `buildMetadata()`, `SITE_URL` a partir de `NEXT_PUBLIC_SITE_URL`).
+- **JSON-LD:** [`src/lib/structured-data.ts`](../../src/lib/structured-data.ts)
+  + [`JsonLd`](../../src/components/json-ld.tsx) (scripts com nonce CSP).
+- **Sitemap / robots:** [`src/app/sitemap.ts`](../../src/app/sitemap.ts) e
+  [`src/app/robots.ts`](../../src/app/robots.ts).
+- Páginas `"use client"` **não** exportam `metadata` — extraia o UI para
+  `*-client.tsx` e deixe o `page.tsx` como Server Component.
+
+Detalhes operacionais (Search Console, Bing, Core Web Vitals):
+[capítulo 11](./11-seo-e-monitoramento.md).
+
 ## Camada de dados
 
 Não há banco de dados. Os dados são módulos TypeScript versionados:
@@ -194,7 +215,9 @@ Além disso, dados específicos de módulo ficam próximos do módulo — por ex
 - `CatalogPage.tsx`, `CatalogFilters.tsx`, `SearchBar.tsx`, `SortDropdown.tsx`,
   `SelectedFilters.tsx`, `DataCard.tsx`, `CardSkeleton.tsx` — catálogo
 - `CollaboratorsSection.tsx` — página `/sobre`
-- `theme-provider.tsx`, `clarity-init.tsx`
+- `theme-provider.tsx`, `clarity-init.tsx`, `web-vitals.tsx`
+- `json-ld.tsx`, `story-json-ld.tsx`, `page-json-ld.tsx` — dados estruturados
+  (Schema.org)
 
 `src/components/ui/` contém os primitivos Shadcn/UI (Radix + CVA): `accordion`,
 `badge`, `button`, `card`, `checkbox`, `command`, `dialog`, `input`, `popover`,

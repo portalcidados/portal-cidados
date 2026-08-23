@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
-import textBackground from "../assets/text-background.png";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import metro from "../assets/metro.png";
+import textBackground from "../assets/text-background.png";
 
 // Registrar o plugin ScrollTrigger
 gsap.registerPlugin(ScrollTrigger);

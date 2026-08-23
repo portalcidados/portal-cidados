@@ -82,7 +82,13 @@ export function DataCard({ item, initialOpen = false }: DataCardProps) { /* ... 
   `desigualdades-em-saude-sp`).
 - `useCallback`/`useMemo` para funções e listas passadas a componentes
   filhos/efeitos.
-- Use `next/image` para imagens (otimização automática).
+- Use `next/image` para imagens (otimização automática; AVIF/WebP em
+  [`next.config.ts`](../../next.config.ts)).
+- Carregue JS pesado (Mapbox, Three.js) com `next/dynamic` / `ssr: false` para
+  não bloquear o LCP — já feito no geoportal e no prédio 3D do adensamento.
+- As métricas de Core Web Vitals de campo são enviadas ao GA4 via
+  [`WebVitals`](../../src/components/web-vitals.tsx). Ver
+  [capítulo 11](./11-seo-e-monitoramento.md).
 - Em Mapbox, **remova sources/handlers** ao desmontar/trocar camadas para evitar
   vazamentos.
 
@@ -99,7 +105,7 @@ export function DataCard({ item, initialOpen = false }: DataCardProps) { /* ... 
   integrar qualquer serviço externo** (script, fetch, imagem, fonte, iframe),
   adicione o domínio na diretiva correta — senão o recurso será bloqueado.
 - Scripts inline precisam do **nonce** (já propagado pelo middleware e usado no
-  GA4). Evite inline scripts sem nonce.
+  GA4 e no JSON-LD). Evite inline scripts sem nonce.
 - **Nunca commite segredos.** Tokens/IDs vão em `.env.local` (gitignored) ou nas
   variáveis da plataforma de deploy.
 - Variáveis expostas ao cliente exigem prefixo `NEXT_PUBLIC_` — não coloque
@@ -161,6 +167,7 @@ Fluxo:
 - [ ] Recursos externos novos refletidos na CSP (`middleware.ts`).
 - [ ] Nenhum segredo commitado (`.env.local` fora do controle de versão).
 - [ ] Histórias novas registradas em `stories.ts` **e** `StoriesList.tsx`.
+- [ ] Páginas novas com `buildMetadata()` e JSON-LD ([capítulo 11](./11-seo-e-monitoramento.md)).
 - [ ] Camadas novas com `sourceLayer` batendo entre `city-layers.ts` e
       `layer-styles.ts`.
 - [ ] Documentação atualizada quando o comportamento muda.

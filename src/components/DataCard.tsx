@@ -1,8 +1,8 @@
 "use client";
 
+import { ExternalLink, MapIcon } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
-import { ExternalLink, MapIcon } from "lucide-react";
 import { getLayersForCatalogItem } from "@/app/(app)/geoportal/lib/city-layers";
 import { Button } from "@/components/ui/button";
 import {

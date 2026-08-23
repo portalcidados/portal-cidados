@@ -1,8 +1,8 @@
 "use client";
 
+import { Info } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Info } from "lucide-react";
 
 interface MapPopupProps {
   feature: mapboxgl.MapboxGeoJSONFeature;

@@ -1,8 +1,8 @@
 "use client";
 
+import { X } from "lucide-react";
 import type { CatalogFilters } from "@/app/api/catalog/route";
 import { Button } from "@/components/ui/button";
-import { X } from "lucide-react";
 
 interface SelectedFiltersProps {
   filters: CatalogFilters;

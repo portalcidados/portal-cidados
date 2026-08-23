@@ -1,5 +1,6 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
+import { isProductionHostname } from "@/lib/seo";
 
 function applySecurityHeaders(
   response: NextResponse,
@@ -53,7 +54,17 @@ export function middleware(request: NextRequest) {
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set("x-nonce", nonce);
   const response = NextResponse.next({ request: { headers: requestHeaders } });
-  return applySecurityHeaders(response, nonce);
+  applySecurityHeaders(response, nonce);
+
+  // Só o host institucional deve ser indexado. Vercel (*.vercel.app),
+  // localhost e qualquer outro host recebem noindex no header (independente
+  // do NEXT_PUBLIC_SITE_URL do build).
+  const host = request.headers.get("host") ?? "";
+  if (!isProductionHostname(host)) {
+    response.headers.set("X-Robots-Tag", "noindex, nofollow");
+  }
+
+  return response;
 }
 
 export const config = {

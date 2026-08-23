@@ -3,13 +3,13 @@
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useRef, useState, useEffect } from "react";
+import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
 import houseBackground from "../assets/houseBackground.png";
 import houseBackgroundMobile from "../assets/houseBackgroundMobile.png";
+import houseOne from "../assets/houseOne.png";
 import { default as panoramicImage } from "../assets/panoramicImage.png";
 import { default as panoramicImageMobile } from "../assets/panoramicImageMobile.png";
-import houseOne from "../assets/houseOne.png";
-import Image from "next/image";
 
 gsap.registerPlugin(ScrollTrigger);
 

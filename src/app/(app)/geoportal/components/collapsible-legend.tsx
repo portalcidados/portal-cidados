@@ -1,13 +1,13 @@
 "use client";
 
+import { ChevronUp, LayoutList, Moon, Sun } from "lucide-react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { ChevronUp, LayoutList, Moon, Sun } from "lucide-react";
-import { useState } from "react";
 import { MapLegend } from "./map-legend";
 
 interface CollapsibleLegendProps {

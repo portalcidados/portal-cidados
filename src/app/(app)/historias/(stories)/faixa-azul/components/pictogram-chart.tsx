@@ -1,16 +1,16 @@
 "use client";
 
-import { useLayoutEffect, useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import {
   Bus,
   CarFront,
   Ellipsis,
+  type LucideIcon,
   Motorbike,
   PersonStanding,
-  type LucideIcon,
 } from "lucide-react";
+import { useLayoutEffect, useRef, useState } from "react";
 import { brandColor } from "../constants";
 
 export interface ChartCategory {

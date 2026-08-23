@@ -1,5 +1,7 @@
 "use client";
 
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
   useCallback,
   useEffect,
@@ -7,29 +9,27 @@ import {
   useRef,
   useState,
 } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "mapbox-gl/dist/mapbox-gl.css";
 import MapboxMap, { Marker } from "react-map-gl/mapbox";
 import { brandColor } from "../constants";
-import { useMapReady } from "./preload-wrapper";
 import {
   FLY_TO_DURATION_MS,
   MAP_PHASE_A,
   MAP_PHASE_B,
   MAPBOX_STYLE,
+  type MapPhase,
   PRIMEIRA_IMPLANTACAO_GEOJSON,
   PRIMEIRA_IMPLANTACAO_LABEL_ANCHOR,
   PRIMEIRA_IMPLANTACAO_LABEL_TEXT,
   PRIMEIRA_IMPLANTACAO_LAYER_ID,
   PRIMEIRA_IMPLANTACAO_SOURCE_ID,
-  TRECHOS_LAYER_ID,
   TRECHOS_LAYER_HIDDEN_OPACITY,
+  TRECHOS_LAYER_ID,
   TRECHOS_LAYER_VISIBLE_OPACITY,
   TRECHOS_LINE_LAYOUT,
   TRECHOS_LINE_PAINT,
-  type MapPhase,
 } from "./map-config";
+import { useMapReady } from "./preload-wrapper";
 
 gsap.registerPlugin(ScrollTrigger);
 

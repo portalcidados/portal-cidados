@@ -1,9 +1,9 @@
 "use client";
 
-import { getStoriesForHome, type Story } from "@/lib/data/stories";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { getStoriesForHome, type Story } from "@/lib/data/stories";
 
 export function StoriesSection() {
   const [currentImageIndexes, setCurrentImageIndexes] = useState<{

@@ -1,12 +1,12 @@
 "use client";
 
-import { Switch } from "@/components/ui/switch";
 import { Menu, X } from "lucide-react";
-import { useTheme } from "next-themes";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useTheme } from "next-themes";
 import { useCallback, useEffect, useState } from "react";
+import { Switch } from "@/components/ui/switch";
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

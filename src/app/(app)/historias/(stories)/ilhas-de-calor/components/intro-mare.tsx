@@ -1,24 +1,24 @@
 "use client";
 
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Image from "next/image";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { Map as MapboxMap, Marker } from "react-map-gl/mapbox";
+import avbrasilSvg from "../assets/av-brasil.svg";
+import avBrasilMobileSvg from "../assets/av-brasil-mobile.svg";
+import fiocruzSvg from "../assets/fiocruz.svg";
+import galeaoSvg from "../assets/galeao.svg";
 import imageCard3 from "../assets/image-card-3.png";
 import imageCard4 from "../assets/image-card-4.png";
 import imageCard5 from "../assets/image-card-5.png";
 import imageCard6 from "../assets/image-card-6.png";
 import imageCard7 from "../assets/image-card-7.png";
-import ufrjSvg from "../assets/ufrj.svg";
-import mareSvg from "../assets/mare.svg";
 import lvSvg from "../assets/lv.svg";
-import galeaoSvg from "../assets/galeao.svg";
-import fiocruzSvg from "../assets/fiocruz.svg";
-import avbrasilSvg from "../assets/av-brasil.svg";
 import lvMobileSvg from "../assets/lv-mobile.svg";
-import avBrasilMobileSvg from "../assets/av-brasil-mobile.svg";
+import mareSvg from "../assets/mare.svg";
+import ufrjSvg from "../assets/ufrj.svg";
 import vilaDoJoaoSvg from "../assets/vila-do-joao.svg";
-import Image from "next/image";
-import { Map as MapboxMap, Marker } from "react-map-gl/mapbox";
 import "mapbox-gl/dist/mapbox-gl.css";
 
 gsap.registerPlugin(ScrollTrigger);

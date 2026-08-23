@@ -1,10 +1,10 @@
 "use client";
 
-import { useLayoutEffect, useRef, useState } from "react";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import gsap from "gsap";
-import { charts } from "../data/transport-charts";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useLayoutEffect, useRef, useState } from "react";
 import { brandColor } from "../constants";
+import { charts } from "../data/transport-charts";
 import { PictogramChart } from "./pictogram-chart";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -150,9 +150,7 @@ export default function PictogramSection() {
               diários
             </strong>{" "}
             que passam por São Paulo, elas aparecem em{" "}
-            <strong>
-              cerca de 39% dos veículos envolvidos em sinistros
-            </strong>{" "}
+            <strong>cerca de 39% dos veículos envolvidos em sinistros</strong>{" "}
             na cidade.
           </p>
         </ScrollCard>

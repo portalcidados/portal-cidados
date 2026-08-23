@@ -1,10 +1,27 @@
+import type { Metadata } from "next";
+import Image from "next/image";
 import { CollaboratorsSection } from "@/components/CollaboratorsSection";
 import { Header } from "@/components/Header";
-import Image from "next/image";
+import { PageJsonLd } from "@/components/page-json-ld";
+import { buildMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = buildMetadata({
+  path: "/sobre",
+  title: "Sobre",
+  description:
+    "Conheça o Portal Cidados, plataforma de divulgação científica do Centro de Estudos das Cidades – Laboratório Arq.Futuro do Insper, e seus colaboradores.",
+  keywords: ["sobre", "Insper", "Arq.Futuro", "colaboradores"],
+});
 
 export default function Sobre() {
   return (
     <div className="min-h-screen bg-background">
+      <PageJsonLd
+        breadcrumbs={[
+          { name: "Início", path: "/" },
+          { name: "Sobre", path: "/sobre" },
+        ]}
+      />
       <Header />
       <div className="mx-auto pt-30">
         {/* Title */}

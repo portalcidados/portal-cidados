@@ -49,6 +49,7 @@ Build e execução:
 ```bash
 docker build \
   --build-arg NEXT_PUBLIC_MAPBOX_TOKEN=pk.eyJ1... \
+  --build-arg NEXT_PUBLIC_SITE_URL=https://cidados.insper.edu.br \
   -t portal-cidados .
 
 docker run -p 3000:3000 portal-cidados
@@ -62,9 +63,12 @@ docker run -p 3000:3000 portal-cidados
 
 | Variável | Momento | Observação |
 |---|---|---|
+| `NEXT_PUBLIC_SITE_URL` | Build | URL canônica (sem barra final). Produção: `https://cidados.insper.edu.br` (único host indexado). Preview Vercel: `https://portal-cidados.vercel.app` (`noindex`). |
 | `NEXT_PUBLIC_MAPBOX_TOKEN` | Build | Passado como `--build-arg` no Docker |
 | `NEXT_PUBLIC_GOOGLE_ANALYTICS_ID` | Build | GA4 (opcional) |
-| `NEXT_PUBLIC_CLARITY_ID` | Build/Runtime | Clarity só inicializa se definido; use IDs distintos por ambiente |
+| `NEXT_PUBLIC_CLARITY_ID` | Build | Clarity só inicializa se definido; use IDs distintos por ambiente |
+| `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` | Build | Meta tag do Google Search Console (opcional). Alias: `NEXT_PUBLIC_GSC_VERIFICATION`. |
+| `NEXT_PUBLIC_BING_SITE_VERIFICATION` | Build | Meta tag do Bing Webmaster Tools (opcional) |
 | `NEXT_PUBLIC_MAPBOX_STYLE_ADENSAMENTO` | Build | Estilo custom da história `adensamento` (opcional) |
 
 Configure cada ambiente com seu próprio conjunto de valores. Ver
@@ -104,4 +108,4 @@ Melhorias sugeridas para robustez (não implementadas):
 
 ---
 
-[← 09 — Boas Práticas](./09-boas-praticas.md) · [Voltar ao índice](./README.md)
+[← 09 — Boas Práticas](./09-boas-praticas.md) · [Próximo: 11 — SEO e Monitoramento →](./11-seo-e-monitoramento.md)

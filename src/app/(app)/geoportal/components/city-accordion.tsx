@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import {
   Accordion,
   AccordionContent,
@@ -7,7 +8,6 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { SwitchLight } from "@/components/ui/switch-light";
-import { useState } from "react";
 
 const cities = [
   { value: "São Paulo", label: "São Paulo" },

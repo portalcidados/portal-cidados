@@ -1,19 +1,19 @@
 "use client";
 
-import { Fragment, useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Fragment, useLayoutEffect, useRef, useState } from "react";
 import { Map as MapboxMap, Marker } from "react-map-gl/mapbox";
 import "mapbox-gl/dist/mapbox-gl.css";
 import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
 import mapaTemperatura from "../assets/mapa-temperatura-crop.png";
-import piscinaoSvg from "../assets/piscinao.svg";
-import ruaAriLeaoSvg from "../assets/rua-ari-leao.svg";
 import novaMareSvg from "../assets/nova-mare.svg";
-import piscinaoMobileSvg from "../assets/piscinao-mobile.svg";
-import ruaAriLeaoMobileSvg from "../assets/rua-ari-leao-mobile.svg";
 import novaMareMobileSvg from "../assets/nova-mare-mobile.svg";
+import piscinaoSvg from "../assets/piscinao.svg";
+import piscinaoMobileSvg from "../assets/piscinao-mobile.svg";
+import ruaAriLeaoSvg from "../assets/rua-ari-leao.svg";
+import ruaAriLeaoMobileSvg from "../assets/rua-ari-leao-mobile.svg";
 
 gsap.registerPlugin(ScrollTrigger);
 

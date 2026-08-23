@@ -1,23 +1,24 @@
 "use client";
+
 /* eslint-disable @next/next/no-img-element */
 
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
+  useCallback,
+  useEffect,
   useLayoutEffect,
   useRef,
   useState,
-  useEffect,
-  useCallback,
 } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
-import mapaDeUmidade from "../assets/mapa-de-umidade.png";
+import type { CSSProperties } from "react";
 import mapaDeCO2 from "../assets/mapa-de-co2.png";
 import mapaDeHCHO from "../assets/mapa-de-hcho.png";
 import mapaDePM10 from "../assets/mapa-de-pm10.png";
 import mapaDePM25 from "../assets/mapa-de-pm25.png";
-import type { CSSProperties } from "react";
+import mapaDeUmidade from "../assets/mapa-de-umidade.png";
 
 gsap.registerPlugin(ScrollTrigger);
 

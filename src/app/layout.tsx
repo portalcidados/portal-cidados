@@ -1,11 +1,15 @@
-import type { Metadata } from "next";
+import { GoogleAnalytics } from "@next/third-parties/google";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, Inter } from "next/font/google";
 import localFont from "next/font/local";
 import { headers } from "next/headers";
-import { GoogleAnalytics } from "@next/third-parties/google";
-import ClarityInit from "@/components/clarity-init";
-import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "sonner";
+import ClarityInit from "@/components/clarity-init";
+import { JsonLd } from "@/components/json-ld";
+import { ThemeProvider } from "@/components/theme-provider";
+import { WebVitals } from "@/components/web-vitals";
+import { robotsDirective, SITE_URL, siteConfig, verification } from "@/lib/seo";
+import { organizationJsonLd, websiteJsonLd } from "@/lib/structured-data";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -138,8 +142,45 @@ const gtUltraFine = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Portal Cidados",
-  description: "Portal Cidados",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: `${siteConfig.name} | ${siteConfig.shortName}`,
+    template: `%s | ${siteConfig.name}`,
+  },
+  description: siteConfig.description,
+  applicationName: siteConfig.name,
+  keywords: [...siteConfig.keywords],
+  authors: [{ name: siteConfig.legalName }],
+  creator: siteConfig.legalName,
+  publisher: siteConfig.publisher,
+  alternates: {
+    canonical: "/",
+  },
+  robots: robotsDirective(),
+  openGraph: {
+    type: "website",
+    url: SITE_URL,
+    siteName: siteConfig.name,
+    locale: siteConfig.locale,
+    title: `${siteConfig.name} | ${siteConfig.shortName}`,
+    description: siteConfig.description,
+    images: [{ url: siteConfig.defaultOgImage }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${siteConfig.name} | ${siteConfig.shortName}`,
+    description: siteConfig.description,
+    images: [siteConfig.defaultOgImage],
+    site: siteConfig.twitterHandle,
+  },
+  verification,
+};
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
+  ],
 };
 
 export default async function RootLayout({
@@ -157,6 +198,8 @@ export default async function RootLayout({
           debugMode={process.env.NODE_ENV === "development"}
         />
         <ClarityInit />
+        <JsonLd data={organizationJsonLd()} nonce={nonce} />
+        <JsonLd data={websiteJsonLd()} nonce={nonce} />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${gtUltra.variable} ${gtUltraFine.variable} ${inter.variable} antialiased`}
@@ -168,6 +211,7 @@ export default async function RootLayout({
           disableTransitionOnChange
         >
           <Toaster />
+          <WebVitals />
           {children}
         </ThemeProvider>
       </body>

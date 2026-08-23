@@ -1,8 +1,8 @@
 "use client";
 
+import { X, ZoomIn } from "lucide-react";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import { X, ZoomIn } from "lucide-react";
 
 type ZoomableVideoProps = {
   src: string;

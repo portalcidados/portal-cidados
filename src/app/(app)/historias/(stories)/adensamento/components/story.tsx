@@ -13,6 +13,7 @@ import {
 import { Map as MapboxMap, type MapRef, Marker } from "react-map-gl/mapbox";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { Share2 } from "lucide-react";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
@@ -51,7 +52,6 @@ import card21Mobile from "../images/card21_mobile.png";
 import figura13 from "../images/figura13.svg";
 // Map pin
 import localizarSvg from "../images/localizar.svg";
-import { InteractiveBuilding } from "./interactive-building";
 import {
   DENS_CONSTRUTIVA_SPO_LAYER_PATCH,
   IMAGE_FADE_INS,
@@ -63,6 +63,14 @@ import {
 } from "./map-config";
 import { MapLegend } from "./map-legend";
 import { MapReadyContext } from "./preload-wrapper";
+
+const InteractiveBuilding = dynamic(
+  () =>
+    import("./interactive-building").then((mod) => ({
+      default: mod.InteractiveBuilding,
+    })),
+  { ssr: false },
+);
 
 gsap.registerPlugin(ScrollTrigger);
 

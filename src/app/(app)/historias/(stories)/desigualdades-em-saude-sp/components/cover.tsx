@@ -1,8 +1,8 @@
 "use client";
 
-import coverImage from "../assets/cover.png";
-import { StoryLogos } from "../../../components/story-logos";
 import { Share2 } from "lucide-react";
+import { StoryLogos } from "../../../components/story-logos";
+import coverImage from "../assets/cover.png";
 
 export default function Cover() {
   const handleShare = async () => {

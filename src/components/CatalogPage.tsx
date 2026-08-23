@@ -25,12 +25,14 @@ interface CatalogResponse {
 export function CatalogPage() {
   const searchParams = useSearchParams();
   const openItemId = searchParams.get("item") ?? undefined;
+  const initialQuery = searchParams.get("q")?.trim() ?? "";
 
   const [data, setData] = useState<DataCatalogItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [initialLoading, setInitialLoading] = useState(true);
   const [filters, setFilters] = useState<FiltersType>({
     sortBy: "newest",
+    search: initialQuery || undefined,
   });
   const [filterOptions, setFilterOptions] = useState<{
     themes: string[];
@@ -73,8 +75,8 @@ export function CatalogPage() {
     fetchData(filters);
   }, [filters, fetchData]);
 
-  // Debounced search
-  const [searchTerm, setSearchTerm] = useState("");
+  // Debounced search (honra ?q= do SearchAction / Schema.org)
+  const [searchTerm, setSearchTerm] = useState(initialQuery);
   const debouncedSearchTerm = useDebounce(searchTerm, 300);
 
   // Update filters when debounced search term changes (skip first render)
@@ -186,7 +188,7 @@ export function CatalogPage() {
           <div className="lg:col-span-1">
             {/* Search Bar */}
             <div className="mb-6">
-              <SearchBar onSearch={handleSearch} />
+              <SearchBar onSearch={handleSearch} initialValue={initialQuery} />
             </div>
 
             {/* Filters */}

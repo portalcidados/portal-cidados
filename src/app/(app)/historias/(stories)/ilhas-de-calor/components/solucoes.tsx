@@ -12,7 +12,7 @@ import s10 from "../assets/s10.png";
 import s11 from "../assets/s11.png";
 import s12 from "../assets/s12.png";
 import { SectionCover } from "./section-cover";
-import { SolucoesScroll, type SolucaoItem } from "./solucoes-scroll";
+import { type SolucaoItem, SolucoesScroll } from "./solucoes-scroll";
 
 // TODO: Substitua estas imagens e textos pelos dados reais das 12 soluções
 const solucoesItems: SolucaoItem[] = [

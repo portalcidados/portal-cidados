@@ -1,5 +1,8 @@
 "use client";
 
+import { BookOpen, Eye, Info } from "lucide-react";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 import {
   Accordion,
   AccordionContent,
@@ -13,9 +16,6 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { BookOpen, Eye, Info } from "lucide-react";
-import Link from "next/link";
-import { useEffect, useState } from "react";
 import { cityLayersConfig } from "../lib/city-layers";
 
 interface CityLayersComparisonProps {

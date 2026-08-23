@@ -1,13 +1,13 @@
 "use client";
 
-import { useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import { useRef, useState } from "react";
 import { brandColor } from "../constants";
 import {
-  acidentesData,
   type AccidentEvent,
   type AvenidaData,
+  acidentesData,
 } from "../data/acidentes-faixa-azul-data";
 
 /** Domínio temporal: 2021-01-01 – 2025-06-30 (fim exclusivo em 2025-07-01). */

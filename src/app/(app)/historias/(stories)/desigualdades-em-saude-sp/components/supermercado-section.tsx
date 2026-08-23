@@ -3,18 +3,17 @@
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useRef, useState, useEffect } from "react";
 import { ChevronDown } from "lucide-react";
-import supermercado from "../assets/supermercado.png";
-import supermercadoTwo from "../assets/supermercadoTwo.png";
+import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
 import condominioOne from "../assets/condominio1.png";
 import condominioOneMobile from "../assets/condominio1Mobile.png";
 import condominioTwo from "../assets/condominio2.png";
 import condominioTwoMobile from "../assets/condominio2Mobile.png";
-import pontoDeOnibus from "../assets/pontoDeOnibus.png";
-
 import hospitalReception from "../assets/hospitalReception.png";
-import Image from "next/image";
+import pontoDeOnibus from "../assets/pontoDeOnibus.png";
+import supermercado from "../assets/supermercado.png";
+import supermercadoTwo from "../assets/supermercadoTwo.png";
 import "mapbox-gl/dist/mapbox-gl.css";
 import MapboxMap from "react-map-gl/mapbox";
 
