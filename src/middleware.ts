@@ -18,9 +18,9 @@ function applySecurityHeaders(
   const cspHeader = `
     default-src 'self' https://*.mapbox.com;
     script-src ${scriptSrcDirectives.join(" ")};
-    connect-src 'self' https://*.mapbox.com https://api.mapbox.com https://events.mapbox.com https://www.google-analytics.com https://analytics.google.com https://c.clarity.ms https://m.clarity.ms;
+    connect-src 'self' https://*.mapbox.com https://api.mapbox.com https://events.mapbox.com https://www.google-analytics.com https://analytics.google.com https://*.clarity.ms;
     style-src 'self' 'unsafe-inline';
-    img-src 'self' blob: data: https://*.mapbox.com https://www.google-analytics.com https://c.clarity.ms;
+    img-src 'self' blob: data: https://*.mapbox.com https://www.google-analytics.com https://*.clarity.ms;
     font-src 'self' data: https://fonts.gstatic.com;
     media-src 'self' data: blob:;
     worker-src 'self' blob:;

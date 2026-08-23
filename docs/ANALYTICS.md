@@ -101,9 +101,9 @@ O projeto usa uma CSP estrita com nonce em `src/middleware.ts`. O Clarity injeta
 
 | Diretiva        | Domínio adicionado        | Motivo                                             |
 | --------------- | -------------------------- | -------------------------------------------------- |
-| `script-src`  | `https://www.clarity.ms` | Script de tracking injetado pelo`Clarity.init()` |
-| `connect-src` | `https://c.clarity.ms`   | Envio de eventos e dados de sessão                |
-| `img-src`     | `https://c.clarity.ms`   | Pixel de sincronização de cookies                |
+| `script-src`  | `https://www.clarity.ms`, `https://scripts.clarity.ms` | Script de tracking injetado pelo`Clarity.init()` |
+| `connect-src` | `https://*.clarity.ms`   | Envio de eventos e dados de sessão (o Clarity usa vários subdomínios: `c.`, `m.`, `i.` etc.) |
+| `img-src`     | `https://*.clarity.ms`   | Pixel de sincronização de cookies                |
 
 ---
 
