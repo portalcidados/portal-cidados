@@ -1,6 +1,6 @@
-# Portal Cidadãos — Índice da Documentação
+# Portal Cidados — Índice da Documentação
 
-Documentação técnica completa do Portal Cidadãos para desenvolvedores, arquitetos e equipe de produto.
+Documentação técnica completa do Portal Cidados para desenvolvedores, arquitetos e equipe de produto.
 
 ---
 
@@ -8,6 +8,7 @@ Documentação técnica completa do Portal Cidadãos para desenvolvedores, arqui
 
 | Documento | Descrição | Público-alvo |
 |---|---|---|
+| **[Manual do Desenvolvedor](./manual-do-desenvolvedor/README.md)** | Manual completo de onboarding e padrões: home, menu, histórias, geoportal, catálogo, boas práticas e deploy | Desenvolvedores (início aqui) |
 | **[README](./README.md)** | Visão geral, tecnologias e configuração | Todos |
 | **[Arquitetura](./ARCHITECTURE.md)** | Arquitetura do sistema e padrões de design | Desenvolvedores / Arquitetos |
 | **[Analytics](./ANALYTICS.md)** | Google Analytics 4 + Microsoft Clarity: integração, CSP e ambientes | Desenvolvedores / Produto |

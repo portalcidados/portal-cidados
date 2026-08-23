@@ -89,13 +89,16 @@ Adicione o layer na configuração da cidade correspondente:
   name: "Nome exibido na UI",
   description: "Descrição que aparece no tooltip de informações.",
   tilesetId: "observatorio-nacional.XXXXXXXX",
-  sourceLayer: "seu_source_layer",
+  sourceLayer: "seu_source_layer", // DEVE bater com a chave em layer-styles.ts
   layerType: "fill",
-  hasCustomStyle: true
+  hasCustomStyle: true             // convenção (não é lido em runtime)
 }
 ```
 
-> **Importante:** `hasCustomStyle: true` é obrigatório para que o sistema use o estilo de `layer-styles.ts`. Sem isso, um estilo padrão azul é aplicado.
+> **Importante:** o que faz o sistema usar o estilo de `layer-styles.ts` é a
+> **chave `sourceLayer`** bater exatamente com a entrada de `layerStyles` (via
+> `createStyledLayer`). Se não bater, um estilo padrão azul é aplicado. O campo
+> `hasCustomStyle` é apenas documental e **não é consultado** pelo runtime.
 
 ---
 
@@ -120,7 +123,7 @@ Não é necessário configurar a legenda manualmente.
 - [ ] Anotar o **tileset ID** e o **source layer name**
 - [ ] Estilizar no Mapbox Studio e copiar o JSON de estilo
 - [ ] Adicionar estilo em `lib/layer-styles.ts` (chave = source layer name)
-- [ ] Adicionar metadados em `lib/city-layers.ts` (com `hasCustomStyle: true`)
+- [ ] Adicionar metadados em `lib/city-layers.ts` (com `sourceLayer` igual à chave em `layer-styles.ts`)
 - [ ] Testar no site: toggle do layer, legenda e opacidade
 
 ---

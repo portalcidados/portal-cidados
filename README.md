@@ -1,36 +1,69 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Portal Cidados
 
-## Getting Started
+Plataforma de divulgação científica do **Centro de Estudos das Cidades –
+Laboratório Arq.Futuro do Insper**. Apresenta estudos urbanos por meio de:
 
-First, run the development server:
+- **Histórias** — reportagens interativas de *scrollytelling* (mapas e gráficos
+  que reagem à rolagem).
+- **Geoportal** — mapa interativo (Mapbox GL JS) com camadas por cidade,
+  comparação e estado compartilhável via URL.
+- **Catálogo de Dados** — índice pesquisável dos datasets publicados.
+
+Construído com **Next.js 15 (App Router)**, **React 19**, **TypeScript**,
+**Tailwind CSS v4**, **Shadcn/UI** e **Mapbox GL JS**.
+
+## Começando
 
 ```bash
+# 1. Instalar dependências
+npm install
+
+# 2. Configurar variáveis de ambiente em .env.local
+#    (mínimo: NEXT_PUBLIC_MAPBOX_TOKEN para os mapas)
+
+# 3. Rodar em desenvolvimento
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Acesse [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Comando | Descrição |
+|---|---|
+| `npm run dev` | Servidor de desenvolvimento (Turbopack) |
+| `npm run build` | Build de produção (`output: standalone`) |
+| `npm run start` | Sobe o build de produção |
+| `npm run lint` | Lint/format check (Biome) |
+| `npm run format` | Formata o código (Biome) |
 
-## Learn More
+## Documentação
 
-To learn more about Next.js, take a look at the following resources:
+- **[Manual do Desenvolvedor](./docs/manual-do-desenvolvedor/README.md)** —
+  onboarding completo: arquitetura, histórias (scrollytelling), geoportal,
+  catálogo, boas práticas e deploy. **Comece por aqui.**
+- **[Índice geral da documentação](./docs/INDEX.md)**
+- **[Figma — guia de estilo e protótipos](https://www.figma.com/design/OtdMzKBFGyp11J83d1CEZe/Insper?node-id=622-2&p=f&t=jMWSa84eSwBGp2ii-0)**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Variáveis de ambiente
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Defina em `.env.local` (ignorado pelo Git):
 
-## Deploy on Vercel
+```env
+NEXT_PUBLIC_MAPBOX_TOKEN=pk.eyJ1...          # necessário para os mapas
+NEXT_PUBLIC_GOOGLE_ANALYTICS_ID=G-XXXXXXXX   # opcional (GA4)
+NEXT_PUBLIC_CLARITY_ID=xxxxxxxxxx            # opcional (Microsoft Clarity)
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Detalhes em
+[docs/manual-do-desenvolvedor/02-ambiente-de-desenvolvimento.md](./docs/manual-do-desenvolvedor/02-ambiente-de-desenvolvimento.md).
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Deploy
+
+O projeto gera saída `standalone` e inclui um [`Dockerfile`](./Dockerfile)
+multi-stage (`node:20-alpine`). Ver
+[docs/manual-do-desenvolvedor/10-deploy-e-operacao.md](./docs/manual-do-desenvolvedor/10-deploy-e-operacao.md).
+
+---
+
+**Portal Cidados** — Centro de Estudos das Cidades / Laboratório Arq.Futuro do Insper.

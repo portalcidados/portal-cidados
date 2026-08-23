@@ -1,4 +1,4 @@
-# Analytics — Portal Cidadãos
+# Analytics — Portal Cidados
 
 O portal utiliza duas ferramentas de analytics em paralelo: **Google Analytics 4** para métricas de tráfego e **Microsoft Clarity** para análise de comportamento do usuário (heatmaps e gravações de sessão).
 

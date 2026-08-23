@@ -29,12 +29,17 @@ graph TD
     B --> D["CityLayers\nModo normal"]
     B --> E["CityLayersComparison\nModo comparação"]
     B --> F["CollapsibleLegend\nLegenda + tema"]
-    B --> G["MapPopup\nHover info"]
+    B --> G["Hover popup\n(inline no property-map)"]
 
     D --> H["city-layers.ts\nConfiguração e metadados"]
     E --> H
     H --> I["layer-styles.ts\nEstilos visuais Mapbox"]
 ```
+
+> **Nota:** o popup de hover é implementado **inline** no `property-map.tsx`
+> (via `mapboxgl.Popup`). O componente `map-popup.tsx` e o seletor alternativo
+> `city-combobox.tsx` existem no diretório mas **não são utilizados** atualmente
+> (o seletor de cidade ativo é o `city-accordion.tsx`).
 
 ---
 
@@ -191,9 +196,9 @@ Siga o guia completo em [`WORKFLOW.md`](./WORKFLOW.md). Em resumo:
   name: "Nome na UI",
   description: "Aparece no tooltip de info.",
   tilesetId: "observatorio-nacional.XXXXXXXX",
-  sourceLayer: "nome_do_source_layer",
+  sourceLayer: "nome_do_source_layer", // DEVE bater com a chave em layer-styles.ts
   layerType: "fill",          // fill | line | circle | symbol
-  hasCustomStyle: true,
+  hasCustomStyle: true,       // convenção (não é lido em runtime; ver nota abaixo)
   catalogItemId: "42",        // opcional — ID do item no catálogo
   mapView: {                  // opcional — voo automático ao ativar
     center: [-43.27, -22.84],
@@ -203,6 +208,11 @@ Siga o guia completo em [`WORKFLOW.md`](./WORKFLOW.md). Em resumo:
   },
 }
 ```
+
+> O estilo customizado é resolvido pela **chave `sourceLayer`** em
+> `lib/layer-styles.ts` (via `createStyledLayer`). O campo `hasCustomStyle`
+> **não é consultado** pelo runtime — se o `sourceLayer` não bater com uma
+> entrada de `layerStyles`, a camada aparece no estilo azul padrão.
 
 ---
 
@@ -225,6 +235,7 @@ NEXT_PUBLIC_MAPBOX_TOKEN=pk.eyJ1...
 | `components/city-layers-comparison.tsx` | Painel de camadas (modo comparação) |
 | `components/collapsible-legend.tsx` | Legenda colapsável + toggle de tema |
 | `components/map-legend.tsx` | Renderização da legenda por layer |
-| `components/map-popup.tsx` | Popup de hover sobre features |
+| `components/city-combobox.tsx` | Seletor de cidade alternativo — **não utilizado** |
+| `components/map-popup.tsx` | Componente de popup — **não utilizado** (popup é inline no `property-map.tsx`) |
 | `lib/city-layers.ts` | Configuração de camadas por cidade + lookup catálogo |
 | `lib/layer-styles.ts` | Estilos visuais Mapbox (paint/layout) |
