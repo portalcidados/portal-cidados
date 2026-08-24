@@ -67,12 +67,17 @@ export default function Footer() {
       ]}
       databases={[
         {
-          title: "Lorem ipsum dolor sit amet [2024]",
-          href: "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/OICDGN",
+          title: "Sinistros de Trânsito [2022-2025]",
+          href: "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/A4AC1I",
         },
         {
-          title: "Lorem ipsum dolor sit amet [2024]",
-          href: "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/NQA7LY",
+          title: "Sinistros de Trânsito Agregados por Via [2022-2025]",
+          href: "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/XA5PFG",
+        },
+        {
+          title:
+            "Trechos com Faixas Dedicadas a Motociclistas (Faixa Azul) [2025]",
+          href: "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/IRGJPX",
         },
       ]}
     />
