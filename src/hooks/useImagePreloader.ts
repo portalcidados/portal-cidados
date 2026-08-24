@@ -11,7 +11,7 @@ export function useImagePreloader(
   imageSources: Array<{ src: string | { src: string } }>,
 ): boolean {
   const [allImagesLoaded, setAllImagesLoaded] = useState(false);
-  const [loadedCount, setLoadedCount] = useState(0);
+  const [_loadedCount, setLoadedCount] = useState(0);
 
   useEffect(() => {
     if (imageSources.length === 0) {

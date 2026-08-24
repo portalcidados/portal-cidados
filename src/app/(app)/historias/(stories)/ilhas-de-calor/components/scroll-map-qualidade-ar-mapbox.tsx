@@ -198,7 +198,7 @@ export function ScrollMapQualidadeArMapbox() {
 
     const getMap = () => {
       const map = mapRef.current?.getMap?.();
-      if (map && map.isStyleLoaded()) return map;
+      if (map?.isStyleLoaded()) return map;
       return null;
     };
 

@@ -53,10 +53,12 @@ function ScrollCard({
   return (
     <div
       ref={cardRef}
-      className="flex items-center justify-center px-6 md:px-8"
-      style={{ minHeight, position: "relative", zIndex: 1 }}
+      className="pointer-events-none relative z-[1] flex items-center justify-center px-6 md:px-8"
+      style={{ minHeight }}
     >
-      <CardBox>{children}</CardBox>
+      <div className="pointer-events-auto w-full max-w-xl">
+        <CardBox>{children}</CardBox>
+      </div>
     </div>
   );
 }
@@ -97,7 +99,7 @@ export default function FactorsSection() {
     }, AUTO_ROTATE_MS);
 
     return () => window.clearInterval(id);
-  }, [activeIndex]);
+  }, []);
 
   useGSAP(
     () => {
@@ -184,7 +186,11 @@ export default function FactorsSection() {
         </ScrollCard>
 
         {/* Espaço extra após o card para manter a imagem sticky um pouco mais */}
-        <div style={{ minHeight: "100vh" }} aria-hidden="true" />
+        <div
+          className="pointer-events-none"
+          style={{ minHeight: "100vh" }}
+          aria-hidden="true"
+        />
       </div>
     </section>
   );

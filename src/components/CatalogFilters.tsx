@@ -70,7 +70,7 @@ export function CatalogFilters({
     onFiltersChange(newFilters);
   };
 
-  const clearFilters = () => {
+  const _clearFilters = () => {
     const clearedFilters: FiltersType = {
       theme: undefined,
       region: undefined,

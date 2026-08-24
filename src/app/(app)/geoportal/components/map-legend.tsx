@@ -70,8 +70,11 @@ export function LayerLegend({
         )}
       </CardHeader>
       <CardContent className="space-y-2 p-0! text-gray-900!">
-        {legendItems.map((item, index) => (
-          <div key={index} className="flex items-center gap-2">
+        {legendItems.map((item) => (
+          <div
+            key={`${item.label}-${item.value}-${item.color}`}
+            className="flex items-center gap-2"
+          >
             <div
               className={`shrink-0 text-gray-900! ${
                 layerType === "line"

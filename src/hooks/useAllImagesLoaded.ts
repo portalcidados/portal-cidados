@@ -36,7 +36,7 @@ export function useAllImagesLoaded(enabled: boolean = true): boolean {
         const bgImage = htmlElement.style.backgroundImage;
         if (bgImage && bgImage !== "none") {
           const urlMatch = bgImage.match(/url\(["']?([^"')]+)["']?\)/);
-          if (urlMatch && urlMatch[1]) {
+          if (urlMatch?.[1]) {
             const img = new Image();
             img.src = urlMatch[1];
             backgroundImages.push(img);

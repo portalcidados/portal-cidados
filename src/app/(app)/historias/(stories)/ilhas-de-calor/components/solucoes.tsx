@@ -108,11 +108,7 @@ export function Solucoes() {
       {/* Capa da seção com imagem em escala de cinza e título */}
       <div className="mb-30">
         <SectionCover
-          title={
-            <>
-              <strong>Soluções</strong>
-            </>
-          }
+          title={<strong>Soluções</strong>}
           image={mareMapaImage}
           imageAlt="Mapa da Maré"
           sticky={false}

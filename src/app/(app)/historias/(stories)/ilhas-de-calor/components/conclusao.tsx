@@ -7,11 +7,7 @@ export function Conclusao() {
     <div className="w-full">
       {/* Capa da seção com imagem em escala de cinza e título */}
       <SectionCover
-        title={
-          <>
-            <strong>Conclusão</strong>
-          </>
-        }
+        title={<strong>Conclusão</strong>}
         image={mareMapaImage}
         imageAlt="Mapa da Maré"
         sticky={false}

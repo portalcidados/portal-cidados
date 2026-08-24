@@ -1,5 +1,4 @@
 import StoryFooter from "@/app/(app)/historias/components/StoryFooter";
-import redesMare from "../../ilhas-de-calor/assets/redes_mare.png";
 
 export default function Footer() {
   return (

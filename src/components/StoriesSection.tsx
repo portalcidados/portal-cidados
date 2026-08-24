@@ -1,12 +1,12 @@
 "use client";
 
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { Swiper as SwiperType } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { getStoriesForHome, type Story } from "@/lib/data/stories";
-import { ArrowLeft, ArrowRight } from "lucide-react";
 
 import "swiper/css";
 

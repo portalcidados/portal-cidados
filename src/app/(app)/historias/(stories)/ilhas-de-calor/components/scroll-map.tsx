@@ -154,7 +154,7 @@ export const ScrollMap: React.FC<ScrollMapProps> = ({
         scrollTrigger: {
           trigger: container,
           start: "top top",
-          end: () => "+=" + window.innerHeight * totalSteps,
+          end: () => `+=${window.innerHeight * totalSteps}`,
           scrub: true,
           pin: sticky,
           anticipatePin: 1,

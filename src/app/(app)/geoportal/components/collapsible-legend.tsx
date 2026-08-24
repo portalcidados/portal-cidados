@@ -50,6 +50,7 @@ export function CollapsibleLegend({
           <Tooltip>
             <TooltipTrigger asChild>
               <button
+                type="button"
                 onClick={hasLayers ? toggleCollapse : undefined}
                 disabled={!hasLayers}
                 className={`p-3 rounded-full outline-none border-gray-200 ${
@@ -71,6 +72,7 @@ export function CollapsibleLegend({
           <Tooltip>
             <TooltipTrigger asChild>
               <button
+                type="button"
                 onClick={onThemeToggle}
                 className="p-3 rounded-full outline-none border-gray-200 bg-white hover:bg-gray-50 cursor-pointer text-gray-900!"
               >
@@ -91,12 +93,14 @@ export function CollapsibleLegend({
         <>
           <div className="h-auto max-h-[calc(100vh-135px)] overflow-y-auto w-60 bg-white rounded-lg shadow-xl p-4">
             <div className="flex items-center justify-between mb-4">
-              <h3
+              <button
+                type="button"
                 className="text-lg font-semibold text-gray-900 cursor-pointer hover:text-gray-700 transition-colors"
                 onClick={hasLayers ? toggleCollapse : undefined}
+                disabled={!hasLayers}
               >
                 Legenda
-              </h3>
+              </button>
               <Button
                 onClick={hasLayers ? toggleCollapse : undefined}
                 variant="ghost"
