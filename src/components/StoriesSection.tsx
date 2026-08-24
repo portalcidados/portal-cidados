@@ -3,7 +3,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
+import type { Swiper as SwiperType } from "swiper";
+import { Swiper, SwiperSlide } from "swiper/react";
 import { getStoriesForHome, type Story } from "@/lib/data/stories";
+import { ArrowLeft, ArrowRight } from "lucide-react";
+
+import "swiper/css";
 
 export function StoriesSection() {
   const [currentImageIndexes, setCurrentImageIndexes] = useState<{
@@ -11,7 +16,11 @@ export function StoriesSection() {
   }>({});
   const [hoveredStoryId, setHoveredStoryId] = useState<string | null>(null);
   const stories = useMemo(() => getStoriesForHome(), []);
+  // Duplicate slides so loop mode works with ~3.25 slidesPerView and only 4 stories
+  const carouselStories = useMemo(() => [...stories, ...stories], [stories]);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const swiperRef = useRef<SwiperType | null>(null);
+  const [isReady, setIsReady] = useState(false);
 
   // Effect para gerenciar a animação de imagens no hover
   useEffect(() => {
@@ -91,73 +100,108 @@ export function StoriesSection() {
     return story.image;
   };
 
-  return (
-    <section className="py-8 pt-18 pb-16 mx-auto bg-background">
-      <span className="text-sm block cursor-pointer pb-3 px-4 md:px-8 lg:px-12 text-foreground leading-relaxed font-gt-ultra-fine">
-        <Link href="/historias">Veja nossas histórias</Link>
-      </span>
-      <div className="mx-auto px-4 md:px-8 lg:px-12">
-        {/* Stories Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 md:gap-4">
-          {stories.map((story) => (
-            <article
-              key={story.id}
-              className="group"
-              onMouseEnter={() => handleStoryMouseEnter(story.id)}
-              onMouseLeave={() => handleStoryMouseLeave(story.id)}
-            >
-              {story.href ? (
-                <Link href={story.href} className="block">
-                  {/* Story Card */}
-                  <div className="relative overflow-hidden aspect-square w-full">
-                    <Image
-                      src={getCurrentImage(story)}
-                      alt={story.title}
-                      fill
-                      className="object-cover transition-transform duration-300 group-hover:scale-105"
-                      draggable={false}
-                    />
-                  </div>
-                  {/* Story Info */}
-                  <div className="mt-4 text-left">
-                    <h3 className="text-md font-medium text-foreground mb-2 font-gt-ultra-fine leading-tight">
-                      {story.title}
-                    </h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed font-gt-ultra-fine">
-                      {story.description}
-                    </p>
-                  </div>
-                </Link>
-              ) : (
-                <>
-                  {/* Story Card without link */}
-                  <div
-                    className="relative overflow-hidden aspect-square w-full"
-                    role="img"
-                    aria-label={story.title}
-                  >
-                    <Image
-                      src={getCurrentImage(story)}
-                      alt={story.title}
-                      fill
-                      className="object-cover transition-transform duration-300 group-hover:scale-105"
-                      draggable={false}
-                    />
-                  </div>
-                  {/* Story Info */}
-                  <div className="mt-4 text-left">
-                    <h3 className="text-md font-medium text-foreground mb-2 font-gt-ultra-fine leading-tight">
-                      {story.title}
-                    </h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed font-gt-ultra-fine">
-                      {story.description}
-                    </p>
-                  </div>
-                </>
-              )}
-            </article>
-          ))}
+  const renderStoryCard = (story: Story) => {
+    const media = (
+      <div className="relative overflow-hidden aspect-square w-full">
+        <Image
+          src={getCurrentImage(story)}
+          alt={story.title}
+          fill
+          className="object-cover transition-transform duration-300 group-hover:scale-105"
+          draggable={false}
+        />
+      </div>
+    );
+
+    const info = (
+      <div className="mt-4 text-left">
+        <h3 className="text-md font-medium text-foreground mb-2 font-gt-ultra-fine leading-tight">
+          {story.title}
+        </h3>
+        <p className="text-sm text-muted-foreground leading-relaxed font-gt-ultra-fine">
+          {story.description}
+        </p>
+      </div>
+    );
+
+    if (story.href) {
+      return (
+        <Link
+          href={story.href}
+          className="block cursor-grab active:cursor-grabbing"
+        >
+          {media}
+          {info}
+        </Link>
+      );
+    }
+
+    return (
+      <>
+        <div role="img" aria-label={story.title}>
+          {media}
         </div>
+        {info}
+      </>
+    );
+  };
+
+  return (
+    <section className="py-8 pt-18 pb-16 mx-auto bg-background overflow-x-hidden">
+      <div className="flex items-center justify-between gap-4 pb-3 px-4 md:px-8 lg:px-12 text-sm text-foreground leading-relaxed font-gt-ultra-fine">
+        <Link href="/historias" className="cursor-pointer">
+          Veja nossas histórias
+        </Link>
+        <div className="flex shrink-0 gap-0">
+          <button
+            type="button"
+            onClick={() => swiperRef.current?.slidePrev()}
+            className="p-1 cursor-pointer"
+            aria-label="Slide anterior"
+          >
+            <ArrowLeft className="h-5 w-5" />
+          </button>
+          <button
+            type="button"
+            onClick={() => swiperRef.current?.slideNext()}
+            className="p-1 cursor-pointer"
+            aria-label="Próximo slide"
+          >
+            <ArrowRight className="h-5 w-5" />
+          </button>
+        </div>
+      </div>
+
+      <div className="pl-4 md:pl-8 lg:pl-12">
+        <Swiper
+          slidesPerView="auto"
+          spaceBetween={16}
+          loop
+          loopAdditionalSlides={2}
+          grabCursor
+          onSwiper={(swiper) => {
+            swiperRef.current = swiper;
+            setIsReady(true);
+          }}
+          className={`overflow-visible! cursor-grab active:cursor-grabbing transition-opacity duration-150 ${
+            isReady ? "opacity-100" : "opacity-0"
+          }`}
+        >
+          {carouselStories.map((story, index) => (
+            <SwiperSlide
+              key={`${story.id}-${index}`}
+              className="w-[85%]! md:w-[calc((100%-3rem)/3.25)]! cursor-grab active:cursor-grabbing"
+            >
+              <article
+                className="group h-full cursor-grab active:cursor-grabbing"
+                onMouseEnter={() => handleStoryMouseEnter(story.id)}
+                onMouseLeave={() => handleStoryMouseLeave(story.id)}
+              >
+                {renderStoryCard(story)}
+              </article>
+            </SwiperSlide>
+          ))}
+        </Swiper>
       </div>
     </section>
   );
