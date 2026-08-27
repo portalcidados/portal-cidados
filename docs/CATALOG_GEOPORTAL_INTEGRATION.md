@@ -91,7 +91,13 @@ A tabela abaixo documenta todas as relações entre camadas do Geoportal e regis
 | São Paulo | `populacao-por-distrito-spo` | População Feminina (distrito) | **2** | Densidade Populacional e Verticalização [2022,2024] |
 | São Paulo | `geoses-spo` | GeoSES | **16** | Índice GeoSES [2010] |
 | São Paulo | `gastos_ubs_distritos-c6rpx4` | Gastos UBS (distrito) | — | *(sem correspondência no catálogo)* |
-| São Paulo | `obitos-47q8aj` | Óbitos por Doenças Cerebrovasculares | **9** | Mortalidade prematura por distrito [2019] |
+| São Paulo | `mortalidade_materna_fem` | Mortalidade Materna (femi.) | **9** | Mortalidade prematura por distrito [2019] |
+| São Paulo | `isquemicas_coracao_masc` | Doenças Isquêmicas do Coração (masc.) | **9** | Mortalidade prematura por distrito [2019] |
+| São Paulo | `isquemicas_coracao_fem` | Doenças Isquêmicas do Coração (femi.) | **9** | Mortalidade prematura por distrito [2019] |
+| São Paulo | `cerebrovasculares_masc` | Doenças Cerebrovasculares (masc.) | **9** | Mortalidade prematura por distrito [2019] |
+| São Paulo | `cerebrovasculares_fem` | Doenças Cerebrovasculares (femi.) | **9** | Mortalidade prematura por distrito [2019] |
+| São Paulo | `diabetes_masc` | Diabetes Mellitus (masc.) | **9** | Mortalidade prematura por distrito [2019] |
+| São Paulo | `diabetes_fem` | Diabetes Mellitus (femi.) | **9** | Mortalidade prematura por distrito [2019] |
 | Brasil | `tarifa_zero` | Tarifa Zero | — | *(sem correspondência no catálogo)* |
 
 > **Nota:** quando múltiplas camadas apontam para o mesmo `catalogItemId` (ex: catálogo 2 com 8 layers de SP), o botão "Ver dados no mapa" ativa **todas** essas camadas simultaneamente.

@@ -394,32 +394,269 @@ export const layerStyles: Record<string, LayerStyle> = {
       visibility: "none",
     },
   },
-  "obitos-47q8aj": {
+  "mortalidade_materna_fem": {
+    id: "mortalidade_materna_fem",
     type: "fill",
     source: "composite",
-    id: "obitos-47q8aj",
-    slot: "",
-    "source-layer": "obitos-47q8aj",
+    "source-layer": "mortalidade_materna_fem",
     paint: {
+      "fill-outline-color": "#ffffff",
       "fill-color": [
-        "interpolate",
-        ["linear"],
-        ["get", "Óbitos por Doenças Cerebrovasculares (femi.)"],
-        15,
-        "#ffeda0",
-        55,
-        "#feb24c",
-        70,
-        "#fd8d3c",
-        90,
-        "#fc4e2a",
-        149,
-        "#e31a1c",
+        "case",
+        ["==", ["typeof", ["get", "risk.2019"]], "number"],
+        [
+          "interpolate",
+          ["linear"],
+          ["get", "risk.2019"],
+          0.48333364600306,
+          "#2166AC",
+          0.65555576400204,
+          "#67A9CF",
+          0.82777788200102,
+          "#D1E5F0",
+          1,
+          "#F7F7F7",
+          1.17222211799898,
+          "#FDDBC7",
+          1.34444423599796,
+          "#EF8A62",
+          1.51666635399694,
+          "#B2182B",
+        ],
+        "#f0f0f0",
       ],
     },
     layout: {
       visibility: "none",
     },
+    slot: "",
+  },
+  "isquemicas_coracao_masc": {
+    id: "isquemicas_coracao_masc",
+    type: "fill",
+    source: "composite",
+    "source-layer": "isquemicas_coracao_masc",
+    paint: {
+      "fill-outline-color": "#ffffff",
+      "fill-opacity": 0.7,
+      "fill-color": [
+        "case",
+        ["==", ["typeof", ["get", "risk.2019"]], "number"],
+        [
+          "interpolate",
+          ["linear"],
+          ["get", "risk.2019"],
+          0.36425332983383,
+          "#2166AC",
+          0.576168886555887,
+          "#67A9CF",
+          0.788084443277943,
+          "#D1E5F0",
+          1,
+          "#F7F7F7",
+          1.21191555672206,
+          "#FDDBC7",
+          1.42383111344411,
+          "#EF8A62",
+          1.63574667016617,
+          "#B2182B",
+        ],
+        "#f0f0f0",
+      ],
+    },
+    layout: {
+      visibility: "none",
+    },
+    slot: "",
+  },
+  "isquemicas_coracao_fem": {
+    id: "isquemicas_coracao_fem",
+    type: "fill",
+    source: "composite",
+    "source-layer": "isquemicas_coracao_fem",
+    paint: {
+      "fill-outline-color": "#ffffff",
+      "fill-opacity": 0.7,
+      "fill-color": [
+        "case",
+        ["==", ["typeof", ["get", "risk.2019"]], "number"],
+        [
+          "interpolate",
+          ["linear"],
+          ["get", "risk.2019"],
+          0.27904239612428,
+          "#2166AC",
+          0.519361597416187,
+          "#67A9CF",
+          0.759680798708093,
+          "#D1E5F0",
+          1,
+          "#F7F7F7",
+          1.24031920129191,
+          "#FDDBC7",
+          1.48063840258381,
+          "#EF8A62",
+          1.72095760387572,
+          "#B2182B",
+        ],
+        "#f0f0f0",
+      ],
+    },
+    layout: {
+      visibility: "none",
+    },
+    slot: "",
+  },
+  "cerebrovasculares_masc": {
+    id: "cerebrovasculares_masc",
+    type: "fill",
+    source: "composite",
+    "source-layer": "cerebrovasculares_masc",
+    paint: {
+      "fill-outline-color": "#ffffff",
+      "fill-opacity": 0.7,
+      "fill-color": [
+        "case",
+        ["==", ["typeof", ["get", "risk.2019"]], "number"],
+        [
+          "interpolate",
+          ["linear"],
+          ["get", "risk.2019"],
+          0.180830450908669,
+          "#2166AC",
+          0.453886967272446,
+          "#67A9CF",
+          0.726943483636223,
+          "#D1E5F0",
+          1,
+          "#F7F7F7",
+          1.27305651636378,
+          "#FDDBC7",
+          1.54611303272755,
+          "#EF8A62",
+          1.81916954909133,
+          "#B2182B",
+        ],
+        "#f0f0f0",
+      ],
+    },
+    layout: {
+      visibility: "none",
+    },
+    slot: "",
+  },
+  "cerebrovasculares_fem": {
+    id: "cerebrovasculares_fem",
+    type: "fill",
+    source: "composite",
+    "source-layer": "cerebrovasculares_fem",
+    paint: {
+      "fill-outline-color": "#ffffff",
+      "fill-color": [
+        "case",
+        ["==", ["typeof", ["get", "risk.2019"]], "number"],
+        [
+          "interpolate",
+          ["linear"],
+          ["get", "risk.2019"],
+          0.23427349286993,
+          "#2166AC",
+          0.489515661913287,
+          "#67A9CF",
+          0.744757830956643,
+          "#D1E5F0",
+          1,
+          "#F7F7F7",
+          1.25524216904336,
+          "#FDDBC7",
+          1.51048433808671,
+          "#EF8A62",
+          1.76572650713007,
+          "#B2182B",
+        ],
+        "#f0f0f0",
+      ],
+    },
+    layout: {
+      visibility: "none",
+    },
+    slot: "",
+  },
+  "diabetes_masc": {
+    id: "diabetes_masc",
+    type: "fill",
+    source: "composite",
+    "source-layer": "diabetes_masc",
+    paint: {
+      "fill-outline-color": "#ffffff",
+      "fill-opacity": 0.7,
+      "fill-color": [
+        "case",
+        ["==", ["typeof", ["get", "risk.2019"]], "number"],
+        [
+          "interpolate",
+          ["linear"],
+          ["get", "risk.2019"],
+          0.22833326293635,
+          "#2166AC",
+          0.485555508624233,
+          "#67A9CF",
+          0.742777754312117,
+          "#D1E5F0",
+          1,
+          "#F7F7F7",
+          1.25722224568788,
+          "#FDDBC7",
+          1.51444449137577,
+          "#EF8A62",
+          1.77166673706365,
+          "#B2182B",
+        ],
+        "#f0f0f0",
+      ],
+    },
+    layout: {
+      visibility: "none",
+    },
+    slot: "",
+  },
+  "diabetes_fem": {
+    id: "diabetes_fem",
+    type: "fill",
+    source: "composite",
+    "source-layer": "diabetes_fem",
+    paint: {
+      "fill-outline-color": "#ffffff",
+      "fill-opacity": 0.7,
+      "fill-color": [
+        "case",
+        ["==", ["typeof", ["get", "risk.2019"]], "number"],
+        [
+          "interpolate",
+          ["linear"],
+          ["get", "risk.2019"],
+          -0.0227377785101299,
+          "#2166AC",
+          0.31817481432658,
+          "#67A9CF",
+          0.65908740716329,
+          "#D1E5F0",
+          1,
+          "#F7F7F7",
+          1.34091259283671,
+          "#FDDBC7",
+          1.68182518567342,
+          "#EF8A62",
+          2.02273777851013,
+          "#B2182B",
+        ],
+        "#f0f0f0",
+      ],
+    },
+    layout: {
+      visibility: "none",
+    },
+    slot: "",
   },
   "geoses-spo": {
     id: "geoses-spo",
@@ -768,38 +1005,56 @@ function extractFromInterpolateExpression(expression: unknown[]): LegendItem[] {
   return legendItems;
 }
 
-// Extract legend from case expression (for categorical data)
+// Extract legend from case expression (categorical match branches or nested interpolate/step)
 function extractFromCaseExpression(expression: unknown[]): LegendItem[] {
   const legendItems: LegendItem[] = [];
 
-  // Case expressions are more complex, we'll handle specific patterns
-  // This is a simplified version for the ciclovia_tipo layer pattern
-  const caseConditions = expression.slice(1, -1); // Remove 'case' and fallback
+  // Case: ["case", cond1, output1, cond2, output2, ..., fallback]
+  const caseConditions = expression.slice(1, -1);
 
-  // Look for match conditions with colors
   for (let i = 0; i < caseConditions.length; i += 2) {
     const condition = caseConditions[i];
-    const color = caseConditions[i + 1];
+    const output = caseConditions[i + 1];
 
+    // Nested color scale (e.g. typeof check wrapping an interpolate)
+    if (Array.isArray(output)) {
+      const nested = extractLegendFromExpression(output);
+      if (nested?.length) {
+        legendItems.push(...nested);
+        continue;
+      }
+    }
+
+    // Categorical: condition is match, output is a solid color
     if (
       Array.isArray(condition) &&
       condition[0] === "match" &&
-      typeof color === "string"
+      typeof output === "string"
     ) {
-      const matchValues = condition[3]; // The array of values to match
+      const matchValues = condition[3];
       if (Array.isArray(matchValues) && matchValues.length > 0) {
         legendItems.push({
-          color,
-          label: String(matchValues[0]), // Use the first value as label
+          color: output,
+          label: String(matchValues[0]),
           value: matchValues.map(String).join(", "),
         });
       }
+    } else if (typeof output === "string" && output.startsWith("#")) {
+      legendItems.push({
+        color: output,
+        label: "Valor",
+        value: output,
+      });
     }
   }
 
-  // Add fallback color if present
+  // Fallback only when no meaningful stops were found (avoids drowning scales in "Outros")
   const fallback = expression[expression.length - 1];
-  if (typeof fallback === "string" && fallback.startsWith("#")) {
+  if (
+    legendItems.length === 0 &&
+    typeof fallback === "string" &&
+    fallback.startsWith("#")
+  ) {
     legendItems.push({
       color: fallback,
       label: "Outros",

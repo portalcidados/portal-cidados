@@ -143,7 +143,13 @@ sequenceDiagram
 | `populacao-por-distrito-spo` | População Feminina (distrito) | [Item 2](/catalogo-de-dados?item=2) |
 | `geoses-spo` | GeoSES | [Item 16](/catalogo-de-dados?item=16) |
 | `gastos_ubs_distritos-c6rpx4` | Gastos UBS (distrito) | Sem correspondência no catálogo |
-| `obitos-47q8aj` | Óbitos por Doenças Cerebrovasculares | [Item 9](/catalogo-de-dados?item=9) |
+| `mortalidade_materna_fem` | Mortalidade Materna (femi.) | [Item 9](/catalogo-de-dados?item=9) |
+| `isquemicas_coracao_masc` | Doenças Isquêmicas do Coração (masc.) | [Item 9](/catalogo-de-dados?item=9) |
+| `isquemicas_coracao_fem` | Doenças Isquêmicas do Coração (femi.) | [Item 9](/catalogo-de-dados?item=9) |
+| `cerebrovasculares_masc` | Doenças Cerebrovasculares (masc.) | [Item 9](/catalogo-de-dados?item=9) |
+| `cerebrovasculares_fem` | Doenças Cerebrovasculares (femi.) | [Item 9](/catalogo-de-dados?item=9) |
+| `diabetes_masc` | Diabetes Mellitus (masc.) | [Item 9](/catalogo-de-dados?item=9) |
+| `diabetes_fem` | Diabetes Mellitus (femi.) | [Item 9](/catalogo-de-dados?item=9) |
 
 ---
 
