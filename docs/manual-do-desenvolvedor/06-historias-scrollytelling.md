@@ -323,6 +323,7 @@ O scrollytelling é construído principalmente com **GSAP**:
 |---|---|---|
 | GSAP | `gsap` | Núcleo de animação (tweens, timelines) |
 | ScrollTrigger | `gsap/ScrollTrigger` | Motor de scroll-steps (capítulos por scroll) |
+| Lenis | `lenis` / `lenis/react` | Smooth scroll global (sincronizado com o ticker do GSAP) |
 | React GSAP | `@gsap/react` (`useGSAP`) | Tweens escopados em componentes React |
 | Three.js | `three` | Seção 3D (edifício) na história `adensamento` |
 | Swiper | `swiper` | Carrossel (fora de histórias, na home/`sobre`) |
@@ -340,8 +341,9 @@ Observações:
 
 - **IntersectionObserver não é usado** — o ScrollTrigger cobre a detecção de
   visibilidade.
-- Barra de progresso, "continue rolando" e voltar-ao-topo usam listeners nativos
-  de `window.scrollY` (não GSAP).
+- Barra de progresso e "continue rolando" usam listeners nativos de
+  `window.scrollY`. O voltar-ao-topo usa `lenis.scrollTo` para não disputar a
+  interpolação do smooth scroll.
 - Para scrolly de **imagem estática** (sem mapa), usa-se `gsap.timeline` com
   `scrollTrigger: { scrub: true }` para pan/zoom da imagem
   (ex.: `ilhas-de-calor/components/scroll-map.tsx`).

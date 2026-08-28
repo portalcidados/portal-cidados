@@ -91,7 +91,10 @@ export function CollapsibleLegend({
       ) : (
         // Expanded state - full legend box and theme button
         <>
-          <div className="h-auto max-h-[calc(100vh-135px)] overflow-y-auto w-60 bg-white rounded-lg shadow-xl p-4">
+          <div
+            data-lenis-prevent
+            className="h-auto max-h-[calc(100vh-135px)] overflow-y-auto w-60 bg-white rounded-lg shadow-xl p-4"
+          >
             <div className="flex items-center justify-between mb-4">
               <button
                 type="button"

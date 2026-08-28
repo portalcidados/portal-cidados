@@ -1,9 +1,11 @@
 "use client";
 
+import { useLenis } from "lenis/react";
 import { useEffect, useState } from "react";
 import { ScrollToTopButton } from "./scroll-to-top-button";
 
 export function ScrollToTopIcon() {
+  const lenis = useLenis();
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -34,6 +36,10 @@ export function ScrollToTopIcon() {
   }, []);
 
   const scrollToTop = () => {
+    if (lenis) {
+      lenis.scrollTo(0);
+      return;
+    }
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 

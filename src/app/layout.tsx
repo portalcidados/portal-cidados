@@ -6,6 +6,7 @@ import { headers } from "next/headers";
 import { Toaster } from "sonner";
 import ClarityInit from "@/components/clarity-init";
 import { JsonLd } from "@/components/json-ld";
+import { LenisProvider } from "@/components/lenis-provider";
 import { ThemeProvider } from "@/components/theme-provider";
 import { WebVitals } from "@/components/web-vitals";
 import { robotsDirective, SITE_URL, siteConfig, verification } from "@/lib/seo";
@@ -212,7 +213,7 @@ export default async function RootLayout({
         >
           <Toaster />
           <WebVitals />
-          {children}
+          <LenisProvider>{children}</LenisProvider>
         </ThemeProvider>
       </body>
     </html>
