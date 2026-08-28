@@ -222,7 +222,7 @@ export function PictogramChart({ chart }: { chart: ChartData }) {
     >
       {/* Cabeçalho com altura fixa: título/subtítulo não afetam a geometria do
           gráfico (o plot ocupa sempre a mesma área em todos os gráficos). */}
-      <div className="h-40 shrink-0 overflow-hidden md:h-44" data-pico-header>
+      <div className="h-42 shrink-0 overflow-hidden md:h-44" data-pico-header>
         <h2 className="text-base font-bold leading-snug md:text-lg">
           {chart.title}
         </h2>
