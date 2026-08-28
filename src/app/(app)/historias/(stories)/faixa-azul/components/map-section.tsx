@@ -14,6 +14,7 @@ import MapboxMap, { Marker } from "react-map-gl/mapbox";
 import { brandColor } from "../constants";
 import {
   FLY_TO_DURATION_MS,
+  getPhaseView,
   MAP_PHASE_A,
   MAP_PHASE_B,
   MAPBOX_STYLE,
@@ -114,9 +115,10 @@ function getMap(mapRef: React.RefObject<MapRef | null>) {
 }
 
 function flyToPhase(map: MapboxMapInstance, phase: MapPhase) {
+  const target = getPhaseView(phase);
   map.flyTo({
-    center: [phase.longitude, phase.latitude],
-    zoom: phase.zoom,
+    center: [target.longitude, target.latitude],
+    zoom: target.zoom,
     duration: FLY_TO_DURATION_MS,
     essential: true,
   });

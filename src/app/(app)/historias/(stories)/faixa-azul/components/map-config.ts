@@ -93,6 +93,26 @@ export interface MapPhase {
   longitude: number;
   latitude: number;
   zoom: number;
+  mobile?: Partial<Pick<MapPhase, "longitude" | "latitude" | "zoom">>;
+}
+
+export const MOBILE_BREAKPOINT = 768;
+
+export const isMobileViewport = () =>
+  typeof window !== "undefined" && window.innerWidth < MOBILE_BREAKPOINT;
+
+export function getPhaseView(phase: MapPhase): {
+  longitude: number;
+  latitude: number;
+  zoom: number;
+} {
+  const isMobile = isMobileViewport();
+  const mobile = isMobile ? phase.mobile : undefined;
+  return {
+    longitude: mobile?.longitude ?? phase.longitude,
+    latitude: mobile?.latitude ?? phase.latitude,
+    zoom: mobile?.zoom ?? phase.zoom,
+  };
 }
 
 /** Fase A — primeira implantação (linha GeoJSON manual) */
@@ -107,6 +127,11 @@ export const MAP_PHASE_B: MapPhase = {
   longitude: -46.5768,
   latitude: -23.6209,
   zoom: 10.6,
+  mobile: {
+    longitude: -46.6298,
+    latitude: -23.59,
+    zoom: 10.08,
+  },
 };
 
 export const TRECHOS_LAYER_HIDDEN_OPACITY = 0;
