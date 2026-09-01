@@ -302,7 +302,7 @@ export const cityLayersConfig: CityLayersConfig = {
       id: "mortalidade_materna_fem",
       name: "Mortalidade Materna (femi.)",
       description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fonte: DATASUS (2019).",
+        "Risco relativo de mortalidade materna, por distrito, 2019. Acima de 1, o distrito tem mais óbitos que o esperado. Fonte: Saldiva et al. (2024).",
       tilesetId: "observatorio-nacional.historia_2_risco",
       sourceLayer: "mortalidade_materna_fem",
       layerType: "fill",
@@ -314,7 +314,7 @@ export const cityLayersConfig: CityLayersConfig = {
       id: "isquemicas_coracao_masc",
       name: "Doenças Isquêmicas do Coração (masc.)",
       description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fonte: DATASUS (2019).",
+        "Risco relativo de mortalidade por doenças isquêmicas do coração em homens, por distrito, 2019. Acima de 1, o distrito tem mais óbitos que o esperado. Fonte: Saldiva et al. (2024).",
       tilesetId: "observatorio-nacional.historia_2_risco",
       sourceLayer: "isquemicas_coracao_masc",
       layerType: "fill",
@@ -326,7 +326,7 @@ export const cityLayersConfig: CityLayersConfig = {
       id: "isquemicas_coracao_fem",
       name: "Doenças Isquêmicas do Coração (femi.)",
       description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fonte: DATASUS (2019).",
+        "Risco relativo de mortalidade por doenças isquêmicas do coração em mulheres, por distrito, 2019. Acima de 1, o distrito tem mais óbitos que o esperado. Fonte: Saldiva et al. (2024).",
       tilesetId: "observatorio-nacional.historia_2_risco",
       sourceLayer: "isquemicas_coracao_fem",
       layerType: "fill",
@@ -338,7 +338,7 @@ export const cityLayersConfig: CityLayersConfig = {
       id: "cerebrovasculares_masc",
       name: "Doenças Cerebrovasculares (masc.)",
       description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fonte: DATASUS (2019).",
+        "Risco relativo de mortalidade por doenças cerebrovasculares em homens, por distrito, 2019. Acima de 1, o distrito tem mais óbitos que o esperado. Fonte: Saldiva et al. (2024).",
       tilesetId: "observatorio-nacional.historia_2_risco",
       sourceLayer: "cerebrovasculares_masc",
       layerType: "fill",
@@ -350,7 +350,7 @@ export const cityLayersConfig: CityLayersConfig = {
       id: "cerebrovasculares_fem",
       name: "Doenças Cerebrovasculares (femi.)",
       description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fonte: DATASUS (2019).",
+        "Risco relativo de mortalidade por doenças cerebrovasculares em mulheres, por distrito, 2019. Acima de 1, o distrito tem mais óbitos que o esperado. Fonte: Saldiva et al. (2024).",
       tilesetId: "observatorio-nacional.historia_2_risco",
       sourceLayer: "cerebrovasculares_fem",
       layerType: "fill",
@@ -362,7 +362,7 @@ export const cityLayersConfig: CityLayersConfig = {
       id: "diabetes_masc",
       name: "Diabetes Mellitus (masc.)",
       description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fonte: DATASUS (2019).",
+        "Risco relativo de mortalidade por diabetes mellitus em homens, por distrito, 2019. Acima de 1, o distrito tem mais óbitos que o esperado. Fonte: Saldiva et al. (2024).",
       tilesetId: "observatorio-nacional.historia_2_risco",
       sourceLayer: "diabetes_masc",
       layerType: "fill",
@@ -374,7 +374,7 @@ export const cityLayersConfig: CityLayersConfig = {
       id: "diabetes_fem",
       name: "Diabetes Mellitus (femi.)",
       description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fonte: DATASUS (2019).",
+        "Risco relativo de mortalidade por diabetes mellitus em mulheres, por distrito, 2019. Acima de 1, o distrito tem mais óbitos que o esperado. Fonte: Saldiva et al. (2024).",
       tilesetId: "observatorio-nacional.historia_2_risco",
       sourceLayer: "diabetes_fem",
       layerType: "fill",
