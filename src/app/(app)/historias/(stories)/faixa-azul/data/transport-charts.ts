@@ -35,16 +35,16 @@ export const charts: ChartData[] = [
   {
     id: "acidentes", // config
     title:
-      "Motocicletas aparecem em cerca de 39% dos veículos envolvidos em sinistros na cidade de São Paulo", // fornecido
+      "Motocicletas aparecem em 39,7% dos veículos envolvidos em sinistros na cidade de São Paulo", // fornecido
     subtitle:
-      "Distribuição dos sinistros de trânsito, por tipo de veículo envolvido, no município de São Paulo em 2023.", // fornecido
+      "Distribuição dos sinistros de trânsito, por tipo de veículo envolvido, no município de São Paulo entre 2022 e 2025.", // fornecido
     source:
       'Infosiga-SP; estudo "Avaliação do impacto da Faixa Azul nos sinistros de trânsito em São Paulo" — Centro de Estudos das Cidades / Insper, 2025.', // fornecido
     yMax: 50, // config
     step: 2, // config
     categories: [
-      { label: "Automóvel", icon: "car", value: 42.3 }, // fornecido (tab_sinistros_tipo_veiculo)
-      { label: "Motocicleta", icon: "motorbike", value: 39.4 }, // fornecido
+      { label: "Automóvel", icon: "car", value: 42.0 }, // fornecido (tab_sinistros_tipo_veiculo)
+      { label: "Motocicleta", icon: "motorbike", value: 39.7 }, // fornecido
       { label: "Transporte público", icon: "bus", value: 4.4 }, // fornecido
       { label: "Pedestre", icon: "pedestrian", value: 8.3 }, // fornecido
       { label: "Outros", icon: "other", value: 5.6 }, // fornecido
@@ -53,19 +53,19 @@ export const charts: ChartData[] = [
   {
     id: "mortes", // config
     title:
-      "Cerca de 46% das mortes no trânsito de São Paulo são de motociclistas", // fornecido
+      "46,3% das mortes no trânsito de São Paulo são de motociclistas", // fornecido
     subtitle:
-      "Distribuição das vítimas fatais no trânsito, por tipo de usuário da via, no município de São Paulo em 2023.", // fornecido
+      "Distribuição das vítimas fatais no trânsito, por tipo de usuário da via, no município de São Paulo entre 2022 e 2025.", // fornecido
     source:
       'Infosiga-SP; estudo "Avaliação do impacto da Faixa Azul nos sinistros de trânsito em São Paulo" — Centro de Estudos das Cidades / Insper, 2025.', // fornecido
     yMax: 50, // config
     step: 2, // config
     categories: [
-      { label: "Automóvel", icon: "car", value: 10.8 }, // fornecido (tab_mortes_tipo_veiculo)
-      { label: "Motocicleta", icon: "motorbike", value: 45.9 }, // fornecido
-      { label: "Transporte público", icon: "bus", value: 0.3 }, // fornecido
-      { label: "Pedestre", icon: "pedestrian", value: 37.9 }, // fornecido
-      { label: "Outros", icon: "other", value: 5.0 }, // fornecido
+      { label: "Automóvel", icon: "car", value: 10.1 }, // fornecido (tab_mortes_tipo_veiculo)
+      { label: "Motocicleta", icon: "motorbike", value: 46.3 }, // fornecido
+      { label: "Transporte público", icon: "bus", value: 0.4 }, // fornecido
+      { label: "Pedestre", icon: "pedestrian", value: 38.5 }, // fornecido
+      { label: "Outros", icon: "other", value: 4.7 }, // fornecido
     ],
   },
 ];

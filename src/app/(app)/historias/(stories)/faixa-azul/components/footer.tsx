@@ -6,7 +6,8 @@ export default function Footer() {
       studyDetail={{
         description:
           "Avaliação do impacto da Faixa Azul nos sinistros de trânsito em São Paulo",
-        descriptionHref: "/",
+        descriptionHref:
+          "https://repositorio-api.insper.edu.br/server/api/core/bitstreams/22b8cdce-8168-45ea-afba-14aaa1fd7b46/content",
         organization: "Lorem ipsum",
         documentType: "Lorem ipsum dolor sit amet",
         year: 2024,

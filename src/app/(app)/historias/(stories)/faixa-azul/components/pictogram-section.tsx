@@ -45,9 +45,10 @@ export default function PictogramSection() {
   const card1Ref = useRef<HTMLDivElement>(null);
   const cardGrowthRef = useRef<HTMLDivElement>(null);
   const card2Ref = useRef<HTMLDivElement>(null);
+  const cardNoteRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
-    const cards = [card0Ref, card1Ref, cardGrowthRef, card2Ref];
+    const cards = [card0Ref, card1Ref, cardGrowthRef, card2Ref, cardNoteRef];
     let triggers: ScrollTrigger[] = [];
 
     const create = () => {
@@ -56,7 +57,7 @@ export default function PictogramSection() {
       triggers = [];
 
       // Card 0: gráfico 0 (2,8%) enquanto o card está ativo;
-      // na saída (scroll para baixo) troca para o gráfico 1 (39%).
+      // na saída (scroll para baixo) troca para o gráfico 1 (39,7%).
       triggers.push(
         ScrollTrigger.create({
           trigger: card0Ref.current,
@@ -68,8 +69,8 @@ export default function PictogramSection() {
         }),
       );
 
-      // Card 1: mantém o gráfico 1 (39%).
-      // A troca para o gráfico 2 (46%) só ocorre após o card seguinte sair.
+      // Card 1: mantém o gráfico 1 (39,7%).
+      // A troca para o gráfico 2 (46,3%) só ocorre após o card seguinte sair.
       triggers.push(
         ScrollTrigger.create({
           trigger: card1Ref.current,
@@ -82,8 +83,8 @@ export default function PictogramSection() {
         }),
       );
 
-      // Card intermediário (sem troca de gráfico): permanece no gráfico 1 (39%);
-      // na saída (scroll para baixo) troca para o gráfico 2 (46%).
+      // Card intermediário (sem troca de gráfico): permanece no gráfico 1 (39,7%);
+      // na saída (scroll para baixo) troca para o gráfico 2 (46,3%).
       triggers.push(
         ScrollTrigger.create({
           trigger: cardGrowthRef.current,
@@ -100,6 +101,18 @@ export default function PictogramSection() {
       triggers.push(
         ScrollTrigger.create({
           trigger: card2Ref.current,
+          start: "top center",
+          end: "bottom center",
+          onEnter: () => setActiveIndex(2),
+          onEnterBack: () => setActiveIndex(2),
+          onLeaveBack: () => setActiveIndex(2),
+        }),
+      );
+
+      // Nota metodológica: permanece no gráfico 2.
+      triggers.push(
+        ScrollTrigger.create({
+          trigger: cardNoteRef.current,
           start: "top center",
           end: "bottom center",
           onEnter: () => setActiveIndex(2),
@@ -146,23 +159,32 @@ export default function PictogramSection() {
           <p>
             Embora as{" "}
             <strong>
-              motocicletas representem apenas cerca de 2,8% dos deslocamentos
-              diários
+              motocicletas representem apenas 2,8% dos deslocamentos diários
             </strong>{" "}
-            que passam por São Paulo, elas aparecem em{" "}
-            <strong>cerca de 39% dos veículos envolvidos em sinistros</strong>{" "}
-            na cidade.
+            que passam por São Paulo, elas foram o{" "}
+            <strong>
+              segundo tipo de veículo mais frequentemente envolvido em sinistros
+              entre 2022 e 2025
+            </strong>
+            , chegando a <strong>39,7%</strong>. Neste mesmo período,{" "}
+            <strong>
+              68% dos sinistros na cidade envolveram ao menos uma motocicleta
+            </strong>
+            . De janeiro de 2025 a setembro de 2025, período destacado pelo
+            estudo, este valor chegou a <strong>quase 70%</strong>.
           </p>
         </ScrollCard>
 
         <ScrollCard cardRef={card1Ref} className="mt-[50vh]">
           <p>
-            Ainda maior é{" "}
+            Ainda maior é a{" "}
             <strong>
               participação das motos na letalidade do trânsito da cidade
             </strong>
-            : os motociclistas representam{" "}
-            <strong>mais de 46% das mortes no trânsito</strong>.
+            : os motociclistas representaram{" "}
+            <strong>46,3% das mortes no trânsito entre 2022 e 2025</strong>. Em
+            2024, período destacado pelo estudo, este valor chegou a{" "}
+            <strong>48,4%</strong>.
           </p>
         </ScrollCard>
 
@@ -183,7 +205,7 @@ export default function PictogramSection() {
           </p>
         </ScrollCard>
 
-        <ScrollCard cardRef={card2Ref} minHeight="150vh" className="mt-[50vh]">
+        <ScrollCard cardRef={card2Ref} className="mt-[50vh]">
           <p>
             Nesse cenário, a{" "}
             <strong>Faixa Azul foi a resposta da Prefeitura</strong> a este
@@ -199,7 +221,19 @@ export default function PictogramSection() {
           </p>
         </ScrollCard>
 
-        {/* Spacer para manter o sticky ativo até card2 sair da tela */}
+        <ScrollCard cardRef={cardNoteRef} minHeight="150vh">
+          <p>
+            <strong>Nota.</strong> No estudo original, os 5% dos deslocamentos
+            consideram todas as viagens na Região Metropolitana de São Paulo
+            (RMSP). Os 70% consideram todos os sinistros que envolveram ao menos
+            uma motocicleta — dentre os sinistros com informação de veículo
+            disponível, no período 2015–2024. Os 50% das mortes são uma
+            aproximação dos 48,8% de motociclistas entre os 960 óbitos em
+            sinistros em 2024.
+          </p>
+        </ScrollCard>
+
+        {/* Spacer para manter o sticky ativo até o último card sair da tela */}
         <div style={{ minHeight: "50vh" }} aria-hidden="true" />
       </div>
     </section>
